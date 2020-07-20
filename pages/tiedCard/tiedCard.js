@@ -11,10 +11,14 @@ Page({
         mobile: '',
         sms: '',
         patientName: '',
-        cardNumber: ''
+        cardNumber: '',
+        buttonText: '获取验证码',
+        sendSmsDisable: false,
+        second: 60,
     },
     // 发送验证码
     sendSms() {
+        if (this.data.sendSmsDisable) return false;
         var _that = this
         let phone = _that.data.mobile
         let phoneRes = /^1(3|4|5|6|7|8|9)\d{9}$/
@@ -49,6 +53,7 @@ Page({
                 console.log(res);
                 if (res.data.code === '0') {
                     // 发送成功
+                     _that.countDown(_that, _that.data.second);
                 } else {
                     wx.showToast({
                         title: res.data.message,
@@ -59,6 +64,26 @@ Page({
             })
         }
 
+    },
+    countDown(that, count) {
+        var that=this
+        if (count == 0) {
+            that.setData({
+                buttonText: '获取验证码',
+                sendSmsDisable: false
+            })
+            return;
+        }
+
+        that.setData({
+            sendSmsDisable: true,
+            buttonText: count + '秒后重新获取',
+            second: count
+        })
+        setTimeout(function () {
+            count--;
+            that.countDown(that, count);
+        }, 1000);
     },
     bindMobileInput(e) {
         this.setData({
@@ -187,18 +212,15 @@ Page({
      */
     onLoad: function (options) {
         let _that = this
-        console.log(options);
-        if (condition.tabsItem == 0) {
+        if (options.tabsItem == '0') {
             _that.setData({
                 currentTabsIndex: 0
             })
-        } else if (condition.tabsItem == 1) {
+        } else if (options.tabsItem == '1') {
             _that.setData({
                 currentTabsIndex: 1
             })
         }
-console.log(this.data.currentTabsIndex);
-
     },
 
     /**

@@ -1,11 +1,11 @@
 {
   "pages": [
     "pages/MyRecord/MyRecord",
+    "pages/tiedCard/tiedCard",
     "pages/index/index",
     "pages/myinfo/myinfo",
     "pages/LeaveMessage/LeaveMessage",
     "pages/fetalMovement/fetalMovement",
-    "pages/tiedCard/tiedCard",
     "pages/historyInsulin/historyInsulin",
     "pages/historyBloodSugar/historyBloodSugar",
     "pages/BloodSugarRecord/BloodSugarRecord",

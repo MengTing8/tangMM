@@ -312,12 +312,20 @@ Page({
             console.log(res);
             if (res.data.code === '0') {
                 let Data = res.data.data[0]
-                console.log(Data);
+                let age = ''
+                let birthday = ''
+                let lmp = ''
                 if (Data.birthday) {
-                    var age = this.getAge(Data.birthday)
-                }else{
-                    var age = ''
-
+                    age = this.getAge(Data.birthday)
+                    birthday = moment(Data.birthday).format('YYYY年MM月DD日')
+                } else {
+                    age = ''
+                    birthday = ''
+                }
+                if (Data.lmp) {
+                    lmp = moment(Data.lmp).format('YYYY年MM月DD日')
+                } else {
+                    lmp = ''
                 }
                 self.setData({
                     PatientData: Data,
@@ -325,11 +333,11 @@ Page({
                     // suggestion: Data.bmiComment,
                     PatientWeight: Data.weight,
                     PatientHeight: Data.tall,
-                    dateBirth: moment(Data.birthday).format('YYYY年MM月DD日'),
+                    dateBirth: birthday,
                     PatientAge: age,
                     professionList: Data.occupationValues,
                     TermList: Data.stageValues,
-                    LMP: moment(Data.lmp).format('YYYY年MM月DD日')
+                    LMP: lmp
                 })
                 this.calculateBMI()
 
@@ -440,9 +448,7 @@ Page({
         dateArr[2] = dateTimePicker.getMonthDay(dateArr[0][arr[0]], dateArr[1][arr[1]]);
 
         let times = dateArr[0][arr[0]] + '-' + dateArr[1][arr[1]] + '-' + dateArr[2][arr[2]] + " " + dateArr[3][arr[3]] + ":" + dateArr[4][arr[4]]
-        console.log(times);
         PatientData.deliveryLastTime = times
-
         this.setData({
             PatientData,
             dateTimeArray: dateArr,

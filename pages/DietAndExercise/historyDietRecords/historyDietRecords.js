@@ -146,7 +146,6 @@ Page({
             })
             this.getDietChart()
         }
-
     },
     bindEndTimeChart(e) {
         var NewData = this.data.TimeObjChart;
@@ -161,10 +160,8 @@ Page({
             })
             this.getDietChart()
         }
-
     },
     bindStartTimeChange(e) {
-        console.log(e);
         var NewData = this.data.TimeObj;
         let val = e.detail.value
         let dateStart = e.detail.date
@@ -178,7 +175,6 @@ Page({
         }
     },
     bindEndTimeChange(e) {
-        console.log(e);
         var NewData = this.data.TimeObj;
         let val = e.detail.value
         let dateEnd = e.detail.date
@@ -206,7 +202,6 @@ Page({
             index,
             typecode
         } = e.currentTarget.dataset;
-        console.log(typecode);
         this.setData({
             TabsIndex: index,
             typeCode: typecode
@@ -361,6 +356,12 @@ Page({
             series: [{
                 // barWidth: 10, //柱图宽度
                 // name: '有机质含量',
+                // label: {
+                //     normal: {
+                //         fontSize: 14,
+                //         rich: {}
+                //     }
+                // },
                 type: 'scatter',
                 symbolSize: 12,
                 lineStyle: {

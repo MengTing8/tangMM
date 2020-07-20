@@ -85,12 +85,10 @@
      for (const key in DataArr) {
          if (DataArr[key].rowMd5 == '' || DataArr[key].rowMd5 == null || DataArr[key].rowMd5 == undefined) {
              delete DataArr[key].rowMd5
-
          }
          if (DataArr[key].id == '' || DataArr[key].id == null || DataArr[key].id == undefined) {
              delete DataArr[key].id
          }
-
      }
      let apiUrl = 'https://aaron.astraia.com.cn'
      return new Promise((resolve, reject) => {
@@ -137,8 +135,8 @@
                      app.globalData.needBeginLogin = false;
                      login(requestObj)
                  } else {
+                     console.log(res);
                      resolve(res);
-                     console.log(res.data.message);
                      wx.showToast({
                          title: res.data.message,
                          icon: 'none',
