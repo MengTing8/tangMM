@@ -52,9 +52,9 @@
       //保存基础数据
       SaveBasicdata() {
           let self = this
-           if (self.data.DeleteList.length > 0) {
-               self.DeleteDaseDetail()
-           }
+          if (self.data.DeleteList.length > 0) {
+              self.DeleteDaseDetail()
+          }
           let params = this.deepCopy(this.data.dataArray)
           params.push(this.data.baseData)
           request({
@@ -95,8 +95,7 @@
               }
           }).then(res => {
               console.log(res, "删除");
-              if (res.data.code === '0') {
-              } else {
+              if (res.data.code === '0') {} else {
                   wx.showToast({
                       title: res.data.message,
                       icon: 'none',
@@ -127,7 +126,7 @@
                           var newArr = ResData.items
                           for (const key in newArr) {
                               newArr[key].entity = "baseDetail"
-                              newArr[key].patientId = 1
+                              newArr[key].patientId = wx.getStorageSync('patientId')
                               newArr[key].status = 1
                               newArr[key].rowMd5 = newArr[key].rowMd5
                               newArr[key].id = newArr[key].id
@@ -154,7 +153,7 @@
                       var newArr = self.data.dataArray
                       newArr = [{
                           entity: "baseDetail",
-                         patientId: wx.getStorageSync('patientId'),
+                          patientId: wx.getStorageSync('patientId'),
                           status: 1,
                           time: '',
                           heartRate: '',
@@ -167,7 +166,7 @@
                       var NewbaseData = self.data.baseData
                       NewbaseData = {
                               entity: "base",
-                             patientId: wx.getStorageSync('patientId'),
+                              patientId: wx.getStorageSync('patientId'),
                               date: self.data.dateRecord,
                               id: '',
                               rowMd5: '',
@@ -202,23 +201,23 @@
       },
       //删除
       delRecord: function (e) {
-            let {
-                index,
-                id,
-                rowmd5
-            } = e.currentTarget.dataset
-            if (id && rowmd5) {
-                let NewList = this.data.DeleteList
-                NewList.push({
-                    entity: "baseDetail",
-                    id: id,
-                    rowMd5: rowmd5,
-                })
-                console.log(NewList);
-                this.setData({
-                    DeleteList: NewList
-                })
-            }
+          let {
+              index,
+              id,
+              rowmd5
+          } = e.currentTarget.dataset
+          if (id && rowmd5) {
+              let NewList = this.data.DeleteList
+              NewList.push({
+                  entity: "baseDetail",
+                  id: id,
+                  rowMd5: rowmd5,
+              })
+              console.log(NewList);
+              this.setData({
+                  DeleteList: NewList
+              })
+          }
           this.data.dataArray.splice(index, 1)
           this.setData({
               dataArray: this.data.dataArray
@@ -226,10 +225,10 @@
       },
       //添加记录列表
       addRecordList() {
-           let self = this
+          let self = this
           var arr = self.data.dataArray
           arr.push({
-             patientId: wx.getStorageSync('patientId'),
+              patientId: wx.getStorageSync('patientId'),
               status: 1,
               entity: "baseDetail",
               date: self.data.dateRecord,

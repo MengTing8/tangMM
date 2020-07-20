@@ -103,6 +103,13 @@
 					"id": -1,
 					"name": "pages/DietAndExercise/historyDietRecords/historyDietRecords",
 					"pathName": "pages/DietAndExercise/historyDietRecords/historyDietRecords",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/myinfo/myinfo",
+					"pathName": "pages/myinfo/myinfo",
 					"scene": null
 				}
 			]
