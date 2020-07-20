@@ -1,0 +1,156 @@
+.TimeContent {
+    margin-bottom: 30rpx;
+}
+.unifyFont {
+    color: #999999;
+    font-size: 24rpx;
+}
+.selectedTime {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20rpx 50rpx;
+}
+ec-canvas {
+    width: 100%;
+    height: 100%;
+}
+.textArrow {
+    width: 12rpx;
+    height: 20rpx;
+    vertical-align: middle;
+}
+
+.container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+.check-sel {
+    font-size: 28rpx;
+    font-family: PingFangSC-Regular, PingFang SC;
+    color: rgba(205, 205, 205, 1);
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: space-between;
+}
+
+.check-sel .com-picker {
+    flex: 1;
+    text-align: right;
+}
+
+.check-sel .com-picker.text-left {
+    text-align: left;
+}
+
+.check-sel image {
+    margin-left: 20rpx;
+    width: 14rpx;
+    height: 10rpx;
+}
+
+/* components/TimeRecord/TimeRecord.wxss */
+.itemBox_time {
+    display: flex;
+    align-items: center;
+    height: 98rpx;
+    border-bottom: 2rpx solid #F6F6F6;
+    /* padding-right: 40rpx; */
+}
+
+.itemBox_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 290rpx);
+}
+
+.itemBox_date {
+    font-size: 30rpx;
+    color: rgba(18, 18, 18, 1);
+    line-height: 42rpx;
+}
+
+.itemBox_rightArrow {
+    width: 12rpx;
+    height: 12rpx;
+    border-top: 2rpx solid #B1B1B1;
+    border-right: 2rpx solid #B1B1B1;
+    transform: rotate(45deg);
+}
+
+.itemBox_title {
+    width: 230rpx;
+    margin-left: 30rpx;
+    font-size: 28rpx;
+    color: rgba(153, 153, 153, 1);
+    line-height: 40rpx;
+}
+
+
+.textColor {
+    color: #000 !important;
+}
+
+.MyRecordList {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30rpx 40rpx;
+}
+
+.MyRecordList .LogoBox {
+    margin-right: 30rpx;
+}
+
+.MyRecordList .LogoBox .RecordLogo {
+    width: 80rpx;
+    height: 80rpx;
+}
+
+.MyRecordList .RecordTitle {
+    flex: 2;
+    font-size: 24rpx;
+    color: #9999;
+    line-height: 40rpx;
+}
+
+.MyRecordList .RecordTitle .RecordName {
+    color: #121212;
+    font-weight: 550;
+    font-size: 34rpx;
+}
+
+.MyRecordList .RecordStatus {
+    text-align: center;
+    line-height: 48rpx;
+    font-size: 26rpx;
+    font-weight: 550;
+    border-radius: 15px;
+}
+
+.MyRecordList .RecordStatus .notAchieve {
+    border-radius: 15px;
+    background: #FFF8E0;
+    color: #FE9800;
+    padding: 6rpx 24rpx;
+
+}
+
+.MyRecordList .RecordStatus .onAchieve {
+    border-radius: 15px;
+    color: #999;
+    background: #F6F7F9;
+    padding: 6rpx 24rpx;
+
+}

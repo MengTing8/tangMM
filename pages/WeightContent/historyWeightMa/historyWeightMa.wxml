@@ -1,0 +1,73 @@
+<view class="pageContent">
+    <view class="headerBox">
+        <view class="headerBox_left">
+            <view>BMI</view>
+            <view class="number">{{bmi}}</view>
+        </view>
+        <view class="headerBox_right">
+            <view>增重目标</view>
+            <view class="number">{{target}}</view>
+        </view>
+    </view>
+    <view class="tabsBox">
+        <block wx:for="{{['列表','图表']}}" wx:key="id">
+            <view class="tabsItem {{TabsIndex==index?'selected':''}}" data-index='{{index}}' bind:tap="TabsChange">
+                {{item}}
+            </view>
+        </block>
+    </view>
+    <view class="tabsContent">
+        <view class="" hidden="{{TabsIndex !==0}}">
+            <view class="selectedList" bind:tap="bindCurrentShowWeek">
+                <image src="../../../img/checked.png" class="checkedImg" wx:if="{{CurrentShowDate}}"/>
+                <image src="../../../img/unchecked.png" class="checkedImg" wx:else/>
+                <text>按孕周查看</text>
+                <view class="check-sel">
+                    <picker class="com-picker" mode="multiSelector" value="{{multiIndex}}" bindchange="bindGAChange" range="{{predays}}">
+                        <view class="com-cell__bd-picker" wx:if="{{GA!==''}}">{{GA}}周</view>
+                        <view class="com-cell__bd-picker" wx:else>请选择孕周</view>
+                    </picker>
+                    <image src="../../../img/down.png"></image>
+                </view>
+            </view>
+            <view class="selectedList" bind:tap="bindCurrentShowDate">
+                 <image src="../../../img/checked.png" class="checkedImg"   wx:if="{{!CurrentShowDate}}"/>
+                <image src="../../../img/unchecked.png" class="checkedImg" wx:else/>
+                <text>按时间段查看</text>
+            </view>
+            <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
+            <view class="recordList">
+                <view class="recordTitle">
+                    <view class="writeTime">记录时间</view>
+                    <view class="weight">体重</view>
+                    <view class="WeightTarget">增重目标</view>
+                </view>
+                <view class="recordInfo" wx:for="{{RecordList}}" wx:key="index">
+                    <view class="writeTime">{{item.date}}</view>
+                    <view class="weight">{{item.weight}}</view>
+                    <view class="WeightTarget">{{item.gainWeight}}</view>
+                </view>
+                <!-- <view class="recordInfo">
+                    <view class="writeTime">2019年12月6日</view>
+                    <view class="weight">56</view>
+                    <view class="WeightTarget">-1.5kg</view>
+                </view>
+                <view class="recordInfo">
+                    <view class="writeTime">2019年12月6日</view>
+                    <view class="weight">56</view>
+                    <view class="WeightTarget">-1.5kg</view>
+                </view> -->
+            </view>
+        </view>
+        <view class="" hidden="{{TabsIndex !==1}}">
+            <StartAndEndTimes TimeObj="{{TimeObjByDate}}" bindStartTimeChange='bindStartTimeChangeByDate' bindEndTimeChange='bindEndTimeChangeByDate'></StartAndEndTimes>
+            <view class="mychartContent">
+                <!-- <scroll-view class="scrollContainer"   scroll-x scroll-with-animation="true"  bindscroll="getleft"> -->
+                <view class="container">
+                    <ec-canvas id="mychart-dom-scatter" canvas-id="mychart-scatter" ec="{{ ec }}" bind:init="echartInit"></ec-canvas>
+                </view>
+                <!-- </scroll-view> -->
+            </view>
+        </view>
+    </view>
+</view>

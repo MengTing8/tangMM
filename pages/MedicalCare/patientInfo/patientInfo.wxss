@@ -1,0 +1,373 @@
+.pagesHeader {
+    background: #FEE55F;
+    padding: 0 20rpx 0 60rpx;
+    position: relative;
+}
+
+.userInfoBox {
+    display: flex;
+    padding-bottom: 20rpx;
+    justify-content: space-between;
+}
+
+.pagesHeader .userInfo {
+    font-size: 24rpx;
+    color: #9B884F;
+    line-height: 48rpx;
+    padding-top: 40rpx;
+    /* display: flex; */
+    /* align-items: center; */
+}
+
+.imageBox {
+    margin-right: 10rpx;
+}
+
+.userName {
+    color: #121212;
+    font-size: 38rpx;
+    font-weight: 550;
+}
+
+.imageUser {
+    width: 100rpx;
+    height: 100rpx;
+
+}
+
+.banner {
+    width: 300rpx;
+}
+
+.tabContent { 
+    width: 100%;
+    /* height: 100rpx; */
+    position: absolute;
+    bottom: -42%;
+    left: 0;
+}
+
+
+.pagesFoot {
+    padding: 80rpx 0rpx 30rpx 0rpx;
+    z-index: 999;
+}
+.MessageList {
+    /* width:345px; */
+    /* height:115px; */
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 12px 0px rgba(238, 238, 238, 1);
+    border-radius: 6px;
+    padding: 30rpx 0rpx;
+}
+
+.MessageList_top {
+    display: flex;
+    /* align-items: center; */
+    justify-content: space-between;
+    border-bottom: 2rpx solid #EFF0F5;
+    /* margin: 40rpx; */
+    padding-bottom: 30rpx;
+}
+
+.ItemInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 40rpx;
+}
+
+.stateBtnBox {
+    margin-right: 40rpx;
+
+}
+
+.stateBtnBox view {
+    width: 68px !important;
+    height: 18px;
+    background: rgba(254, 200, 30, 0.2);
+    border-radius: 9px;
+    color: #FE9800;
+    font-size: 24rpx;
+    text-align: center;
+}
+
+.infoContent {
+    line-height: 50rpx;
+    color: #333333;
+    font-size: 26rpx;
+}
+
+.infoContent_Name {
+    color: #121212;
+    font-size: 32rpx;
+    font-weight: 550;
+    margin-right: 20rpx;
+}
+
+.infoContent_text {
+    color: #979797;
+    font-size: 24rpx;
+}
+
+.MessageList_bottom {
+    padding: 20rpx 40rpx 0 40rpx;
+
+}
+
+.itemBox_rightArrow {
+    width: 12rpx;
+    height: 12rpx;
+    border-top: 2rpx solid #B1B1B1;
+    border-right: 2rpx solid #B1B1B1;
+    transform: rotate(45deg);
+}
+.MyRecordList .RecordStatus view{
+    border-radius: 15px;
+    width: 140rpx;
+    font-size: 22rpx;
+    margin-right: 20rpx;
+
+}
+.MyRecordList .RecordStatus .orangeBox {
+    background: #FFF8E0;
+    color: #FE9800;
+
+}
+
+.MyRecordList .RecordStatus .grayBox {
+    color: #999;
+    background: #F6F7F9;
+
+}
+.greenBox{
+color: #0BB9BF;
+background:rgba(11, 185, 191, 0.2);
+}
+
+.msgBox {
+    padding: 50rpx 0 100rpx 0;
+    /* margin-bottom: 120rpx; */
+
+}
+
+.headImg {
+    width: 80rpx;
+    height: 80rpx;
+    margin: 0 20rpx;
+}
+
+.msgItem {
+    padding: 30rpx 0 50rpx 0;
+
+}
+
+.userNametMine {
+    text-align: right;
+
+}
+
+.userNameAdverse {
+    text-align: left;
+
+}
+.userNickname {
+    color: #B1B1B1;
+    font-size: 24rpx;
+    margin-bottom: 20rpx;
+}
+
+.textBox {
+    /* margin-top: 40rpx; */
+}
+
+.msgItemMine {
+    display: flex;
+    flex-direction: row-reverse;
+
+}
+
+.textMine {
+    padding: 24rpx 40rpx;
+    color: #FFF;
+    background: rgba(254, 152, 0, 1);
+    border-radius: 12px 0px 12px 12px;
+}
+
+.textAdverse {
+    color: #303439;
+    font-size: 28rpx;
+    padding: 24rpx 40rpx;
+    background: rgba(243, 243, 243, 1);
+    border-radius: 0px 12px 12px 12px;
+}
+
+.msgItemAdverse {
+    display: flex;
+    flex-direction: row;
+}
+
+.itemTip {
+    color: #B1B1B1;
+    font-size: 24rpx;
+    text-align: center;
+}
+
+.inputBox {
+    /* width: 100%; */
+    padding: 30rpx 30rpx 60rpx 30rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 2rpx solid #F8F8F8;
+}
+
+.sendContent {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    /* padding-bottom: 40rpx; */
+    background: #ffff;
+}
+
+.InputContent {
+    padding-left: 40rpx;
+    height: 36px;
+    background: rgba(244, 246, 248, 1);
+    border-radius: 18px;
+    margin-right: 20rpx;
+    flex: 8;
+}
+
+.sendBtn {
+    flex: 1;
+}
+/* 基本信息 */
+.pageContainer {
+    padding-left: 30rpx;
+    position: relative;
+}
+
+.isSelect {
+    color: #04C073 !important;
+    font-weight: 550;
+
+}
+
+.pickerBox {
+    flex: 4;
+    text-align: center;
+}
+
+.stageBox {
+    display: inline-block;
+    position: absolute;
+    right: 0%;
+
+}
+
+.inpText {
+    display: flex;
+    align-items: center;
+    color: #000;
+
+}
+.inpText text {
+    text-align: left;
+}
+
+.type {
+    background: rgba(254, 152, 0, 1);
+    border-radius: 100px 0px 0px 100px;
+    font-size: 24rpx;
+    color: #ffffff;
+    padding: 4rpx 20rpx;
+    font-weight: 400;
+}
+
+.cell {
+    color: #999999;
+    display: flex;
+    font-size: 30rpx;
+    border-bottom: 1px solid #e9e9e9;
+    line-height: 48rpx;
+    padding: 30rpx 0 30rpx 30rpx;
+
+}
+
+.basicInfo .cell:nth-last-child(1) {
+    border-bottom: none
+}
+
+/* .historyInfo .cell:nth-last-child(1) {
+    border-bottom: none
+} */
+
+.basicInfo {
+    /* border-bottom: 24rpx solid #F5F5F5; */
+}
+
+.headerTitle {
+    margin-left: 30rpx;
+    height: 120rpx;
+    line-height: 120rpx;
+    font-size: 32rpx;
+    color: #121212;
+    font-weight: 600;
+}
+
+.cell_title_name {
+    width: 160rpx;
+    display: flex;
+    flex-wrap: wrap;
+    line-height: 40rpx;
+}
+
+.cl {
+    padding: 30rpx 0;
+    padding-left: 40rpx;
+
+}
+
+.cell .cell_title {
+    flex: 1;
+}
+
+.cell .textBox {
+    flex: 2;
+    text-align: left;
+
+}
+
+
+.clPadding_textBox {}
+
+.clPadding {
+    /* padding: 30rpx 0; */
+    /* padding-left: 40rpx; */
+    color: #999999;
+    display: flex;
+    justify-content: space-between;
+    font-size: 30rpx;
+    border-bottom: 1px solid #e9e9e9;
+    line-height: 48rpx;
+    padding: 30rpx 0 30rpx 0rpx;
+}
+
+.clPadding_title {
+    flex: 1;
+    /* flex: 1.5; */
+    text-align: center;
+    /* padding-right: 40rpx; */
+}
+
+.clPadding_textBox {
+    flex: 1.5;
+    color: #121212;
+}
+
+.unitsBox {
+    color: #999999;
+    margin-left: 30rpx;
+}

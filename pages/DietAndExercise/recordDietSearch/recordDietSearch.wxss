@@ -1,0 +1,30 @@
+.fieldClass {
+    padding: 6rpx 0rpx !important;
+}
+
+.vanSearchBox {
+    padding: 20rpx 0 30rpx 0;
+}
+
+.rightArrow {
+    width: 12rpx;
+    height: 12rpx;
+    border-top: 2rpx solid #B1B1B1;
+    border-right: 2rpx solid #B1B1B1;
+    transform: rotate(45deg);
+}
+
+.classNameFoot {
+    background: #F9F9F9;
+    line-height: 68rpx;
+    padding: 0 40rpx;
+}
+
+.footItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+     border-bottom: 1px solid #EFF0F5;
+     line-height: 88rpx;
+     padding: 0 40rpx;
+}

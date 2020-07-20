@@ -1,0 +1,47 @@
+<!-- pages/fetalWeightAdd/fetalWeightAdd.wxml -->
+<view class="pageContainer">
+    <view class="pageContent">
+        <view class="topTips">记录体重前，请先完善您的相关信息</view>
+        <TimeRecord pickerObj="{{dateObj}}" bindbindDateChange='bindDateChange'></TimeRecord>
+        <!-- <view class="itemBox_time">
+            <text class="itemBox_title">选择时间</text>
+            <view class="itemBox_content">
+                <view class="itemBox_date">
+                    <picker mode="date" value="{{DateSelect}}" start="{{StartDt}}" end="{{EndDt}}" bindchange="bindDateChange">
+                        <view class="weui-input_10">{{DateSelect}}</view>
+                    </picker>
+                </view>
+                <text class="itemBox_rightArrow"></text>
+            </view>
+        </view> -->
+        <view class="itemBox">
+            <text class="itemBox_title">双顶径BPD</text>
+            <view class="itemBox_content">
+                <input value="{{BPD}}" class="itemBox_inp" type="text" placeholder-class="itemBox_inpholder" placeholder="请输入" bindinput="bindBPDInput"></input>
+                <text class="itemBox_unit">mm</text>
+            </view>
+        </view>
+        <view class="itemBox">
+            <text class="itemBox_title">头围HC</text>
+            <view class="itemBox_content">
+                <input value="{{HC}}" class="itemBox_inp" type="text" placeholder-class="itemBox_inpholder" placeholder="请输入" bindinput="bindHCInput"></input>
+                <text class="itemBox_unit">mm</text>
+            </view>
+        </view>
+        <view class="itemBox">
+            <text class="itemBox_title">腹围AC</text>
+            <view class="itemBox_content">
+                <input class="itemBox_inp" type="text" placeholder-class="itemBox_inpholder" value="{{AC}}" placeholder="请输入" bindinput="bindACInput"></input>
+                <text class="itemBox_unit">mm</text>
+            </view>
+        </view>
+        <view class="itemBox">
+            <text class="itemBox_title">股骨长FL</text>
+            <view class="itemBox_content">
+                <input value="{{FL}}" class="itemBox_inp" type="text" placeholder-class="itemBox_inpholder" placeholder="请输入" bindinput="bindFLInput"></input>
+                <text class="itemBox_unit">mm</text>
+            </view>
+        </view>
+    </view>
+    <BtnComponents bindonSaveBtn="saveFetusWeight" bindhistoryRecordBtn="historyRecord"></BtnComponents>
+</view>

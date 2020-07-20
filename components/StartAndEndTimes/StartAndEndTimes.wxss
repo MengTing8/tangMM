@@ -1,0 +1,20 @@
+.selectedTime {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30rpx 50rpx;
+   border-bottom: 2rpx solid #F6F6F6;
+   line-height: 44rpx;
+
+}
+
+.textArrow {
+    width: 12rpx;
+    height: 20rpx;
+    vertical-align: middle;
+}
+
+.timeColor {
+    color: #999999;
+    font-size: 24rpx;
+}

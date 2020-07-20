@@ -1,0 +1,127 @@
+<view class="insulinRegisterContent">
+    <view class="insulinRegiterHeader">
+        <view class="headline">胰岛素使用登记</view>
+        <view class="iRH_content">
+            孕妈在打胰岛素的过程中还要注意监测血糖，血糖过低或者过高都是不好的，如果注射胰岛素不够量也是不能达到治疗效果的，使用门冬类胰岛素记得提前准备食物。
+        </view>
+    </view>
+    <view class="insulinRegiterMiddle">
+        <TimeRecord pickerObj="{{dateObj}}" bindbindDateChange='bindDateChange'></TimeRecord>
+        <view class="getBeforeData">取前一天数据</view>
+        <view class="insulinRegiter_tab">
+            <view class="tabsBox">
+                <block wx:for="{{['普通','胰岛素泵']}}" wx:key="id">
+                    <view class="tabsItem {{TabsIndex==index?'selected':''}}" data-index='{{index}}' bindtap="handleTitleChange">
+                        {{item}}
+                    </view>
+                </block>
+            </view>
+        </view>
+        <view class="movemrntRecord_content_List">
+            <view class="" hidden="{{TabsIndex !==0}}">
+                <!-- 普通 -->
+                <view class="itemBox_time">
+                    <text class="itemBox_title">使用时间</text>
+                    <view class="itemBox_content">
+                        <view class="itemBox_date">
+                            <picker mode="selector" value="" range="{{periodValues}}" range-key="{{'value'}}" bindchange="bindServiceTimeChange">
+                                <view class="">{{InsulinData.periodValue || '请选择'}}</view>
+                            </picker>
+                        </view>
+                        <text class="itemBox_rightArrow"></text>
+                    </view>
+                </view>
+                <view class="itemBox_time">
+                    <text class="itemBox_title">胰岛素类型</text>
+                    <view class="itemBox_content">
+                        <view class="itemBox_date">
+                            <picker mode="selector" value="" range="{{categoryValues}}" range-key="{{'value'}}" bindchange="bindTypeChange">
+                                <view class="">{{InsulinData.categoryValue || '请选择'}}</view>
+                            </picker>
+                        </view>
+                        <text class="itemBox_rightArrow"></text>
+                    </view>
+                </view>
+                <view class="itemBox_time">
+                    <text class="itemBox_title">使用量</text>
+                    <view class="itemBox_content">
+                        <view class="itemBox_date">
+                            <view class="inpText">
+                                <input type="text" value="{{InsulinData.value}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindValueInput" />
+                                <text style="color: #999999;">U</text>
+                            </view>
+                        </view>
+                        <text class="itemBox_rightArrow"></text>
+                    </view>
+                </view>
+        <BtnComponents bindonSaveBtn="SaveInsulin" bindhistoryRecordBtn="historyRecordBtn"></BtnComponents>
+                <!-- <view class="saveBtn" bind:tap="">保存</view> -->
+                <!-- <view class="historyRecordBtn" bind:tap="">历史记录</view> -->
+            </view>
+            <view class="insulinPump" hidden="{{TabsIndex !==1}}">
+                <view class="mealList">
+                    <view class="listTitle">餐时</view>
+                    <view class="expense_content">
+                        <view class="expense_info">
+                            <view class="info_content">
+                                <view class="expense_info_name" wx:for="{{mealItem}}" wx:key="index">
+                                    <view class="food_content">
+                                        <view class="food_name">{{item.periodValue}}</view>
+                                        <view class="food_weight">
+                                            <view class="food_weight_content">
+                                                <input class="weui-input" type="digit" value="{{item.value}}"  data-index="{{index}}" data-code="{{item.periodCode}}" data-id="{{item.id}}"  data-rowMd5="{{item.rowMd5}}" bindinput="bindMealValueInput" placeholder="请输入" placeholder-class="placeholder_class" />
+                                                <text>U/h</text>
+                                            </view>
+                                        </view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view class="mealList">
+                    <view class="listTitle_header">
+                        <view class="listTitle">基础</view>
+                        <view class="AddListBth  themeTextSize" bind:tap="addDosageList">
+                            添加一条数据
+                        </view>
+                    </view>
+                    <view class="basicsListContent">
+                        <view class="basicsList_Item" wx:for="{{dosageArray}}" wx:key="index">
+                            <view class="ItemPickerContent">
+                                <view class="themeTextSize">从</view>
+                                <view class="pickerBox">
+                                    <picker mode="time" value="{{item.timeStart}}" start="09:01" end="21:01" bindchange="bindStartTimeChange" data-index="{{index}}">
+                                        <view class="picker">{{item.timeStart || '请选择'}}</view>
+                                    </picker>
+                                </view>
+                                <view class="themeTextSize">到</view>
+                                <view class="pickerBox">
+                                    <picker mode="time" value="{{item.timeEnd}}" start="09:01" end="21:01" bindchange="bindEndTimeChange" data-index="{{index}}">
+                                        <view class="picker">{{item.timeEnd || '请选择'}}</view>
+                                    </picker>
+                                </view>
+                            </view>
+                            <view class="ItemInputContent">
+                                <view class="ItemInput_name  themeTextSize">剂量</view>
+                                <view class="ItemInput_Box">
+                                    <view class="food_weight_content">
+                                        <input class="weui-input" type="digit" value="{{item.value}}" bindinput="bindDosageInput" data-index="{{index}}" placeholder="请输入" placeholder-class="placeholder_class" />
+                                        <text>U/h</text>
+                                        <view class="delImgBox" bind:tap="delDosage" data-index="{{index}}" data-id="{{item.id}}"  data-rowMd5="{{item.rowMd5}}">
+                                            <image src="../../img/del.png" mode="widthFix" />
+                                        </view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+        <BtnComponents bindonSaveBtn="SaveInsulinPump" bindhistoryRecordBtn="historyRecordBtn"></BtnComponents>
+
+                <!-- <view class="saveBtn" bind:tap="">保存</view>
+                <view class="historyRecordBtn"  bind:tap="">历史记录</view> -->
+            </view>
+        </view>
+    </view>
+</view>

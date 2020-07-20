@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+      "BtnComponents": "../../components/BtnComponents/BtnComponents"
+  },
+  "navigationBarTitleText": "宝妈空腹体重"
+}

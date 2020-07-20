@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+      "BtnComponents": "../../components/BtnComponents/BtnComponents",
+        "TimeRecord": "../../components/TimeRecord/TimeRecord"
+    },
+    "navigationBarTitleText": "胰岛素使用登记"
+}

@@ -1,0 +1,11 @@
+ <view class="itemBox_time">
+     <text class="itemBox_title">{{pickerObj.title}}</text>
+     <view class="itemBox_content">
+         <view class="itemBox_date">
+             <picker mode="date" value="{{pickerObj.DateSelect}}" start="{{pickerObj.StartDt}}" end="{{pickerObj.EndDt}}" bindchange="bindDateChange">
+                 <view class="weui-input_10">{{pickerObj.DateSelect}}</view>
+             </picker>
+         </view>
+         <text class="itemBox_rightArrow"></text>
+     </view>
+ </view>

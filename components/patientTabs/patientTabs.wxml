@@ -1,0 +1,12 @@
+<view class="pagesDateInfo">
+    <view class="tabsBox">
+        <block wx:for="{{tabs}}" wx:key="id">
+            <view class="tabsItem {{TabsIndex==index?'selected':''}}" data-index='{{index}}' bindtap="handleTitleChange">
+                {{item}}
+            </view>
+        </block>
+    </view>
+</view>
+<view class="tabsContent">
+    <slot></slot>
+</view>

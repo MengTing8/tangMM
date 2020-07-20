@@ -1,0 +1,283 @@
+<view class="pagesContent">
+    <view class="pagesHeader">
+        <view class="userInfoBox">
+            <view class="userInfo">
+                <view class="imageBox">
+                    <image class="imageUser" src="../../../img/user.png" />
+                </view>
+                <view>
+                    <text class="userName">李小欣</text>
+                    <view>住院部妇产科护士长</view>
+                </view>
+            </view>
+            <view class="pagesHeader_ImgBox">
+                <image class="banner" src="../../../img/banner.png" mode="widthFix" />
+            </view>
+        </view>
+        <view class="tabContent">
+            <patientTabs tabs="{{tabs}}" bindTabsChange='TabsChange'></patientTabs>
+        </view>
+    </view>
+    <view class="pagesFoot">
+        <view wx:if="{{TabsIndex==0}}">
+            <view class="projectContent">
+                <view class="MyRecordList" wx:for="{{RecordList}}" wx:key="index">
+                    <view class="LogoBox">
+                        <image class="RecordLogo" src="{{item.logo}}" />
+                    </view>
+                    <view class="RecordTitle">
+                        <view class="RecordName">{{item.title}}</view>
+                        <view>{{item.info}}</view>
+                    </view>
+                    <view class="RecordStatus">
+                        <view class="grayBox" wx:if="{{item.Achieve==1}}">我已看</view>
+                        <view class="orangeBox" wx:elif="{{item.Achieve==2}}">未看</view>
+                        <view class="greenBox" wx:else>他人已看</view>
+                    </view>
+                    <view class="itemBox_rightArrow"></view>
+                </view>
+            </view>
+        </view>
+        <view wx:if="{{TabsIndex==1}}">
+            <view class="MessageContent">
+                <view class="msgBox">
+                    <view wx:for="{{talkContent}}" wx:key="index">
+                        <view class="itemTip">{{item.satrtTime}}</view>
+                        <view class="msgItem {{item.isMine?'msgItemMine':'msgItemAdverse'}}">
+                            <image src="{{item.headImg}}" alt="" srcset="" class="headImg" />
+                            <view class="textBox ">
+                                <view class="userNickname {{item.isMine?'userNametMine':'userNameAdverse'}}">
+                                    李晓新
+                                </view>
+                                <view class="{{item.isMine?'textMine':'textAdverse'}}">
+                                    {{item.text}}
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view class="sendContent">
+                    <view class="inputBox">
+                        <input class="InputContent" type="text" value="{{userInputConten}}" bindinput="InputBlur" />
+                        <view class="sendBtn">发送</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view wx:if="{{TabsIndex==2}}">
+            <view class="InfoConten">
+                <view class="pageContainer">
+                    <view class="basicInfo">
+                        <view class="headerTitle">
+                            <text>阶段</text>
+                            <view class="stageBox">
+                                <text class="type">糖尿病类型：GDMA1型</text>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>现处阶段</text>
+                            </view>
+                            <view class="textBox">
+                                <view class="weui-input_10">备孕期</view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="basicInfo">
+                        <view class="headerTitle">
+                            <text>基本信息</text>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>姓名</text>
+                            </view>
+                            <view class="textBox">
+                                <text>李晓光</text>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>年龄</text>
+                            </view>
+                            <view class="textBox">
+                                35
+                                <!-- <view>25</view> -->
+                                <view>高龄</view>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>身高</text>
+                            </view>
+                            <view class="textBox">
+                                <view class="inpText">
+                                    161
+                                    <text>cm</text>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>孕前体重</text>
+                            </view>
+                            <view class="textBox">
+                                <view class="inpText">
+                                    55
+                                    <text>kg</text>
+                                </view>
+                                <view style="font-size: 24rpx;">BMI：3.5 | 偏重 | 增重目标：-1.5kg</view>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>孕次</text>
+                            </view>
+                            <view class="textBox">1</view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>产次</text>
+                            </view>
+                            <view class="textBox">1</view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>胎数</text>
+                            </view>
+                            <view class="textBox">
+                                <view class="weui-input_10">单胎</view>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>末次分娩时间</text>
+                            </view>
+                            <view class="textBox">
+                                <view class="tui-picker-detail">2020-02-12 15:30</view>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>手机号码</text>
+                            </view>
+                            <view class="textBox">15454545432</view>
+                            <view class="imgBox"></view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>职业</text>
+                            </view>
+                            <view class="textBox">
+                                <text class="weui-input_10">教师</text>
+                                中等体力劳动
+                            </view>
+                            <view class="imgBox"></view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>葡萄糖耐量</text>
+                            </view>
+                            <!-- <view class="textBox">
+                <picker mode="selector" value="" range="{{professionList}}" range-key="{{'Name'}}" bindchange="bindDateChange">
+                    <view class="weui-input_10">{{professionList[0].Name}}</view>
+                </picker>
+                中等体力劳动
+            </view>
+            <view class="imgBox">
+                <image class="textArrow" src="../../img/list_arrow.png" alt="" srcset="" />
+            </view> -->
+                        </view>
+                        <view class="cell clPadding">
+                            <view class="clPadding_title">
+                                <text>空腹</text>
+                            </view>
+                            <view class="clPadding_textBox">
+                                12
+                                <text class="unitsBox">mmol/L</text>
+                            </view>
+                        </view>
+                        <view class="clPadding">
+                            <view class="clPadding_title">
+                                <text>1小时</text>
+                            </view>
+                            <view class="clPadding_textBox">
+                                12
+                                <text class="unitsBox">mmol/L</text>
+                            </view>
+                            <view class="clPadding_imgBox"></view>
+                        </view>
+                        <view class="clPadding">
+                            <view class="clPadding_title">
+                                <text>2小时</text>
+                            </view>
+                            <view class="clPadding_textBox">
+                                11
+                                <text class="unitsBox">mmol/L</text>
+                            </view>
+                        </view>
+                        <view class="clPadding">
+                            <view class="clPadding_title">
+                                <text>糖化血红蛋白</text>
+                            </view>
+                            <view class="clPadding_textBox">
+                                34
+                                <text class="unitsBox">%</text>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="historyInfo">
+                        <view class="headerTitle">
+                            <text>就诊信息</text>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>就诊卡号</text>
+                            </view>
+                            <view class="textBox">
+                                <text>12334332</text>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>末次月经</text>
+                            </view>
+                            <view class="textBox">
+                                <view>2019年1月2日</view>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <view class="cell_title_name">
+                                    <text>怀孕前是否已有糖尿病</text>
+                                </view>
+                            </view>
+                            <view class="textBox">
+                                <view>是</view>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <view class="cell_title_name">
+                                    <text>既往是否有妊娠期糖尿病</text>
+                                </view>
+                            </view>
+                            <view class="textBox">
+                                <view>是</view>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <view class="cell_title_name">
+                                    <text>直系亲属是否有糖尿病</text>
+                                </view>
+                            </view>
+                            <view class="textBox">
+                                <view>是</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

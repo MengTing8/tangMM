@@ -1,0 +1,199 @@
+.pageContainer {
+    padding-left: 30rpx;
+    padding-bottom: 50rpx;
+    position: relative;
+}
+.isSelect {
+    color: #04C073 !important;
+    font-weight: 550;
+
+}
+.pickerBox{
+    flex: 4;
+    text-align: center;
+}
+.stageBox{
+    display: inline-block;
+    position: absolute;
+    right: 0%;
+
+}
+.arrive_btn {
+    margin-top: 40rpx;
+}
+.inpText{
+    display: flex;
+    align-items: center;
+     color: #000;
+     
+}
+.inpText input {
+    /* display: inline-block; */
+    width: 80rpx;
+}
+.inpText text {
+    text-align: left;
+}
+.list_arrowBox{
+  display: inline-block;
+  position: absolute;
+  top: 7%;
+  right: 0%;
+}
+.list_arrow{
+    width: 12rpx;
+    height: 20rpx;
+    margin-right: 40rpx;
+  
+}
+.type{
+    background:rgba(254, 152, 0, 1);
+    border-radius:100px 0px 0px 100px;
+    font-size: 24rpx;
+    color: #ffffff;
+    padding: 4rpx 20rpx;
+    font-weight: 400;
+}
+.cell {
+    color: #999999;
+    display: flex;
+    font-size: 30rpx;
+    border-bottom: 1px solid #e9e9e9;
+    /* line-height: 48rpx; */
+   padding: 30rpx 0 30rpx 30rpx;
+
+}
+
+.basicInfo .cell:nth-last-child(1) {
+    border-bottom: none
+}
+
+/* .historyInfo .cell:nth-last-child(1) {
+    border-bottom: none
+} */
+
+.basicInfo {
+    border-bottom: 24rpx solid #F5F5F5;
+}
+
+.headerTitle {
+    margin-left: 30rpx;
+    height: 120rpx;
+    line-height: 120rpx;
+    font-size: 32rpx;
+    color: #121212;
+    font-weight: 600;
+}
+.hint{
+    font-size: 26rpx;
+    color: #FE9800;
+    line-height: 48rpx;
+    padding: 20rpx;
+    height: 48rpx;
+    background-color: #FFF7EC;
+}
+.hint text {
+    margin-left: 36rpx;
+    border-radius: 50%;
+    color: #F5F5F5;
+    padding:0 14rpx;
+    width: 20rpx;
+    height: 20rpx;
+    background: #FE9800;
+}
+
+.cell_title_name {
+    width: 160rpx;
+    display: flex;
+    flex-wrap: wrap;
+    line-height: 40rpx;
+}
+.clPadding_textBox{
+}
+.clPadding {
+    /* padding: 30rpx 0; */
+    /* padding-left: 40rpx; */
+    color: #999999;
+    display: flex;
+    justify-content: space-between;
+    font-size: 30rpx;
+    border-bottom: 1px solid #e9e9e9;
+    line-height: 48rpx;
+    padding: 30rpx 0 30rpx 30rpx;
+}
+.clPadding_title{
+    flex: 1;
+
+    /* flex: 1.5; */
+    text-align: center;
+    /* padding-right: 40rpx; */
+}
+.clPadding_imgBox{
+      flex: 0.5;
+      margin-right: 40rpx;
+      text-align: right;
+}
+.clPadding_textBox{
+    flex: 1;
+}
+.cell .cell_title {
+    flex: 1;
+}
+
+.cell .textBox {
+    flex: 2;
+    text-align: left;
+font-size: 30rpx;
+}
+
+.cell .textBox picker {
+    color: #121212;
+    font-size: 32rpx;
+}
+.imgBox{
+    /* flex: 2; */
+    margin-right: 40rpx;
+
+}
+.unitsBox {
+    margin-right: 30rpx;
+}
+.textArrow{
+    width: 12rpx;
+    height: 20rpx;
+    vertical-align: middle;
+}
+.cell .textBox .btnS {
+    vertical-align: middle;
+    margin-right: 20rpx;
+    display: inline-block;
+    color: #666666;
+    font-weight: 530;
+    font-size: 26rpx;
+    border-radius: 60rpx;
+    width: 160rpx;
+    background-color: #F6F7F9;
+}
+ .textBox .typeBtn {
+     display: inline-block;
+     vertical-align: middle;
+     margin-right: 20rpx;
+     color: #666666;
+     font-weight: 530;
+     font-size: 26rpx;
+     border-radius: 60rpx;
+     background-color: #F6F7F9;
+     padding: 10rpx 36rpx;
+}
+.saveBtn {
+    width: 456rpx;
+    height: 84rpx;
+    font-size: 32rpx;
+    font-weight: 550;
+    color: #121212;
+    line-height: 84rpx;
+    background: rgba(254, 200, 30, 1);
+    border-radius: 42rpx;
+    text-align: center;
+    margin: 40rpx auto 20rpx;
+}

@@ -1,0 +1,156 @@
+<Tabs bindtitleChange="handleTitleChange">
+    <block wx:if="{{selectedIndex==0}}">
+        <view class="typeBtnContent">
+            <view class="typeItemList">
+                <view class="typeItem  {{ convention &&index==1? 'selectedItem' : ''}}" bind:tap="toggleType" data-index='1'>
+                    常规
+                </view>
+                <view class="typeItem {{  InsulinPump &&index==2? 'selectedItem' : ''}} " bind:tap="toggleType" data-index='2'>
+                    胰岛素泵
+                </view>
+                <view class="typeItem  {{ GaShow &&index==3? 'selectedItem' : ''}}" bind:tap="toggleType" data-index='3'>
+                    按孕周
+                </view>
+            </view>
+        </view>
+        <!-- 常规显示内容 -->
+        <view class="pageContainer" wx:if="{{convention}}">
+            <view class="listItem" wx:for="{{InsulinList}}" wx:key="index">
+                <view class="item_content">
+                    <view class="content_duration">
+                        <text>{{item.week}}</text>
+                        <text class="content_date">{{item.date}}</text>
+                    </view>
+                    <view class="content_fetalWeight">
+                        <text class="thisFetalWeight">{{item.total}}U</text>
+                        <text class="content_recording">总量</text>
+                    </view>
+                </view>
+                <view class="item_partLength" wx:for="{{item.items}}" wx:for-item="C" wx:for-index="D" wx:key="D">
+                    <text>{{C.periodValue}}：{{C.value}}U(类型：{{C.categoryValue}})</text>
+                    <!-- <text>午餐前：0U</text>
+                    <text>晚餐前：0U</text>
+                    <text>睡前：0U</text> -->
+                </view>
+            </view>
+            <!-- <view class="listItem">
+                <view class="item_content">
+                    <view class="content_duration">
+                        <text>孕28周+1天</text>
+                        <text class="content_date">2020-02-21</text>
+                    </view>
+                    <view class="content_fetalWeight">
+                        <text class="thisFetalWeight">1U</text>
+                        <text class="content_recording">总量</text>
+                    </view>
+                </view>
+                <view class="item_partLength">
+                    <text>早餐前：1U(类型：精蛋白生物合成)</text>
+                    <text>午餐前：0U</text>
+                    <text>晚餐前：0U</text>
+                    <text>睡前：0U</text>
+                </view>
+            </view> -->
+        </view>
+        <!-- 胰岛素泵 -->
+        <view class="pageContainer" wx:if="{{InsulinPump}}">
+            <view class="listItem" wx:for="{{InsulinPumpList}}" wx:key="index">
+                <view class="item_content">
+                    <view class="content_duration">
+                        <text>{{item.week}}</text>
+                        <text class="content_date">{{item.date}}</text>
+                    </view>
+                    <view class="content_fetalWeight">
+                        <text class="thisFetalWeight">{{item.total}}U</text>
+                        <text class="content_recording">总量</text>
+                    </view>
+                </view>
+                <view class="item_partLength" >
+                    <view  wx:for="{{item.items1}}" wx:for-item="period" wx:for-index="periodCode" wx:key="periodCode">{{period.periodValue}}：{{period.value}}U</view>
+                                          <view wx:for="{{item.items2}}" wx:for-item="Time" wx:for-index="S" wx:key="S">
+                          {{Time.timeStart}}~{{Time.timeEnd}}：{{Time.value}}U
+                      </view>
+                </view>
+            </view>
+        </view>
+        <!-- 按孕周显示内容 -->
+        <view class="TableContent" wx:if="{{GaShow}}">
+            <view class="table">
+                <view class="tr bg-w">
+                    <view class="th">孕周</view>
+                    <view class="th">早餐</view>
+                    <view class="th ">中餐</view>
+                    <view class="th ">晚餐</view>
+                    <view class="th ">总量</view>
+                </view>
+                <block wx:for="{{listData}}" wx:key="index">
+                    <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+                        <view class="td">{{item.GA}}</view>
+                        <view class="td">{{item.breakfast}}</view>
+                        <view class="td">{{item.ChineseFood}}</view>
+                        <view class="td">{{item.dinner}}</view>
+                        <view class="td">{{item.total}}</view>
+                    </view>
+                    <view class="tr" wx:else>
+                        <view class="td">{{item.GA}}</view>
+                        <view class="td">{{item.breakfast}}</view>
+                        <view class="td">{{item.ChineseFood}}</view>
+                        <view class="td">{{item.dinner}}</view>
+                        <view class="td">{{item.total}}</view>
+                    </view>
+                </block>
+            </view>
+        </view>
+    </block>
+    <block wx:if="{{selectedIndex==1}}">
+        <view class="selectedList">
+            <image src="../../img/checked.png" class="checkedImg" />
+            <text>按孕周查看</text>
+            <view class="check-sel">
+                <picker class="com-picker" mode="multiSelector" value="{{multiIndex}}" bindchange="bindChange" bindcolumnchange="bindMultiPickerColumnChange" range="{{predays}}">
+                    <!-- <view class="com-cell__bd-picker">{{GA}}周 {{Preday}}天</view> -->
+                    <view class="com-cell__bd-picker">请选择孕周</view>
+                </picker>
+                <image src="../../img/down.png"></image>
+            </view>
+        </view>
+        <view class="selectedList">
+            <image src="../../img/unchecked.png" class="checkedImg" />
+            <text>按孕期查看</text>
+        </view>
+        <view class="typeBtnContent">
+            <view class="typeItemList">
+                <view class="typeItem  {{convention &&index==1? 'selectedItem' : ''}}" bind:tap="toggleType" data-index='1'>
+                    常规
+                </view>
+                <view class="typeItem {{ convention &&index==2? 'selectedItem' : ''}} " bind:tap="toggleType" data-index='2'>
+                    胰岛素泵
+                </view>
+                <view class="typeItem  {{ GaShow &&index==3? 'selectedItem' : ''}}" bind:tap="toggleType" data-index='3'>
+                    按孕周
+                </view>
+            </view>
+        </view>
+        <view>
+            <view class="mychartContent">
+                <view class="container">
+                    <ec-canvas id="mychart-dom-scatter" canvas-id="mychart-scatter" ec="{{ ec }}" bind:init="echartInit"></ec-canvas>
+                </view>
+                <view class="titleContent">
+                    <view class="titleContentBox">
+                        <view class="legendBox" wx:for="{{legendData}}" wx:key="index">
+                            <view class="legendIcon" style="background:{{item.color}}"></view>
+                            <view class="legendIName">{{item.name}}</view>
+                        </view>
+                    </view>
+                    <view class="titleContentBox">
+                        <view class="goalBox" wx:for="{{goalData}}" wx:key="index">
+                            <view class="goalIcon" style="background:{{item.color}}"></view>
+                            <view class="">{{item.name}}</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </block>
+</Tabs>

@@ -1,0 +1,224 @@
+.insulinRegisterContent{
+
+}
+.themeTextSize{
+    color: #999;
+    /* font-size: 26rpx; */
+}
+.insulinRegiterHeader{
+background: #FEE55F;
+padding: 60rpx;
+}
+.headline{
+    color: #121212;
+    font-size: 34rpx;
+    font-weight: 600;
+    line-height: 80rpx;
+}
+.iRH_content{
+    color: #9B884F;
+    font-size: 24rpx;
+    line-height: 42rpx;
+}
+
+.itemBox_time {
+    display: flex;
+    align-items: center;
+    height: 98rpx;
+    border-bottom: 2rpx solid #F6F6F6;
+    padding-left:30rpx;
+    padding-right:10rpx;
+
+}
+
+.itemBox_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 290rpx);
+}
+
+.itemBox_date {
+    font-size: 30rpx;
+    color: rgba(18, 18, 18, 1);
+    line-height: 42rpx;
+}
+
+
+.itemBox_rightArrow {
+    width: 12rpx;
+    height: 12rpx;
+    border-top: 2rpx solid #B1B1B1;
+    border-right: 2rpx solid #B1B1B1;
+    transform: rotate(45deg);
+}
+
+.itemBox_title {
+    width: 230rpx;
+    margin-left: 20rpx;
+    font-size: 28rpx;
+    color: rgba(153, 153, 153, 1);
+    line-height: 40rpx;
+}
+.insulinRegiterMiddle{
+    /* padding: ; */
+}
+.getBeforeData{
+    text-align: center;
+    color:#FE9800;
+    border-bottom: 2rpx solid #F6F6F6;
+    line-height: 88rpx;
+}
+.tabsItem {
+    color: #666666;
+    border-bottom: 2rpx solid #F3F3F3;
+    flex: 1;
+    padding: 20rpx 0;
+    font-size: 30rpx;
+
+}
+
+.selected {
+    border-bottom: 4rpx solid #FEC81E;
+    color: #FEC81E;
+    font-weight: 550;
+}
+
+.tabsBox {
+    display: flex;
+    text-align: center;
+    padding-top: 20rpx;
+}
+
+.inpText {
+    display: flex;
+    align-items: center;
+    color: #000;
+
+}
+
+.inpText input {
+    /* display: inline-block; */
+    /* width: 80rpx; */
+}
+
+.inpText text {
+    text-align: left;
+}
+
+.expense_content {
+    color: #999999;
+    font-size: 30rpx;
+}
+.placeholder_class{
+    color:#121212;
+}
+.expense_content .expense_info .info_content {
+    display: flex;
+    line-height: 88rpx;
+    flex-wrap: wrap;
+}
+.expense_content .info_content .expense_info_name {
+    border-left: 1px solid #EFF0F5;
+    border-bottom: 1px solid #EFF0F5;
+    text-align: center;
+    width: 49%;
+}
+.expense_content .expense_info .expense_info_name .food_content {
+    display: flex;
+
+}
+
+.expense_content .info_content .food_content .food_name {
+    flex: 1;
+    text-align: left;
+    margin-left: 28rpx;
+}
+
+.expense_content .info_content .food_weight {
+    flex: 2;
+
+}
+
+
+
+
+.food_weight_content {
+    display: flex;
+    align-items: center;
+    margin-right: 20rpx;
+}
+
+.food_weight_content text {
+    /* margin-left: 10rpx; */
+    color: #999999;
+}
+
+.weui-input {
+    text-align: center;
+}
+.listTitle{
+    font-weight: 600;
+    font-size: 38rpx;
+    color: #121212;
+    padding: 0 40rpx;
+    line-height: 88rpx;
+}
+.insulinPump{
+    padding: 30rpx 0 60rpx 0;
+    margin-bottom: 100rpx;
+}
+.basicsListContent{
+
+}
+.basicsList_Item{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #EFF0F5;
+    /* padding: 40rpx; */
+    line-height: 88rpx
+
+}
+.basicsList_Item .ItemPickerContent {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    border-right: 1px solid #EFF0F5;
+    margin: 0 30rpx;
+}
+.ItemInputContent{
+    flex: 1;
+    display: flex;
+}
+.ItemInput_name{
+    flex: 1;
+}
+.ItemInput_Box{
+    flex: 3;
+}
+.pickerBox{
+    text-align: center;
+    flex: 2;
+}
+.delImgBox{
+
+}
+.delImgBox image {
+width: 30rpx;
+height: 30rpx;
+vertical-align: middle;
+margin-left: 20rpx;
+}
+.listTitle_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.AddListBth{
+    border-radius:15px;
+    border:1px solid rgba(242, 242, 242, 1);
+    font-size: 24rpx;
+    padding: 8rpx 20rpx;
+    text-align: center;
+    margin-right: 30rpx;
+}

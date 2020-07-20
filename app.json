@@ -1,0 +1,78 @@
+{
+  "pages": [
+    "pages/MyRecord/MyRecord",
+    "pages/index/index",
+    "pages/myinfo/myinfo",
+    "pages/LeaveMessage/LeaveMessage",
+    "pages/fetalMovement/fetalMovement",
+    "pages/tiedCard/tiedCard",
+    "pages/historyInsulin/historyInsulin",
+    "pages/historyBloodSugar/historyBloodSugar",
+    "pages/BloodSugarRecord/BloodSugarRecord",
+    "pages/InsulinRegister/InsulinRegister",
+    "pages/basicdata/basicdata",
+    "pages/basicDataHistory/basicDataHistory"
+  ],
+  "subPackages": [
+    {
+      "root": "pages/MedicalCare",
+      "name": "MedicalCare",
+      "pages": [
+        "index/index",
+        "patientInfo/patientInfo"
+      ]
+    },
+    {
+      "root": "pages/WeightContent",
+      "name": "WeightContent",
+      "pages": [
+        "weightMa/weightMa",
+        "historyWeightMa/historyWeightMa",
+        "fetalWeightAdd/fetalWeightAdd",
+        "fetalWeight/fetalWeight"
+      ]
+    },
+    {
+      "root": "pages/DietAndExercise",
+      "name": "DietAndExercise",
+      "pages": [
+        "historySports/historySports",
+        "sportsRecord/sportsRecord",
+          "recordDietSearch/recordDietSearch",
+          "recordDiet/recordDiet",
+          "historyDietRecords/historyDietRecords",
+          "DietRecords/DietRecords"
+      ]
+    }
+  ],
+  "preloadRule": {
+    "pages/MyRecord/MyRecord": {
+      "network": "all",
+      "packages": [
+        "MedicalCare"
+      ]
+    }
+  },
+  "requiredBackgroundModes": [
+    "audio"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "van-uploader": "@vant/weapp/uploader/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-tab": "@vant/weapp/tab/index",
+    "van-tabs": "@vant/weapp/tabs/index",
+    "van-search": "@vant/weapp/search/index",
+    "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",
+    "van-dropdown-item": "@vant/weapp/dropdown-item/index",
+    "van-dialog": "@vant/weapp/dialog/index"
+  }
+}

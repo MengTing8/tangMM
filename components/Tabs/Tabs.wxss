@@ -1,0 +1,16 @@
+.tabsBox {
+    display: flex;
+    text-align: center;
+}
+
+.tabsItem {
+    /* color: #CDCDCD; */
+    border-bottom: 4rpx solid #CDCDCD;
+    flex: 1;
+    padding: 20rpx 0;
+
+}
+.selected {
+    border-bottom: 4rpx solid #FEC81E;
+    color: #FEC81E;
+}

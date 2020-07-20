@@ -1,0 +1,222 @@
+.DietRecordsContent {
+    padding-bottom: 50rpx;
+}
+
+.DietRecordsHeader {
+    background: #FEE55F;
+}
+
+.DietRecordsHeader_title {
+    color: #121212;
+    font-size: 36rpx;
+    padding: 40rpx 0 20rpx 50rpx;
+    font-weight: 500;
+}
+
+.tableList {
+    display: flex;
+    padding: 30rpx 10rpx;
+}
+
+.table {
+    flex: 2;
+}
+
+.tableTitle {
+    margin-top: 58rpx;
+    margin-right: 20rpx;
+    margin-left: 20rpx;
+    line-height: 58rpx;
+}
+
+.tr {
+    display: flex;
+    width: 100%;
+    justify-content: left;
+    line-height: 58rpx;
+    align-items: center;
+
+}
+
+.td {
+    flex: 1;
+    justify-content: left;
+    /* text-align: center; */
+    color: #D07C00;
+    font-size: 28rpx;
+    padding-right: 6rpx;
+}
+
+.th {
+    flex: 1;
+    justify-content: left;
+    display: flex;
+    line-height: 58rpx;
+    align-items: center;
+    padding-right: 6rpx;
+
+}
+
+.tableFont {
+    color: #9B884F;
+    font-size: 28rpx;
+}
+
+.DietRecordsListBox {}
+
+.enteringList {}
+
+.inputList {
+    /* display: flex; */
+}
+
+.inputList text {
+    color: #CDCDCD;
+}
+
+.info_content {
+    display: flex;
+    border-bottom: 1px solid #EFF0F5;
+    line-height: 88rpx;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.food_content {
+    display: flex;
+
+}
+
+.food_name {
+    flex: 1;
+    text-align: left;
+    margin-left: 28rpx;
+    font-weight: 550;
+}
+
+.food_weight {
+    flex: 2;
+
+}
+
+.picker_info {
+    flex: 1;
+}
+
+.pickerBox {
+    width: 100%;
+}
+
+.expense_info_name {
+    border-right: 1px solid #EFF0F5;
+    text-align: center;
+    flex: 2;
+}
+.pickerContent{
+    flex: 1;
+     border-right: 1px solid #EFF0F5;
+     text-align: center;
+     display: flex;
+     align-items: center;
+}
+.food_weight_content {
+    display: flex;
+    align-items: center;
+    margin-right: 20rpx;
+}
+
+
+.food_weight_content text {
+    margin-left: 10rpx;
+    color: #999999;
+}
+
+/* 食物标签与上传 */
+.classifyBox {
+    padding: 30rpx;
+    border-bottom: 1px solid #EFF0F5;
+
+}
+
+/* 上传 */
+.uploaderListContent {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.uploaderImgBox {
+    width: 58px;
+    height: 58px;
+    padding: 10rpx;
+    border-radius: 4px;
+    border: 1px solid rgba(246, 246, 246, 1);
+    text-align: center;
+    margin: 0 10rpx;
+
+}
+
+.PhotoShwoContent {
+    width: 130rpx;
+    height: 130rpx;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    margin: 0 10rpx;
+
+}
+
+.uploaderPhoto {
+    width: 100%;
+    height: 100%;
+}
+
+.delPhoto {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    z-index: 999;
+}
+
+/* 食物标签 */
+.foodTagBox {
+    margin-bottom: 20rpx;
+}
+
+.foodTagList {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: left;
+}
+
+.foodTagItem {
+    padding: 10rpx 20rpx;
+    display: flex;
+    background: #F6F6F6;
+    border-radius: 34rpx;
+    color: #666666;
+    font-size: 26rpx;
+    line-height: 48rpx;
+    margin: 15rpx 8rpx;
+}
+
+/* .foodTagItem:first-child {
+    margin-left: 0;
+
+} */
+.DelFoodTag {
+    width: 24rpx;
+    height: 24rpx;
+    vertical-align: middle;
+    margin-left: 14rpx;
+}
+
+.itemBox_rightArrow {
+    width: 12rpx;
+    height: 12rpx;
+    border-top: 2rpx solid #B1B1B1;
+    border-right: 2rpx solid #B1B1B1;
+    transform: rotate(45deg);
+    margin-right: 30rpx;
+}

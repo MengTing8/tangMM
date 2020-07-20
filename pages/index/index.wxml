@@ -1,0 +1,31 @@
+<!-- index.wxml -->
+<!-- <view class="container">
+    <view class="userinfo">
+        <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+            使用前请允许系统获取您的头像昵称
+        </button>
+        <block wx:else>
+            <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+            <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        </block>
+    </view>
+    <view class="usermotto">
+        <text class="user-motto">{{motto}}</text>
+    </view>
+</view> -->
+<view catchtouchmove="preventTouchMove" class="alert-mask"></view>
+<view class="authContent" wx:if="{{isEdit}}">
+    <view class="authLogoBox">
+        <image class="authLogo" src="../../img/logoL.png" />
+    </view>
+    <view class="Atitle">授权提醒</view>
+    <view class="authInfo">请授权头像等信息，以便为您提供更好的服务</view>
+    <view class="BtnConten">
+        <view class="unhide" bindtap="unhide">取消</view>
+        <view class="ToAuth" bindtap="">
+            <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="ToAuth_button">
+                去授权
+            </button>
+        </view>
+    </view>
+</view>

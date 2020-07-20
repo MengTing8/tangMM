@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+      "BtnComponents": "../../components/BtnComponents/BtnComponents",
+        "TimeRecord": "../../components/TimeRecord/TimeRecord"
+
+  },
+  "navigationBarTitleText": "饮食记录"
+}

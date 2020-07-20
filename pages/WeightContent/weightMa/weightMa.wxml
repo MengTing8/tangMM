@@ -1,0 +1,30 @@
+<view class="weightMaContent">
+    <view class="cell">
+        <view class="cell_title">
+            <text>记录时间</text>
+        </view>
+        <view class="textBox">
+            <picker mode="date" value="{{WeightDate}}" start="{{}}" end="{{}}" bindchange="bindDateChange">
+                <view>{{WeightDate}}</view>
+            </picker>
+        </view>
+        <view class="imgBox">
+            <image class="textArrow" src="../../../img/list_arrow.png" alt="" srcset="" />
+        </view>
+    </view>
+    <view class="cell">
+        <view class="cell_title">
+            <text>体重</text>
+        </view>
+        <view class="textBox">
+            <view class="inpText">
+                <input type="text" value="{{weight}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindWeightInput" />
+                <text>kg</text>
+            </view>
+        </view>
+        <view class="imgBox">
+            <image class="textArrow" src="../../../img/list_arrow.png" alt="" srcset="" />
+        </view>
+    </view>
+    <BtnComponents bindonSaveBtn="SaveWeight" bindhistoryRecordBtn="HistoryWeightMa"></BtnComponents>
+</view>

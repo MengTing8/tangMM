@@ -1,0 +1,27 @@
+<view class="msgBox">
+    <view class="messageContent">
+        <scroll-view scroll-y scroll-into-view="{{scrollToView}}" style="height:{{scrollHeight}}">
+            <view wx:for="{{MessageList}}" wx:key="index" wx:if="{{item.text}}" id="msg{{index}}">
+                <view class="itemTip">{{item.createdDateTime}}</view>
+                <view class="msgItem {{item.writtenBy==1?'msgItemMine':'msgItemAdverse'}}">
+                    <image src="{{item.avatarUrl}}" alt="" srcset="" class="headImg" />
+                    <view class="textBox ">
+                        <view class="userName {{item.writtenBy==1?'userNametMine':'userNameAdverse'}}">
+                            {{item.nickName}}
+                        </view>
+                        <view class="{{item.writtenBy==1?'textMine':'textAdverse'}}">
+                            {{item.text}}
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view id="scroll-bottom" v-if="scrollToView"></view>
+        </scroll-view>
+    </view>
+</view>
+<view class="sendContent">
+    <view class="inputBox">
+        <input class="InputContent" type="text" value="{{userInputConten}}" bindinput="InputMessage" />
+        <view class="sendBtn" bind:tap="saveMessage">发送</view>
+    </view>
+</view>

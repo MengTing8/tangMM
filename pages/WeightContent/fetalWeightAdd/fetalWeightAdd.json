@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+      "TimeRecord": "../../components/TimeRecord/TimeRecord",
+        "BtnComponents": "../../components/BtnComponents/BtnComponents"
+  },
+  "navigationBarTitleText": "胎儿体重"
+}

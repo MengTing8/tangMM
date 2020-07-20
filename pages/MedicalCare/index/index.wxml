@@ -1,0 +1,75 @@
+<view class="pagesContent">
+    <view class="pagesHeader">
+        <view class="userInfoBox">
+            <view class="userInfo">
+                <view class="imageBox">
+                    <image class="imageUser" src="../../../img/user.png" />
+                </view>
+                <view>
+                    <text class="userName">李小欣</text>
+                    <view>住院部妇产科护士长</view>
+                </view>
+            </view>
+            <view class="pagesHeader_ImgBox">
+                <image class="banner" src="../../../img/banner.png" mode="widthFix" />
+            </view>
+        </view>
+        <view class="tabContent">
+            <view class="pagesDateInfo">
+                <view class="tabsBox">
+                    <block wx:for="{{['新留言','项目更新','全部患者']}}" wx:key="id">
+                        <view class="tabsItem {{TabsIndex==index?'selected':''}}" data-index='{{index}}' bind:tap="TabsChange">
+                            <view class="num" wx:if="{{index==0}}">1</view>
+                            <view class="num" wx:if="{{index==1}}">3</view>
+                            <view class="num" wx:if="{{index==2}}">13</view>
+                            <view>{{item}}</view>
+                        </view>
+                    </block>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="pagesFoot">
+        <view class="vanSearchBox">
+            <van-search value="{{ value }}" placeholder="搜索患者、关键字" shape="round" field-class="fieldClass" />
+        </view>
+        <view style="padding:0 40rpx;">
+            <view class="dropdownContent">
+                <van-dropdown-menu active-color='#FEC81E' overlay='{{false}}'>
+                    <van-dropdown-item title="胎数" value="{{ value1 }}" options="{{ option1 }}" />
+                    <van-dropdown-item title="胰岛素类型" value="{{ value2 }}" options="{{ option2 }}" />
+                    <van-dropdown-item title="特殊高危人群" value="{{ value3 }}" options="{{ option3 }}" />
+                </van-dropdown-menu>
+            </view>
+        </view>
+        <view class="tabsContent">
+            <view class="" hidden="{{TabsIndex !==0}}">
+                <view class="NewMessageContent">
+                    <view class="MessageList">
+                        <view class="MessageList_top">
+                            <view class="ItemInfo">
+                                <view class="imageBox">
+                                    <image class="imageUser" src="../../../img/user.png" />
+                                </view>
+                                <view class="infoContent">
+                                    <view>
+                                        <text class="infoContent_Name">李晓新</text>
+                                        <text>女 26岁</text>
+                                    </view>
+                                    <view class="infoContent_text">备孕期 | 糖尿病A型</view>
+                                </view>
+                            </view>
+                            <view class="stateBtnBox">
+                                <view>新留言1</view>
+                            </view>
+                        </view>
+                        <view class="MessageList_bottom">
+                            <view class="infoContent_text">王小欣回复：今天注意控制糖摄入量</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="" hidden="{{TabsIndex !==1}}"></view>
+        </view>
+    </view>
+</view>

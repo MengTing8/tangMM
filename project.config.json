@@ -1,0 +1,111 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"nodeModules": true,
+		"autoAudits": false,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.9.4",
+	"appid": "wxbcbbd78162935f03",
+	"projectname": "tangmama",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "/DietRecords",
+					"pathName": "pages/DietAndExercise/DietRecords/DietRecords",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/LeaveMessage/LeaveMessage",
+					"pathName": "pages/LeaveMessage/LeaveMessage",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "食物类别",
+					"pathName": "pages/DietAndExercise/recordDiet/recordDiet",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "DietSearch",
+					"pathName": "pages/DietAndExercise/recordDietSearch/recordDietSearch",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/basicdata/basicdata",
+					"pathName": "pages/basicdata/basicdata",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/basicDataHistory/basicDataHistory",
+					"pathName": "pages/basicDataHistory/basicDataHistory",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/DietAndExercise/historyDietRecords/historyDietRecords",
+					"pathName": "pages/DietAndExercise/historyDietRecords/historyDietRecords",
+					"scene": null
+				}
+			]
+		}
+	}
+}

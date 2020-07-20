@@ -1,0 +1,148 @@
+.pageContainer {
+    padding-left: 30rpx;
+    padding-top: 20rpx;
+}
+
+.cell {
+    color: #999999;
+    display: flex;
+    font-size: 30rpx;
+    border-bottom: 1px solid #e9e9e9;
+    line-height: 88rpx;
+    padding: 16rpx 30rpx;
+    
+}
+
+.headerTitle {
+    margin-left: 30rpx;
+    height: 120rpx;
+    line-height: 120rpx;
+    font-size: 32rpx;
+    color: #121212;
+    font-weight: 600;
+}
+
+.cell_title_name {
+    width: 160rpx;
+    display: flex;
+    flex-wrap: wrap;
+    line-height: 40rpx;
+}
+.textinput {
+    display: flex;
+    justify-content: space-between;
+    align-self: auto;
+}
+.inp_text {
+    flex: 1;
+}
+.weui-input{
+    flex: 1;
+}
+.cl {
+    padding: 30rpx 0;
+    padding-left: 40rpx;
+
+}
+
+.cell .cell_title {
+    flex: 1;
+}
+
+.cell .textBox {
+    flex:2;
+}
+.cell .textBoxs {
+    flex: 1;
+}
+.cell .cell_arrow{
+    /* flex: 1; */
+    text-align: right;
+}
+.cell .cell_arrow text {
+    margin-right: 30rpx;
+
+}
+.cell .textBox input {
+    margin-top: 20rpx;
+    color: #121212;
+
+}
+
+.cell .textBoxs input {
+    margin-top: 20rpx;
+    color: #121212;
+
+}
+
+.cell .textBox picker {
+    color: #121212;
+    font-size: 32rpx;
+}
+
+.cell .textBox .btnS {
+    vertical-align: middle;
+    margin-right: 20rpx;
+    display: inline-block;
+    color: #666666;
+    font-weight: 530;
+    font-size: 26rpx;
+    border-radius: 60rpx;
+    width: 160rpx;
+    background-color: #F6F7F9;
+}
+.dataArr{
+margin: 30rpx auto;
+padding-left: 30rpx;
+  color: #999999;
+  font-size: 30rpx;
+}
+.dataArr .dataHeader{
+    display: flex;
+    align-items: center;
+}
+.dataArr .dataHeader .dataHeader_title{
+    flex: 1;
+}
+.dataInfoList{
+    margin-top: 20rpx;
+}
+.dataInfoList{
+    display: flex;
+    align-items: center;
+    color: #000;
+}
+.dataInfoList .dataInfoItem{
+    flex: 1;
+    /* text-align: center; */
+}
+.dataInfoList .dataInfoItem input{
+    width:50%;
+}
+.units{
+    color: #CDCDCD;
+    font-size: 26rpx;
+}
+.phClass {
+    color: #000;
+}
+.phClassRed{
+    color: red;
+}
+.addRecordBtn{
+    color: #FEC81E;
+    text-align: center;
+    border-bottom: 1px solid #e9e9e9;
+    border-top: 1px solid #e9e9e9;
+    line-height: 88rpx;
+}
+.delBox{
+    position: absolute;
+    right: 0;
+    z-index: 99;
+}
+.img{
+    width: 30rpx;
+    height: 30rpx;
+    margin-right: 40rpx;
+}

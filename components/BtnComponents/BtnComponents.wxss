@@ -1,0 +1,30 @@
+.saveBtn {
+    width: 456rpx;
+    height: 84rpx;
+    font-size: 32rpx;
+    font-weight: 550;
+    color:#121212;
+    line-height: 84rpx;
+    background: rgba(254, 200, 30, 1);
+    border-radius: 42rpx;
+    text-align: center;
+    margin: 40rpx auto 20rpx;
+}
+
+.historyRecordBtn {
+    font-weight: 600;
+    width: 456rpx;
+    height: 84rpx;
+    font-size: 32rpx;
+    font-weight: 550;
+    color: rgba(153, 153, 153, 1);
+    line-height: 84rpx;
+    border-radius: 42rpx;
+    border: 2rpx solid rgba(205, 205, 205, 1);
+    text-align: center;
+    margin: 0 auto;
+}
+
+.arrive_btn {
+    margin-top: 40rpx;
+}

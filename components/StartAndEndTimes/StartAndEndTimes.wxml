@@ -1,0 +1,25 @@
+<view class="selectedTime">
+    <view class="startTime">
+        <view class="">
+            <picker mode="date" value="{{TimeObj.StarDATE}}" start="{{TimeObj.StartDt}}" end="{{TimeObj.EndDt}}" bindchange="bindStartTimeChange">
+                <view class="timeColor">开始日期</view>
+                <view class="">{{TimeObj.StarDATE}}</view>
+            </picker>
+        </view>
+    </view>
+    <view class="imgBox">
+        <image class="textArrow" src="../../img/list_arrow.png" mode="widthFix" />
+    </view>
+    <view class="timeColor">至</view>
+    <view class="endTime">
+        <view class="">
+            <picker mode="date" value="{{TimeObj.EndDATE}}" start="{{TimeObj.StartDt}}" end="{{TimeObj.EndDt}}" bindchange="bindEndTimeChange">
+                <view class="timeColor">结束日期</view>
+                <view class="">{{TimeObj.EndDATE}}</view>
+            </picker>
+        </view>
+    </view>
+    <view class="imgBox">
+        <image class="textArrow" src="../../img/list_arrow.png" mode="widthFix" />
+    </view>
+</view>

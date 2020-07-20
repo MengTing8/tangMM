@@ -1,0 +1,65 @@
+<view class="pageContainer">
+    <view class="tabsBox">
+        <block wx:for="{{['1.手机号码验证','2.就诊卡绑定']}}" wx:key="id">
+            <view class="tabsItem {{currentTabsIndex==index?'selected':''}}">{{item}}</view>
+        </block>
+    </view>
+    <view class="tabsContent">
+        <view class="" hidden="{{currentTabsIndex !==0}}">
+            <view class="headerTitle">
+                <text>手机号验证</text>
+            </view>
+            <view class="basicInfo">
+                <view class="cell">
+                    <view style="margin-right: 40rpx; color: #000000;">
+                        <text>手机号</text>
+                    </view>
+                    <view class="textBox">
+                        <input class="inp" type="digit" value="{{mobile}}" bindinput="bindMobileInput" placeholder="请输入手机号" />
+                    </view>
+                </view>
+                <view class="cell">
+                    <view style="margin-right: 40rpx; color: #000000;">
+                        <text>验证码</text>
+                    </view>
+                    <view class="textBox">
+                        <view class="inpView">
+                            <input class="inp" type="digit" value="{{sms}}" bindinput="bindSmsInput" placeholder="请输入验证码" />
+                            <view class="codeView" bind:tap="sendSms">获取验证码</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="arrive_btn" bind:tap="bindMobile">
+                <view class="saveBtn">保存</view>
+                <!-- <button type="primary" class="btn">保存</button> -->
+            </view>
+        </view>
+        <view class="" hidden="{{currentTabsIndex !==1}}">
+            <view class="headerTitle">
+                <text>就诊卡绑定</text>
+            </view>
+            <view class="basicInfo">
+                <view class="cell">
+                    <view class="cell_title">
+                        <text>就诊人</text>
+                    </view>
+                    <view class="textBox">
+                        <input class="inp" type="text" value="{{patientName}}" bindinput="bindNameInput" placeholder="请输入就诊人姓名" />
+                    </view>
+                </view>
+                <view class="cell">
+                    <view class="cell_title">
+                        <text>就诊卡号/一卡通</text>
+                    </view>
+                    <view class="textBox">
+                        <input class="inp" type="digit" value="{{cardNumber}}" bindinput="bindNumberInput" placeholder="请输入就诊人卡号或一卡通" />
+                    </view>
+                </view>
+            </view>
+            <view class="arrive_btn" bind:tap="bindPatient">
+                <view class="saveBtn">保存</view>
+            </view>
+        </view>
+    </view>
+</view>

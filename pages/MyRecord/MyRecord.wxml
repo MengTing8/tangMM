@@ -1,0 +1,46 @@
+<view class="MyRecordContent">
+    <view class="MyRecordHeader">
+        <view class="userInfoBox">
+            <view class="userInfo">
+                <!-- <image class="imageUser" src="../../img/user.png" /> -->
+                <image class="imageUser" src="{{MyRecordData.avatarUrl}}" />
+                <view>
+                    <text class="userName">{{MyRecordData.name}}</text>
+                    <text class="editInfo" bind:tap="modifiedInfo">资料修改</text>
+                </view>
+                <view>{{MyRecordData.description}}</view>
+            </view>
+            <view class="MyRecordHeader_ImgBox">
+                <image class="banner" src="../../img/banner.png" mode="widthFix" />
+                <view class="MessageContent" bind:tap="getMessage">
+                    <view class="newMessage" wx:if="{{MyRecordData.hasNewMessage==1}}"></view>
+                    <image class="message" src="../../img/message.png" mode="widthFix" />
+                </view>
+            </view>
+        </view>
+        <view class="MyRecordDateInfo">
+            <view class="MyRecordDateInfo_content">
+                <view class="MyRecordDateInfo_date" >
+                   <text class="day">{{CurrentDay}}</text>{{CurrentDate}} {{CurrentWeek}}
+                </view>
+                <view class="MyRecordDateInfo_progress">今日完成：{{MyRecordData.taskProgress}}</view>
+            </view>
+        </view>
+    </view>
+    <view class="MyRecordFoot">
+        <view class="MyRecordList" wx:for="{{MyRecordData.items}}" wx:key="index" bind:tap="goRecordInfo" data-index='{{index}}'>
+            <view class="LogoBox">
+                <image class="RecordLogo" src="{{item.iconUrl}}" />
+                <!-- <image class="RecordLogo" src="../../img/basicData.png" /> -->
+            </view>
+            <view class="RecordTitle">
+                <view class="RecordName">{{item.name}}</view>
+                <view>{{item.description}}</view>
+            </view>
+            <view class="RecordStatus">
+                <view class="onAchieve" wx:if="{{item.status=='已完成'}}">{{item.status}}</view>
+                <view class="notAchieve" wx:else>{{item.status}}</view>
+            </view>
+        </view>
+    </view>
+</view>

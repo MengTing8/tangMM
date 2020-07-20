@@ -1,0 +1,8 @@
+{
+    "usingComponents": {
+        "Tabs": "../../components/Tabs/Tabs",
+        "StartAndEndTimes": "../../components/StartAndEndTimes/StartAndEndTimes",
+        "ec-canvas": "../../components/ec-canvas/ec-canvas"
+    },
+    "navigationBarTitleText": "历史记录"
+}

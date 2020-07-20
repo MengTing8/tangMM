@@ -1,0 +1,74 @@
+/* pages/fetalWeightAdd/fetalWeightAdd.wxss */
+.pageContainer{
+  border-top: 2rpx solid #F1F1F1;
+}
+.pageContent{
+  padding: 30rpx 0 0 20rpx;
+}
+.topTips{
+  font-size:24rpx;
+  color:rgba(254,152,0,1);
+  line-height:40rpx;
+  margin-bottom: 10rpx;
+}
+.itemBox_time{
+  display: flex;
+  align-items: center;
+  height: 98rpx;
+  border-bottom: 2rpx solid #F6F6F6;
+  /* padding-right: 40rpx; */
+}
+.itemBox_content{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 290rpx);
+}
+.itemBox_date{
+  font-size:30rpx;
+  color:rgba(18,18,18,1);
+  line-height:42rpx;
+}
+.itemBox{
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  height: 98rpx;
+  border-bottom: 2rpx solid #F6F6F6;
+  /* padding-right: 40rpx; */
+}
+
+.itemBox_inpholder{
+  font-size:30rpx;
+  color:rgba(18,18,18,1);
+  line-height:42rpx;
+}
+.itemBox_unit{
+  font-size:26rpx;
+  color:rgba(205,205,205,1);
+  line-height:36rpx;
+}
+.saveBtn{
+  width:456rpx;
+  height:84rpx;
+  font-size:30rpx;
+  font-weight:500;
+  color:rgba(18,18,18,1);
+  line-height:84rpx;
+  background:rgba(254,200,30,1);
+  border-radius:42rpx;
+  text-align: center;
+  margin: 40rpx auto 20rpx;
+}
+.historyRecordBtn{
+  width:456rpx;
+  height:84rpx;
+  font-size:30rpx;
+  font-weight:500;
+  color:rgba(153,153,153,1);
+  line-height:84rpx;
+  border-radius:42rpx;
+  border:2rpx solid rgba(205,205,205,1);
+  text-align: center;
+  margin: 0 auto;
+}

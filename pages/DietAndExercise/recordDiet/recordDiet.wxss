@@ -1,0 +1,133 @@
+.expense_content {
+    color: #121212;
+    font-size: 30rpx;
+}
+
+.expense_content .expense_info .info_content {
+    display: flex;
+    flex-wrap: wrap;
+}
+.expense_content .info_content .expense_info_name {
+    display: flex;
+    align-items: center;
+    border-left: 1px solid #EFF0F5;
+    border-bottom: 1px solid #EFF0F5;
+    text-align: center;
+    width: 49%;
+     line-height: 28rpx;
+}
+.expense_content .info_content :last-child.expense_info_name {
+    border-right: 1px solid #EFF0F5;
+
+}
+.expense_content .expense_info .expense_info_name .food_content {
+    display: flex;
+    padding:36rpx 0;
+}
+
+.expense_content .info_content .food_content .food_name {
+    flex: 1;
+    text-align: left;
+    margin-left: 28rpx;
+    /* line-height: 88rpx; */
+    
+} 
+
+.expense_content .info_content .food_weight {
+    flex: 1;
+
+}
+
+
+
+.expense_content .info_content .expense_info_price {
+    flex: 1;
+    text-align-last: center;
+    text-align: center;
+    position: relative;
+}
+
+.expense_content .info_content .expense_info_price .expense_icon {
+    text-align: right;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 10rpx;
+}
+
+.expense_content .total {
+    color: orange;
+    font-size: 38rpx;
+}
+
+.van-cell {
+    padding: 0;
+}
+
+.food_weight_content {
+    display: flex;
+    align-items: center;
+    margin-right: 20rpx;
+}
+
+.food_weight_content text {
+    margin-left: 10rpx;
+    color: #999999;
+}
+
+.weui-input {
+    text-align: right;
+}
+
+.van-ellipsis {
+    font-size: 32rpx;
+}
+.fieldClass {
+    padding: 6rpx 0rpx !important;
+}
+.vanSearchBox{
+    padding: 20rpx 0 30rpx 0;
+}
+/* ---------------搜索 */
+.fieldClass {
+    padding: 6rpx 0rpx !important;
+}
+
+.vanSearchBox {
+    padding: 20rpx 0 30rpx 0;
+}
+
+.rightArrow {
+    width: 12rpx;
+    height: 12rpx;
+    border-top: 2rpx solid #B1B1B1;
+    border-right: 2rpx solid #B1B1B1;
+    transform: rotate(45deg);
+}
+
+.classNameFoot {
+    background: #F9F9F9;
+    line-height: 68rpx;
+    padding: 0 40rpx;
+}
+
+.footItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #EFF0F5;
+    line-height: 88rpx;
+    padding: 0 40rpx;
+}
+.saveBtn {
+    width: 456rpx;
+    height: 84rpx;
+    font-size: 32rpx;
+    font-weight: 550;
+    color: #121212;
+    line-height: 84rpx;
+    background: rgba(254, 200, 30, 1);
+    border-radius: 42rpx;
+    text-align: center;
+    margin: 40rpx auto 20rpx;
+}

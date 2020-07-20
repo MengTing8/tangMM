@@ -1,0 +1,360 @@
+.triangle-down {
+    width: 0;
+    height: 0;
+    border-top: 10rpx solid #000;
+    border-left: 10rpx solid transparent;
+    border-right: 10rpx solid transparent;
+
+}
+
+.movemrnt_count {
+    background: #FEE55F;
+    /* height: 400px; */
+    padding: 40rpx;
+    position: relative;
+}
+
+.movemrnt_comtent {
+    padding-bottom: 40rpx;
+}
+
+.movemrnt_Box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 400rpx;
+}
+
+.movemrntBtnBox {
+    flex: 5;
+    position: relative;
+}
+
+.movemrnt_Valid_box {}
+
+.textColor {
+    color: #9B884F;
+    font-size: 24rpx;
+}
+
+.movemrnt_original_box {}
+
+.movemrnt_count .dot_comtent {
+    text-align: center;
+}
+
+.a1 {
+    width: 248rpx;
+    height: 248rpx;
+    background-color: #fff;
+    border-radius: 50%;
+    /* margin: 106px; */
+    left: 94.5rpx;
+    margin-top: -120rpx;
+    position: absolute;
+    box-shadow: 0 0 2px #fff;
+
+}
+
+.a2 {
+    opacity: 0.2;
+    width: 164px;
+    height: 164px;
+    border: #fff 0rpx solid;
+    border-radius: 50%;
+    position: absolute;
+    left: 66.5rpx;
+    margin-top: -145rpx;
+    box-shadow: inset 0 0 50rpx #fff;
+
+}
+
+.a3 {
+    opacity: 0.2;
+    width: 204px;
+    height: 204px;
+    border: #fff 0rpx solid;
+    border-radius: 50%;
+    position: absolute;
+    left: 28.5rpx;
+    margin-top: -180rpx;
+    box-shadow: inset 0 0 50rpx #fff;
+
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    border-bottom: 1rpx solid #EED65C;
+    padding-bottom: 18rpx;
+
+}
+
+.userInfo .userImg {
+    flex: 2;
+
+}
+
+.userInfo .userName {
+    flex: 5;
+    line-height: 50rpx;
+}
+
+.userInfo .userName .userName_bottom {
+    color: #9B884F;
+    font-size: 24rpx;
+
+}
+
+.userInfo .userName .userName_top {
+    color: #121212;
+    font-size: 36rpx;
+    font-weight: 600;
+}
+
+.userInfo .userImg image {
+    width: 120rpx;
+    height: 120rpx;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.userInfo .musicBox {
+    /* flex: 2; */
+}
+
+.musicImg {
+    width: 56rpx;
+    height: 56rpx;
+}
+
+.triangle-top {
+    position: absolute;
+    right: 10%;
+    top: -4%;
+    width: 0;
+    height: 0;
+    border-bottom: 20rpx solid #ffffff;
+    border-left: 20rpx solid transparent;
+    border-right: 20rpx solid transparent;
+}
+
+.musicList {
+    position: absolute;
+    width: 90%;
+    z-index: 999;
+    top: 20%;
+
+}
+
+.descriptionContent {
+    padding: 30rpx;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 18rpx;
+    position: relative;
+    font-size: 24rpx;
+    line-height: 48rpx;
+}
+
+.musicListContent {
+    padding: 30rpx 0;
+    margin: 0 auto;
+    background-color: #fff;
+    text-align: center;
+    border-radius: 18rpx;
+    position: relative;
+
+}
+
+.musicListContent view {
+    line-height: 88rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.BigSize {
+    font-size: 80rpx;
+    font-weight: 600;
+}
+
+.operationBtnBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 0rpx;
+    text-align: center;
+    color: #9B884F;
+    font-size: 24rpx;
+    padding-bottom: 100rpx;
+}
+
+.operationImg {
+    width: 150rpx;
+}
+
+
+
+.movemrntRecord_content_tab {
+    width: 100%;
+    background: #fff;
+    box-shadow: 0px 2px 4px 0px rgba(238, 238, 238, 0.77);
+    border-radius: 28px 28px 0px 0px;
+    position: absolute;
+    bottom: 0%;
+    left: 0;
+}
+
+.tabsItem {
+    color: #666666;
+    /* border-bottom: 2rpx solid #F3F3F3; */
+    flex: 1;
+    padding: 20rpx 0;
+    font-size: 30rpx;
+
+}
+
+.selected {
+    border-bottom: 4rpx solid #FEC81E;
+    color: #121212;
+    font-weight: 550;
+}
+
+.tabsBox {
+    display: flex;
+    text-align: center;
+    padding-top: 20rpx;
+}
+
+.movemrntRecord_content_List {
+    padding: 0rpx 0 40rpx 0;
+    margin-bottom: 160rpx;
+}
+
+.RecordTodayContent {}
+
+.RecordTodayList {
+    border-bottom: 2rpx solid #F3F3F3;
+    padding: 34rpx 40rpx;
+}
+
+.fetalInfo {
+    display: flex;
+    color: #999999;
+    font-size: 24rpx;
+    margin-top: 10rpx;
+}
+
+.abnormalState {
+    background-color: #FA5151;
+    color: #fff;
+    padding: 6rpx 18rpx;
+    border-radius: 30rpx;
+    margin-right: 20rpx;
+}
+
+.warnImg {
+    width: 20rpx;
+    vertical-align: middle;
+    margin-right: 12rpx;
+
+}
+
+.fetalInfo {}
+
+.noDataBox {
+    margin: 160rpx auto;
+    text-align: center;
+}
+
+.noDataImg {
+    width: 280rpx;
+}
+
+.com-cell {
+    line-height: 98rpx;
+    padding: 20rpx 42rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.check-music {
+    font-size: 28rpx;
+    color: #333333;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: space-between;
+    padding: 4rpx 10rpx 4rpx 4rpx;
+    height: 30px;
+    border-radius: 36rpx;
+    border: 1px solid #FE9800 !important;
+
+}
+
+.muicFont {
+    color: #FE9800;
+}
+
+.check-sel {
+    padding: 4rpx 24rpx;
+    height: 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(242, 242, 242, 1);
+}
+
+.GaRecordContent {}
+
+.GaRecordList {}
+
+.GaRecordList_title {
+    display: flex;
+    align-items: center;
+    background: #F8F8F8;
+    font-size: 26rpx;
+    color: #999999;
+    padding: 20rpx 30rpx;
+}
+
+.gaWeeks {
+    flex: 1;
+}
+
+.Count {
+    flex: 2;
+}
+
+.timefragme {
+    flex: 2;
+}
+
+.GaRecordList_item {
+    display: flex;
+    align-items: center;
+    padding: 30rpx 20rpx;
+    border-bottom: 2rpx solid #F3F3F3;
+
+}
+
+.total {
+    color: #999;
+    font-size: 26rpx;
+}
+
+.on {
+    animation: rotating 2.5s linear infinite;
+}
+
+/* css动画，控制图标一直旋转 */
+
+@keyframes rotating {
+    from {
+        transform: rotate(0)
+    }
+
+    to {
+        transform: rotate(360deg)
+    }
+}

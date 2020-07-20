@@ -1,0 +1,80 @@
+.pickerContent {
+    display: flex;
+    justify-content: space-between;
+}
+
+.itemBox_time {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    height: 98rpx;
+    border-bottom: 2rpx solid #F6F6F6;
+    padding-right: 40rpx;
+}
+
+.itemBox_times {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    height: 98rpx;
+    border-bottom: 2rpx solid #F6F6F6;
+    border-left: 2rpx solid #F6F6F6;
+    padding: 0 36rpx 0 20rpx;
+
+}
+
+.itemBox_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* width: calc(100% - 290rpx); */
+    flex: 1;
+}
+
+.itemBox_date {
+    font-size: 30rpx;
+    color: rgba(18, 18, 18, 1);
+    line-height: 42rpx;
+}
+
+.itemBox_rightArrow {
+    width: 12rpx;
+    height: 12rpx;
+    border-top: 2rpx solid #B1B1B1;
+    border-right: 2rpx solid #B1B1B1;
+    transform: rotate(45deg);
+}
+
+.itemBox_title {
+    width: 230rpx;
+    margin-left: 34rpx;
+    font-size: 28rpx;
+    color: rgba(153, 153, 153, 1);
+    line-height: 40rpx;
+}
+
+.inpText {
+    display: flex;
+    align-items: center;
+    color: #000;
+
+}
+
+.inpText input {
+    /* display: inline-block; */
+    /* width: 80rpx; */
+}
+
+.inpText text {
+    text-align: left;
+}
+
+.otherInput {
+    text-align: center;
+    border-bottom: 2rpx solid #F6F6F6;
+}
+.otherInput input{
+    height: 98rpx;
+    line-height: 98rpx;
+
+}

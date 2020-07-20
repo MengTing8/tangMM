@@ -1,0 +1,23 @@
+<Tabs bindtitleChange="handleTitleChange">
+    <block wx:if="{{selectedIndex==0}}">
+        <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
+        <view class="bloodSugarInfoLIst">
+            <view class="listCard" wx:for="{{BloodGlucoseList}}" wx:key="index" wx:if="{{item.date}}">
+                <view class="listCard_top">{{item.date}}</view>
+                <view class="listCard_bottom">
+                    <view class="listCard_bottom_content  unifyFont">
+                        <view wx:for="{{item.items}}" wx:for-item="items" wx:for-index="Id" wx:key="Id">
+                            {{items.periodSubvalue}}：{{items.value}}
+                        </view>
+                        <!-- <view>早餐后2小时血糖：11</view>
+                        <view>午餐前血糖：12</view>
+                        <view>午餐后2小时血糖：22</view> -->
+                    </view>
+                </view>
+            </view>
+        </view>
+    </block>
+    <block wx:if="{{selectedIndex==1}}">
+        <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
+    </block>
+</Tabs>

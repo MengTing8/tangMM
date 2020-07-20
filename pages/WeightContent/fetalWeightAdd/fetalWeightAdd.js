@@ -1,0 +1,262 @@
+const {
+    request
+} = require("../../../utils/request")
+const {
+    getDates
+} = require("../../../utils/util")
+const moment = require('../../../utils/moment.min.js');
+let date = getDates(1, new Date());
+let newDate = moment(date[0].time).format('YYYY年MM月DD日')
+Page({
+
+    /**
+     * 页面的初始数据
+     */
+    data: {
+        rowMd5: "",
+        id: "",
+        BPD: '',
+        HC: '',
+        AC: '',
+        FL: '',
+        dateObj: {
+            StartDt: newDate,
+            EndDt: '2029年01月01',
+            EXDATE: newDate,
+            DateSelect: newDate,
+            title: "选择时间"
+        },
+        dataTime: date[0].time
+    },
+    saveFetusWeight() {
+        let self = this
+        if (isNaN(parseFloat(self.data.BPD)) || self.data.BPD > 110 || self.data.BPD < 0) {
+            wx.showToast({
+                title: '双顶径(BPD):请输入0-110的值',
+                icon: 'none',
+                duration: 2000
+            })
+            return
+        }
+        if (isNaN(parseFloat(self.data.HC)) || self.data.HC > 400 || self.data.HC < 0) {
+            wx.showToast({
+                title: '头围(HC):请输入0-400的值',
+                icon: 'none',
+                duration: 2000
+            })
+            return
+        }
+        if (isNaN(parseFloat(self.data.AC)) || self.data.AC > 450 || self.data.AC < 0 || self.data.AC === '') {
+            wx.showToast({
+                title: '腹围(AC):请输入0-450的值',
+                icon: 'none',
+                duration: 2000
+            })
+            return
+        }
+        if (isNaN(parseFloat(self.data.FL)) || self.data.FL > 90 || self.data.FL < 0 || self.data.FL === '') {
+            wx.showToast({
+                title: '股骨长(FL):请输入0-90的值',
+                icon: 'none',
+                duration: 2000
+            })
+            return
+        }
+
+        request({
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "save",
+                "data": [{
+                    "entity": "fetusWeight",
+                    "patientId": wx.getStorageSync('patientId'),
+                    "date": self.data.dataTime,
+                    "gestationalWeek": '53',
+                    "fetus": "1",
+                    "id": self.data.id,
+                    "rowMd5": self.data.rowMd5,
+                    "biparietalDiameter": self.data.BPD,
+                    "headCircumference": self.data.HC,
+                    "abdorminalCircumference": self.data.AC,
+                    "femurLength": self.data.FL,
+                    "status": "1"
+                }]
+            }
+        }).then(res => {
+            console.log(res, "保存胎儿体重");
+            if (res.data.code === '0') {
+                var ResData = res.data.data[0]
+                self.setData({
+                    rowMd5: ResData.rowMd5,
+                    id: ResData.id,
+                })
+                wx.showToast({
+                    title: res.data.message,
+                    icon: 'none',
+                    duration: 2000
+                })
+                self.getFetusWeight()
+
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                    icon: 'none',
+                    duration: 2000
+                })
+            }
+        })
+    },
+    getFetusWeight() {
+        let self = this
+        request({
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "getFetusWeight",
+                "data": [{
+                    "date": self.data.dataTime,
+                    "fetus": 1
+                }]
+            }
+        }).then(res => {
+            console.log(res, "获取胎儿体重");
+            if (res.data.code === '0') {
+                if (res.data.data.length > 0) {
+                    var ResData = res.data.data[0]
+                    let newObj = self.data.dateObj
+                    newObj.DateSelect = moment(ResData.date).format('YYYY年MM月DD日')
+                    self.setData({
+                        dateObj: newObj,
+                        rowMd5: ResData.rowMd5,
+                        id: ResData.id,
+                        BPD: ResData.biparietalDiametger,
+                        HC: ResData.headCircumference,
+                        AC: ResData.abdorminalCircumference,
+                        FL: ResData.femurLength,
+                    })
+                } else {
+                    self.setData({
+                        // dateObj: newObj,
+                        rowMd5:'',
+                        id: '',
+                        BPD:'',
+                        HC: '',
+                        AC: '',
+                        FL: '',
+                    })
+                }
+
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                    icon: 'none',
+                    duration: 2000
+                })
+            }
+        })
+    },
+    bindDateChange(e) {
+        var NewData = this.data.dateObj;
+        let val = e.detail.value
+        let dateSelect = e.detail.date
+        // val = ;
+        NewData.DateSelect = val;
+        this.setData({
+            dateObj: NewData,
+            dataTime: dateSelect
+        })
+        this.getFetusWeight()
+    },
+    bindBPDInput(e) {
+        var data = e.detail.value;
+        this.setData({
+            BPD: data
+        })
+    },
+    bindHCInput(e) {
+        var data = e.detail.value;
+        this.setData({
+            HC: data
+        })
+    },
+    bindACInput(e) {
+        var data = e.detail.value;
+        this.setData({
+            AC: data
+        })
+    },
+    bindFLInput(e) {
+        var data = e.detail.value;
+        this.setData({
+            FL: data
+        })
+    },
+    historyRecord() {
+        wx.navigateTo({
+            url: '../fetalWeight/fetalWeight'
+        })
+    },
+    // bindDateChange: function (e) {
+    //     this.setData({
+    //         DateSelect: e.detail.value
+    //     })
+    // },
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function (options) {
+        this.getFetusWeight()
+    },
+
+    /**
+     * 生命周期函数--监听页面初次渲染完成
+     */
+    onReady: function () {
+
+    },
+
+    /**
+     * 生命周期函数--监听页面显示
+     */
+    onShow: function () {
+
+    },
+
+    /**
+     * 生命周期函数--监听页面隐藏
+     */
+    onHide: function () {
+
+    },
+
+    /**
+     * 生命周期函数--监听页面卸载
+     */
+    onUnload: function () {
+
+    },
+
+    /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+    onPullDownRefresh: function () {
+
+    },
+
+    /**
+     * 页面上拉触底事件的处理函数
+     */
+    onReachBottom: function () {
+
+    },
+
+    /**
+     * 用户点击右上角分享
+     */
+    onShareAppMessage: function () {
+
+    }
+})

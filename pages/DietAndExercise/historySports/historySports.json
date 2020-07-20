@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "StartAndEndTimes": "../../components/StartAndEndTimes/StartAndEndTimes"
+  },
+  "navigationBarTitleText": "历史记录"
+}

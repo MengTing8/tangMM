@@ -1,0 +1,82 @@
+<!-- pages/sportsRecord/sportsRecord.wxml -->
+<view class="pageContainer">
+    <view class="sportsRecord">
+        <TimeRecord pickerObj="{{dateObj}}" bindbindDateChange='bindDateChange'></TimeRecord>
+        <!-- <view class="itemBox">
+            <text class="itemBox_title">记录时间</text>
+            <view class="itemBox_content">
+                <text class="itemBox_text">2019年12月4日</text>
+                <text class="itemBox_rightArrow"></text>
+            </view> -->
+        <!-- </view> -->
+        <view class="itemBox">
+            <text class="itemBox_title">时段</text>
+            <view class="itemBox_content">
+                <view class="itemBox_text">
+                    <picker mode="selector" value="" range="{{periodList}}" range-key="{{'value'}}" bindchange="bindPeriodChange">
+                        <view class="weui-input_10">{{SportsData.periodValue||'请选择'}}</view>
+                        <!-- <view class="weui-input_10">{{TermList[0].Name}}</view> -->
+                    </picker>
+                </view>
+                <text class="itemBox_rightArrow"></text>
+            </view>
+        </view>
+        <view class="itemBox">
+            <text class="itemBox_title">方式</text>
+            <view class="itemBox_content">
+                <view class="itemBox_text">
+                    <picker mode="selector" value="" range="{{wayList}}" range-key="{{'value'}}" bindchange="bindWayChange">
+                        <view class="weui-input_10">{{SportsData.wayValue||'请选择'}}</view>
+                        <!-- <view class="weui-input_10">{{TermList[0].Name}}</view> -->
+                    </picker>
+                </view>
+                <text class="itemBox_rightArrow"></text>
+            </view>
+        </view>
+        <view class="itemBox">
+            <view class="itemBox_title" bind:tap="strengthInfo">
+                强度
+                <image class="queryIMg" src="../../../img/query.png" mode="widthFix" />
+            </view>
+            <view class="itemBox_content">
+                <view class="itemBox_text">
+                    <picker mode="selector" value="" range="{{levelList}}" range-key="{{'value'}}" bindchange="bindLevelChange">
+                        <view class="weui-input_10">{{SportsData.levelValue||'请选择'}}</view>
+                        <!-- <view class="weui-input_10">{{TermList[0].Name}}</view> -->
+                    </picker>
+                </view>
+                <text class="itemBox_rightArrow"></text>
+            </view>
+        </view>
+        <view class="itemBox">
+            <text class="itemBox_title">运动时长</text>
+            <view class="itemBox_content">
+                <input class="itemBox_inp" type="text" placeholder="请输入" placeholder-class="itemBox_inpholder" value="{{SportsData.duration}}" bindinput="bindDurationInput"></input>
+                <text class="itemBox_unit">分钟</text>
+            </view>
+        </view>
+    </view>
+        <BtnComponents bindonSaveBtn="saveExercise" bindhistoryRecordBtn="tapHistory"></BtnComponents>
+    <!-- <view class="saveBtn" bind:tap="">保存</view> -->
+    <!-- <view class="historyRecordBtn" bind:tap="">历史记录</view> -->
+    <view class="description">
+        <text decode="{{true}}">&ensp;&ensp;运动疗法可降低妊娠期基础胰岛素抵抗,是妊娠合并糖尿病的综合治疗措施之一,每餐30分钟后进行中等强度的运动对母儿无不良影响。\n&ensp;&ensp;运动治疗的方法:选择一种低至中等强度的有氧运动(又称耐力运动),主要指由机体大肌肉群参加的持续性运动。步行是常用的简单有氧运动。
+        </text>
+        <view class="suggest">
+            <text class="suggest_icon">!</text>
+            <text>建议</text>
+        </view>
+        <!-- <view>212</view> -->
+        <text decode="{{true}}">&ensp;&ensp;每天坚持餐后运动 30 分钟，以中等强度的有氧运动为主，如散步。若您情况不适宜散步可选择上肢运动，如举水瓶。\n&ensp;&ensp;强度以微微出汗为宜，忌过量运动，一般若运动完大汗淋漓或休息 10 分钟仍不能恢复运 动前的心跳则为运动过量。
+        </text>
+    </view>
+    <view class="strengthInfoContent" wx:if="{{ShowInfo}}">
+        <view class="InfoBox">
+            <view class="InfoTitle">强度</view>
+            <view class="unifyFont">
+            <rich-text nodes="{{note}}"></rich-text>
+            </view>
+            <image class="DelIMg  queryIMg" src="../../../img/delS.png" mode="widthFix" bind:tap="HiedeInfo" />
+        </view>
+    </view>
+</view>

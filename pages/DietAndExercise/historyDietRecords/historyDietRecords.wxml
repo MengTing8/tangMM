@@ -1,0 +1,49 @@
+<view class="historyDietRecordContent">
+    <Tabs bindtitleChange="handleTitleChange">
+        <view style="display:{{selectedIndex==1?'none':'block'}}">
+            <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
+            <view class="historyList">
+                <view class="ItemCard" wx:for="{{historyFootList}}" wx:key="index">
+                    <view class="ItemCard_Time">{{item.date}}</view>
+                    <view class="ItemCard_Info  unifyFont">
+                        <view>{{item.meal}}（{{item.time}}）{{item.dosage}}kcal</view>
+                        <view>{{item.name}}</view>
+                        <view class="PhotoList">
+                            <view class="PhotoShwoContent">
+                                <image class="uploaderPhoto" mode="widthFix" src="{{item.imgUrl}}" />
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view style="display:{{selectedIndex==0?'none':'block'}}">
+            <view class="TimeContent">
+                <StartAndEndTimes TimeObj="{{TimeObjChart}}" bindStartTimeChange='bindStartTimeChart' bindEndTimeChange='bindEndTimeChart'></StartAndEndTimes>
+            </view>
+            <view class="heatChartsContent">
+                <view class="mychartContent">
+                    <view class="container">
+                        <ec-canvas id="mychartDiet" canvas-id="mychart-Diet" ec="{{ ec }}"></ec-canvas>
+                    </view>
+                </view>
+            </view>
+            <view class="chartsTabContent">
+                <view class="tabsBox">
+                    <block wx:for="{{tabCharts}}" wx:key="id">
+                        <view class="tabsItem {{TabsIndex==index?'selected':''}}" data-index='{{index}}' data-typeCode="{{item.typeCode}}"bindtap="handleChartsTabs">
+                            {{item.typeValue}}
+                        </view>
+                    </block>
+                </view>
+                <view class="tabsContent">
+                    <view class="mychartContent">
+                        <view class="container">
+                            <ec-canvas id="mychartTabs" canvas-id="mychart-DietTabs" ec="{{ ec }}"></ec-canvas>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </Tabs>
+</view>

@@ -1,0 +1,122 @@
+
+
+.mychartContent {
+    margin: 0 auto;
+    width: 100%;
+    height: 900rpx;
+    /* margin-bottom: 50rpx; */
+    position: relative;
+    /* padding: 40rpx 100px !important; */
+}
+
+.timeColor {
+    color: #999999;
+    font-size: 24rpx;
+}
+
+.recordList {
+    font-size: 28rpx;
+}
+
+.recordTitle {
+    padding: 0rpx 20rpx;
+    color: #999999;
+    font-size: 26rpx;
+    background-color: #F6F6F6;
+    display: flex;
+    line-height: 88rpx;
+    /* padding: 40rpx 0; */
+}
+
+.writeTime {
+    flex: 2.5;
+    padding-left: 10rpx;
+}
+
+.weight {
+    /* flex: 1; */
+    text-align: center;
+    /* margin: 0 20rpx; */
+    padding: 0 12rpx;
+}
+
+.WeightTarget {
+    flex: 4;
+}
+
+.recordInfo {
+    /* margin: 0 30rpx; */
+
+    padding: 0rpx 14rpx;
+    display: flex;
+    border-bottom: 2rpx solid #F6F6F6;
+    line-height: 88rpx;
+
+}
+
+.dataList {
+    flex: 5;
+
+
+}
+
+.dataItemBox {
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+}
+
+.dataList .dataItem {
+    flex: 4;
+    border-left: 2rpx solid #F6F6F6;
+
+}
+
+.titleContentBox {
+    display: flex;
+    flex-wrap: wrap;
+
+    align-items: center;
+}
+
+.legendBox {
+    display: flex;
+    justify-content: left;
+
+    align-items: center;
+    padding: 12rpx 30rpx;
+    font-size: 24rpx;
+    width: 30%;
+}
+
+.legendIcon {
+    width: 26rpx;
+    height: 12rpx;
+    background: #296FD8;
+    margin-right: 14rpx;
+}
+
+.goalBox {
+    margin-top: 50rpx;
+    display: flex;
+    align-items: center;
+    padding: 12rpx 12rpx;
+    font-size: 24rpx;
+}
+
+.goalIcon {
+    width: 26rpx;
+    height: 26rpx;
+    background: #296FD8;
+    margin-right: 14rpx;
+    border-radius: 50%;
+}
+
+.titleContent {
+    position: absolute;
+    bottom: -5%;
+    left: 29%;
+    margin: 0 auto;
+    padding: 0 40rpx;
+}

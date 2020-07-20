@@ -1,0 +1,13 @@
+<view class="historySportsContent">
+    <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
+    <view class="historyList">
+        <view class="ItemCard" wx:for="{{ExerciseList}}" wx:key="index">
+            <view class="ItemCard_Time">{{item.date}}</view>
+            <view class="ItemCard_Info  unifyFont">
+                <view>时段：{{item.periodValue}}</view>
+                <view>方式：{{item.wayValue}}</view>
+                <view>强度：{{item.levelValue}}</view>
+            </view>
+        </view>
+    </view>
+</view>

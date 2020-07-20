@@ -1,0 +1,111 @@
+/* pages/sportsRecord/sportsRecord.wxss */
+.pageContainer{
+  border-top: 2rpx solid #F1F1F1;
+  position: relative;
+}
+.sportsRecord{
+  padding-left: 40rpx;
+}
+.itemBox{
+  height: 98rpx;
+  border-bottom: 2rpx solid #F6F6F6;
+  display: flex;
+  align-items: center;
+}
+.itemBox_title{
+  width: 230rpx; 
+  font-size:28rpx;
+  color:rgba(153,153,153,1);
+  line-height:40rpx;
+  margin-left: 20rpx;
+}
+.itemBox_content{
+  width: calc(100% - 290rpx);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 40rpx;
+}
+.itemBox_text{
+  font-size:30rpx;
+  color:rgba(18,18,18,1);
+  line-height:42rpx;
+  width: 100%;
+}
+.itemBox_rightArrow{
+  width:12rpx;
+  height:12rpx;
+  border-top: 2rpx solid #B1B1B1;
+  border-right: 2rpx solid #B1B1B1;
+  transform: rotate(45deg);
+}
+.itemBox_inpholder{
+  font-size:30rpx;
+  color:rgba(18,18,18,1);
+  line-height:42rpx;
+}
+.itemBox_unit{
+  font-size:26rpx;
+  color:rgba(205,205,205,1);
+  line-height:36rpx;
+}
+
+.description{
+  font-size:24rpx;
+  color:rgba(153,153,153,1);
+  line-height:40rpx;
+  margin: 60rpx 44rpx 190rpx 40rpx;
+}
+.suggest{
+  height: 40rpx;
+  font-size:28rpx;
+  color:rgba(153,153,153,1);
+  line-height:40rpx;
+  margin: 20rpx 0 10rpx 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+.suggest_icon{
+  width:24rpx;
+  height:24rpx;
+  background:rgba(153,153,153,1);
+  font-size:20rpx;
+  font-weight:600;
+  color:rgba(255,255,255,1);
+  line-height:24rpx;
+  border-radius: 50%;
+  text-align: center;
+  margin-right: 10rpx;
+}
+
+.queryIMg {
+    width: 30rpx;
+    height: 30rpx;
+    vertical-align: middle;
+}
+.strengthInfoContent{
+ padding: 40rpx;
+/* width:333px; */
+position: absolute;
+top: 26%;
+z-index: 999;
+
+}
+.InfoBox{
+ padding: 40rpx;
+background:rgba(255, 255, 255, 1);
+box-shadow:0px 2px 8px 0px rgba(202, 225, 226, 0.38);
+position: relative;
+line-height: 36rpx;
+}
+.InfoTitle{
+    font-weight: 550;
+    font-size: 36rpx;
+    margin-bottom: 30rpx;
+}
+.DelIMg{
+    position: absolute;
+    top: 10%;
+    right: 3%;
+}

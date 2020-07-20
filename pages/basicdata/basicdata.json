@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+      "BtnComponents": "../../components/BtnComponents/BtnComponents"
+  },
+    "navigationBarTitleText": "基础数据录入"
+}

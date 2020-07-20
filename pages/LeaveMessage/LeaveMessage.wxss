@@ -1,0 +1,106 @@
+.msgBox {
+    padding: 50rpx 0 100rpx 0;
+    /* margin-bottom: 120rpx; */
+
+}
+.messageContent{
+    /* padding-bottom: 200rpx; */
+}
+ .chat_scroll_container {
+     height: calc((100vw * 9 / 2) - (80rpx + 80rpx));
+ }
+
+.headImg {
+    width: 80rpx;
+    height: 80rpx;
+    margin: 0 20rpx;
+}
+
+.msgItem {
+    /* display: flex;
+    align-items: center; */
+    /* position: absolute; */
+    padding: 30rpx 0 50rpx 0;
+
+}
+
+.userNametMine {
+    text-align: right;
+
+}
+
+.userNameAdverse {
+    text-align: left;
+
+}
+
+.userName {
+    color: #B1B1B1;
+    font-size: 24rpx;
+    margin-bottom: 20rpx;
+}
+
+.textBox {
+    /* margin-top: 40rpx; */
+}
+
+.msgItemMine {
+    display: flex;
+    flex-direction: row-reverse;
+
+}
+
+.textMine {
+    padding: 24rpx 40rpx;
+    color: #FFF;
+    background: rgba(254, 152, 0, 1);
+    border-radius: 12px 0px 12px 12px;
+}
+
+.textAdverse {
+    color: #303439;
+    font-size: 28rpx;
+    padding: 24rpx 40rpx;
+    background: rgba(243, 243, 243, 1);
+    border-radius: 0px 12px 12px 12px;
+}
+
+.msgItemAdverse {
+    display: flex;
+    flex-direction: row;
+}
+
+.itemTip {
+    color: #B1B1B1;
+    font-size: 24rpx;
+    text-align: center;
+}
+
+.inputBox {
+    /* width: 100%; */
+    padding: 30rpx 30rpx 60rpx 30rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 2rpx solid #F8F8F8;
+}
+
+.sendContent {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.InputContent {
+    padding-left: 40rpx;
+    height: 36px;
+    background: rgba(244, 246, 248, 1);
+    border-radius: 18px;
+    margin-right: 20rpx;
+    flex: 8;
+}
+
+.sendBtn {
+    flex: 1;
+}

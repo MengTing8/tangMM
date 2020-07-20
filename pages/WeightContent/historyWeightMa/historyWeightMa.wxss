@@ -1,0 +1,124 @@
+/* pages/historyWeightMa/historyWeightMa.wxss */
+.van-hairline--top-bottom:after {
+    border-width: 0 !important;
+}
+
+.van-tab--active {
+    color: #FE9800 !important;
+}
+.headerBox{
+    background-color: #FEE55F;
+    display: flex;
+    padding: 74rpx 60rpx;
+    align-items: center;
+   
+}
+.headerBox .headerBox_left {
+    flex: 2;
+}
+.headerBox .headerBox_right{
+    flex: 3;
+}
+.number{
+    color: #FE9800;
+}
+
+.tabsBox {
+    display: flex;
+    text-align: center;
+}
+
+.tabsItem {
+    /* color: #CDCDCD; */
+    border-bottom: 2rpx solid #CDCDCD;
+    flex: 1;
+    padding: 20rpx 0;
+
+}
+.timeColor{
+    color: #999999;
+    font-size: 24rpx;
+}
+.tabsContent{
+}
+.selected {
+    border-bottom: 4rpx solid #FEC81E;
+    color: #FEC81E;
+}
+.selectedList{
+    display: flex;
+    padding: 30rpx;
+    border-top: 2rpx solid #F6F6F6;
+
+}
+.checkedImg{
+    width: 40rpx;
+    height: 40rpx;
+    margin-right: 30rpx;
+}
+
+.recordTitle{
+    padding: 0rpx 30rpx;
+    color: #999999;
+    font-size: 26rpx;
+    background-color: #F6F6F6;
+    display: flex;
+    line-height: 88rpx;
+    /* padding: 40rpx 0; */
+}
+ .writeTime{
+    flex: 4;
+}
+
+ .weight {
+    flex: 2;
+}
+
+ .WeightTarget {
+    flex: 3;
+}
+.recordInfo{
+    padding: 20rpx 30rpx;
+    display: flex;
+    border-bottom: 2rpx solid #F6F6F6;
+    line-height: 88rpx;
+
+}
+
+
+
+.box {
+  
+    width: 700rpx;
+    height: 100%;
+    position: absolute;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* padding-bottom: 100rpx; */
+    /* padding: 10rpx 50rpx 100rpx 50rpx;  */
+
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    /* justify-content: space-between; */
+    box-sizing: border-box;
+
+}
+.mychartContent{
+     height: 1000rpx;
+     /* margin-bottom: 250rpx; */
+     position: relative;
+    margin-bottom: 50rpx;
+}
+
+.scrollContainer {
+    width: 100%;
+     height: 1000rpx;
+    white-space: nowrap;
+    z-index: 99999;
+}
+.itemBg {
+    display: inline-block;
+}
