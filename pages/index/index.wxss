@@ -123,21 +123,26 @@ ec-canvas {
     height: 42px;
     color: #999999;
     border: 2rpx solid #CDCDCD;
+    font-size: 28rpx;
+
 }
 
 .ToAuth {
     color: #121212;
     text-align: center;
-    /* line-height: 80rpx; */
     margin: 0 10rpx;
+    line-height: 80rpx;
+
 }
 
 .ToAuth_button {
+    text-align: center;
     width: 115px !important;
     height: 42px;
     border-radius: 21px;
     background: #FEC81E;
     font-weight: normal;
     font-size: 28rpx;
+    line-height: 48rpx;
 
 }

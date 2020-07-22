@@ -41,13 +41,13 @@
                         </picker>
                     </view>
                     <view class="dataInfoItem">
-                        <input type="text" placeholder="请输入" placeholder-class="phClass" value="{{item.heartRate}}" data-index="{{index}}" bindinput="bindHeartRateInput" />
+                        <input type="number" placeholder="请输入" placeholder-class="phClass" value="{{item.heartRate}}" data-index="{{index}}" bindinput="bindHeartRateInput" />
                     </view>
                     <view class="dataInfoItem">
-                        <input type="text" placeholder="请输入" class="{{item.systolicPressure<=90&&item.systolicPressure<140?'phClassRed':''}}" placeholder-class="phClass" value="{{item.systolicPressure}}" data-index="{{index}}" bindinput="bindSystolicPreInput" />
+                        <input type="number" placeholder="请输入" class="{{item.systolicPressure<=90&&item.systolicPressure<140?'phClassRed':''}}" placeholder-class="phClass" value="{{item.systolicPressure}}" data-index="{{index}}" bindinput="bindSystolicPreInput" />
                     </view>
                     <view class="dataInfoItem">
-                        <input type="text" placeholder="请输入" class="{{item.diastolicPressure<=60&&item.diastolicPressure<90?'phClassRed':''}}" placeholder-class="phClass" value="{{item.diastolicPressure}}" data-index="{{index}}" bindinput="bindDiastolicPreInput" />
+                        <input type="number" placeholder="请输入" class="{{item.diastolicPressure<=60&&item.diastolicPressure<90?'phClassRed':''}}" placeholder-class="phClass" value="{{item.diastolicPressure}}" data-index="{{index}}" bindinput="bindDiastolicPreInput" />
                     </view>
                     <!-- wx:if="{{index>=1}}" -->
                     <view class="delBox" bindtap="delRecord" data-index="{{index}}" data-id="{{item.id}}" data-rowMd5="{{item.rowMd5}}">

@@ -241,17 +241,23 @@
 
 .fetalInfo {
     display: flex;
+    justify-content: left;
+    align-items: center;
     color: #999999;
     font-size: 24rpx;
-    margin-top: 10rpx;
+    margin-top:20rpx;
 }
+.fetalInfo view {
+    margin-right:30rpx;
 
+}
 .abnormalState {
     background-color: #FA5151;
     color: #fff;
     padding: 6rpx 18rpx;
     border-radius: 30rpx;
-    margin-right: 20rpx;
+    height:34rpx;
+    /* margin-right: 20rpx; */
 }
 
 .warnImg {

@@ -122,7 +122,6 @@
     line-height: 40rpx;
 }
 
-.clPadding_textBox {}
 
 .clPadding {
     /* padding: 30rpx 0; */
@@ -164,8 +163,16 @@
     font-size: 30rpx;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
+.textBoxView {
+    flex: 2;
+    text-align: left;
+    font-size: 30rpx;
+    /* display: flex; */
+    /* justify-content: space-between; */
+}
 .cell .textBox picker {
     color: #121212;
     font-size: 32rpx;
@@ -188,15 +195,17 @@
 }
 
 .cell .textBox .btnS {
-    vertical-align: middle;
-    margin-right: 20rpx;
+    text-align: center;
+    margin-right: 30rpx;
     display: inline-block;
     color: #666666;
     font-weight: 530;
     font-size: 26rpx;
-    border-radius: 60rpx;
+    border-radius: 44rpx;
     width: 160rpx;
     background-color: #F6F7F9;
+    line-height: 84rpx;
+    height: 88rpx;
 }
 
 .textBox .typeBtn {

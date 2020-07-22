@@ -12,11 +12,14 @@ Page({
         canIUse: wx.canIUse('button.open-type.getUserInfo')
     },
     unhide() {
-        console.log("eee");
-        
-        this.setData({
-            isEdit: false,
-        })
+         wx.showToast({
+             title:"请先授权!",
+             icon: 'none',
+             duration: 2000
+         })
+        // this.setData({
+        //     // isEdit: false,
+        // })
     },
     //事件处理函数
     bindViewTap: function () {
@@ -108,7 +111,7 @@ Page({
                     console.log("：未绑定手机用户");
                     
                     // -2 ：未绑定手机用户
-                    wx.navigateTo({
+                    wx.redirectTo ({
 
                         url: '../tiedCard/tiedCard?tabsItem=' + 0
                     })
@@ -116,15 +119,15 @@ Page({
                     console.log("未绑定诊疗卡用户");
 
                     // -1 = 未绑定诊疗卡用户
-                    wx.navigateTo({
+                    wx.redirectTo ({
                         url: '../tiedCard/tiedCard?tabsItem=' + 1
                     })
                 } else if (userType == 2) {
-                    wx.navigateTo({
+                    wx.redirectTo ({
                         url: '../MyRecord/MyRecord'
                     })
                 } else if (userType == 1) {
-                    wx.navigateTo({
+                    wx.redirectTo ({
                         // url: '../MyRecord/MyRecord'
                     })
                 }

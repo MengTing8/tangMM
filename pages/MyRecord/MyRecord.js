@@ -167,15 +167,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        const token = wx.getStorageSync('token');
-        if (!token) {
-            console.log('没有 token 跳转到登录授权页');
-            wx.navigateTo({
-                url: '/pages/index/index',
-            });
-        } else {
-            // this.getMyRecord()
-        }
+
         this.setData({
             userType: options.userType
         })
@@ -193,6 +185,30 @@ Page({
      */
     onShow: function () {
         this.getMyRecord()
+        const token = wx.getStorageSync('token');
+        const userType = wx.getStorageSync('userType')
+        if (!token) {
+            console.log('没有 token 跳转到登录授权页');
+            wx.redirectTo({
+                url: '/pages/index/index',
+            });
+        }
+        if (userType == -2) {
+            console.log("：未绑定手机用户");
+
+            // -2 ：未绑定手机用户
+            wx.redirectTo({
+
+                url: '/pages/tiedCard/tiedCard?tabsItem=' + 0
+            })
+        } else if (userType == -1) {
+            console.log("未绑定诊疗卡用户");
+
+            // -1 = 未绑定诊疗卡用户
+            wx.redirectTo({
+                url: '/pages/tiedCard/tiedCard?tabsItem=' + 1
+            })
+        }
     },
 
     /**

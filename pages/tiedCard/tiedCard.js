@@ -53,7 +53,7 @@ Page({
                 console.log(res);
                 if (res.data.code === '0') {
                     // 发送成功
-                     _that.countDown(_that, _that.data.second);
+                    _that.countDown(_that, _that.data.second);
                 } else {
                     wx.showToast({
                         title: res.data.message,
@@ -66,11 +66,12 @@ Page({
 
     },
     countDown(that, count) {
-        var that=this
+        var that = this
         if (count == 0) {
             that.setData({
                 buttonText: '获取验证码',
-                sendSmsDisable: false
+                sendSmsDisable: false,
+                second: 60
             })
             return;
         }
@@ -89,7 +90,6 @@ Page({
         this.setData({
             mobile: e.detail.value
         })
-
     },
     bindSmsInput(e) {
         this.setData({
@@ -137,6 +137,7 @@ Page({
                         icon: 'success',
                         duration: 3000
                     })
+                    wx.setStorageSync('userType', '-1')
                     setTimeout(() => {
                         _that.setData({
                             currentTabsIndex: 1
@@ -191,6 +192,7 @@ Page({
                         icon: 'success',
                         duration: 3000
                     })
+                    wx.setStorageSync('userType', '2')
                     setTimeout(() => {
                         wx.navigateTo({
                             url: '../MyRecord/MyRecord'
@@ -234,7 +236,17 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        // const userType = wx.getStorageSync('userType')
+        // if (userType == -1) {
+        //     setTimeout(() => {
+        //         wx.showToast({
+        //             title: "手机号已绑定",
+        //             icon: 'none',
+        //             duration: 2000
+        //         })
+        //     }, 2000);
+          
+        // }
     },
 
     /**

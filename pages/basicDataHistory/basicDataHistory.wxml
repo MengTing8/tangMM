@@ -17,13 +17,13 @@
             <view class="recordInfo" wx:for="{{listData}}" wx:key="index">
                 <view class="writeTime">{{item.time}}</view>
                 <view class="dataList">
-                    <view class="dataItemBox">
-                        <view class="dataItem">{{item.heartRate}}</view>
-                        <view class="dataItem">{{item.systolicPressure}}</view>
-                        <view class="dataItem">{{item.diastolicPressure}}</view>
-                        <view class="dataItem">{{item.fundalHeight}}</view>
-                        <view class="dataItem">{{item.abdominalCircumference}}</view>
-                        <view class="dataItem">{{item.hba1c}}</view>
+                    <view class="dataItemBox" wx:for="{{item.origin}}" wx:for-item="a" wx:for-index="d" wx:key="d">
+                        <view class="dataItem">{{a.heartRate}}</view>
+                        <view class="dataItem">{{a.systolicPressure}}</view>
+                        <view class="dataItem">{{a.diastolicPressure}}</view>
+                        <view class="dataItem">{{a.fundalHeight}}</view>
+                        <view class="dataItem">{{a.abdominalCircumference}}</view>
+                        <view class="dataItem">{{a.hba1c}}</view>
                     </view>
                 </view>
             </view>
@@ -38,13 +38,13 @@
             <view class="container">
                 <ec-canvas id="mychart-dom-basicData" canvas-id="mychart-basicData" ec="{{ ec }}"></ec-canvas>
             </view>
-              <view class="titleContent">
-            <view class="titleContentBox">
-                <view class="goalBox" wx:for="{{legendList}}" wx:key="index">
-                    <view class="goalIcon" style="background:{{item.code=='0'?'#FE9800':'red'}}"></view>
-                    <view class="">{{item.value}}</view>
+            <view class="titleContent">
+                <view class="titleContentBox">
+                    <view class="goalBox" wx:for="{{legendList}}" wx:key="index">
+                        <view class="goalIcon" style="background:{{item.code=='0'?'#FE9800':'red'}}"></view>
+                        <view class="">{{item.value}}</view>
+                    </view>
                 </view>
-            </view>
             </view>
         </view>
     </view>

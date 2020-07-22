@@ -3,19 +3,18 @@ const {
     request
 } = require("../../utils/request")
 const {
-    getDates,
-    checkTime
+    checkTime,
+    getDay
 } = require("../../utils/util")
 const moment = require('../../utils/moment.min.js');
-let date = getDates(1, new Date());
-let newDate = moment(date[0].time).format('YYYY年MM月DD日')
-var StarDATE = "2020年06日01日"
+// let date = getDates(1, new Date());
+let newDate = moment(getDay(0)).format('YYYY年MM月DD日')
+var StarDATE = moment(getDay(-7)).format('YYYY年MM月DD日');
 var EndDATE = newDate
 var rpx;
 var rpxs;
 var dataY = []
 var arr = []
-console.log(dataY);
 //获取屏幕宽度，获取自适应单位
 
 wx.getSystemInfo({
@@ -319,16 +318,16 @@ Page({
             StarDATE,
             EndDATE,
         },
-        dateStart: "2020-06-01",
-        dateEnd: date[0].time,
+        dateStart: getDay(-7),
+        dateEnd:getDay(0),
         TimeObjChart: {
             StartDt: '2020年01月01日',
             EndDt: '2029年01月01日',
             StarDATE,
             EndDATE,
         },
-        dateStartChart: "2020-06-01",
-        dateEndChart: date[0].time,
+        dateStartChart: getDay(-7),
+        dateEndChart:getDay(0),
         selectedIndex: 0,
         listData: [],
         dataArr: [],
@@ -410,8 +409,20 @@ Page({
                     ResData[key].time = moment(ResData[key].time).format('YYYY年MM月DD日')
 
                 }
+                 var afterData = []
+                 ResData.forEach(item => {
+                     let flag = afterData.find(item1 => item1.time === item.time)
+                     if (!flag) {
+                         afterData.push({
+                             time: item.time,
+                             origin: [item]
+                         })
+                     } else {
+                         flag.origin.push(item)
+                     }
+                 })
                 self.setData({
-                    listData: ResData
+                    listData: afterData
                 })
 
                 // self.backmusic();

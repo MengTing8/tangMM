@@ -36,6 +36,8 @@ Page({
         EXDATE: '2018年01月01日',
         LMP: '',
         parityList: [{
+            Name: '0',
+        }, {
             Name: '1',
         }, {
             Name: '2',
@@ -50,6 +52,8 @@ Page({
 
         }],
         gravidityList: [{
+            Name: '0',
+        }, {
             Name: '1',
         }, {
             Name: '2',
@@ -85,7 +89,7 @@ Page({
         }, {
             Name: '双胎',
         }, {
-            Name: '多胎',
+            Name: '三胎',
         }],
         professionList: [],
         dateList: years
@@ -352,7 +356,6 @@ Page({
     },
     calculateBMI() {
         var bmi = (parseFloat(this.data.PatientWeight) / ((parseFloat(this.data.PatientHeight) / 100) * (parseFloat(this.data.PatientHeight) / 100))).toFixed(1)
-        console.log(bmi);
         var theSug = ''
         if (bmi <= 18.4) {
             theSug = '偏瘦'
@@ -364,7 +367,6 @@ Page({
             theSug = '肥胖'
         }
         if (isNaN(bmi)) {
-            console.log(bmi)
             bmi = ''
         }
         this.setData({
@@ -417,10 +419,22 @@ Page({
         this.calculateBMI()
     },
     bindWeightInput: function (e) {
-        this.setData({
-            PatientWeight: e.detail.value
-        })
-        this.calculateBMI()
+        if (this.data.PatientHeight == '' || this.data.PatientHeight == '0' || this.data.PatientHeight == null) {
+            wx.showToast({
+                title: '请输入身高',
+                icon: 'none',
+                duration: 2000
+            })
+            this.setData({
+                PatientWeight: e.detail.value
+            })
+        } else {
+            this.setData({
+                PatientWeight: e.detail.value
+            })
+            this.calculateBMI()
+        }
+
     },
     bindAgeChange(e) {
         console.log(e)

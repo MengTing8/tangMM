@@ -4,7 +4,6 @@ const {
 let windowHeight = ''
 wx.getSystemInfo({
     success: function (res) {
-        console.log(res.windowHeight);
         windowHeight = res.windowHeight
     }
 })

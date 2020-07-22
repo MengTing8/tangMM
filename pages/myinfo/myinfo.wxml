@@ -66,7 +66,7 @@
             </view>
             <view class="textBox">
                 <view class="inpText">
-                    <input type="text" value="{{PatientHeight}}" class="textColor" placeholder-class="textColor" bindinput="bindHeightInput" />
+                    <input type="text" value="{{PatientHeight=='0'?'':PatientHeight}}" class="textColor" placeholder-class="textColor" bindinput="bindHeightInput" placeholder="{{PatientHeight}}"/>
                     <text>cm</text>
                 </view>
             </view>
@@ -78,17 +78,17 @@
             <view class="cell_title">
                 <text>孕前体重</text>
             </view>
-            <view class="textBox">
+            <view class="textBoxView">
                 <view class="inpText">
-                    <input type="text" value="{{PatientWeight}}" class="textColor" placeholder-class="textColor" bindinput="bindWeightInput" />
+                    <input type="text" value="{{PatientWeight=='0'?'':PatientWeight}}" class="textColor" placeholder-class="textColor" bindinput="bindWeightInput"  placeholder="{{PatientWeight}}"/>
                     <text>kg</text>
                 </view>
-                <view style="font-size: 24rpx;" wx:if="{{BMI}}">
+                <view style="font-size: 24rpx;" wx:if="{{BMI>0}}">
                     <text style="padding-right:12rpx">BMI：{{BMI}}</text>
                     |
                     <text style="padding:0 12rpx">{{suggestion}}</text>
                     |
-                    <text>增重目标：{{PatientData.gainWeight||''}}</text>
+                    <text>增重目标：{{PatientData.gainWeight=='0'?'':PatientData.gainWeight}}</text>
                 </view>
             </view>
             <view class="imgBox">
@@ -191,7 +191,7 @@
                 <text>空腹</text>
             </view>
             <view class="clPadding_textBox">
-                <input type="text" value="{{PatientData.ogtt_0}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindOgtt_0Input" />
+                <input type="text" value="{{PatientData.ogtt_0=='0'||PatientData.ogtt_0=='0.00'?'':PatientData.ogtt_0}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindOgtt_0Input" />
             </view>
             <view class="clPadding_imgBox">
                 <text class="unitsBox">mmol/L</text>
@@ -203,7 +203,7 @@
                 <text>1小时</text>
             </view>
             <view class="clPadding_textBox">
-                <input type="text" value="{{PatientData.ogtt_1}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindOgtt_1Input" />
+                <input type="text" value="{{PatientData.ogtt_1=='0'||PatientData.ogtt_1=='0.00'?'':PatientData.ogtt_1}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindOgtt_1Input" />
             </view>
             <view class="clPadding_imgBox">
                 <text class="unitsBox">mmol/L</text>
@@ -215,7 +215,7 @@
                 <text>2小时</text>
             </view>
             <view class="clPadding_textBox">
-                <input type="text" value="{{PatientData.ogtt_2}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindOgtt_2Input" />
+                <input type="text" value="{{PatientData.ogtt_2=='0'||PatientData.ogtt_2=='0.00'?'':PatientData.ogtt_2}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindOgtt_2Input" />
             </view>
             <view class="clPadding_imgBox">
                 <text class="unitsBox">mmol/L</text>
@@ -227,7 +227,7 @@
                 <text>糖化血红蛋白</text>
             </view>
             <view class="clPadding_textBox">
-                <input type="text" value="{{PatientData.hba1c}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindHba1cInput" />
+                <input type="text" value="{{PatientData.hba1c=='0'||PatientData.hba1c=='0.00'?'':PatientData.hba1c}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindHba1cInput" />
             </view>
             <view class="clPadding_imgBox">
                 <text class="unitsBox">%</text>
@@ -265,12 +265,10 @@
                 </view>
             </view>
             <view class="textBox">
-                <button type="primary" class="btnS {{PatientData.diabetesB4Gestation==1?'isSelect':''}}" bind:tap="tapDiabetes" data-code='{{1}}'>
-                    是
-                </button>
-                <button type="primary" class="btnS  {{PatientData.diabetesB4Gestation==0?'isSelect':''}}"  bind:tap="tapDiabetes"  data-code='{{0}}'>
+                <view class="btnS {{PatientData.diabetesB4Gestation==1?'isSelect':''}}" bind:tap="tapDiabetes" data-code='{{1}}'>是</view>
+                <view class="btnS  {{PatientData.diabetesB4Gestation==0?'isSelect':''}}"  bind:tap="tapDiabetes"  data-code='{{0}}'>
                     否
-                </button>
+                </view>
             </view>
         </view>
         <view class="cell" wx:if="{{PatientData.diabetesB4Gestation==1}}">
@@ -289,7 +287,7 @@
                 <view class="typeBtn {{PatientData.diabetesTypeB4GestationCode==item.code?'isSelect':''}}" wx:for="{{PatientData.diabetesTypeB4GestationValues}}" wx:key="index" bind:tap="bindDiabetesTypeChange" data-code='{{item.code}}'>
                     {{item.value}}
                 </view>
-                <!-- <view class="typeBtn">2型糖尿病</view>
+                <!-- <view class="typeBtviewn">2型糖尿病</view>
                 <view class="typeBtn">特殊类型</view> -->
             </view>
         </view>
@@ -300,8 +298,8 @@
                 </view>
             </view>
             <view class="textBox">
-                <button type="primary" class="btnS  {{PatientData.gdm==1?'isSelect':''}}"  bind:tap="bindGdmChange"  data-code='{{1}}'>是</button>
-                <button type="primary" class="btnS  {{PatientData.gdm==0?'isSelect':''}}"  bind:tap="bindGdmChange"  data-code='{{0}}'>否</button>
+                <view class="btnS  {{PatientData.gdm==1?'isSelect':''}}"  bind:tap="bindGdmChange"  data-code='{{1}}'>是</view>
+                <view class="btnS  {{PatientData.gdm==0?'isSelect':''}}"  bind:tap="bindGdmChange"  data-code='{{0}}'>否</view>
             </view>
         </view>
         <view class="cell" wx:if="{{PatientData.gdm==1}}">
@@ -322,12 +320,12 @@
                 </view>
             </view>
             <view class="textBox">
-                <button type="primary" class="btnS {{PatientData.diabeticFamilyHistory==1?'isSelect':''}}"  bind:tap="bindFamilyChange"  data-code='{{1}}'>
+                <view class="btnS {{PatientData.diabeticFamilyHistory==1?'isSelect':''}}"  bind:tap="bindFamilyChange"  data-code='{{1}}'>
                     是
-                </button>
-                <button type="primary" class="btnS  {{PatientData.diabeticFamilyHistory==0?'isSelect':''}}"  bind:tap="bindFamilyChange"  data-code='{{0}}'>
+                </view>
+                <view class="btnS  {{PatientData.diabeticFamilyHistory==0?'isSelect':''}}"  bind:tap="bindFamilyChange"  data-code='{{0}}'>
                     否
-                </button>
+                </view>
             </view>
         </view>
     </view>

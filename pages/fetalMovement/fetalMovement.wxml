@@ -10,7 +10,7 @@
             </view>
             <view class="musicBox">
                 <view class="check-music">
-                    <view class='music {{on? "on": ""}}'>
+                    <view class='music {{onMusic? "on": ""}}'>
                         <view style='width: 60rpx;height: 60rpx;' bindtap='stop'>
                             <image class="musicImg" src="../../img/music.png" mode="widthFix" />
                         </view>
@@ -55,7 +55,10 @@
                             <view class="BigSize" style="color:#FEE55F;font-weight: normal;padding: 10rpx 0;">
                                 {{quantity}}
                             </view>
-                            <view>胎动时点这里</view>
+                            <view>
+                                <text wx:if="{{clock=='00:00'}}">开始</text>
+                                <text wx:else>胎动时点这里</text>
+                            </view>
                             <view class="textColor">{{clock}}</view>
                         </view>
                     </view>
@@ -110,7 +113,7 @@
                         <text>{{item.timeStart}}~{{item.timeEnd}}</text>
                     </view>
                     <view class="fetalInfo">
-                        <view class="abnormalState" wx:if="{{item.isAbnormal==1}}">
+                        <view class="abnormalState" wx:if="{{item.isAbnormal=='1'}}">
                             <image class="warnImg" src="../../img/warn.png" mode="widthFix" />
                             <text>胎动异常</text>
                         </view>

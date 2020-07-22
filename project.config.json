@@ -110,6 +110,20 @@
 					"id": -1,
 					"name": "pages/myinfo/myinfo",
 					"pathName": "pages/myinfo/myinfo",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "医务",
+					"pathName": "pages/MedicalCare/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/myinfo/myinfo",
+					"pathName": "pages/myinfo/myinfo",
 					"scene": null
 				}
 			]

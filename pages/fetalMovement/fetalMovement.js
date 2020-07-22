@@ -24,21 +24,16 @@
             //单位毫秒 ------  WHY？ 
 
         }
-        // console.log('剩余时间：' + total_micro_second);
-
-
-        // console.log(total_micro_second);
         if (total_micro_second <= 0) {
-            console.log(" 已经截止");
-            console.log(new Date(), "截止时间");
             var timeEnd = formatTime(new Date())
             that.setData({
                 clock: "00:00",
                 timeEnd
             });
+            back.stop()
             that.SaveFetalMovement()
             total_micro_second = ''
-            EndTime = new Date(new Date().getTime() + 1 * 60 * 60 * 1000).getTime() || [];
+            EndTime = new Date(new Date().getTime() + 0.3 * 60 * 60 * 1000).getTime() || [];
             return;
         } else {
             // 渲染倒计时时钟  
@@ -122,7 +117,7 @@
                 //     url: "http://m801.music.126.net/20200618132511/e01175a57f802ce84c0f2a1201facab2/jdymusic/obj/w5zDlMODwrDDiGjCn8Ky/2180586519/98b2/4d51/b6d3/c8c65de6a0bf053a2cd94d1f9473d069.mp3"
                 // }
             ],
-            on: true, // 控制音乐的状态，以及图标是否旋转
+            onMusic: false, // 控制音乐的状态，以及图标是否旋转
             TabsIndex: 0,
             State: false,
             SwitchMusic: false,
@@ -151,9 +146,9 @@
                         if (res.confirm) {
                             var timeEnd = formatTime(new Date())
                             that.setData({
-                                timeEnd
+                                timeEnd,
                             });
-
+                            back.stop()
                             that.SaveFetalMovement()
                         } else if (res.cancel) {
                             console.log('用户点击取消')
@@ -182,9 +177,9 @@
                                 quantity: 0, //原始胎动次数
                                 validQuantity: 0, //有效胎动次数
                                 clock: "00:00",
-                                refreshClock: true
+                                refreshClock: true,
                             })
-
+                            back.stop()
                         } else if (res.cancel) {
                             console.log('用户点击取消')
                         }
@@ -211,7 +206,6 @@
                         FetalMovementList: res.data.data
                     })
                     // self.backmusic();
-
                 } else {
                     wx.showToast({
                         title: res.data.message,
@@ -299,12 +293,11 @@
                 }
             })
         },
-        //a开始计时
+        //开始计时
         StartCounting() {
             var that = this
-            console.log("eee");
-
             if (that.data.clock == "00:00") {
+                that.backmusic();
                 var d = new Date()
                 var timeStart = formatTime(d)
                 that.setData({
@@ -312,14 +305,10 @@
                     refreshClock: false
                 })
                 EndTime = new Date(new Date().getTime() + 1 * 60 * 60 * 1000).getTime() || [];
-
                 countdown(that);
             } else {
-                console.log("胎动了");
-                // var newTime = that.data.clock
                 if (this.data.total_econd == '') {
-                    var strTime = new Date(new Date().getTime() + 1 * 5 * 60 * 1000).getTime(); //五分钟
-
+                    // var strTime = new Date(new Date().getTime() + 1 * 5 * 60 * 1000).getTime(); //五分钟
                     var newTime = new Date().getTime();
                     that.setData({
                         total_econd: newTime,
@@ -328,16 +317,12 @@
                 //  setTimeout(function () {
                 //      console.log("达到5分钟1111");
                 //  }, 300000)
-                console.log(new Date().getTime() - this.data.total_econd);
-
                 if (new Date().getTime() - this.data.total_econd >= 300000) {
-                    console.log("达到5分钟");
                     that.setData({
                         validQuantity: that.data.validQuantity + 1,
                         total_econd: ""
                     })
                 }
-                // console.log(new Date(new Date().getTime() +1 * 5 * 60 * 1000), new Date()) // 后一个小时  当前时间
                 that.setData({
                     quantity: that.data.quantity + 1,
                 })
@@ -350,33 +335,29 @@
             //  innerAudioContext.pause();
             back.pause(); // 点击音乐图标后出发的操作
             this.setData({
-                on: !this.data.on
+                onMusic: !this.data.onMusic
             })
-            if (this.data.on) {
+            if (this.data.onMusic) {
                 back.title = object[0].name;
                 back.src = object[0].url;
                 back.play()
             } else {
                 back.pause()
+                console.log("停止");
             }
         },
         backmusic: function () {
             let that = this
             let object = that.data.musicList
-            // let key = 0
             player();
+            that.setData({
+                onMusic: true
+            })
 
             function player() {
-                console.log(that.data.musicPlayKey);
                 back.title = object[that.data.musicPlayKey].name;
-                back.src = "http://up_mp4.t57.cn/2018/1/03m/13/396131229550.m4a";
+                back.src = object[that.data.musicPlayKey].url;
                 back.play() // 开始播放
-                console.log("开始播放");
-                console.log(back.src);
-                console.log(back.title);
-                console.log(object[that.data.musicPlayKey]);
-                console.log(object[that.data.musicPlayKey].url);
-
                 back.onEnded(() => {
                     if (that.data.musicPlayKey < object.length - 1) {
                         that.data.musicPlayKey++
@@ -389,7 +370,6 @@
         },
         //切换歌曲
         selectMusic(e) {
-            console.log(e);
             let that = this
             let object = that.data.musicList
             let index = e.currentTarget.dataset.index
@@ -398,10 +378,6 @@
             })
             back.title = object[index].name;
             back.src = object[index].url;
-            // back.play() // 开始播放
-            console.log(back.title);
-            console.log(back.src);
-
         },
         /**
          * 播放下一首
@@ -462,16 +438,11 @@
             }).then(res => {
                 console.log(res);
                 if (res.data.code === '0') {
-
                     self.setData({
                         musicList: res.data.data[0].music,
                         FetalMovementId: res.data.data[0].id,
                         FetalMovementRowMd5: res.data.data[0].rowMd5,
                     })
-                    console.log(res.data.data[0].music, );
-
-                    self.backmusic();
-
                 } else {
                     wx.showToast({
                         title: res.data.message,
@@ -530,9 +501,6 @@
                 // Preday: this.data.days[val[1]].replace('天', '')
             })
             this.getFetalMovementListW()
-            // if(this.data.BPD ) {
-            // this.exeEFWCanvas()
-            // }
         },
         handleTitleChange(e) {
             let index = e.currentTarget.dataset.index
@@ -542,7 +510,6 @@
             this.getFetalMovementList()
             this.getFetalMovementListW()
         },
-
         /**
          * 生命周期函数--监听页面加载
          */
@@ -584,9 +551,13 @@
                 console.log("可以播放,,,,...,,.");
 
             });
+            back.onStop(() => {
+                console.log("停止");
+                that.setData({
+                    onMusic: false
+                })
+            });
             back.onError((res) => {
-                console.log(res);
-
                 console.log("错误,,,,...,,.");
 
             });
@@ -615,17 +586,7 @@
          * 生命周期函数--监听页面显示
          */
         onShow: function () {
-            wx.getBackgroundAudioPlayerState({
-                success(res) {
-                    console.log(res);
 
-                    const status = res.status
-                    const dataUrl = res.dataUrl
-                    const currentPosition = res.currentPosition
-                    const duration = res.duration
-                    const downloadPercent = res.downloadPercent
-                }
-            })
         },
 
         /**
