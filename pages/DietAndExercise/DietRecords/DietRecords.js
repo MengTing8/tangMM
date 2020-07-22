@@ -84,7 +84,7 @@ Page({
             UploadShow: true,
         })
         wx.chooseImage({
-            count: 4, // 默认9
+            count: 1, // 默认9
             sizeType: ['original', 'compressed'],
             sourceType: ['album', 'camera'],
             success: function (res) {

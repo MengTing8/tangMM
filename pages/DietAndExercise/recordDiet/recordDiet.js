@@ -7,13 +7,32 @@ Page({
      * 页面的初始数据
      */
     data: {
-        ShowTab:true,
-        SearchFoodList:[],
+        ShowTab: true,
+        SearchFoodList: [],
         SearchValue: "",
         active: 1,
         TabList: [],
-        foodArr: [],
+        foodArr: wx.getStorageSync('foodArr') || [],
         codeArr: []
+    },
+    bindSearchFood(e) {
+        let that = this
+        let code = e.currentTarget.dataset.foodcode
+        let item = that.data.TabList
+        let index =''
+        for (const key in that.data.TabList) {
+            let items = item[key]
+            if (items.groupCode.indexOf(code) !== -1) {
+                index=key
+            }
+        }
+        if (index!=='') {
+             that.setData({
+                 active: Number(index),
+                 ShowTab: true,
+                 SearchValue:""
+             })
+        }
     },
     getFood() {
         let self = this
@@ -101,15 +120,15 @@ Page({
         })
     },
     saveFood() {
-        console.log(this.data.foodArr);
         let pages = getCurrentPages();
         let prevPage = pages[pages.length - 2];
+         wx.setStorageSync('foodArr', this.data.foodArr)
         prevPage.setData({
             foodArr: this.data.foodArr
         })
         setTimeout(() => {
             wx.navigateBack({
-                delta: 1 //想要返回的层级
+                delta: 1
             })
         }, 1000)
     },
@@ -128,6 +147,8 @@ Page({
                     let obj = {}
                     obj.foodChildren = [foodArr]
                     obj.foodType = items.groupValue
+                    obj.foodCode = items.groupCode
+
                     NewList.push(obj)
                 }
             }
@@ -142,22 +163,23 @@ Page({
             } else {
                 foodTypeArr.push(val.foodType)
                 obj.foodType = val.foodType
+                obj.foodCode = val.foodCode
                 obj.nafoodChildrenme = val.foodChildren
                 arr.push(obj)
             }
 
         });
         console.log(arr)
-         that.setData({
-             ShowTab:false,
-             SearchFoodList: arr
-         })
-         if (that.data.SearchValue=='') {
-             that.setData({
-                 ShowTab: true,
+        that.setData({
+            ShowTab: false,
+            SearchFoodList: arr
+        })
+        if (that.data.SearchValue == '') {
+            that.setData({
+                ShowTab: true,
                 //  SearchFoodList: arr
-             })
-         }
+            })
+        }
     },
     // onChange(e) {
     //     console.log(e);
@@ -224,7 +246,7 @@ Page({
 
     // },
     TapSearch() {
-           var model = JSON.stringify(this.data.TabList);
+        var model = JSON.stringify(this.data.TabList);
         wx.navigateTo({
             url: '../recordDietSearch/recordDietSearch?TabList=' + model
         })

@@ -12,13 +12,13 @@
   display: flex;
   align-items: center;
 }
-.itemBox_title{
+/* .itemBox_titles{
   width: 230rpx; 
   font-size:28rpx;
   color:rgba(153,153,153,1);
   line-height:40rpx;
   margin-left: 20rpx;
-}
+} */
 .itemBox_content{
   width: calc(100% - 290rpx);
   display: flex;
