@@ -5,6 +5,7 @@ const {
     getDates
 } = require("../../../utils/util")
 const moment = require('../../../utils/moment.min.js');
+const tips = { periodCode: "请选择时段", wayCode: "请选择方式", levelCode: "请选择强度", duration:"请输入运动时长"};
 let date = getDates(1, new Date());
 let newDate = moment(date[0].time).format('YYYY年MM月DD日')
 Page({
@@ -13,13 +14,16 @@ Page({
      * 页面的初始数据
      */
     data: {
-        periodCode: "1",
-        wayCode: '1',
         note: "",
         levelList: [],
         wayList: [],
         periodList: [],
-        SportsData: {},
+        userData: [{
+          "periodCode": "",
+          "wayCode": "",
+          "levelCode": "",
+          "duration": ""
+        }],
         dateObj: {
             StartDt: newDate,
             EndDt: '2029年01月01',
@@ -29,61 +33,44 @@ Page({
         },
         dataTime: date[0].time,
         ShowInfo: false,
+        delList: []
     },
     saveExercise() {
-        let self = this
-        let SportsData = self.data.SportsData
-        if (SportsData.periodCode == '') {
-            wx.showToast({
-                title: '请选择时段',
-                icon: 'none',
-                duration: 2000
-            })
-            return
-        }
-        if (SportsData.wayValue == '') {
-            wx.showToast({
-                title: '请选择方式',
-                icon: 'none',
-                duration: 2000
-            })
-            return
-        }
-        if (SportsData.levelValue == '') {
-            wx.showToast({
-                title: '请选择强度',
-                icon: 'none',
-                duration: 2000
-            })
-            return
-        }
-        if (SportsData.duration == '') {
-            wx.showToast({
-                title: '请输入运动时长',
-                icon: 'none',
-                duration: 2000
-            })
-            return
+        if(this.data.delList.length>0) {
+          console.log(0)
+          this.delExercise();
         }
 
+        let userData = this.data.userData;
+        let data = [];
+        for(let i=0;i<userData.length;i++) {
+            for(const key in userData[i]) {
+              const item = userData[i][key]
+              if(!item && item !== 0) {
+                wx.showToast({
+                  title: tips[key],
+                  icon: 'none',
+                  duration: 2000
+                })
+                return false;
+              }
+            }    
+        }
+
+        for(let i=0;i<userData.length;i++) {
+          userData[i].entity = 'exercise',
+          userData[i].patientId = wx.getStorageSync('patientId');
+          userData[i].date = this.data.dataTime;
+          userData[i].status = '1';
+        }
+        
         request({
             method: "POST",
             url: '/wxrequest',
             data: {
                 "token": wx.getStorageSync('token'),
                 "function": "save",
-                "data": [{
-                    "entity": "exercise",
-                    "patientId": wx.getStorageSync('patientId'),
-                    "date": self.data.dataTime,
-                    "id": SportsData.id,
-                    "rowMd5": SportsData.rowMd5,
-                    "periodCode": SportsData.periodCode,
-                    "wayCode": SportsData.wayCode,
-                    "levelCode": SportsData.levelCode,
-                    "duration": SportsData.duration,
-                    "status": "1"
-                }]
+                "data": userData
             }
         }).then(res => {
             console.log(res, "保存");
@@ -94,8 +81,7 @@ Page({
                     icon: 'none',
                     duration: 2000
                 })
-                self.getExercise()
-
+                this.getExercise()
             } else {
                 wx.showToast({
                     title: res.data.message,
@@ -105,8 +91,31 @@ Page({
             }
         })
     },
+    delExercise() {
+      request({
+        method: "POST",
+        url: '/wxrequest',
+        data: {
+          "token": wx.getStorageSync('token'),
+          "function": "delete",
+          "data": this.data.delList
+        }
+      }).then(res => {
+        console.log(res, "删除");
+        if (res.data.code === '0') { 
+          this.setData({
+            delList: []
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      })
+    },
     getExercise() {
-        let SportsData = this.data.SportsData
         let self = this
         request({
             method: "POST",
@@ -115,9 +124,7 @@ Page({
                 "token": wx.getStorageSync('token'),
                 "function": "getExercise",
                 "data": [{
-                    "date": self.data.dataTime,
-                    "periodCode": SportsData.periodCode || '1',
-                    "wayCode": SportsData.wayCode || '1'
+                    "date": self.data.dataTime
                 }]
             }
         }).then(res => {
@@ -125,12 +132,12 @@ Page({
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
                 self.setData({
-                    SportsData: ResData,
                     wayList: ResData.wayValues,
                     levelList: ResData.levelValues,
                     periodList: ResData.periodValues,
                     wayCode: ResData.wayCode,
-                    periodCode: ResData.periodCode
+                    periodCode: ResData.periodCode,
+                    userData: ResData.items ? ResData.items : this.data.userData
                 })
             } else {
                 wx.showToast({
@@ -172,37 +179,41 @@ Page({
         })
     },
     bindDurationInput: function (e) {
-        let SportsData = this.data.SportsData
-        SportsData.duration = e.detail.value
+        const index = Number(e.target.dataset.index)
+        let userData = this.data.userData
+        userData[index].duration = e.detail.value
         this.setData({
-            SportsData
+            userData
         })
     },
     bindLevelChange(e) {
-        let SportsData = this.data.SportsData
+        const index = Number(e.target.dataset.index)
+        let userData = this.data.userData
         var val = e.detail.value
-        SportsData.levelValue = this.data.levelList[val].value
-        SportsData.levelCode = this.data.levelList[val].code
+        userData[index].levelCode = this.data.levelList[val].code
+        userData[index].levelValue = this.data.levelList[val].value
         this.setData({
-            SportsData,
+            userData
         });
     },
     bindWayChange(e) {
-        let SportsData = this.data.SportsData
+        const index = Number(e.target.dataset.index);
+        let userData = this.data.userData
         var val = e.detail.value
-        SportsData.wayValue = this.data.wayList[val].value
-        SportsData.wayCode = this.data.wayList[val].code
+        userData[index].wayCode = this.data.wayList[val].code
+        userData[index].wayValue = this.data.wayList[val].value
         this.setData({
-            SportsData,
+            userData
         });
     },
     bindPeriodChange(e) {
-        let SportsData = this.data.SportsData
+        const index = Number(e.target.dataset.index);
+        let userData = this.data.userData
         var val = e.detail.value
-        SportsData.periodValue = this.data.periodList[val].value
-        SportsData.periodCode = this.data.periodList[val].code
+        userData[index].periodCode = this.data.periodList[val].code
+        userData[index].periodValue = this.data.periodList[val].value
         this.setData({
-            SportsData,
+            userData,
         });
     },
     bindDateChange(e) {
@@ -225,14 +236,43 @@ Page({
         this.getFieldHelp()
         this.setData({
             ShowInfo: true,
-
         })
     },
     HiedeInfo() {
         this.setData({
             ShowInfo: false,
-
         })
+    },
+    addRecordList() {
+      let userData = this.data.userData;
+      userData.push({
+        "periodCode": "",
+        "wayCode": "",
+        "levelCode": "",
+        "duration": ""
+      });
+      this.setData({
+        userData
+      });
+    },
+    delRecordList(e) {
+      const {index,id,rowmd5} = e.currentTarget.dataset;
+      let userData = this.data.userData;
+      userData.splice(index, 1);
+      if(id && rowmd5) {
+        let delList = this.data.delList; 
+        delList.push({
+          entity: 'exercise',
+          id: id,
+          rowMd5: rowmd5
+        });  
+        this.setData({
+          delList
+        }); 
+      }
+      this.setData({
+        userData
+      });
     },
     /**
      * 生命周期函数--监听页面加载
