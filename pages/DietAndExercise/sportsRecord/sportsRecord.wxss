@@ -12,7 +12,6 @@ padding-left: 30rpx;
   color: #999999;
   font-size: 30rpx;
 }
-<<<<<<< HEAD
 .dataArr .dataHeader{
     display: flex;
     align-items: center;
@@ -21,21 +20,13 @@ padding-left: 30rpx;
     flex: 1;
     display: flex;
     align-items: center;
-=======
-/* .itemBox_titles{
-  width: 230rpx; 
-  font-size:28rpx;
-  color:rgba(153,153,153,1);
-  line-height:40rpx;
-  margin-left: 20rpx;
-} */
+}
 .itemBox_content{
   width: calc(100% - 290rpx);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-right: 40rpx;
->>>>>>> 9348a1a1e48fa8a7d4b3e138e9a885b4c628383c
 }
 .dataInfoList{
     margin-top: 20rpx;
