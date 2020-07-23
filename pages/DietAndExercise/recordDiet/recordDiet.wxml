@@ -35,7 +35,7 @@
     <view class="footContent">
         <view class="footList" wx:for="{{SearchFoodList}}" wx:for-item="C" wx:key="c">
             <view class="classNameFoot unifyFont">{{C.foodType}}</view>
-            <view class="footItem" wx:for="{{C.nafoodChildrenme}}" wx:key="index">
+            <view class="footItem" wx:for="{{C.nafoodChildrenme}}" wx:key="index" bind:tap="bindSearchFood" data-foodCode='{{C.foodCode}}'>
                 <view class="footName">{{item.name}}</view>
                 <view class="rightArrow"></view>
             </view>

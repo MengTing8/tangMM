@@ -133,7 +133,7 @@ Page({
                 if (res.data.code === '0') {
                     // 发送成功ses
                     wx.showToast({
-                        title: '手机号码绑定成功',
+                        title: '绑定成功',
                         icon: 'success',
                         duration: 3000
                     })
@@ -188,7 +188,7 @@ Page({
                 if (res.data.code === '0') {
                     // 发送成功ses
                     wx.showToast({
-                        title: '诊疗卡绑定成功',
+                        title: '绑定成功',
                         icon: 'success',
                         duration: 3000
                     })

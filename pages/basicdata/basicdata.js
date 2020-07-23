@@ -23,7 +23,7 @@
               entity: "base",
               patientId: wx.getStorageSync('patientId'),
               date: date[0].time,
-              id: 1,
+              id: '',
               rowMd5: '',
               fundalHeight: "",
               abdominalCircumference: "",
@@ -52,36 +52,122 @@
       //保存基础数据
       SaveBasicdata() {
           let self = this
+          let NewData = self.data.dataArray
+          let topNo=false
+          let bottomNo=false
           if (self.data.DeleteList.length > 0) {
               self.DeleteDaseDetail()
           }
-          let params = this.deepCopy(this.data.dataArray)
-          params.push(this.data.baseData)
-          request({
-              method: "POST",
-              url: '/wxrequest',
-              data: {
-                  "token": wx.getStorageSync('token'),
-                  "function": "save",
-                  "data": params
+          //心率组校验
+          for (const key in NewData) {
+              if (NewData[key].time !== '' || NewData[key].heartRate !== '' || NewData[key].systolicPressure !== '' || NewData[key].diastolicPressure !== '') {
+                  if (!NewData[key].time) {
+                      wx.showToast({
+                          title: '请选择时间',
+                          icon: 'none',
+                          duration: 3000
+                      })
+                      return false;
+                  } else if (!NewData[key].heartRate) {
+                      wx.showToast({
+                          title: '请输入心率',
+                          icon: 'none',
+                          duration: 3000
+                      })
+                      return false;
+                  } else if (!NewData[key].systolicPressure) {
+                      wx.showToast({
+                          title: '请输入收缩压',
+                          icon: 'none',
+                          duration: 3000
+                      })
+                      return false;
+                  } else if (!NewData[key].diastolicPressure) {
+                      wx.showToast({
+                          title: '请输入舒张压',
+                          icon: 'none',
+                          duration: 3000
+                      })
+                      return false;
+                  }
+              }else{
+                  topNo = true
               }
-          }).then(res => {
-              console.log(res, "保存基础数据");
-              if (res.data.code === '0') {
+          }
+          // 宫高组校验
+          if (self.data.baseData.fundalHeight !== '' || self.data.baseData.abdominalCircumference !== '' || self.data.baseData.hba1c !== '') {
+              if (!self.data.baseData.fundalHeight) {
                   wx.showToast({
-                      title: res.data.message,
+                      title: '请输入宫高',
                       icon: 'none',
-                      duration: 2000
+                      duration: 3000
                   })
-                  self.getBasicdata()
-              } else {
+                  return false;
+              } else if (!self.data.baseData.abdominalCircumference) {
                   wx.showToast({
-                      title: res.data.message,
+                      title: '请输入腹围',
                       icon: 'none',
-                      duration: 2000
+                      duration: 3000
                   })
+                  return false;
+              } else if (!self.data.baseData.hba1c) {
+                  wx.showToast({
+                      title: '请输入糖化血红蛋白',
+                      icon: 'none',
+                      duration: 3000
+                  })
+                  return false;
               }
-          })
+          }else{
+              bottomNo = true
+          }
+          if (bottomNo && topNo) {
+                wx.showToast({
+                    title: '请输入数据',
+                    icon: 'none',
+                    duration: 3000
+                })
+              return false;
+          } else if (bottomNo) {
+                 self.requestSave(NewData)
+              return false;
+          } else if (topNo) {
+                 self.requestSave(self.data.baseData)
+              return false;
+          }else{
+                 let params = self.deepCopy(NewData)
+                 params.push(self.data.baseData)
+                 self.requestSave(params)
+              return false;
+          }
+      },
+      requestSave(params) {
+          let that=this
+       request({
+           method: "POST",
+           url: '/wxrequest',
+           data: {
+               "token": wx.getStorageSync('token'),
+               "function": "save",
+               "data": params
+           }
+       }).then(res => {
+           console.log(res, "保存基础数据");
+           if (res.data.code === '0') {
+               wx.showToast({
+                   title: res.data.message,
+                   icon: 'none',
+                   duration: 2000
+               })
+               that.getBasicdata()
+           } else {
+               wx.showToast({
+                   title: res.data.message,
+                   icon: 'none',
+                   duration: 2000
+               })
+           }
+       })
       },
       DeleteDaseDetail() {
           let self = this

@@ -43,7 +43,7 @@
                                 <view class="food_name">{{item.periodValue}}</view>
                                 <view class="food_weight" bind:tap="tapFoodAdd" data-index="{{index}}">
                                     <view class="food_weight_content">
-                                        <input class="weui-input" type="digit" value="{{item.value}}" bindinput="" placeholder="请输入" placeholder-class="placeholder_class" />
+                                        <view style="text-align: center; margin-left:30rpx;">{{item.value||'请输入'}}</view>
                                         <text>kcal</text>
                                     </view>
                                 </view>

@@ -122,6 +122,7 @@
 .food_weight_content {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-right: 20rpx;
 }
 
