@@ -2,9 +2,17 @@ const {
     request
 } = require("../../utils/request")
 const {
-    getDates
+    getDates,
+    getDay
 } = require("../../utils/util")
 const moment = require('../../utils/moment.min.js');
+const tips = { periodCode: '请选择使用时间', categoryCode: '请选择胰岛素类型', value: '请输入使用量', periodOtherValue: '请输入使用时间' };
+const userData = [{
+  periodCode: '',
+  periodOtherValue: '',
+  categoryCode: '',
+  value: ''
+}]
 let date = getDates(1, new Date());
 let newDate = moment(date[0].time).format('YYYY年MM月DD日')
 moment.locale();
@@ -24,10 +32,10 @@ Page({
             title: "日期"
         },
         dataTime: date[0].time,
-        TabsIndex: 1,
+        TabsIndex: 0,
         dosageArray: [{
             entity: "insulinPump",
-           patientId: wx.getStorageSync('patientId'),
+            patientId: wx.getStorageSync('patientId'),
             date: date[0].time,
             type: 2,
             status: 1,
@@ -39,7 +47,7 @@ Page({
         }],
         MealArray: [{
             entity: "insulin",
-           patientId: wx.getStorageSync('patientId'),
+            patientId: wx.getStorageSync('patientId'),
             date: date[0].time,
             type: 2,
             status: 1,
@@ -49,35 +57,58 @@ Page({
             value: ''
         }],
         DeleteList: [],
-
+        userData: [],
+        delList:[]
     },
     SaveInsulin() {
-        let self = this
-        let InsulinData = self.data.InsulinData
+        if (this.data.delList.length > 0) {
+          this.delInsulin();
+        }
+
+        if (this.data.userData.length === 0) {
+          return;
+        }
+
+        let userData = this.data.userData
+
+        for (let i = 0; i < userData.length; i++) {
+          for (const key in userData[i]) {
+            const item = userData[i][key]
+            if (key === 'periodOtherValue' && userData[i].periodCode !== "99") {
+                continue;
+            }
+            if (!item || item.replace(/\s+/g,'').length === 0) {
+              wx.showToast({
+                title: tips[key],
+                icon: 'none',
+                duration: 2000
+              })
+              return false;
+            }
+          }
+        }
+
+        for (let i = 0; i < userData.length; i++) {
+            userData[i].entity = 'insulin',
+            userData[i].patientId = wx.getStorageSync('patientId');
+            userData[i].date = this.data.dataTime;
+            userData[i].type = '1';
+            userData[i].status = '1';
+        }
+
         request({
             method: "POST",
             url: '/wxrequest',
             data: {
                 "token": wx.getStorageSync('token'),
                 "function": "save",
-                "data": [{
-                    "entity": "insulin",
-                    "patientId": wx.getStorageSync('patientId'),
-                    "date": self.data.dataTime,
-                    "id": InsulinData.id,
-                    "rowMd5": InsulinData.rowMd5,
-                    "type": 1,
-                    "periodCode": InsulinData.periodCode,
-                    "categoryCode": InsulinData.categoryCode,
-                    "value": InsulinData.value,
-                    "status": "1"
-                }]
+                "data": userData
             }
         }).then(res => {
             console.log(res, "保存");
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
-                self.setData({
+                this.setData({
                     categoryValues: ResData.categoryValues,
                     periodValues: ResData.periodValues
                 })
@@ -96,7 +127,44 @@ Page({
             }
         })
     },
-    getInsulin() {
+    delInsulin() {
+        request({
+          method: "POST",
+          url: '/wxrequest',
+          data: {
+            "token": wx.getStorageSync('token'),
+            "function": "delete",
+            "data": this.data.delList
+          }
+        }).then(res => {
+          console.log(res, "删除");
+          if (res.data.code === '0') {
+            this.setData({
+              delList: []
+            })
+            wx.showToast({
+              title: '删除成功',
+              icon: 'none',
+              duration: 2000
+            })
+          } else {
+            wx.showToast({
+              title: res.data.message,
+              icon: 'none',
+              duration: 2000
+            })
+          }
+        })
+    },
+    getPrevData() {
+      const prevDate = getDay(-1)
+      if(this.data.TabsIndex === 0) {
+          this.getInsulin(prevDate)
+      }else {
+          this.getInsulinPump(prevDate)
+      }
+    },
+    getInsulin(date) {
         let self = this
         let InsulinData = self.data.InsulinData
         request({
@@ -106,9 +174,7 @@ Page({
                 "token": wx.getStorageSync('token'),
                 "function": "getInsulin",
                 "data": [{
-                    "date": self.data.dataTime,
-                    "periodCode": InsulinData.periodCode || "1",
-                    "categoryCode": InsulinData.categoryCode || "1"
+                    "date": date ? date : self.data.dataTime 
                 }]
             }
         }).then(res => {
@@ -118,7 +184,8 @@ Page({
                 self.setData({
                     InsulinData: ResData,
                     categoryValues: ResData.categoryValues,
-                    periodValues: ResData.periodValues
+                    periodValues: ResData.periodValues,
+                    userData: ResData.items ? ResData.items : userData
                 })
             } else {
                 wx.showToast({
@@ -161,7 +228,7 @@ Page({
             }
         })
     },
-    getInsulinPump() {
+    getInsulinPump(date) {
         let self = this
         // let InsulinData = self.data.InsulinData
         request({
@@ -171,7 +238,7 @@ Page({
                 "token": wx.getStorageSync('token'),
                 "function": "getInsulinPump",
                 "data": [{
-                    "date": self.data.dataTime,
+                    "date": date ? date : self.data.dataTime,
                 }]
             }
         }).then(res => {
@@ -514,6 +581,72 @@ Page({
             url: '../historyInsulin/historyInsulin'
         })
     },
+    bindPeriodChange(e) {
+        const index = e.target.dataset.index;
+        let userData = this.data.userData
+        const val = e.detail.value
+        userData[index].periodCode = this.data.periodValues[val].code
+        userData[index].periodValue = this.data.periodValues[val].value
+        if(userData[index].periodCode !== "99") {
+          userData[index].periodOtherValue = null
+        }
+        this.setData({
+          userData,
+        });
+    },
+    bindCategoryChange(e) {
+        const index = e.target.dataset.index;
+        let userData = this.data.userData
+        const val = e.detail.value
+        userData[index].categoryCode = this.data.categoryValues[val].code
+        userData[index].categoryValue = this.data.categoryValues[val].value
+        this.setData({
+          userData,
+        });
+    },
+    bindValueInput(e) {
+        const {index,type} = e.target.dataset
+        let userData = this.data.userData
+        if(type == "other") {
+          userData[index].periodOtherValue = e.detail.value
+        }else {
+          userData[index].value = e.detail.value
+        }
+        this.setData({
+          userData
+        })
+    },
+    addRecordList: function() {
+        let userData = this.data.userData;
+        userData.push({
+          periodCode: '',
+          periodOtherValue: '',
+          categoryCode: '',
+          value:''
+        });
+        this.setData({
+          userData
+        });
+    },
+    delRecordList(e) {
+        const { index, id, rowmd5 } = e.currentTarget.dataset;
+        let userData = this.data.userData;
+        userData.splice(index, 1);
+        if (id && rowmd5) {
+          let delList = this.data.delList;
+          delList.push({
+            entity: 'insulin',
+            id: id,
+            rowMd5: rowmd5
+          });
+          this.setData({
+            delList
+          });
+        }
+        this.setData({
+          userData
+        });
+    },
     /**
      * 生命周期函数--监听页面加载
      */
@@ -521,53 +654,4 @@ Page({
         this.getInsulin()
         this.getInsulinPump()
     },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
-    }
 })

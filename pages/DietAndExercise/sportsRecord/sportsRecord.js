@@ -5,7 +5,7 @@ const {
     getDates
 } = require("../../../utils/util")
 const moment = require('../../../utils/moment.min.js');
-const tips = { periodCode: "请选择时段", wayCode: "请选择方式", levelCode: "请选择强度", duration:"请输入运动时长"};
+const tips = { periodCode: '请选择时段', wayCode: '请选择方式', levelCode: '请选择强度', duration:'请输入运动时长'};
 let date = getDates(1, new Date());
 let newDate = moment(date[0].time).format('YYYY年MM月DD日')
 Page({
@@ -19,10 +19,10 @@ Page({
         wayList: [],
         periodList: [],
         userData: [{
-          "periodCode": "",
-          "wayCode": "",
-          "levelCode": "",
-          "duration": ""
+          periodCode: '',
+          wayCode: '',
+          levelCode: '',
+          duration: ''
         }],
         dateObj: {
             StartDt: newDate,
@@ -37,16 +37,18 @@ Page({
     },
     saveExercise() {
         if(this.data.delList.length>0) {
-          console.log(0)
           this.delExercise();
         }
 
+        if(this.data.userData.length === 0) {
+          return;
+        }
+
         let userData = this.data.userData;
-        let data = [];
         for(let i=0;i<userData.length;i++) {
             for(const key in userData[i]) {
               const item = userData[i][key]
-              if(!item && item !== 0) {
+              if (!item || item.replace(/\s+/g, '').length === 0) {
                 wx.showToast({
                   title: tips[key],
                   icon: 'none',
@@ -105,6 +107,11 @@ Page({
         if (res.data.code === '0') { 
           this.setData({
             delList: []
+          })
+          wx.showToast({
+            title: '删除成功',
+            icon: 'none',
+            duration: 2000
           })
         } else {
           wx.showToast({
@@ -179,7 +186,7 @@ Page({
         })
     },
     bindDurationInput: function (e) {
-        const index = Number(e.target.dataset.index)
+        const index = e.target.dataset.index
         let userData = this.data.userData
         userData[index].duration = e.detail.value
         this.setData({
@@ -187,7 +194,7 @@ Page({
         })
     },
     bindLevelChange(e) {
-        const index = Number(e.target.dataset.index)
+        const index = e.target.dataset.index
         let userData = this.data.userData
         var val = e.detail.value
         userData[index].levelCode = this.data.levelList[val].code
@@ -197,7 +204,7 @@ Page({
         });
     },
     bindWayChange(e) {
-        const index = Number(e.target.dataset.index);
+        const index = e.target.dataset.index;
         let userData = this.data.userData
         var val = e.detail.value
         userData[index].wayCode = this.data.wayList[val].code
@@ -207,7 +214,7 @@ Page({
         });
     },
     bindPeriodChange(e) {
-        const index = Number(e.target.dataset.index);
+        const index = e.target.dataset.index;
         let userData = this.data.userData
         var val = e.detail.value
         userData[index].periodCode = this.data.periodList[val].code
@@ -246,10 +253,10 @@ Page({
     addRecordList() {
       let userData = this.data.userData;
       userData.push({
-        "periodCode": "",
-        "wayCode": "",
-        "levelCode": "",
-        "duration": ""
+        periodCode: '',
+        wayCode: '',
+        levelCode: '',
+        duration: ''
       });
       this.setData({
         userData

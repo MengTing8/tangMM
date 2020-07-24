@@ -7,7 +7,7 @@
     </view>
     <view class="insulinRegiterMiddle">
         <TimeRecord pickerObj="{{dateObj}}" bindbindDateChange='bindDateChange'></TimeRecord>
-        <view class="getBeforeData">取前一天数据</view>
+        <view class="getBeforeData" bindtap="getPrevData">取前一天数据</view>
         <view class="insulinRegiter_tab">
             <view class="tabsBox">
                 <block wx:for="{{['普通','胰岛素泵']}}" wx:key="id">
@@ -20,40 +20,41 @@
         <view class="movemrntRecord_content_List">
             <view class="" hidden="{{TabsIndex !==0}}">
                 <!-- 普通 -->
-                <view class="itemBox_time">
-                    <text class="itemBox_title">使用时间</text>
-                    <view class="itemBox_content">
-                        <view class="itemBox_date">
-                            <picker mode="selector" value="" range="{{periodValues}}" range-key="{{'value'}}" bindchange="bindServiceTimeChange">
-                                <view class="">{{InsulinData.periodValue || '请选择'}}</view>
-                            </picker>
+                <view class="ordinary">
+                    <view class="header">
+                        <view class="item">
+                            使用时间
                         </view>
-                        <text class="itemBox_rightArrow"></text>
-                    </view>
-                </view>
-                <view class="itemBox_time">
-                    <text class="itemBox_title">胰岛素类型</text>
-                    <view class="itemBox_content">
-                        <view class="itemBox_date">
-                            <picker mode="selector" value="" range="{{categoryValues}}" range-key="{{'value'}}" bindchange="bindTypeChange">
-                                <view class="">{{InsulinData.categoryValue || '请选择'}}</view>
-                            </picker>
+                        <view class="item">
+                            胰岛素类型
                         </view>
-                        <text class="itemBox_rightArrow"></text>
+                        <view class="item">
+                            使用量(U)
+                        </view>
                     </view>
-                </view>
-                <view class="itemBox_time">
-                    <text class="itemBox_title">使用量</text>
-                    <view class="itemBox_content">
-                        <view class="itemBox_date">
-                            <view class="inpText">
-                                <input type="text" value="{{InsulinData.value}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindValueInput" />
-                                <text style="color: #999999;">U</text>
+                    <view class="dataList" wx:for="{{userData}}" wx:key="index">
+                        <view class="item">
+                            <picker mode="selector" value="" range="{{periodValues}}" range-key="{{'value'}}" data-index="{{index}}" bindchange="bindPeriodChange">
+                              <view class="weui-input_10">{{item.periodValue||'请选择'}}</view>
+                            </picker>
+                            <view style="display:{{item.periodCode == 99?'block':'none'}}">
+                                <input type="text" placeholder="请输入" data-index="{{index}}" bindinput="bindValueInput" data-type="other" placeholder-class="inputholder" value="{{item.periodOtherValue}}"></input> 
                             </view>
                         </view>
-                        <text class="itemBox_rightArrow"></text>
+                        <view class="item">
+                            <picker mode="selector" value="" range="{{categoryValues}}" range-key="{{'value'}}" data-index="{{index}}" bindchange="bindCategoryChange">
+                              <view class="weui-input_10">{{item.categoryValue||'请选择'}}</view>
+                            </picker>
+                        </view>
+                        <view class="item">
+                            <input class="input" type="number" data-index="{{index}}" placeholder-class="inputholder" placeholder="请输入" value="{{item.value}}" bindinput="bindValueInput"></input>
+                        </view>
+                        <view class="delBox" bindtap="delRecordList" data-index="{{index}}" data-id="{{item.id}}" data-rowMd5="{{item.rowMd5}}">
+                            <image src="../../img/del.png" class="img" />
+                        </view>
                     </view>
                 </view>
+                <view class="addRecordBtn" bind:tap="addRecordList">添加一组记录</view>
         <BtnComponents bindonSaveBtn="SaveInsulin" bindhistoryRecordBtn="historyRecordBtn"></BtnComponents>
                 <!-- <view class="saveBtn" bind:tap="">保存</view> -->
                 <!-- <view class="historyRecordBtn" bind:tap="">历史记录</view> -->
