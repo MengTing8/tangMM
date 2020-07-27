@@ -143,7 +143,6 @@ Page({
                 }]
             }
         }).then(res => {
-            console.log(res);
             if (res.data.code === '0') {
                 wx.showToast({
                     title: res.data.message,
@@ -211,7 +210,6 @@ Page({
     },
     //是否有糖尿病
     tapDiabetes(e) {
-        console.log(e);
         let {
             code
         } = e.currentTarget.dataset
@@ -223,7 +221,6 @@ Page({
         });
     },
     bindLMPChange(e) {
-        console.log(e)
         var val = e.detail.value
         let PatientData = this.data.PatientData
         PatientData.lmp = val
@@ -262,7 +259,6 @@ Page({
         })
     },
     bindOccupationChange(e) {
-        console.log(e);
         let PatientData = this.data.PatientData
         var val = e.detail.value
         PatientData.occupationValue = this.data.professionList[val].value
@@ -284,14 +280,10 @@ Page({
                 "data": []
             }
         }).then(res => {
-            console.log(res);
             if (res.data.code === '0') {
                 self.setData({
                     professionList: res.data.data,
-
                 })
-
-
             } else {
                 wx.showToast({
                     title: res.data.message,
@@ -313,7 +305,6 @@ Page({
                 "data": []
             }
         }).then(res => {
-            console.log(res);
             if (res.data.code === '0') {
                 let Data = res.data.data[0]
                 let age = ''
@@ -396,8 +387,6 @@ Page({
     bindNumberOfFetusChange(e) {
         let PatientData = this.data.PatientData
         var val = e.detail.value
-        // console.log(val++);
-
         PatientData.numberOfFetus = +val + 1
         this.setData({
             PatientData,
@@ -437,7 +426,6 @@ Page({
 
     },
     bindAgeChange(e) {
-        console.log(e)
         var val = e.detail.value
         let PatientData = this.data.PatientData
         PatientData.birthday = val

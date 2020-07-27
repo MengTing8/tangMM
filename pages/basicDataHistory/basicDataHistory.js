@@ -13,7 +13,6 @@ var StarDATE = moment(getDay(-7)).format('YYYY年MM月DD日');
 var EndDATE = newDate
 var rpx;
 var rpxs;
-var dataY = []
 var arr = []
 //获取屏幕宽度，获取自适应单位
 
@@ -38,8 +37,6 @@ function initChartBasicData(canvas, width, height) {
         width: 440,
         height: 500
     });
-    console.log(dataY, arr);
-
     canvas.setChart(chart);
     var option = {
         type: 'scatter',
@@ -117,7 +114,6 @@ function initChartBasicData(canvas, width, height) {
             //         color: '#CDCDCD'
             //     }
             // },
-            // data: dataY,
             axisTick: {
                 show: false
             },
@@ -286,7 +282,6 @@ function initChartBasicData(canvas, width, height) {
         ],
 
     };
-    console.log(dataY, arr);
 
     chart.setOption(option);
     chart.setOption({
@@ -294,7 +289,6 @@ function initChartBasicData(canvas, width, height) {
         //     data: arr
         // },
         // yAxis: {
-        //     data: dataY
         // },
         // series: {
         //     data: '',
@@ -355,14 +349,12 @@ Page({
                 }]
             }
         }).then(res => {
-            console.log(res, "取图表");
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
                 let nameArr = []
                 let dateArr = []
                 let isAbnormal = []
                 for (let key in ResData.x) {
-                    // arrX.push(Number(ResData.x[key].value))
                     ResData.x[key].value = Number(ResData.x[key].value)
                     nameArr.push(ResData.x[key].seriesValue2)
                     dateArr.push(ResData.x[key].seriesValue1)
@@ -402,7 +394,6 @@ Page({
                 }]
             }
         }).then(res => {
-            console.log(res, "取基础数据历史记录列表");
             if (res.data.code === '0') {
                 var ResData = res.data.data
                 for (let key in ResData) {
@@ -437,7 +428,6 @@ Page({
         })
     },
     bindStartTimeChange(e) {
-        console.log(e);
         var NewData = this.data.TimeObj;
         let val = e.detail.value
         let dateStart = e.detail.date
@@ -453,7 +443,6 @@ Page({
 
     },
     bindEndTimeChange(e) {
-        console.log(e);
         var NewData = this.data.TimeObj;
         let val = e.detail.value
         let dateEnd = e.detail.date
@@ -537,11 +526,9 @@ Page({
             })
         }
         // let color = that.data.isAbnormalArr.map(element => {
-        //     console.log(element);
         //     var col = element == '1' ? 'green' : 'red'
         //     return col;
         // });
-        // console.log(color);
         var option = {
             type: 'scatter',
             title: {
@@ -564,9 +551,7 @@ Page({
                 },
                 extraCssText: 'width:160px;height:40px;background:red;'
                 // formatter: function (params, ticket, callback) {
-                //     console.log(params);
                 //     const item = params[0]
-                //     console.log(item);
                 //     return item.value + '%';
                 // }
             },
@@ -649,7 +634,6 @@ Page({
                         color: '#CDCDCD'
                     }
                 },
-                // data: dataY,
                 axisTick: {
                     show: false
                 },

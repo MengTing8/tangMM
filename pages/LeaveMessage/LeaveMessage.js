@@ -50,7 +50,6 @@ Page({
                 }]
             }
         }).then(res => {
-            console.log(res);
             if (res.data.code === '0') {
                 let ResData = res.data.data[0]
                 for (const key in ResData) {
@@ -58,13 +57,9 @@ Page({
                 }
                 self.setData({
                     MessageList: ResData,
-                    // scrollHeight: ((windowHeight - 175) * 2) + 'rpx',
-                    // scrollToView: "msg" + (self.data.MessageList.length - 1),
-
                 })
                 if (self.data.MessageList.length > 0) {
                     self.setData({
-                        // MessageList: ResData[0],
                         scrollHeight: ((windowHeight - 160) * 2) + 'rpx',
                         scrollToView: "msg" + (self.data.MessageList.length - 1),
 
@@ -130,7 +125,6 @@ Page({
 
     },
     InputMessage(e) {
-        console.log(e);
         let val = e.detail.value
         this.setData({
             userInputConten: val

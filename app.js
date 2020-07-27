@@ -17,22 +17,16 @@ App({
         wx.login({
             success: res => {
                 _self.globalData.code = res.code;
-                // console.log('wx.login', res);
                 // 发送 res.code 到后台换取 openId, sessionKey, unionId
             }
         })
         // 获取用户信息
         wx.getSetting({
             success: res => {
-                //console.log('wx.getSetting.success',res);
                 if (res.authSetting['scope.userInfo']) {
-                    //console.log('wx.getSetting.success.res.authSetting');
                     // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
                     wx.getUserInfo({
                         success: res => {
-                            // console.log('wx.getSetting', res, _self.globalData.userType);
-                            // console.log(_self.globalData);
-
                             // 可以将 res 发送给后台解码出 unionId
                             _self.globalData.userInfo = res.userInfo
                             _self.globalData.iv = res.iv;

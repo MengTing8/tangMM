@@ -7,32 +7,69 @@ Page({
      * 页面的初始数据
      */
     data: {
+        btnnum: 1,
         ShowTab: true,
         SearchFoodList: [],
         SearchValue: "",
         active: 1,
+        inputCode1: true,
         TabList: [],
-        foodArr: wx.getStorageSync('foodArr') || [],
-        codeArr: []
+        foodArr: [],
+        codeArr: [],
+        navScrollLeft: 0,
+        windowHeight: 0,
+        windowWidth: 0,
+        periodCode: '',
+        FoodDataList: [],
+    },
+    Tabchange(event) {
+        var singleNavWidth = this.data.windowWidth / 5;
+        let {
+            index
+        } = event.currentTarget.dataset
+        this.setData({
+            navScrollLeft: (index - 2) * singleNavWidth
+        })
+        if (this.data.btnnum == index) {
+            return false;
+        } else {
+            this.setData({
+                btnnum: index
+            })
+        }
     },
     bindSearchFood(e) {
         let that = this
-        let code = e.currentTarget.dataset.foodcode
+        let {
+            foodcode,
+            id
+        } = e.currentTarget.dataset
         let item = that.data.TabList
-        let index =''
-        for (const key in that.data.TabList) {
+        let index = ''
+        for (const key in item) {
             let items = item[key]
-            if (items.groupCode.indexOf(code) !== -1) {
-                index=key
+            if (items.groupCode.indexOf(foodcode) !== -1) {
+                index = key
             }
         }
-        if (index!=='') {
-             that.setData({
-                 active: Number(index),
-                 ShowTab: true,
-                 SearchValue:""
-             })
+        if (index !== '') {
+            that.setData({
+                btnnum: Number(index),
+                ShowTab: true,
+                SearchValue: ""
+            })
         }
+        let query = wx.createSelectorQuery()
+        query.select('#point' + (id)).boundingClientRect()
+        query.selectViewport().scrollOffset()
+        query.exec(function (res) {
+            if (res[0] && res[1]) {
+                wx.pageScrollTo({
+                    scrollTop: res[0].top + res[1].scrollTop,
+                    duration: 300
+                })
+            }
+        })
     },
     getFood() {
         let self = this
@@ -42,14 +79,35 @@ Page({
             data: {
                 "token": wx.getStorageSync('token'),
                 "function": "getFood",
-                "data": [{
-                    "date": "2020-06-16"
-                }]
+                "data": []
             }
         }).then(res => {
             console.log(res, "食物");
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
+                let foodArr = []
+
+                let FoodData = self.data.FoodDataList
+                let codeArr = []
+                FoodData.forEach(item => {
+                    codeArr.push(item.periodCode)
+                })
+                if (codeArr.includes(self.data.periodCode)) {
+                    FoodData[codeArr.indexOf(self.data.periodCode)].periodCode = self.data.periodCode
+                    foodArr = FoodData[codeArr.indexOf(self.data.periodCode)].foodArr
+                } else {
+                }
+                for (const key in ResData) {
+                    let items = ResData[key]
+                    for (const Index in items.foodValues) {
+                        let arr = items.foodValues[Index]
+                        for (const i in foodArr) {
+                            if (arr.code === foodArr[i].code) {
+                                arr.value = foodArr[i].value
+                            }
+                        }
+                    }
+                }
                 self.setData({
                     TabList: ResData,
                 })
@@ -63,30 +121,27 @@ Page({
         })
     },
     bindFoodValueInput(e) {
-        console.log(e);
         let {
             code,
-            name
+            name,
+            index1,
+            index
         } = e.target.dataset
-        var newArr = this.data.foodArr
+        let that = this
+        var newArr = that.data.foodArr
         var dataObj = e.detail.value;
-        let codeArr = this.data.codeArr
+        let codeArr = that.data.codeArr
+        let tabArr = that.data.TabList
+        tabArr[index1].foodValues[index].value = dataObj
+        let newFoodDataList = that.data.FoodDataList
         if (newArr.length !== 0) {
             for (let i = 0; i < newArr.length; i++) {
-                console.log(newArr[i].code);
-                // if (newArr[i].code == code) {
-                //     console.log("相同的code");
-                //     newArr[i].value = dataObj
-                //     newArr[i].code = code;
-                //     break;
-                // } 
                 if (codeArr.indexOf(code) !== -1) {
                     newArr[codeArr.indexOf(code)].value = dataObj
                     newArr[codeArr.indexOf(code)].code = code;
                     newArr[codeArr.indexOf(code)].name = name;
                     break;
                 } else {
-                    console.log(code, "bu");
                     if (codeArr.indexOf(code) === -1) {
                         newArr.push({
                             name: name,
@@ -107,6 +162,12 @@ Page({
                 newArr.splice(codeArr.indexOf(code), 1)
                 codeArr.splice(codeArr.indexOf(code), 1)
             }
+            for (const key in newFoodDataList) {
+                if (newFoodDataList[key].periodCode == that.data.periodCode) {
+                    newFoodDataList[key].foodArr = newArr
+                    newFoodDataList[key].codeArr = codeArr
+                }
+            }
         } else {
             newArr.push({
                 name: name,
@@ -114,15 +175,26 @@ Page({
                 value: dataObj
             })
             codeArr.push(code)
+            for (const key in newFoodDataList) {
+                if (newFoodDataList[key].periodCode == that.data.periodCode) {
+                    newFoodDataList[key].foodArr = newArr
+                    newFoodDataList[key].codeArr = codeArr
+                }
+            }
         }
-        this.setData({
-            foodArr: newArr
+
+        that.setData({
+            foodArr: newArr,
+            TabList: tabArr,
+            FoodDataList: newFoodDataList
         })
+        wx.setStorageSync('FoodDataList', newFoodDataList)
+        // wx.setStorageSync('codeArr', codeArr)
+        // wx.setStorageSync('foodArr', newArr)
     },
     saveFood() {
         let pages = getCurrentPages();
         let prevPage = pages[pages.length - 2];
-         wx.setStorageSync('foodArr', this.data.foodArr)
         prevPage.setData({
             foodArr: this.data.foodArr
         })
@@ -169,7 +241,6 @@ Page({
             }
 
         });
-        console.log(arr)
         that.setData({
             ShowTab: false,
             SearchFoodList: arr
@@ -181,81 +252,62 @@ Page({
             })
         }
     },
-    // onChange(e) {
-    //     console.log(e);
-    //     let that = this
-    //     that.setData({
-    //         SearchValue: e.detail
-    //     })
-    //     let item = that.data.TabList
-    //     console.log(item);
-
-    //   if (that.data.SearchValue) {
-    //         let NewList = []
-    //         for (const key in item) {
-    //             let items = item[key]
-    //             for (const Index in items.foodValues) {
-    //                 let foodArr = items.foodValues[Index]
-    //                 if (foodArr.name.indexOf(that.data.SearchValue) !== -1) {
-    //                     let obj = {}
-    //                     obj.foodChildren = [foodArr]
-    //                     obj.foodType = items.groupValue
-    //                     NewList.push(obj)
-    //                 }
-    //             }
-    //         }
-    //         // console.log(NewList);
-    //         // for (const i in NewList) {
-    //         // //  NewList[i]foodType
-    //         // }
-    //         let typeArr = []
-    //         let Arrs = []
-    //         console.log(NewList, 'NewList111');
-
-    //         NewList.forEach(val => {
-    //             console.log(val, '1');
-    //             let obj1 = {}
-    //             obj1.foodType = val.foodType
-    //             typeArr.push(obj1)
-    //             console.log(typeArr);
-
-    //             let arr = []
-    //             typeArr.forEach(function (val2, k) {
-    //                 console.log(val2, '2');
-    //                 console.log(val.foodType + '---' + val2.foodType);
-    //                 if (val.foodType == val2.foodType) {
-    //                     let obj = {}
-    //                     obj.foodType = val2.foodType
-    //                     obj.foodChildren = val.foodChildren
-    //                     arr.push(obj)
-    //                 } else {
-    //                     console.log(arr, NewList, 'else');
-    //                     // arr.push(val)
-    //                     //   Arrs = arr
-    //                 }
-    //             })
-    //             console.log(arr, '集合');
-
-    //         });
-    //         NewList = Arrs
-    //         console.log(NewList, '...........');
-
-    //         console.log(typeArr, 'typ');
-    //   }
-
-
-    // },
     TapSearch() {
         var model = JSON.stringify(this.data.TabList);
         wx.navigateTo({
             url: '../recordDietSearch/recordDietSearch?TabList=' + model
         })
     },
+    getFoodDataList() {
+        var that = this
+        let newFoodDataList = that.data.FoodDataList
+        let newFood = that.data.foodArr
+        let newCode = that.data.codeArr
+        let codeList = []
+        if (newFoodDataList.length !== 0) {
+            newFoodDataList.forEach(item => {
+                codeList.push(item.periodCode)
+            })
+        }
+        if (codeList.includes(that.data.periodCode)) {
+            newFoodDataList[codeList.indexOf(that.data.periodCode)].periodCode = that.data.periodCode
+            newFood = newFoodDataList[codeList.indexOf(that.data.periodCode)].foodArr
+            newCode = newFoodDataList[codeList.indexOf(that.data.periodCode)].codeArr
+        } else {
+            newFoodDataList.push({
+                periodCode: that.data.periodCode,
+            })
+            codeList.push(that.data.periodCode)
+        }
+        console.log(newFoodDataList);
+        that.setData({
+            FoodDataList: newFoodDataList,
+            codeArr: newCode,
+            foodArr: newFood,
+        })
+    },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.getFood()
+        let {
+            periodCode
+        } = options
+        //   var food = JSON.parse(options.food);
+        var that = this
+        that.getFood()
+        wx.getSystemInfo({
+            success: (res) => {
+                that.setData({
+                    windowHeight: res.windowHeight,
+                    windowWidth: res.windowWidth
+                })
+            },
+        })
+
+        that.setData({
+            periodCode,
+        })
     },
 
     /**
@@ -264,12 +316,15 @@ Page({
     onReady: function () {
 
     },
-
     /**
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        console.log('show');
+        this.setData({
+            FoodDataList: wx.getStorageSync('FoodDataList') || [],
+        })
+        this.getFoodDataList()
     },
 
     /**

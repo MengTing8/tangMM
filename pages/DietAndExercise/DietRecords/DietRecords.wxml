@@ -41,7 +41,7 @@
                         <view class="expense_info_name">
                             <view class="food_content">
                                 <view class="food_name">{{item.periodValue}}</view>
-                                <view class="food_weight" bind:tap="tapFoodAdd" data-index="{{index}}">
+                                <view class="food_weight" bind:tap="tapFoodAdd" data-index="{{index}}" data-periodCode="{{item.periodCode}}" data-food="{{item.food}}">
                                     <view class="food_weight_content">
                                         <view style="text-align: center; margin-left:30rpx;">{{item.value||'请输入'}}</view>
                                         <text>kcal</text>

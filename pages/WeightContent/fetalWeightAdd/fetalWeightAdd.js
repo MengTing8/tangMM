@@ -85,7 +85,6 @@ Page({
                 }]
             }
         }).then(res => {
-            console.log(res, "保存胎儿体重");
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
                 self.setData({

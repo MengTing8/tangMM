@@ -52,7 +52,6 @@ Page({
                 }]
             }
         }).then(res => {
-            console.log(res, "血糖");
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
                 self.setData({
@@ -70,7 +69,6 @@ Page({
         })
     },
     onSaveBtn(e) {
-        console.log('onSaveBtn');
         let self = this
         let BloodData = self.data.BloodData
 
@@ -115,7 +113,6 @@ Page({
                 "data": BloodData
             }
         }).then(res => {
-            console.log(res, "保存");
             if (res.data.code === '0') {
                   var ResData = res.data.data[0]
                   self.setData({
@@ -189,7 +186,6 @@ Page({
         })
     },
     bindDateChange(e) {
-        console.log(e);
         var NewData = this.data.dateObj;
         let val = e.detail.value
         let dateSelect = e.detail.date

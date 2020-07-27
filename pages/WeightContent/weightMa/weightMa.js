@@ -18,6 +18,7 @@ Page({
         WeightDate: moment(date[0].time).format('YYYY年MM月DD日'),
         rowMd5: "",
         id: "",
+        GA:'',
     },
     SaveWeight() {
         let self = this
@@ -123,14 +124,19 @@ Page({
     },
     HistoryWeightMa() {
         wx.navigateTo({
-            url: '../historyWeightMa/historyWeightMa'
+            url: '../historyWeightMa/historyWeightMa?GA=' + this.data.GA
         })
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+ let {
+     gestationalWeek
+ } = options
+   this.setData({
+       GA: gestationalWeek
+   })
         this.getWeight()
     },
 

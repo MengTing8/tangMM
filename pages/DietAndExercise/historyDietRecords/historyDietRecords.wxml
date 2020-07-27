@@ -5,12 +5,14 @@
             <view class="historyList">
                 <view class="ItemCard" wx:for="{{historyFootList}}" wx:key="index">
                     <view class="ItemCard_Time">{{item.date}}</view>
-                    <view class="ItemCard_Info  unifyFont">
-                        <view>{{item.meal}}（{{item.time}}）{{item.dosage}}kcal</view>
-                        <view>{{item.name}}</view>
+                    <view class="ItemCard_Info  unifyFont" wx:for="{{item.children}}" wx:for-item="c" wx:for-index="d" wx:key="d">
+                        <view>{{c.periodValue}}（{{c.time}}）{{c.value}}kcal</view>
+                        <view class="foodBox">
+                            <view wx:for="{{c.food}}" wx:for-item="f" wx:for-index="i" wx:key="i">{{f.name}}{{f.value}}g、 </view>
+                        </view>
                         <view class="PhotoList">
-                            <view class="PhotoShwoContent">
-                                <image class="uploaderPhoto" mode="widthFix" src="{{item.imgUrl}}" />
+                            <view class="PhotoShwoContent" wx:for="{{c.photo}}" wx:for-item="p" wx:for-index="h" wx:key="h">
+                                <image class="uploaderPhoto" mode="widthFix" src="{{p.url}}" />
                             </view>
                         </view>
                     </view>
@@ -31,7 +33,7 @@
             <view class="chartsTabContent">
                 <view class="tabsBox">
                     <block wx:for="{{tabCharts}}" wx:key="id">
-                        <view class="tabsItem {{TabsIndex==index?'selected':''}}" data-index='{{index}}' data-typeCode="{{item.typeCode}}"bindtap="handleChartsTabs">
+                        <view class="tabsItem {{TabsIndex==index?'selected':''}}" data-index='{{index}}' data-typeCode="{{item.typeCode}}" bindtap="handleChartsTabs">
                             {{item.typeValue}}
                         </view>
                     </block>

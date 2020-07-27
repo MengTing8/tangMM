@@ -5,19 +5,19 @@ const {
     request
 } = require("../../../utils/request")
 const {
-    getDates,
+    getDay,
     checkTime
 } = require("../../../utils/util")
 const moment = require('../../../utils/moment.min.js');
-let date = getDates(1, new Date());
-let newDate = moment(date[0].time).format('YYYY年MM月DD日')
-var StarDATE = "2020年06日01日"
-var StarDATE2 = "2020年06日11日"
+// let date = getDates(1, new Date());
+let newDate = moment(getDay(0)).format('YYYY年MM月DD日')
+var StarDATE = moment(getDay(-7)).format('YYYY年MM月DD日');
+var StarDATE2 = moment(getDay(-7)).format('YYYY年MM月DD日');
 var EndDATE = newDate
 var EndDATE2 = newDate
 const gas = []
 const days = []
-for (let i = 10; i <= 40; i++) {
+for (let i = 0; i <= 40; i++) {
     gas.push(i + '周')
 }
 
@@ -198,8 +198,8 @@ Page({
      * 页面的初始数据
      */
     data: {
-        dateStart: "2020-06-01",
-        dateEnd: date[0].time,
+        dateStart: getDay(-7),
+        dateEnd: getDay(0),
         CurrentShowDate: true,
         // CurrentShowWeek: false,
         TimeObj: {
@@ -233,11 +233,13 @@ Page({
         this.setData({
             CurrentShowDate: true,
         })
+         this.getWeightListByWeek()
     },
     bindCurrentShowDate() {
         this.setData({
             CurrentShowDate: false,
         })
+        this.getWeightListByDate()
     },
     bindStartTimeChangeByDate(e) {
         var NewData = this.data.TimeObjByDate;
@@ -372,11 +374,9 @@ Page({
         })
     },
     bindtouchmove(e) {
-        console.log(e)
 
     },
     getleft(e) {
-        console.log(e)
     },
     echartInit(e) {
         initChart(e.detail.canvas, e.detail.width, e.detail.height);
@@ -398,6 +398,12 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        let {
+            GA
+        } = options
+        this.setData({
+            GA
+        })
         this.getWeightListByWeek()
     },
 

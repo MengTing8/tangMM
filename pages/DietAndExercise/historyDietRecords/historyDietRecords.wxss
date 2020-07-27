@@ -16,20 +16,25 @@
     font-weight: normal;
     margin-bottom: 30rpx;
 }
-https: //lanhuapp.com/url/ZKo4l-beo8B
+
 .ItemCard_Info {
-    /* display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap; */
+    padding-bottom: 40rpx;
 }
-.PhotoList{
+
+.PhotoList {
     margin-top: 30rpx;
     display: flex;
     flex-wrap: wrap;
 }
+
+.foodBox {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .PhotoShwoContent {
     width: 130rpx;
-    height: 100%;
+    height: 130rpx;
     border-radius: 12rpx;
     overflow: hidden;
     position: relative;
@@ -49,10 +54,11 @@ https: //lanhuapp.com/url/ZKo4l-beo8B
     position: relative;
     /* padding: 40rpx 100rpx !important; */
 }
+
 .tabsBox {
     display: flex;
     text-align: center;
-    margin:20rpx 0 60rpx 0;
+    margin: 20rpx 0 60rpx 0;
 }
 
 .tabsItem {
@@ -67,6 +73,7 @@ https: //lanhuapp.com/url/ZKo4l-beo8B
     border-bottom: 4rpx solid #FEC81E;
     color: #FEC81E;
 }
-.chartsTabContent{
+
+.chartsTabContent {
     margin-bottom: 80rpx;
 }

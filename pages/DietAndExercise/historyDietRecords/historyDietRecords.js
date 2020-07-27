@@ -4,13 +4,14 @@ const {
     promiseRequest
 } = require("../../../utils/Requests")
 const {
+    getDay,
     getDates,
     checkTime
 } = require("../../../utils/util")
 const moment = require('../../../utils/moment.min.js');
 let date = getDates(1, new Date());
-let newDate = moment(date[0].time).format('YYYY年MM月DD日')
-var StarDATE = "2020年06日01日"
+let newDate = moment(getDay(0)).format('YYYY年MM月DD日')
+var StarDATE = moment(getDay(-7)).format('YYYY年MM月DD日');
 var EndDATE = newDate
 var rpx;
 var rpxs;
@@ -39,44 +40,22 @@ Page({
             // onInit: initChartBasicData
         },
         TimeObjChart: {
-            StartDt: '2020年01月01日',
+            StartDt: newDate,
             EndDt: '2029年01月01日',
             StarDATE,
             EndDATE,
         },
-        dateStartChart: "2020-06-01",
-        dateEndChart: date[0].time,
+        dateStartChart: getDay(-7),
+        dateEndChart: getDay(0),
         TimeObj: {
-            StartDt: '2020年01月01日',
+            StartDt: newDate,
             EndDt: '2029年01月01日',
             StarDATE,
             EndDATE,
         },
-        dateStart: "2020-06-01",
-        dateEnd: date[0].time,
-        historyFootList: [{
-            date: "2020-07-02",
-            meal: "早餐",
-            time: "08:12",
-            dosage: "220",
-            name: '胡萝卜200g、豆腐120g、白萝卜400g、鱼肉15g',
-            imgUrl: "../../../img/121.jpg"
-        }, {
-            date: "2020-07-12",
-            meal: "早餐",
-            time: "08:12",
-            dosage: "220",
-            name: '胡萝卜200g、豆腐120g、白萝卜400g、鱼肉15g',
-            imgUrl: "../../../img/121.jpg",
-
-        }, {
-            date: "2020-07-15",
-            meal: "早餐",
-            time: "08:12",
-            dosage: "220",
-            name: '胡萝卜200g、豆腐120g、白萝卜400g、鱼肉15g',
-            imgUrl: "../../../img/121.jpg"
-        }],
+        dateStart: getDay(-7),
+        dateEnd: getDay(0),
+        historyFootList: [],
         selectedIndex: 0,
         heatCharts: {},
         startLength: 0,
@@ -84,6 +63,49 @@ Page({
         TabsIndex: 0,
         tabCharts: [],
         typeCode: '2',
+    },
+    getDietList() {
+        let _that = this
+        let requestObj = {
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "getDietList",
+                "data": [{
+                    "dateStart": "2020-06-01",
+                    "dateEnd": _that.data.dateEnd
+                }]
+            }
+        };
+        promiseRequest(requestObj).then((res) => {
+            if (res.data.code === '0') {
+                let ResData = res.data.data
+                   var newData = []
+                   ResData.forEach((item,key )=> {
+                       let flag = newData.find(item1 => item1.date === item[key].date)
+                       if (!flag) {
+                           newData.push({
+                               date: item[key].date,
+                               children:item
+                           })
+                       } else {
+                           flag.children.push(item)
+                       }
+                   })
+                _that.setData({
+                    historyFootList: newData,
+                })
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                    icon: 'none',
+                    duration: 2000
+                })
+            }
+        }).catch((errMsg) => {
+            console.log(errMsg); //错误提示信息
+        });
     },
     getDietChart() {
         let _that = this
@@ -103,7 +125,6 @@ Page({
             if (res.data.code === '0') {
                 console.log(res);
                 let ResData = res.data.data
-                console.log(ResData);
                 let heatObj = {}
                 for (const key in ResData) {
                     if (ResData[key].typeCode == 1) {
@@ -111,7 +132,6 @@ Page({
                         ResData.splice(key, 1)
                     } else {}
                 }
-                console.log(ResData);
                 ResData.sort(this.sortFun(`typeCode`))
                 _that.setData({
                     heatCharts: heatObj,
@@ -127,9 +147,7 @@ Page({
                     duration: 2000
                 })
             }
-            wx.hideLoading()
         }).catch((errMsg) => {
-            wx.hideLoading()
             console.log(errMsg); //错误提示信息
         });
     },
@@ -172,6 +190,7 @@ Page({
                 dateStart,
                 TimeObj: NewData
             })
+            this.getDietList()
         }
     },
     bindEndTimeChange(e) {
@@ -179,11 +198,13 @@ Page({
         let val = e.detail.value
         let dateEnd = e.detail.date
         NewData.EndDATE = val;
+         let timeCheck = checkTime(this.data.dateStart, dateEnd)
         if (timeCheck) {
             this.setData({
                 dateEnd,
                 TimeObj: NewData
             })
+            this.getDietList()
         }
     },
     handleTitleChange(e) {
@@ -243,16 +264,19 @@ Page({
     },
     getOptiontDiet: function () {
         var that = this
-        if (that.data.heatCharts.y.length > 7) {
-            that.setData({
-                startLength: 50
-            })
-        } else {
-            that.setData({
-                startLength: 0,
-                endLength: 100
-            })
+        if (that.data.heatCharts.length>0) {
+                  if (that.data.heatCharts.y.length > 7) {
+                      that.setData({
+                          startLength: 50
+                      })
+                  } else {
+                      that.setData({
+                          startLength: 0,
+                          endLength: 100
+                      })
+                  }
         }
+  
         var option = {
             type: 'scatter',
             title: {
@@ -276,9 +300,7 @@ Page({
                 },
                 extraCssText: 'width:160px;height:40px;background:red;'
                 // formatter: function (params, ticket, callback) {
-                //     console.log(params);
                 //     const item = params[0]
-                //     console.log(item);
                 //     return item.value + '%';
                 // }
             },
@@ -456,17 +478,16 @@ Page({
                 chartIndex = key
             }
         }
-        console.log(that.data.tabCharts[chartIndex]);
-        if (that.data.tabCharts[chartIndex].y.length > 7) {
-            that.setData({
-                startLength: 50
-            })
-        } else {
-            that.setData({
-                startLength: 0,
-                endLength: 100
-            })
-        }
+        // if (that.data.tabCharts[chartIndex].y.length > 7) {
+        //     that.setData({
+        //         startLength: 50
+        //     })
+        // } else {
+        //     that.setData({
+        //         startLength: 0,
+        //         endLength: 100
+        //     })
+        // }
         var option = {
             type: 'scatter',
             title: {
@@ -490,9 +511,7 @@ Page({
                 },
                 extraCssText: 'width:160px;height:40px;background:red;'
                 // formatter: function (params, ticket, callback) {
-                //     console.log(params);
                 //     const item = params[0]
-                //     console.log(item);
                 //     return item.value + '%';
                 // }
             },
@@ -587,7 +606,7 @@ Page({
                 },
                 stack: '',
                 symbol: 'circle',
-                data: that.data.tabCharts[chartIndex].y,
+                // data: that.data.tabCharts[chartIndex].y,
                 // markLine: {
                 //     symbol: "none", //去掉警戒线最后面的箭头
                 //     label: {
@@ -649,10 +668,10 @@ Page({
     onLoad: function (options) {
         this.echartsComponnetDiet = this.selectComponent('#mychartDiet');
         this.echartsComponnetTab = this.selectComponent('#mychartTabs');
-        console.log(this.echartsComponnetDiet);
         this.initDiet_echarts()
         this.initDietTabs()
         this.getDietChart()
+        this.getDietList()
     },
 
     /**
