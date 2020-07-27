@@ -7,12 +7,6 @@ const {
 } = require("../../utils/util")
 const moment = require('../../utils/moment.min.js');
 const tips = { periodCode: '请选择使用时间', categoryCode: '请选择胰岛素类型', value: '请输入使用量', periodOtherValue: '请输入使用时间' };
-const userData = [{
-  periodCode: '',
-  periodOtherValue: '',
-  categoryCode: '',
-  value: ''
-}]
 let date = getDates(1, new Date());
 let newDate = moment(date[0].time).format('YYYY年MM月DD日')
 moment.locale();
@@ -57,7 +51,12 @@ Page({
             value: ''
         }],
         DeleteList: [],
-        userData: [],
+        userData: [{
+            periodCode: '',
+            periodOtherValue: '',
+            categoryCode: '',
+            value: ''
+        }],
         delList:[]
     },
     SaveInsulin() {
@@ -89,7 +88,7 @@ Page({
         }
 
         for (let i = 0; i < userData.length; i++) {
-            userData[i].entity = 'insulin',
+            userData[i].entity = 'insulin';
             userData[i].patientId = wx.getStorageSync('patientId');
             userData[i].date = this.data.dataTime;
             userData[i].type = '1';
@@ -185,7 +184,7 @@ Page({
                     InsulinData: ResData,
                     categoryValues: ResData.categoryValues,
                     periodValues: ResData.periodValues,
-                    userData: ResData.items ? ResData.items : userData
+                    userData: ResData.items ? ResData.items : this.data.userData
                 })
             } else {
                 wx.showToast({

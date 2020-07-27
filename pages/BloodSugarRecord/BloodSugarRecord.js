@@ -8,20 +8,23 @@ const moment = require('../../utils/moment.min.js');
 let date = getDates(1, new Date());
 let newDate = moment(date[0].time).format('YYYY年MM月DD日')
 moment.locale();
-
+const tips = { periodCode: '请选择时间段类型', periodSubcode: '请选择具体时间段', periodExtraValue: '请输入具体时间段', categoryCode: '请选择测量值类型', value: '请输入测量值' };
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        BloodData: {},
-        periodSubvalue: "",
-        periodValue: '',
+        BloodData: [{
+            periodCode: '',
+            periodSubcode: '',
+            periodExtraValue: '',
+            categoryCode: '',
+            value: ''
+        }],
         periodIndex: 0,
         periodValues: [],
         categoryValues: [],
-        otherInput: false,
         dateObj: {
             StartDt: newDate,
             EndDt: '2029年01月01',
@@ -30,10 +33,11 @@ Page({
             title: "记录时间"
         },
         dataTime: date[0].time,
+        delList: [],
     },
     getBloodGlucose() {
         let self = this
-         let BloodData = self.data.BloodData
+        let BloodData = self.data.BloodData
         request({
             method: "POST",
             url: '/wxrequest',
@@ -52,7 +56,7 @@ Page({
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
                 self.setData({
-                     BloodData: ResData,
+                    BloodData: ResData.items ? ResData.items : this.data.BloodData,
                     categoryValues: ResData.categoryValues,
                     periodValues: ResData.periodValues
                 })
@@ -68,26 +72,47 @@ Page({
     onSaveBtn(e) {
         console.log('onSaveBtn');
         let self = this
-           let BloodData = self.data.BloodData
+        let BloodData = self.data.BloodData
+
+        if (this.data.delList.length > 0) {
+            this.delBloodGlucose();
+        }
+
+        if (BloodData.length === 0) {
+            return;
+        }
+
+        for (let i = 0; i < BloodData.length; i++) {
+            for (const key in BloodData[i]) {
+                const item = BloodData[i][key]
+                if (key === 'periodExtraValue' && BloodData[i].periodSubcode !== "99") {
+                    continue;
+                }
+                if (!item || item.replace(/\s+/g, '').length === 0) {
+                    wx.showToast({
+                        title: tips[key],
+                        icon: 'none',
+                        duration: 2000
+                    })
+                    return false;
+                }
+            }
+        }
+
+        for (let i = 0; i < BloodData.length; i++) {
+            BloodData[i].entity = 'bloodGlucose';
+            BloodData[i].patientId = wx.getStorageSync('patientId');
+            BloodData[i].date = this.data.dataTime;
+            BloodData[i].status = '1';
+        }
+
         request({
             method: "POST",
             url: '/wxrequest',
             data: {
                 "token": wx.getStorageSync('token'),
                 "function": "save",
-                "data": [{
-                    "entity": "bloodGlucose",
-                    "patientId": wx.getStorageSync('patientId'),
-                    "date": self.data.dataTime,
-                    "id": BloodData.id,
-                    "rowMd5": BloodData.rowMd5,
-                    "periodCode": BloodData.periodCode,
-                    "periodSubcode": BloodData.periodSubcode,
-                    "periodExtraValue": BloodData.periodExtraValue,
-                    "categoryCode": BloodData.categoryCode,
-                    "value": BloodData.value,
-                    "status": "1"
-                }]
+                "data": BloodData
             }
         }).then(res => {
             console.log(res, "保存");
@@ -112,6 +137,35 @@ Page({
             }
         })
     },
+    delBloodGlucose() {
+        request({
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "delete",
+                "data": this.data.delList
+            }
+        }).then(res => {
+            console.log(res, "删除");
+            if (res.data.code === '0') {
+                this.setData({
+                    delList: []
+                })
+                wx.showToast({
+                    title: '删除成功',
+                    icon: 'none',
+                    duration: 2000
+                })
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                    icon: 'none',
+                    duration: 2000
+                })
+            }
+        })
+    },
     historyRecordBtn(e) {
           wx.navigateTo({
               url: '../historyBloodSugar/historyBloodSugar'
@@ -119,15 +173,17 @@ Page({
 
     },
     bindValueInput(e) {
+        const index = e.currentTarget.dataset.index
         let BloodData = this.data.BloodData
-        BloodData.value = e.detail.value
+        BloodData[index].value = e.detail.value
         this.setData({
             BloodData
         })
     },
     bindExtraValueInput: function (e) {
+        const index = e.currentTarget.dataset.index
         let BloodData = this.data.BloodData
-        BloodData.periodExtraValue = e.detail.value
+        BloodData[index].periodExtraValue = e.detail.value
         this.setData({
             BloodData
         })
@@ -145,104 +201,74 @@ Page({
         this.getBloodGlucose()
     },
     bindPeriodChange(e) {
+        const index = e.currentTarget.dataset.index
         let BloodData = this.data.BloodData
         let val = e.detail.value
-        if (this.data.BloodData.periodSubvalue == "其它") {
-            this.setData({
-                otherInput: true,
-            })
-        } else {
-            this.setData({
-                otherInput: false,
-            })
+        let periodSubvalue;
+        BloodData[index].periodValue = this.data.periodValues[val].value,
+        BloodData[index].periodCode = this.data.periodValues[val].code
+        if(this.data.periodIndex !== val) {
+            BloodData[index].periodSubcode = ''
+            BloodData[index].periodSubvalue = ''
         }
-        BloodData.periodValue = this.data.periodValues[val].value,
-            BloodData.periodCode = this.data.periodValues[val].code
         this.setData({
             periodIndex: val,
             BloodData
         })
     },
     bindPerChildrenChange(e) {
+        const index = e.currentTarget.dataset.index
         let BloodData = this.data.BloodData
         let val = e.detail.value
-        if (this.data.periodValues[this.data.periodIndex].children[val].value == '其它') {
-            this.setData({
-                otherInput: true,
-            })
-        } else {
-            this.setData({
-                otherInput: false,
-            })
-        }
-        BloodData.periodSubvalue = this.data.periodValues[this.data.periodIndex].children[val].value
-        BloodData.periodSubcode = this.data.periodValues[this.data.periodIndex].children[val].code
+        BloodData[index].periodSubvalue = this.data.periodValues[this.data.periodIndex].children[val].value
+        BloodData[index].periodSubcode = this.data.periodValues[this.data.periodIndex].children[val].code
         this.setData({
             BloodData
         })
     },
     bindCategoryChange(e) {
+        const index = e.currentTarget.dataset.index
         let BloodData = this.data.BloodData
         let val = e.detail.value
-        BloodData.categoryValue = this.data.categoryValues[val].value
-        BloodData.categoryCode = this.data.categoryValues[val].code
+        BloodData[index].categoryValue = this.data.categoryValues[val].value
+        BloodData[index].categoryCode = this.data.categoryValues[val].code
         this.setData({
             BloodData
         })
     },
-    /**
-     * 生命周期函数--监听页面加载
-     */
+    addRecordList() {
+        let BloodData = this.data.BloodData
+        BloodData.push({
+            periodCode: '',
+            periodSubcode: '',
+            periodExtraValue: '',
+            categoryCode: '',
+            value: ''
+        })
+        this.setData({
+            BloodData
+        })
+    },
+    delRecordList(e) {
+        const { index, id, rowmd5 } = e.currentTarget.dataset
+        let userData = this.data.BloodData;
+        userData.splice(index, 1);
+        if (id && rowmd5) {
+            let delList = this.data.delList;
+            delList.push({
+                entity: 'bloodGlucose',
+                id: id,
+                rowMd5: rowmd5
+            });
+            this.setData({
+                delList
+            });
+        }
+        this.setData({
+            BloodData: userData
+        });
+    },
     onLoad: function (options) {
         this.getBloodGlucose()
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
     }
 })

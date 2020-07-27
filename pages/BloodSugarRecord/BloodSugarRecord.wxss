@@ -1,3 +1,9 @@
+.dataList {
+  position: relative;
+  padding-bottom: 40px;
+  border-bottom: 2rpx solid #F6F6F6;
+}
+
 .pickerContent {
     display: flex;
     justify-content: space-between;
@@ -7,7 +13,7 @@
     flex: 2;
     display: flex;
     align-items: center;
-    height: 98rpx;
+    height: 108rpx;
     border-bottom: 2rpx solid #F6F6F6;
     padding-right: 40rpx;
 }
@@ -16,7 +22,7 @@
     flex: 1;
     display: flex;
     align-items: center;
-    height: 98rpx;
+    height: 108rpx;
     border-bottom: 2rpx solid #F6F6F6;
     border-left: 2rpx solid #F6F6F6;
     padding: 0 36rpx 0 20rpx;
@@ -74,7 +80,26 @@
     border-bottom: 2rpx solid #F6F6F6;
 }
 .otherInput input{
-    height: 98rpx;
-    line-height: 98rpx;
+    height: 108rpx;
+    line-height: 108rpx;
 
+}
+
+.addRecordBtn{
+    color: #FEC81E;
+    text-align: center;
+    border-bottom: 2rpx solid #e9e9e9;
+    line-height: 88rpx;
+}
+.delBox{
+    position: absolute;
+    top: 4rpx;
+    right: 0;
+    z-index: 99;
+}
+
+.img{
+    width: 30rpx;
+    height: 30rpx;
+    margin-right: 20rpx;
 }

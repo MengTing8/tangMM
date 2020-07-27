@@ -1,55 +1,62 @@
 <TimeRecord pickerObj="{{dateObj}}" bindbindDateChange='bindDateChange'></TimeRecord>
-<view class="pickerContent">
-    <view class="itemBox_time">
-        <text class="itemBox_title">时间段</text>
-        <view class="itemBox_content">
-            <view class="itemBox_date">
-                <picker mode="selector" value="" range="{{periodValues}}" range-key="{{'value'}}" bindchange="bindPeriodChange">
-                    <view class="weui-input_10">{{BloodData.periodValue || '请选择'}}</view>
-                </picker>
-            </view>
-            <text class="itemBox_rightArrow"></text>
-        </view>
+
+<view class="dataList" wx:for="{{BloodData}}" wx:key="index">
+    <view class="delBox" bindtap="delRecordList" data-index="{{index}}" data-id="{{item.id}}" data-rowMd5="{{item.rowMd5}}">
+        <image src="../../img/del.png" class="img" />
     </view>
-    <view class="itemBox_times">
-        <!-- <text class="itemBox_title">时间段</text> -->
-        <view class="itemBox_content">
-            <view class="itemBox_date">
-                <picker mode="selector" value="" range="{{periodValues[periodIndex].children}}" range-key="{{'value'}}" bindchange="bindPerChildrenChange">
-                    <view class="weui-input_10">{{BloodData.periodSubvalue || '请选择'}}</view>
-                </picker>
-            </view>
-            <text class="itemBox_rightArrow"></text>
-        </view>
-    </view>
-</view>
-<view class="otherInput" wx:if="{{otherInput}}">
-    <input type="text" value="{{BloodData.periodExtraValue}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindExtraValueInput"/>
-</view>
-<view class="pickerContent">
-    <view class="itemBox_time">
-        <text class="itemBox_title">测量值</text>
-        <view class="itemBox_content">
-            <view class="itemBox_date">
-                <picker mode="selector" value="" range="{{categoryValues}}" range-key="{{'value'}}" bindchange="bindCategoryChange">
-                    <view class="weui-input_10">{{BloodData.categoryValue || '请选择'}}</view>
-                </picker>
-            </view>
-            <text class="itemBox_rightArrow"></text>
-        </view>
-    </view>
-    <view class="itemBox_times">
-        <view class="itemBox_content">
-            <!-- <view class="itemBox_date"> -->
-            <view class="textBox">
-                <view class="inpText">
-                    <input type="text" value="{{BloodData.value}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindValueInput"/>
+    <view class="pickerContent">
+        <view class="itemBox_time">
+            <text class="itemBox_title">时间段</text>
+            <view class="itemBox_content">
+                <view class="itemBox_date">
+                    <picker mode="selector" value="" data-index="{{index}}" range="{{periodValues}}" range-key="{{'value'}}" bindchange="bindPeriodChange">
+                        <view class="weui-input_10">{{item.periodValue || '请选择'}}</view>
+                    </picker>
                 </view>
+                <text class="itemBox_rightArrow"></text>
             </view>
-            <text style="color:#999">mmol/L</text>
-            <!-- </view> -->
-            <!-- <text class="itemBox_rightArrow"></text> -->
+        </view>
+        <view class="itemBox_times">
+            <!-- <text class="itemBox_title">时间段</text> -->
+            <view class="itemBox_content">
+                <view class="itemBox_date">
+                    <picker mode="selector" value="{{periodSubvalue}}" data-index="{{index}}" range="{{periodValues[periodIndex].children}}" range-key="{{'value'}}" bindchange="bindPerChildrenChange">
+                        <view class="weui-input_10">{{item.periodSubvalue || '请选择'}}</view>
+                    </picker>
+                </view>
+                <text class="itemBox_rightArrow"></text>
+            </view>
+        </view>
+    </view>
+    <view class="otherInput" hidden="{{item.periodSubcode !== '99'}}">
+        <input type="text" value="{{item.periodExtraValue}}" data-index="{{index}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindExtraValueInput"/>
+    </view>
+    <view class="pickerContent">
+        <view class="itemBox_time">
+            <text class="itemBox_title">测量值</text>
+            <view class="itemBox_content">
+                <view class="itemBox_date">
+                    <picker mode="selector" value="" data-index="{{index}}" range="{{categoryValues}}" range-key="{{'value'}}" bindchange="bindCategoryChange">
+                        <view class="weui-input_10">{{item.categoryValue || '请选择'}}</view>
+                    </picker>
+                </view>
+                <text class="itemBox_rightArrow"></text>
+            </view>
+        </view>
+        <view class="itemBox_times">
+            <view class="itemBox_content">
+                <!-- <view class="itemBox_date"> -->
+                <view class="textBox">
+                    <view class="inpText">
+                        <input type="number" value="{{item.value}}" data-index="{{index}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindValueInput"/>
+                    </view>
+                </view>
+                <text style="color:#999">mmol/L</text>
+                <!-- </view> -->
+                <!-- <text class="itemBox_rightArrow"></text> -->
+            </view>
         </view>
     </view>
 </view>
+<view class="addRecordBtn" bind:tap="addRecordList">添加一组记录</view>
 <BtnComponents bindonSaveBtn="onSaveBtn" bindhistoryRecordBtn="historyRecordBtn"></BtnComponents>

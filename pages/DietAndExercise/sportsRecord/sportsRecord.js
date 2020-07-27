@@ -60,7 +60,7 @@ Page({
         }
 
         for(let i=0;i<userData.length;i++) {
-          userData[i].entity = 'exercise',
+          userData[i].entity = 'exercise';
           userData[i].patientId = wx.getStorageSync('patientId');
           userData[i].date = this.data.dataTime;
           userData[i].status = '1';
