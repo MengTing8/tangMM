@@ -131,3 +131,60 @@
     text-align: center;
     margin: 40rpx auto 20rpx;
 }
+
+
+  .curriculumTime {
+      color: #40474E;
+      text-align: center;
+  }
+
+  .curriculumContent {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 30rpx;
+      padding: 20rpx 80rpx;
+  }
+.curriculumList {
+    padding: 20rpx 0;
+}
+
+.scrollContainer {
+    width: 100%;
+    white-space: nowrap;
+}
+
+.cont_title {
+    color: #121212;
+    text-align: center;
+    padding: 28rpx 30rpx 20rpx 30rpx;
+    font-size:32rpx;
+}
+
+.itemBg {
+    display: inline-block;
+}
+
+.end-cont-title {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2rpx #F8F8F8 solid;
+    border-top: 2rpx #F8F8F8 solid;
+}
+
+.end-cont-notice {
+    display: none;
+}
+
+.btna {
+    border-bottom: solid #FEE55F 4rpx;
+}
+
+.dis {
+    display: block;
+}
+
+.courseware_content {
+    /* margin-top: 40rpx; */
+}
+

@@ -1,7 +1,5 @@
 /* 用 promise 方式封装 request 请求方法 */
 const app = getApp()
-console.log(app);
-
 const request = (params) => {
     var DataArr = params.data.data
     for (const key in DataArr) {
@@ -38,23 +36,17 @@ const request = (params) => {
                     let code = ''
                     //token失效
                     // wx.clearStorage()
-                    console.log(app.globalData.code);
                     var ard = app.globalData
-                    console.log(ard.encryptedData);
                     // 登录
                     wx.login({
                         success: res => {
-                            console.log(res);
                             code = res.code;
-                            // console.log('wx.login', res);
                             // 发送 res.code 到后台换取 openId, sessionKey, unionId
                         }
                     })
                     wx.getSetting({
                         success: res => {
-                            //console.log('wx.getSetting.success',res);
                             if (res.authSetting['scope.userInfo']) {
-                                //console.log('wx.getSetting.success.res.authSetting');
                                 // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
                                 wx.getUserInfo({
                                     success: res => {
@@ -82,22 +74,18 @@ const request = (params) => {
                                                     wx.setStorageSync('token', DataArr.token)
                                                     wx.setStorageSync('userType', userType)
                                                     app.globalData.userType = userType
-                                                    console.log(app.globalData.userType, userType);
                                                     // -2 = 未绑定手机用户
                                                     // -1 = 未绑定诊疗卡用户
                                                     // 1 = 医务人员
                                                     // 2 = 孕产妇
                                                     if (userType == -2) {
                                                         console.log("：未绑定手机用户");
-
                                                         // -2 ：未绑定手机用户
                                                         wx.navigateTo({
-
                                                             url: '../tiedCard/tiedCard?tabsItem=' + 0
                                                         })
                                                     } else if (userType == -1) {
                                                         console.log("未绑定诊疗卡用户");
-
                                                         // -1 = 未绑定诊疗卡用户
                                                         wx.navigateTo({
                                                             url: '../tiedCard/tiedCard?tabsItem=' + 1
@@ -184,7 +172,6 @@ const pullDownrequest = (params) => {
     //       }
     //     } else {
     //       // 跳转到授权登录页面
-    //       console.log('没有 token 跳转到登录授权页');
     //       wx.navigateTo({
     //         url: '/pages/login/login',
     //       });

@@ -332,13 +332,7 @@ Page({
                 "data": self.data.DeleteList
             }
         }).then(res => {
-            console.log(res, "删除");
             if (res.data.code === '0') {
-                //   wx.showToast({
-                //       title: res.data.message,
-                //       icon: 'none',
-                //       duration: 2000
-                //   })
             } else {
                 wx.showToast({
                     title: res.data.message,
@@ -402,7 +396,6 @@ Page({
                 id: id,
                 rowMd5: rowmd5,
             })
-            console.log(NewList);
              this.setData({
                  DeleteList: NewList
              })
@@ -433,7 +426,6 @@ Page({
         })
     },
     bindMealValueInput(e) {
-        console.log(e);
         let self = this
 
         let {
@@ -467,7 +459,6 @@ Page({
     },
     //时间选择器
     bindStartTimeChange: function (e) {
-        console.log(e)
         let index = Number(e.target.dataset.index)
         let newArray = this.data.dosageArray
         let dataObj = e.detail.value;
@@ -478,7 +469,6 @@ Page({
     },
     //时间选择器
     bindEndTimeChange: function (e) {
-        console.log(e)
         let index = Number(e.target.dataset.index)
         let newArray = this.data.dosageArray
         let dataObj = e.detail.value;

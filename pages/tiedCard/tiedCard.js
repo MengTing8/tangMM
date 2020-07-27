@@ -50,7 +50,6 @@ Page({
                     }]
                 }
             }).then(res => {
-                console.log(res);
                 if (res.data.code === '0') {
                     // 发送成功
                     _that.countDown(_that, _that.data.second);
@@ -129,7 +128,6 @@ Page({
                     }]
                 }
             }).then(res => {
-                console.log(res);
                 if (res.data.code === '0') {
                     // 发送成功ses
                     wx.showToast({
@@ -184,7 +182,6 @@ Page({
                     }]
                 }
             }).then(res => {
-                console.log(res);
                 if (res.data.code === '0') {
                     // 发送成功ses
                     wx.showToast({

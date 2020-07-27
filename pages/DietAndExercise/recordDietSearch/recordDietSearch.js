@@ -43,7 +43,6 @@ Page({
             }
 
         });
-        console.log(arr)
         that.setData({
             TabList:arr
         })
@@ -52,10 +51,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        console.log(options);
-        // 先将字符串转化为数组
         var TabList = JSON.parse(options.TabList)
-        console.log(TabList)
         this.setData({
        TabList
         })

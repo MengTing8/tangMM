@@ -40,7 +40,7 @@ Page({
         } else if (index == 2) {
             // 妈妈空腹体重
             // URL = '../weightMa/weightMa'
-            URL = '../WeightContent/weightMa/weightMa'
+            URL = '../WeightContent/weightMa/weightMa?gestationalWeek=' + gestationalWeek
         } else if (index == 3) {
             // 胎儿体重
             URL = '../WeightContent/fetalWeightAdd/fetalWeightAdd'
@@ -113,9 +113,7 @@ Page({
                     duration: 2000
                 })
             }
-            wx.hideLoading()
         }).catch((errMsg) => {
-            wx.hideLoading()
             console.log(errMsg); //错误提示信息
         });
 
@@ -130,7 +128,6 @@ Page({
         //         "data": []
         //     }
         // }).then(res => {
-        //     console.log(res);
         //     if (res.data.code === '0') {
         //      let date = getDates(1, res.data.data[0].currentDate);
         //        let str = res.data.data[0].currentDate
@@ -148,7 +145,6 @@ Page({
 
         //     }
         //     // else if (res.data.message == "无效token") {
-        //     //           console.log('333');
         //     //           wx.clearStorage()
         //     //           wx.navigateTo({
         //     //               url: "../../index/index"
@@ -188,22 +184,16 @@ Page({
         const token = wx.getStorageSync('token');
         const userType = wx.getStorageSync('userType')
         if (!token) {
-            console.log('没有 token 跳转到登录授权页');
             wx.redirectTo({
                 url: '/pages/index/index',
             });
         }
         if (userType == -2) {
-            console.log("：未绑定手机用户");
-
             // -2 ：未绑定手机用户
             wx.redirectTo({
-
                 url: '/pages/tiedCard/tiedCard?tabsItem=' + 0
             })
         } else if (userType == -1) {
-            console.log("未绑定诊疗卡用户");
-
             // -1 = 未绑定诊疗卡用户
             wx.redirectTo({
                 url: '/pages/tiedCard/tiedCard?tabsItem=' + 1

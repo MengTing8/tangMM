@@ -37,43 +37,10 @@ Page({
             categoryCode: "",
             food: [],
             photo: []
-        }], //保存接口的参数
-        dataList: [{
-            date: "2020-06-16",
-            periodCode: "1",
-            id: "",
-            rowMd5: "",
-            time: "09:30",
-            categoryCode: "1",
-            food: [{
-                    id: "",
-                    rowMd5: "",
-                    code: "",
-                    value: ""
-                },
-                {
-                    id: "",
-                    rowMd5: "",
-                    code: "",
-                    value: ""
-                }
-            ],
-            photo: [{
-                    id: "",
-                    rowMd5: "",
-                    fileName: ""
-                },
-                {
-                    id: "",
-                    rowMd5: "",
-                    fileName: ""
-                }
-            ]
-        }, ],
+        }], 
         UploadShow: false,
     },
     UploadCourseware(e) {
-        console.log(e);
         var that = this
         let {
             index,
@@ -88,10 +55,7 @@ Page({
             sizeType: ['original', 'compressed'],
             sourceType: ['album', 'camera'],
             success: function (res) {
-                console.log(res)
-                console.log(that.data.UploadShow);
                 var tempFilePaths = res.tempFilePaths;
-                // console.log(tempFilePaths)
                 wx.uploadFile({
                     url: 'https://aaron.astraia.com.cn//wxupload',
                     filePath: tempFilePaths[0],
@@ -101,10 +65,8 @@ Page({
                         "category": "dietPhoto"
                     },
                     success(res) {
-                        console.log(res);
                         const data = res.data
                         let ResData = JSON.parse(data)
-                        console.log(ResData);
                         if (ResData.code == '0') {
                             wx.showToast({
                                 title: '上传成功',
@@ -132,8 +94,6 @@ Page({
                             }
                             // newArr[index].date = that.data.dataTime
                             // newArr[index].photo = ResData.data
-                            console.log(enteringItems);
-                            console.log(newArr);
                             that.setData({
                                 enteringItems,
                                 // fileList: tempFilePaths,
@@ -149,6 +109,11 @@ Page({
     },
     getDiet() {
         let self = this
+        self.setData({
+            DeleteFoodList: [],
+            DeletePhotoList: [],
+        })
+        wx.removeStorageSync('FoodDataList')
         request({
             method: "POST",
             url: '/wxrequest',
@@ -211,15 +176,15 @@ Page({
                     }]
                     self.setData({
                         enteringArray: NewEnteringArray,
-                        DeleteList: []
                     })
                 }
                 self.setData({
                     enteringArray: NewEnteringArray,
                     categoryValues: ResData.categoryValues,
                     rniList: ResData.rni,
-                    enteringItems: ResData.items
+                    enteringItems: ResData.items,
                 })
+                // self.getStorageFoodArr()
             } else {
                 wx.showToast({
                     title: res.data.message,
@@ -230,7 +195,6 @@ Page({
         })
     },
     DelFoodTag(e) {
-        console.log(e);
         let {
             index,
             id,
@@ -264,13 +228,8 @@ Page({
                 "data": self.data.DeleteFoodList
             }
         }).then(res => {
-            console.log(res, "删除食物");
             if (res.data.code === '0') {
-                //   wx.showToast({
-                //       title: res.data.message,
-                //       icon: 'none',
-                //       duration: 2000
-                //   })
+
             } else {
                 wx.showToast({
                     title: res.data.message,
@@ -309,11 +268,7 @@ Page({
                 "data": self.data.DeletePhotoList
             }
         }).then(res => {
-            console.log(res, "删除");
-            if (res.data.code === '0') {
-                console.log('删除成功');
-
-            } else {
+            if (res.data.code === '0') {} else {
                 wx.showToast({
                     title: res.data.message,
                     icon: 'none',
@@ -323,7 +278,6 @@ Page({
         })
     },
     bindCategoryChange(e) {
-        console.log(e);
         let self = this
         let {
             periodcode,
@@ -391,18 +345,44 @@ Page({
         })
     },
     tapFoodAdd(e) {
-        let index = Number(e.currentTarget.dataset.index)
-        console.log(index);
+        let {
+            index,
+            periodcode,
+            food
+        } = e.currentTarget.dataset
+        let FoodData = wx.getStorageSync('FoodDataList') || []
+        let periodCodeArr = []
+        if (food) {
+            FoodData.forEach(item => {
+                periodCodeArr.push(item.periodCode)
+            })
+            var code = food.map(c => {
+                return c.code
+            })
+            if (periodCodeArr.includes(periodcode)) {
+                FoodData[periodCodeArr.indexOf(periodcode)].periodCode = periodcode
+                FoodData[periodCodeArr.indexOf(periodcode)].foodArr = food
+                FoodData[periodCodeArr.indexOf(periodcode)].codeArr = code
+            } else {
+                FoodData.push({
+                    periodCode: periodcode,
+                    foodArr: food,
+                    codeArr: code
+                })
+                periodCodeArr.push(periodcode)
+            }
+            wx.setStorageSync('FoodDataList', FoodData)
+        }
+
         this.setData({
             foodIndex: index,
             UploadShow: false
         })
         wx.navigateTo({
-            url: '../recordDiet/recordDiet'
+            url: `../recordDiet/recordDiet?periodCode=${periodcode}`
         })
     },
     bindDateChange(e) {
-        console.log(e);
         var NewData = this.data.dateObj;
         let val = e.detail.value
         let dateSelect = e.detail.date
@@ -443,7 +423,6 @@ Page({
                 "data": params
             }
         }).then(res => {
-            console.log(res, "保存");
             if (res.data.code === '0') {
                 wx.showToast({
                     title: res.data.message,
@@ -461,25 +440,60 @@ Page({
         })
     },
     historyRecordBtn(e) {
-        console.log(e);
         wx.navigateTo({
             url: '../historyDietRecords/historyDietRecords'
         })
     },
-    duplicates(arr) {
-        return arr.sort().filter((v, k) => {
-            console.log(arr[k]);
+    getStorageFoodArr() {
+        let that = this
+        let foodIndex
+        var enteringItems = this.data.enteringItems
+        var enteringArray = this.data.enteringArray
+        if (enteringItems.length > 0) {
+            let FoodDataList = wx.getStorageSync('FoodDataList')
+            for (const key in enteringItems) {
+                let items = enteringItems[key]
+                for (const i in FoodDataList) {
+                    if (items.periodCode === FoodDataList[i].periodCode) {
+                        foodIndex = key
+                        if (enteringItems[foodIndex]) {
+                            enteringItems[foodIndex].food = FoodDataList[i].foodArr
+                        }
+                        if (!enteringArray[foodIndex]) {
+                            enteringArray.push({
+                                date: that.data.dataTime,
+                                periodCode: FoodDataList[i].periodCode,
+                                id: '',
+                                rowMd5: '',
+                                time: '',
+                                categoryCode: '',
+                                food: FoodDataList[i].foodArr,
+                                photo: []
+                            })
+                        } else {
+                            if (FoodDataList[i].foodArr) {
+                                enteringArray[foodIndex].food = FoodDataList[i].foodArr
+                            } else {
+                                enteringArray[foodIndex].food = FoodDataList[i].foodArr
+                                enteringArray[foodIndex].periodCode = FoodDataList[i].periodCode
+                            }
+                        }
+                        this.setData({
+                            enteringItems,
+                            enteringArray
+                        })
+                    }
+                }
+            }
 
-            return arr[k].code === arr[k + 1] && arr[k].code !== arr[k - 1];
-        })
+        }
+
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
         this.getDiet()
-
-
     },
 
     /**
@@ -493,83 +507,14 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        console.log("show");
         let that = this
         if (that.data.UploadShow) {
-            console.log('上传触发的onshow');
             that.setData({
                 UploadShow: false
             })
             return
         } else {
-            console.log("不上传onshow");
-            var pages = getCurrentPages();
-            var currPage = pages[pages.length - 1];
-            var enteringItems = this.data.enteringItems
-            var enteringArray = this.data.enteringArray
-            let Eitems = enteringItems[this.data.foodIndex].food
-            let newEitems = currPage.data.foodArr
-            if (newEitems.length > 0) {
-                if (Eitems) {
-                    let Arrs = []
-                    // Eitems = Eitems.concat(newEitems);
-                    console.log(Eitems);
-                    console.log(newEitems);
-                    Eitems.forEach(val => {
-                        let obj = {}
-                        obj.code = val.code
-                        obj.name = val.name
-                        let arr = []
-                        newEitems.forEach(function (val2, k) {
-                            console.log(val.code + '---' + val2.code);
-                            if (val.code == val2.code) {
-                                val.value = val2.value
-                                newEitems.splice(k, 1)
-                            } else {
-                                arr.push(val2)
-                                console.log(arr);
-                                Arrs = arr
-                            }
-                        })
-                    });
-                    Eitems = Eitems.concat(Arrs);
-                    enteringItems[this.data.foodIndex].food = Eitems
-                    this.setData({
-                        enteringItems,
-                    })
-                } else {
-                    console.log('else1',enteringItems);
-
-                    enteringItems[this.data.foodIndex].food = currPage.data.foodArr
-                    // enteringArray[this.data.foodIndex].food = enteringItems[this.data.foodIndex].food
-
-                }
-                if (!enteringArray[this.data.foodIndex]) {
-                    enteringArray.push({
-                        date: that.data.dataTime,
-                        periodCode: "",
-                        id: "",
-                        rowMd5: "",
-                        time: "",
-                        categoryCode: "",
-                        food: currPage.data.foodArr,
-                        photo: []
-                    })
-                } else {
-                    console.log('else', Eitems, currPage.data.foodArr);
-                    if (Eitems) {
-                        enteringArray[this.data.foodIndex].food = Eitems
-                    } else {
-                        enteringArray[this.data.foodIndex].food = currPage.data.foodArr
-
-                    }
-                }
-                // enteringItems[this.data.foodIndex].food = Eitems
-                this.setData({
-                    enteringItems,
-                    enteringArray
-                })
-            }
+            that.getStorageFoodArr()
         }
 
 

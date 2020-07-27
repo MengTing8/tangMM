@@ -9,8 +9,6 @@
     }
     // 倒计时
     var EndTime = new Date(new Date().getTime() + 1 * 60 * 60 * 1000).getTime() || [];
-    // console.log(new Date(new Date().getTime() + 1 * 0.4 * 60 * 1000), "倒计时");
-
     function countdown(that) {
         if (that.data.refreshClock) {
             return;
@@ -19,7 +17,6 @@
         var total_micro_second = EndTime - NowTime || [];
         //单位毫秒 
         if (total_micro_second < 0) {
-            // console.log('时间初始化小于0，活动已结束状态'); 
             // total_micro_second = 1;
             //单位毫秒 ------  WHY？ 
 
@@ -66,8 +63,6 @@
         if (hr <= 9) hr = '0' + hr;
         if (min <= 9) min = '0' + min;
         if (sec <= 9) sec = '0' + sec;
-        // console.log(day + "天" + hr + "小时" + min + "分钟" + sec + "秒");
-
         // return day + "天" + hr + "小时" + min + "分钟" + sec + "秒";
         return min + ":" + sec;
     }
@@ -107,16 +102,7 @@
             name: '',
             descriptionUser: '',
             musicPlayKey: 0,
-            musicList: [
-                // {
-                //     name:"1",
-                //     url: "http://m701.music.126.net/20200618132449/97b7b9cc26b002a30c5a171a647bb20e/jdymusic/obj/w5zDlMODwrDDiGjCn8Ky/2270179822/2491/6dd5/eafd/7db3a42de108d4d1dbb91fb71d024c28.mp3"
-                // },
-                // {
-                //     name:"2",
-                //     url: "http://m801.music.126.net/20200618132511/e01175a57f802ce84c0f2a1201facab2/jdymusic/obj/w5zDlMODwrDDiGjCn8Ky/2180586519/98b2/4d51/b6d3/c8c65de6a0bf053a2cd94d1f9473d069.mp3"
-                // }
-            ],
+            musicList: [],
             onMusic: false, // 控制音乐的状态，以及图标是否旋转
             TabsIndex: 0,
             State: false,
@@ -151,7 +137,6 @@
                             back.stop()
                             that.SaveFetalMovement()
                         } else if (res.cancel) {
-                            console.log('用户点击取消')
                         }
                     }
                 })
@@ -181,7 +166,6 @@
                             })
                             back.stop()
                         } else if (res.cancel) {
-                            console.log('用户点击取消')
                         }
                     }
                 })
@@ -200,7 +184,6 @@
                     "data": []
                 }
             }).then(res => {
-                console.log(res, "胎动监测今日记录");
                 if (res.data.code === '0') {
                     self.setData({
                         FetalMovementList: res.data.data
@@ -223,13 +206,12 @@
                 url: '/wxrequest',
                 data: {
                     "token": wx.getStorageSync('token'),
-                    "function": "getFetalMovementListW",
+                    "function": "spGetFetalMovementListByWeek",
                     "data": [{
                         "gestationalWeek": self.data.GA
                     }]
                 }
             }).then(res => {
-                console.log(res, "孕周记录");
                 if (res.data.code === '0') {
                     self.setData({
                         WeeksRecordList: res.data.data
@@ -249,7 +231,6 @@
         SaveFetalMovement() {
             let self = this
             let date = getDates(1, new Date());
-            console.log(date);
             request({
                 method: "POST",
                 url: '/wxrequest',
@@ -270,7 +251,6 @@
                     }]
                 }
             }).then(res => {
-                console.log(res);
                 if (res.data.code === '0') {
                     self.setData({
                         quantity: 0, //原始胎动次数
@@ -315,7 +295,6 @@
                     })
                 }
                 //  setTimeout(function () {
-                //      console.log("达到5分钟1111");
                 //  }, 300000)
                 if (new Date().getTime() - this.data.total_econd >= 300000) {
                     that.setData({
@@ -343,7 +322,6 @@
                 back.play()
             } else {
                 back.pause()
-                console.log("停止");
             }
         },
         backmusic: function () {
@@ -436,7 +414,6 @@
                     "data": []
                 }
             }).then(res => {
-                console.log(res);
                 if (res.data.code === '0') {
                     self.setData({
                         musicList: res.data.data[0].music,
@@ -463,7 +440,6 @@
                     "data": []
                 }
             }).then(res => {
-                console.log(res);
                 if (res.data.code === '0') {
                     self.setData({
                         description: res.data.data[0].description
@@ -478,7 +454,6 @@
             })
         },
         bindMultiPickerColumnChange(e) {
-            // console.log('picker发送选择改变，携带值为', e.detail.value, e.detail.column)
             let predays = this.data.predays
             let val = e.detail.value,
                 col = e.detail.column
@@ -561,25 +536,6 @@
                 console.log("错误,,,,...,,.");
 
             });
-
-            // var that = this
-            // //    innerAudioContext.src = "http://m10.music.126.net/20191211122622/856d8fa0a261c96b4e3bf7a21411eb99/ymusic/545a/025a/5158/c01ecd1a5d5046da4b33f2a4dd9dc7c2.mp3"
-            // //     innerAudioContext.play();
-            // // 获取BackgroundAudioManager 实例 后台播放
-            // this.back = wx.getBackgroundAudioManager()
-            // // 对实例进行设置
-            // this.back.src = "http://up_mp4.t57.cn/2018/1/03m/13/396131229550.m4a"
-            // this.back.title = 'Tassel' // 标题为必选项
-            // this.back.play() // 开始播放
-            // this.back.loop = true
-            // wx.onBackgroundAudioStop(function () {
-            //     console.log('onBackgroundAudioStop')
-            //     console.log("播完了");
-
-            //     that.setData({
-            //         on: !that.data.on
-            //     })
-            // })
         },
 
         /**

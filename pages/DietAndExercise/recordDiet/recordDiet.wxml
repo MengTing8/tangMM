@@ -1,7 +1,39 @@
 <view class="vanSearchBox" bind:tap="">
     <van-search value="{{SearchValue}}" placeholder="搜索关键字" shape="round" field-class="fieldClass" bind:change="bindSearch" />
 </view>
-<view class="recordDietContent" wx:if="{{ShowTab}}">
+<view class="courseware_content"  wx:if="{{ShowTab}}">
+    <scroll-view class="'scrollContainer' " scroll-left="{{navScrollLeft}}" scroll-x="{{true}}" scroll-with-animation="{{true}}">
+        <view class="itemBg">
+            <view class="end-cont-title">
+                <view class="cont_title {{btnnum == index?'btna':''}}" wx:for="{{TabList}}" wx:key='index' bind:tap="Tabchange" data-index='{{index}}'>
+                    <view class="">{{item.groupValue}}</view>
+                </view>
+            </view>
+        </view>
+    </scroll-view>
+     <view class="expense_content">
+        <view class="expense_info">
+            <view class="info_content">
+                <view class="expense_info_name" wx:for="{{TabList[btnnum].foodValues}}" wx:for-item="f" wx:for-index="d" wx:key="d">
+                    <view class="food_content">
+                        <view class="food_name">{{f.name}}</view>
+                        <view class="food_weight">
+                            <view class="food_weight_content">
+                                <input id="point{{f.code}}" class="weui-input" type="number" value="{{f.value}}" data-index="{{d}}" data-index1='{{btnnum}}' data-code="{{f.code}}" data-name="{{f.name}}" bindinput="bindFoodValueInput" placeholder="请输入" placeholder-class="placeholder_class" />
+                                <text>g</text>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+         <view class="arrive_btn" wx:if="{{TabList[btnnum].foodValues.length>0}}">
+         <view class="saveBtn" bind:tap="saveFood">保存</view>
+     </view>
+</view>
+<!-- vant -->
+<!-- <view class="recordDietContent" wx:if="{{ShowTab}}">
     <van-tabs active="{{ active }}" color='#FEE55F'>
         <van-tab title="{{item.groupValue}}" wx:for="{{TabList}}" wx:key="index">
             <view class="expense_content">
@@ -12,7 +44,7 @@
                                 <view class="food_name">{{f.name}}</view>
                                 <view class="food_weight">
                                     <view class="food_weight_content">
-                                        <input class="weui-input" type="digit" value="{{}}" data-index="{{d}}" data-code="{{f.code}}" data-name="{{f.name}}" bindinput="bindFoodValueInput" placeholder="请输入" placeholder-class="placeholder_class" />
+                                        <input id="point{{f.code}}" class="weui-input" type="digit" value="{{}}" data-index="{{d}}" data-code="{{f.code}}" data-name="{{f.name}}" bindinput="bindFoodValueInput" placeholder="请输入" placeholder-class="placeholder_class" />
                                         <text>g</text>
                                     </view>
                                 </view>
@@ -26,7 +58,7 @@
             </view>
         </van-tab>
     </van-tabs>
-</view>
+</view> -->
 <!-- 搜索模块 -->
 <view class="content" wx:if="{{!ShowTab}}">
     <!-- <view class="vanSearchBox">
@@ -35,8 +67,8 @@
     <view class="footContent">
         <view class="footList" wx:for="{{SearchFoodList}}" wx:for-item="C" wx:key="c">
             <view class="classNameFoot unifyFont">{{C.foodType}}</view>
-            <view class="footItem" wx:for="{{C.nafoodChildrenme}}" wx:key="index" bind:tap="bindSearchFood" data-foodCode='{{C.foodCode}}'>
-                <view class="footName">{{item.name}}</view>
+            <view class="footItem" wx:for="{{C.nafoodChildrenme}}" wx:for-item="s" wx:for-index="x" wx:key="index" bind:tap="bindSearchFood" data-foodCode='{{C.foodCode}}' data-id="{{s.code}}">
+                <view class="footName">{{s.name}}</view>
                 <view class="rightArrow"></view>
             </view>
         </view>

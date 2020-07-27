@@ -88,7 +88,11 @@
                     |
                     <text style="padding:0 12rpx">{{suggestion}}</text>
                     |
-                    <text>增重目标：{{PatientData.gainWeight=='0'?'':PatientData.gainWeight}}</text>
+                    <!-- <text>增重目标：{{PatientData.gainWeight=='0'?'':PatientData.gainWeight}}</text> -->
+                    <text wx:if="{{BMI<18.5&&BMI>0}}">增重目标：15.25kg</text>
+                    <text wx:elif="{{BMI<24.9&&BMI>18.5}}">增重目标：13.75kg</text>
+                    <text wx:elif="{{BMI<29.9&&BMI>24.9}}">增重目标：9.25kg</text>
+                    <text wx:else>增重目标：7kg</text>
                 </view>
             </view>
             <view class="imgBox">

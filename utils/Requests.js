@@ -32,7 +32,6 @@
                                  //      title: '努力加载中...',
                                  //  })
                                  promiseRequest(RequestObjs).then((res) => {
-                                     console.log(res, 'loginR');
                                      //  wx.hideLoading()
                                      if (res.data.code == "0") {
                                          let promiseQueue = app.globalData.promiseQueue;
@@ -41,9 +40,7 @@
                                          wx.setStorageSync('token', DataArr.token)
                                          wx.setStorageSync('userType', userType)
                                          let promiseQueueItem = successCb;
-                                         console.log(promiseQueueItem, 'promiseQueueItem');
                                          promiseQueueItem.data.token = DataArr.token
-                                         console.log(promiseQueueItem, 'newtoken');
                                          if (promiseQueueItem) {
                                              app.globalData.exeQueue = true;
                                              promiseRequest(promiseQueueItem);
@@ -51,7 +48,6 @@
                                          }
                                          // successCb && successCb()
                                      } else {
-                                         wx.hideLoading()
                                          wx.showModal({
                                              title: '提示',
                                              content: res.data.errMsg || '网络错误！',
@@ -60,10 +56,10 @@
                                      }
 
                                  }).catch((errMsg) => {
-                                     wx.hideLoading()
+                                    //  wx.hideLoading()
                                      console.log(errMsg); //错误提示信息
                                  });
-                                 wx.hideLoading()
+                                //  wx.hideLoading()
                              }
                          })
                      }
@@ -98,7 +94,6 @@
              method: requestObj.method,
              data: JSON.stringify(requestObj.data),
              success: function (res) {
-                 //  console.log(res);
                  //  wx.hideLoading()
                  let promiseQueue = app.globalData.promiseQueue;
                  if (res.data.code == '0') {
@@ -117,7 +112,6 @@
                                  app.globalData.exeQueue = true;
                                  app.globalData.needBeginLogin = true;
                              }
-                             console.log(promiseQueueItem);
                          }
                      } else {
                          resolve(res);

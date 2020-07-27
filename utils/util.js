@@ -61,7 +61,6 @@ function checkTime(startTime, endTime) {
                 icon: 'none',
                 duration: 2000
             })
-            // console.log("开始日期不能大于结束日期");
             return false;
         }
     }

@@ -31,7 +31,6 @@ Page({
           this.setData({
               isEdit: true,
           })
-        console.log("index")
         const userType = wx.getStorageSync('userType');
         if (userType == 2) {
             wx.navigateTo({
@@ -66,7 +65,6 @@ Page({
         }
     },
     getUserInfo: function (e) {
-        console.log('getUserInfo', e)
         app.globalData.iv = e.detail.iv
         app.globalData.rawData = e.detail.rawData
         app.globalData.encryptedData = e.detail.encryptedData;
@@ -95,14 +93,11 @@ Page({
         }).then(res => {
             console.log(res);
             if (res.data.code === '0') {
-                console.log('data.data=', res.data.data);
                 let userType = res.data.data[0].userType
                 let DataArr = res.data.data[0]
                 wx.setStorageSync('token', DataArr.token)
                 wx.setStorageSync('userType', userType)
                 app.globalData.userType = userType
-                console.log(app.globalData.userType, userType);
-
                 // -2 = 未绑定手机用户
                 // -1 = 未绑定诊疗卡用户
                 // 1 = 医务人员
@@ -141,58 +136,5 @@ Page({
                 })
             }
         })
-        // wx.request({
-
-        //     url: 'http://219.137.170.140:19080/wxrequest',
-        //     method: 'post',
-        //     data: {
-        //         'function': 'mpLogin',
-        //         'data': [{
-        //             'code': app.globalData.code,
-        //             'iv': app.globalData.iv,
-        //             'rawData': app.globalData.rawData,
-        //             'encryptedData': app.globalData.encryptedData,
-        //             'signature': app.globalData.signature,
-        //         }]
-        //     },
-        //     header: {
-        //         'content-type': 'application/json' // 默认值
-        //     },
-        //     success: (res) => {
-        //         console.log('wx.res', res);
-        //         if (res.statusCode === 200) {
-
-        //             if (res.data.code === '0') {
-        //                 console.log('data.data=', res.data.data);
-        //                 let userType = res.data.data[0][0].userType
-        //                 let DataArr = res.data.data[0][0]
-        //                 wx.setStorageSync('token', DataArr.token)
-        //                 app.globalData.userType = userType
-        //                 // -2 = 未绑定手机用户
-        //                 // -1 = 未绑定诊疗卡用户
-        //                 // 1 = 医务人员
-        //                 // 2 = 孕产妇
-        //                 if (userType == -2) {
-        //                     // -2 ：未绑定手机用户
-        //                     wx.navigateTo({
-        //                         url: '../tiedCard/tiedCard'
-        //                     })
-        //                 }
-        //             } else {
-        //                 console.log('data.message=', res.data.message);
-        //             }
-        //         } else {
-        //             console.log('statusCode=', res.statusCode, 'errMsg=', res.errMsg);
-        //         }
-        //     },
-        //     fail: (res) => {
-        //         wx.hideLoading();
-        //         wx.showModal({
-        //             title: '提示',
-        //             content: '请求后台时，发生错误！',
-        //         })
-        //     }
-        // })
-
     }
 })
