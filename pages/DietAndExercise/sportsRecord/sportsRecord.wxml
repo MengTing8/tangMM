@@ -9,51 +9,48 @@
                 <text class="itemBox_rightArrow"></text>
             </view> -->
         <!-- </view> -->
-        <view class="itemBox">
-            <text class="itemBox_title">时段</text>
-            <view class="itemBox_content">
-                <view class="itemBox_text">
-                    <picker mode="selector" value="" range="{{periodList}}" range-key="{{'value'}}" bindchange="bindPeriodChange">
-                        <view class="weui-input_10">{{SportsData.periodValue||'请选择'}}</view>
-                        <!-- <view class="weui-input_10">{{TermList[0].Name}}</view> -->
-                    </picker>
+        <view class="dataRecord">
+            <view class="dataArr">
+                <view class="dataHeader">
+                    <view class="dataHeader_title">
+                        时段
+                    </view>
+                    <view class="dataHeader_title">
+                        方式
+                    </view>
+                    <view class="dataHeader_title" bindtap="strengthInfo">
+                        <text>强度</text>
+                        <image class="queryIMg" src="../../../img/query.png" mode="widthFix" />
+                    </view>
+                    <view class="dataHeader_title">
+                        时长(分钟)
+                    </view>
                 </view>
-                <text class="itemBox_rightArrow"></text>
-            </view>
-        </view>
-        <view class="itemBox">
-            <text class="itemBox_title">方式</text>
-            <view class="itemBox_content">
-                <view class="itemBox_text">
-                    <picker mode="selector" value="" range="{{wayList}}" range-key="{{'value'}}" bindchange="bindWayChange">
-                        <view class="weui-input_10">{{SportsData.wayValue||'请选择'}}</view>
-                        <!-- <view class="weui-input_10">{{TermList[0].Name}}</view> -->
-                    </picker>
+                <view class="dataInfoList" wx:for="{{userData}}"  wx:key="index">
+                    <view class="dataInfoItem">
+                      <picker mode="selector" value="" range="{{periodList}}" data-index="{{index}}" range-key="{{'value'}}" bindchange="bindPeriodChange">
+                        <view class="weui-input_10">{{item.periodValue||'请选择'}}</view>
+                      </picker>
+                    </view>
+                    <view class="dataInfoItem">
+                      <picker mode="selector" value="" range="{{wayList}}" data-index="{{index}}" range-key="{{'value'}}" bindchange="bindWayChange">
+                          <view class="weui-input_10">{{item.wayValue||'请选择'}}</view>
+                      </picker>
+                    </view>
+                    <view class="dataInfoItem">
+                      <picker mode="selector" value="" range="{{levelList}}" data-index="{{index}}" range-key="{{'value'}}" bindchange="bindLevelChange">
+                          <view class="weui-input_10">{{item.levelValue||'请选择'}}</view>
+                      </picker>
+                    </view>
+                    <view class="dataInfoItem">
+                      <input class="itemBox_inp" type="number" placeholder="请输入" placeholder-class="itemBox_inpholder" value="{{item.duration}}"  bindinput="bindDurationInput" data-index="{{index}}"></input>
+                    </view>
+                    <view class="delBox" bindtap="delRecordList" data-index="{{index}}" data-id="{{item.id}}" data-rowMd5="{{item.rowMd5}}">
+                        <image src="../../../img/del.png" class="img" />
+                    </view>
                 </view>
-                <text class="itemBox_rightArrow"></text>
             </view>
-        </view>
-        <view class="itemBox">
-            <view class="itemBox_title" bind:tap="strengthInfo">
-                强度
-                <image class="queryIMg" src="../../../img/query.png" mode="widthFix" />
-            </view>
-            <view class="itemBox_content">
-                <view class="itemBox_text">
-                    <picker mode="selector" value="" range="{{levelList}}" range-key="{{'value'}}" bindchange="bindLevelChange">
-                        <view class="weui-input_10">{{SportsData.levelValue||'请选择'}}</view>
-                        <!-- <view class="weui-input_10">{{TermList[0].Name}}</view> -->
-                    </picker>
-                </view>
-                <text class="itemBox_rightArrow"></text>
-            </view>
-        </view>
-        <view class="itemBox">
-            <text class="itemBox_title">运动时长</text>
-            <view class="itemBox_content">
-                <input class="itemBox_inp" type="text" placeholder="请输入" placeholder-class="itemBox_inpholder" value="{{SportsData.duration}}" bindinput="bindDurationInput"></input>
-                <text class="itemBox_unit">分钟</text>
-            </view>
+            <view class="addRecordBtn" bind:tap="addRecordList">添加一组记录</view>
         </view>
     </view>
         <BtnComponents bindonSaveBtn="saveExercise" bindhistoryRecordBtn="tapHistory"></BtnComponents>
