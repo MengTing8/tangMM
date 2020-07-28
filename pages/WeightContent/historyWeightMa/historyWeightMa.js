@@ -25,173 +25,6 @@ for (let i = 0; i <= 40; i++) {
 //     days.push(i + '天')
 // }
 
-function initChart(canvas, width, height) {
-    const chart = echarts.init(canvas, null, {
-        width: 440,
-        height: 500
-    });
-    canvas.setChart(chart);
-    var option = {
-        title: {
-            text: '体重'
-        },
-        tooltip: {
-            trigger: 'axis'
-        },
-        legend: {
-            bottom: -50,
-            //    data: ['正常', '过快', '过慢',]
-        },
-        grid: {
-            left: '3%',
-            right: '0%',
-            bottom: '3%',
-            containLabel: true
-        },
-        toolbox: {
-            feature: {
-                saveAsImage: {}
-            }
-        },
-        xAxis: {
-            type: 'category',
-            axisLine: {
-                onZero: false,
-                lineStyle: {
-                    color: '#999999'
-                }
-            },
-            boundaryGap: false,
-            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日', '1', '2', '3', '4', '5', '6', ],
-            splitLine: {
-                show: true,
-            },
-            axisTick: {
-                show: false
-            },
-        },
-        yAxis: {
-            type: 'value',
-            axisLine: {
-                lineStyle: {
-                    color: '#999999'
-                }
-            },
-            axisTick: {
-                show: false
-            },
-            splitLine: {
-                show: false
-            }
-        },
-        series: [{
-                name: '邮件营销',
-                type: 'line',
-                symbolSize: 12,
-                lineStyle: {
-                    color: '#FEC81E',
-                    width: 2,
-                    type: 'solid'
-                },
-                itemStyle: {
-                    borderWidth: 16,
-                    width: 2,
-
-                    color: '#62D829'
-                },
-                stack: '总量',
-                symbol: '',
-
-                data: [120, 132, 101, 134, 90, 230, 210],
-                markLine: {
-                    symbol: "none", //去掉警戒线最后面的箭头
-                    label: {
-                        position: "end", //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
-                        formatter: "警戒线"
-                    },
-                    data: [{
-                        silent: false, //鼠标悬停事件  true没有，false有
-                        lineStyle: { //警戒线的样式  ，虚实  颜色
-                            type: "dashed",
-                            color: "#CDCDCD"
-                        },
-                        name: '警戒线',
-                        yAxis: 199
-                    }]
-                }
-            },
-            {
-                name: '联盟广告',
-                type: 'line',
-                stack: '总量',
-                symbol: '',
-                symbolSize: 12,
-                lineStyle: {
-                    color: '#FEC81E',
-                    width: 2,
-                    type: 'solid'
-                },
-                itemStyle: {
-                    borderWidth: 16,
-                    width: 2,
-
-                    color: 'pink'
-                },
-                data: [220, 182, 191, 234, 290, 330, 310],
-                markLine: {
-                    symbol: "none", //去掉警戒线最后面的箭头
-                    label: {
-                        position: "end", //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
-                        formatter: "警戒线"
-                    },
-                    data: [{
-                        silent: false, //鼠标悬停事件  true没有，false有
-                        lineStyle: { //警戒线的样式  ，虚实  颜色
-                            type: "dashed",
-                            color: "#CDCDCD"
-                        },
-                        name: '警戒线',
-                        yAxis: 522
-                    }]
-                }
-            },
-
-
-        ],
-        dataZoom: [{
-                show: true,
-                id: 'dataZoomX',
-                type: 'slider',
-                xAxisIndex: [0],
-                filterMode: 'none',
-                // start: 0,
-                // end: 100,
-                start: (1 - 6 / 10) * 100,
-                handleSize: 8,
-                showDetail: true,
-                fillerColor: "rgba(167,183,204,0.1)"
-                // zoomLock:true,
-            },
-            // {
-            //     id: 'dataZoomY',
-            //     type: 'slider',
-            //     yAxisIndex: [0],
-            //     filterMode: 'empty'
-            // }
-
-        ],
-    };
-    chart.setOption(option);
-    //  chart.setOption({
-    //      xAxis: {
-    //          data: mydate
-    //      },
-    //      series: {
-    //          data: arr,
-    //      }
-    //  });
-    return chart;
-}
 Page({
 
     /**
@@ -216,7 +49,7 @@ Page({
             EndDATE: EndDATE2,
         },
         ec: {
-            onInit: initChart
+            
         },
         TabsIndex: 0,
         predays: [gas],
@@ -227,7 +60,6 @@ Page({
         bmi: '',
         target: '',
         RecordList: []
-
     },
     bindCurrentShowWeek() {
         this.setData({
@@ -373,14 +205,6 @@ Page({
             EXDATE: e.detail.value
         })
     },
-    bindtouchmove(e) {
-
-    },
-    getleft(e) {
-    },
-    echartInit(e) {
-        initChart(e.detail.canvas, e.detail.width, e.detail.height);
-    },
     bindGAChange(e) {
         const val = e.detail.value
         this.setData({
@@ -394,10 +218,171 @@ Page({
             TabsIndex: index
         })
     },
+    initChart() {
+        const option = {
+            "title": {
+
+            },
+            "xAxis": {
+                "data": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11
+                ],
+                "name": "å­•æœŸ(å‘¨)",
+                "type": "category",
+                "nameGap": 30,
+                "axisLine": {
+                    "onZero": true
+                },
+                "axisTick": {
+                    "show": false
+                },
+                "axisLabel": {
+                    "show": true,
+                    "showMinLabel": true
+                },
+                "splitLine": {
+                    "show": true
+                },
+                "boundaryGap": false,
+                "nameLocation": "middle"
+            },
+            "yAxis": {
+                "max": 59,
+                "min": 56,
+                "name": "ä½“é‡(Kg)",
+                "nameGap": 20,
+                "axisLine": {
+                    "onZero": true
+                },
+                "axisTick": {
+                    "show": false
+                },
+                "axisLabel": {
+                    "show": true,
+                    "showMinLabel": false
+                },
+                "splitLine": {
+                    "show": false
+                },
+                "nameRotate": -90,
+                "splitNumber": 3,
+                "nameLocation": "middle"
+            },
+            "series": [
+                {
+                    "data": [
+                        56.11,
+                        56.22,
+                        56.33,
+                        56.44,
+                        56.56,
+                        56.67,
+                        56.78,
+                        56.89,
+                        57,
+                        57.11,
+                        57.22
+                    ],
+                    "type": "line",
+                    "symbol": "none",
+                    "itemStyle": {
+                        "color": null
+                    },
+                    "lineStyle": {
+                        "type": "dashed",
+                        "color": "gray"
+                    },
+                    "hoverAnimation": false
+                },
+                {
+                    "data": [
+                        "",
+                        57,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    ],
+                    "type": "line",
+                    "symbol": "circle",
+                    "itemStyle": {
+                        "color": null
+                    },
+                    "lineStyle": {
+                        "color": "orange"
+                    },
+                    "symbolSize": 20,
+                    "hoverAnimation": false
+                },
+                {
+                    "data": [
+                        56.03,
+                        56.06,
+                        56.08,
+                        56.11,
+                        56.14,
+                        56.17,
+                        56.19,
+                        56.22,
+                        56.25,
+                        56.28,
+                        56.31
+                    ],
+                    "type": "line",
+                    "symbol": "none",
+                    "itemStyle": {
+                        "color": null
+                    },
+                    "lineStyle": {
+                        "type": "dashed",
+                        "color": "gray"
+                    },
+                    "hoverAnimation": false
+                }
+            ],
+            "dataZoom": [
+                {
+                    "type": "inside",
+                    "endValue": 10,
+                    "filterMode": "empty",
+                    "startValue": 0
+                }
+            ]
+        }
+        this.echartsComponnet.init((canvas, width, height) => {
+            // 初始化图表      
+            const Chart = echarts.init(canvas, null, {
+                width: width,
+                height: height
+            });
+            Chart.setOption(option);
+            // 注意这里一定要返回 chart 实例，否则会影响事件处理等    
+            return Chart;
+        });
+    },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        this.echartsComponnet = this.selectComponent('#mychart-dom-weight');
+        this.initChart()
         let {
             GA
         } = options
