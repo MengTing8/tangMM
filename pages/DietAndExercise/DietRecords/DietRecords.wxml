@@ -83,12 +83,12 @@
                     </view>
                     <!-- 上传图片 -->
                     <view class="uploaderListContent">
-                        <view class="uploaderImgBox"  data-index="{{index}}" bind:tap="UploadCourseware">
+                        <view class="uploaderImgBox"  data-index="{{index}}" data-periodCode="{{item.periodCode}}" bind:tap="UploadCourseware">
                             <van-icon name="photograph" color="#CDCDCD" size="48rpx" />
                             <view class="unifyFont">上传照片</view>
                         </view>
                         <view class="PhotoShwoContent" wx:for="{{item.photo}}" wx:for-item="P" wx:for-index="D" wx:key="D">
-                            <image class="uploaderPhoto" src="{{P.url}}" mode="widthFix" />
+                            <image class="uploaderPhoto" wx:if='{{P.url}}' src="{{P.url}}" mode="widthFix" />
                             <view class="delPhoto" bind:tap="delPhoto" data-index='{{index}}' data-fileName="{{P.fileName}}" data-ins="{{D}}">
                                 <van-icon name="close" size="40rpx" color="#FFF" />
                             </view>

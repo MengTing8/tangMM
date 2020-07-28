@@ -16,9 +16,9 @@
           StartDt: '2020年06月18日',
           EndDt: '2029年01月01',
           EXDATE: '2020年06月18日',
-          fundalHeight: "", //宫高
-          abdominalCircumference: "", //腹围
-          hba1c: "", //糖化血红蛋白
+        //   fundalHeight: "", //宫高
+        //   abdominalCircumference: "", //腹围
+        //   hba1c: "", //糖化血红蛋白
           baseData: {
               entity: "base",
               patientId: wx.getStorageSync('patientId'),
@@ -95,7 +95,7 @@
               }
           }
           // 宫高组校验
-          if (self.data.baseData.fundalHeight !== '' || self.data.baseData.abdominalCircumference !== '' || self.data.baseData.hba1c !== '') {
+          if (self.data.baseData.fundalHeight|| self.data.baseData.abdominalCircumference|| self.data.baseData.hba1c) {
               if (!self.data.baseData.fundalHeight) {
                   wx.showToast({
                       title: '请输入宫高',
@@ -391,6 +391,7 @@
           let NewObj = this.data.baseData
           var data = e.detail.value;
           NewObj.fundalHeight = data
+         NewObj.date=this.data.dateRecord,
           this.setData({
               baseData: NewObj
           })
@@ -400,6 +401,7 @@
           let NewObj = this.data.baseData
           var data = e.detail.value;
           NewObj.hba1c = data
+          NewObj.date = this.data.dateRecord
           this.setData({
               baseData: NewObj
           })
@@ -409,6 +411,7 @@
           var data = e.detail.value;
           let NewObj = this.data.baseData
           NewObj.abdominalCircumference = data
+          NewObj.date = this.data.dateRecord
           this.setData({
               baseData: NewObj
           })

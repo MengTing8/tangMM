@@ -259,7 +259,15 @@
     height:34rpx;
     /* margin-right: 20rpx; */
 }
-
+.abnormalStateW{
+     background-color: #FA5151;
+     color: #fff;
+     padding: 6rpx 18rpx;
+     border-radius: 30rpx;
+     height:34rpx;
+     line-height: 37rpx;
+     font-size: 24rpx;
+}
 .warnImg {
     width: 20rpx;
     vertical-align: middle;
@@ -322,6 +330,8 @@
     font-size: 26rpx;
     color: #999999;
     padding: 20rpx 30rpx;
+    /* text-align: center; */
+
 }
 
 .gaWeeks {
@@ -329,11 +339,12 @@
 }
 
 .Count {
-    flex: 2;
+    flex: 1;
+      text-align: center;
 }
 
 .timefragme {
-    flex: 2;
+    flex:1.5;
 }
 
 .GaRecordList_item {
@@ -341,6 +352,7 @@
     align-items: center;
     padding: 30rpx 20rpx;
     border-bottom: 2rpx solid #F3F3F3;
+  
 
 }
 
