@@ -128,7 +128,6 @@ Page({
                 var ResData = res.data.data
                 for (let key in ResData) {
                     ResData[key].time = moment(ResData[key].time).format('YYYY年MM月DD日')
-
                 }
                  var afterData = []
                  ResData.forEach(item => {
