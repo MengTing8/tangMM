@@ -184,6 +184,7 @@
                     "data": []
                 }
             }).then(res => {
+                console.log(res);
                 if (res.data.code === '0') {
                     self.setData({
                         FetalMovementList: res.data.data
@@ -206,18 +207,18 @@
                 url: '/wxrequest',
                 data: {
                     "token": wx.getStorageSync('token'),
-                    "function": "spGetFetalMovementListByWeek",
+                    "function": "getFetalMovementListByWeek",
                     "data": [{
                         "gestationalWeek": self.data.GA
                     }]
                 }
             }).then(res => {
+                console.log(res);
                 if (res.data.code === '0') {
                     self.setData({
                         WeeksRecordList: res.data.data
                     })
                     // self.backmusic();
-
                 } else {
                     wx.showToast({
                         title: res.data.message,
@@ -287,6 +288,11 @@
                 EndTime = new Date(new Date().getTime() + 1 * 60 * 60 * 1000).getTime() || [];
                 countdown(that);
             } else {
+                if (this.data.total_econd == '' && that.data.validQuantity==0) {
+                       that.setData({
+                           validQuantity: that.data.validQuantity + 1,
+                       })
+                }
                 if (this.data.total_econd == '') {
                     // var strTime = new Date(new Date().getTime() + 1 * 5 * 60 * 1000).getTime(); //五分钟
                     var newTime = new Date().getTime();
@@ -294,8 +300,6 @@
                         total_econd: newTime,
                     })
                 }
-                //  setTimeout(function () {
-                //  }, 300000)
                 if (new Date().getTime() - this.data.total_econd >= 300000) {
                     that.setData({
                         validQuantity: that.data.validQuantity + 1,
@@ -311,7 +315,6 @@
         stop() {
             let that = this
             let object = that.data.musicList
-            //  innerAudioContext.pause();
             back.pause(); // 点击音乐图标后出发的操作
             this.setData({
                 onMusic: !this.data.onMusic
@@ -482,8 +485,12 @@
             this.setData({
                 TabsIndex: index
             })
+            if (index==0) {
             this.getFetalMovementList()
+            }else{
             this.getFetalMovementListW()
+
+            }
         },
         /**
          * 生命周期函数--监听页面加载

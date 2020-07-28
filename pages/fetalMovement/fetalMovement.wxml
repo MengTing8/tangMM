@@ -110,7 +110,7 @@
                     <view class="RecordTimes">
                         <text>{{item.date}}</text>
                         |
-                        <text>{{item.timeStart}}~{{item.timeEnd}}</text>
+                        <text>{{item.timeStart}}~{{item.xtimeEnd}}</text>
                     </view>
                     <view class="fetalInfo">
                         <view class="abnormalState" wx:if="{{item.isAbnormal=='1'}}">
@@ -144,13 +144,20 @@
                     <view class="GaRecordList_title">
                         <view class="gaWeeks">孕周</view>
                         <view class="timefragme">时间段</view>
-                        <view class="Count">次数</view>
+                        <view class="Count">有效次数</view>
+                        <view class="Count">说明</view>
                     </view>
                     <view wx:for="{{WeeksRecordList}}" wx:key="index">
-                        <view class="GaRecordList_item"  wx:if="{{item.type==0}}">
+                        <view class="GaRecordList_item" wx:if="{{item.type==0}}">
                             <view class="gaWeeks">{{item.row.week}}</view>
                             <view class="timefragme">{{item.row.duration}}</view>
                             <view class="Count">{{item.row.validQuantity}}</view>
+                            <view class="Count">
+                                <view class="abnormalStateW" wx:if="{{item.row.isAbnormal=='1'}}">
+                                    <image class="warnImg" src="../../img/warn.png" mode="widthFix" />
+                                    <text>胎动异常</text>
+                                </view>
+                            </view>
                         </view>
                         <view class="GaRecordList_item" wx:if="{{item.type==1}}">
                             <view class="total">{{item.row.subtotal}}</view>

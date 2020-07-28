@@ -83,7 +83,7 @@
                     <input type="text" value="{{PatientWeight=='0'?'':PatientWeight}}" class="textColor" placeholder-class="textColor" bindinput="bindWeightInput"  placeholder="{{PatientWeight}}"/>
                     <text>kg</text>
                 </view>
-                <view style="font-size: 24rpx;" wx:if="{{BMI>0}}">
+                <view style="font-size: 22rpx;" wx:if="{{BMI>0}}">
                     <text style="padding-right:12rpx">BMI：{{BMI}}</text>
                     |
                     <text style="padding:0 12rpx">{{suggestion}}</text>
