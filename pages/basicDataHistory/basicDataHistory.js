@@ -32,270 +32,6 @@ wx.getSystemInfo({
 
 })
 
-function initChartBasicData(canvas, width, height) {
-    const chart = echarts.init(canvas, null, {
-        width: 440,
-        height: 500
-    });
-    canvas.setChart(chart);
-    var option = {
-        type: 'scatter',
-        title: {
-            text: '糖化血红蛋白'
-        },
-        tooltip: {
-            trigger: 'axis',
-            show: false, //选中提示面板不显示
-        },
-        color: ['#296FD8', '#BF29D8', '#FF8900', '#299AD8', '#00EDFF'],
-        legend: {
-            data: [],
-            left: '10%',
-            right: '10%',
-            padding: 5,
-            bottom: '-6%',
-            icon: 'rect',
-            itemWidth: 14, //图例的宽度
-            itemHeight: 14, //图例的高度
-            textStyle: { //图例文字的样式
-                color: '#ccc',
-                fontSize: 14
-            },
-            selectedMode: false, //控制是否可以通过点击图例改变系列的显示状态
-
-        },
-        grid: {
-            //   show: true,
-            top: 30,
-            bottom: 20,
-            right: rpx,
-            left: 0,
-            // right: '2%',
-            // bottom: '3%',
-            containLabel: true,
-            width: 'auto',
-            z: 10,
-        },
-        // toolbox: {
-        //     // feature: {
-        //     //     // saveAsImage: {}
-        //     // }
-        // },
-        xAxis: {
-            type: 'category',
-            axisLine: {
-                onZero: false,
-                lineStyle: {
-                    color: '#CDCDCD'
-                }
-            },
-            boundaryGap: false,
-            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周7', '周8', '周9', '周10', '周11', '周12', '周13', '周14', '周15', '周16', '周17', ],
-            splitLine: {
-                show: true,
-                lineStyle: {
-                    color: ['#F8F8F8'], //修改分割线颜色
-                    width: 1,
-                    type: 'solid'
-                }
-            },
-            axisTick: {
-                show: false,
-            },
-            axisLabel: {
-                interval: 0 //设置X坐标数据隔一个显示
-            }
-        },
-        yAxis: {
-            // type: 'category',
-            // splitNumber: 19,
-            // axisLine: {
-            //     lineStyle: {
-            //         color: '#CDCDCD'
-            //     }
-            // },
-            axisTick: {
-                show: false
-            },
-            splitLine: {
-                show: false
-            }
-        },
-        series: [{
-                name: '总量',
-                type: 'scatter',
-                symbolSize: 12,
-                lineStyle: {
-                    color: '#FEC81E',
-                    width: 2,
-                    type: 'solid'
-                },
-                itemStyle: {
-                    normal: {
-                        color: "#FEC81E",
-                        //  lineStyle: {
-                        //     //  color: "#FEC81E"
-                        //  }
-                    }
-                },
-                // itemStyle: {
-                //     borderWidth: 16,
-                //     width: 2,
-                //     color: '#62D829'
-                // },
-                stack: '总量',
-                symbol: 'circle',
-
-                data: [1, 13, 11, 14, 9, 20, 10, 14, 9, 23, 10, 14, 9, 2, 10],
-                markLine: {
-                    symbol: "none", //去掉警戒线最后面的箭头
-                    label: {
-                        position: "end", //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
-                        formatter: ""
-                    },
-                    data: [{
-                        silent: false, //鼠标悬停事件  true没有，false有
-                        lineStyle: { //警戒线的样式  ，虚实  颜色
-                            type: "dashed",
-                            color: "#CDCDCD"
-                        },
-                        name: '警戒线',
-                        yAxis: 0
-                    }, {
-                        silent: false, //鼠标悬停事件  true没有，false有
-                        lineStyle: { //警戒线的样式  ，虚实  颜色
-                            type: "dashed",
-                            color: "#CDCDCD"
-                        },
-                        name: '警戒线',
-                        yAxis: 9
-                    }],
-
-                }
-            },
-            // {
-            //     name: '早餐前',
-            //     type: 'scatter',
-            //     stack: '总量',
-            //     symbol: '',
-            //     symbolSize: 12,
-            //     lineStyle: {
-            //         color: '#BF29D8', //折线颜色
-            //         width: 2,
-            //         type: 'solid'
-            //     },
-            //     itemStyle: {
-            //         borderWidth: 16,
-            //         width: 2,
-            //         color: '#BF29D8' //折线转折圆点颜色
-            //     },
-            //     data: [10, 11, 11, 14, 10, 10, 11, 12, 12, 11, 14, 22, 13, 22, 13, 33, 11],
-            //     markLine: {
-            //         symbol: "none", //去掉警戒线最后面的箭头
-            //         label: {
-            //             position: "end", //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
-            //             formatter: ""
-            //         },
-            //         data: [{
-            //             silent: false, //鼠标悬停事件  true没有，false有
-            //             lineStyle: { //警戒线的样式  ，虚实  颜色
-            //                 type: "dashed",
-            //                 color: "#CDCDCD"
-            //             },
-            //             name: '',
-            //             yAxis: 25
-            //         }]
-            //     }
-            // }, {
-            //     name: '午餐前',
-            //     type: 'scatter',
-            //     stack: '总量',
-            //     symbol: '',
-            //     symbolSize: 12,
-            //     lineStyle: {
-            //         color: '#FF8900',
-            //         width: 2,
-            //         type: 'solid'
-            //     },
-            //     itemStyle: {
-            //         borderWidth: 16,
-            //         width: 2,
-            //         color: '#FF8900'
-            //     },
-            //     data: [20, 18, 11, 24, 20, 30, 10, 20, 12, 11, 24, 12, 3, 22, 3, 33, 11],
-            //     markLine: {
-            //         symbol: "none", //去掉警戒线最后面的箭头
-            //         label: {
-            //             position: "end", //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
-            //             formatter: ""
-            //         },
-            //         data: [{
-            //             silent: false, //鼠标悬停事件  true没有，false有
-            //             lineStyle: { //警戒线的样式  ，虚实  颜色
-            //                 type: "dashed",
-            //                 color: "#CDCDCD"
-            //             },
-            //             name: '',
-            //             yAxis: 50
-            //         }]
-            //     }
-            // },
-
-
-        ],
-        // dataZoom: [{
-        //         show: false,
-        //         realtime: true,
-        //         start: 0,
-        //         end: 50
-        //     },
-        //     {
-        //         type: 'inside',
-        //         realtime: true,
-        //         start: 0,
-        //         end: 50
-        //     }
-        // ]
-        //  dataZoom: [{
-        //      type: 'inside'
-        //  }],
-        dataZoom: [{
-                show: true,
-                id: 'dataZoomX',
-                type: 'inside', //滚动条作用域在统计图里,不显示出滚动条框
-                xAxisIndex: [0],
-                filterMode: 'filter',
-                // start: 10,
-                // end: 100,
-                start: (1 - 5 / 10) * 100,
-                handleSize: 8,
-                showDetail: true,
-                fillerColor: "rgba(167,183,204,0.3)", //选中范围的填充颜色
-                // zoomLock:true,
-                textStyle: {
-                    color: "#8e8e8e",
-                    fontSize: "0" //手柄字体大小 左右两边的文字
-                }
-            },
-
-
-        ],
-
-    };
-
-    chart.setOption(option);
-    chart.setOption({
-        // xAxis: {
-        //     data: arr
-        // },
-        // yAxis: {
-        // },
-        // series: {
-        //     data: '',
-        // },
-    });
-    return chart;
-}
 Page({
 
     /**
@@ -303,8 +39,6 @@ Page({
      */
     data: {
         ec: {
-            // lazyLoad: true, // 延迟加载
-            // onInit: initChartBasicData
         },
         TimeObj: {
             StartDt: '2020年01月01日',
@@ -324,15 +58,9 @@ Page({
         dateEndChart:getDay(0),
         selectedIndex: 0,
         listData: [],
-        dataArr: [],
-        xAxisData: [],
-        dateArr: [],
-        isAbnormalArr: [],
         startLength: 0,
         endLength: 0,
-        lowerLimit: 0, //	虚线下限
-        upperLimit: 0, //虚线上限
-        legendList: [],
+        legendList: []
     },
     //取图表
     getBaseChart() {
@@ -350,26 +78,28 @@ Page({
             }
         }).then(res => {
             if (res.data.code === '0') {
-                var ResData = res.data.data[0]
-                let nameArr = []
-                let dateArr = []
-                let isAbnormal = []
-                for (let key in ResData.x) {
-                    ResData.x[key].value = Number(ResData.x[key].value)
-                    nameArr.push(ResData.x[key].seriesValue2)
-                    dateArr.push(ResData.x[key].seriesValue1)
-                    isAbnormal.push(ResData.x[key].isAbnormal)
+                let color = JSON.parse(res.data.data[0].color);
+                let option = JSON.parse(res.data.data[0].option);
+                let yAxisLabelValues;
+                if (res.data.data[0].yAxisLabelValues !== undefined) {
+                    yAxisLabelValues = JSON.parse(res.data.data[0].yAxisLabelValues);
                 }
-                self.setData({
-                    dataArr: ResData.x,
-                    xAxisData: nameArr,
-                    isAbnormalArr: isAbnormal,
-                    dateArr,
-                    legendList: ResData.legend,
-                    lowerLimit: ResData.lowerLimit, //	虚线下限
-                    upperLimit: ResData.upperLimit //虚线上限
+                for (var i = 0; i < color.length; i++) {
+                    if (color[i].length > 1) {
+                        option.series[i].itemStyle.color = (o) => { return color[o.seriesIndex][o.dataIndex]; };
+                    }
+                }
+                if (yAxisLabelValues !== undefined && yAxisLabelValues.length > 0) {
+                    option.yAxis.axisLabel = {
+                        formatter: function (v, i) {
+                            return yAxisLabelValues[i];
+                        }
+                    }
+                }
+                this.setData({
+                    legendList: res.data.data[0].legend
                 })
-                self.init_echarts();
+                this.init_echarts(option)
             } else {
                 wx.showToast({
                     title: res.data.message,
@@ -500,229 +230,23 @@ Page({
         // this.init_echarts()
     },
     //初始化图表  
-    init_echarts: function () {
-        this.echartsComponnet.init((canvas, width, height) => {
+    init_echarts: function (options) {
+        this.echartsComponent.init((canvas, width, height) => {
             // 初始化图表      
             const Chart = echarts.init(canvas, null, {
                 width: width,
                 height: height
             });
-            Chart.setOption(this.getOption());
+            Chart.setOption(options);
             // 注意这里一定要返回 chart 实例，否则会影响事件处理等    
             return Chart;
         });
-    },
-    getOption: function () {
-        var that = this
-
-        if (that.data.xAxisData.length > 7) {
-            that.setData({
-                startLength: 50
-            })
-        } else {
-            that.setData({
-                startLength: 0,
-                endLength: 100
-            })
-        }
-        // let color = that.data.isAbnormalArr.map(element => {
-        //     var col = element == '1' ? 'green' : 'red'
-        //     return col;
-        // });
-        var option = {
-            type: 'scatter',
-            title: {
-                text: '糖化血红蛋白'
-            },
-            tooltip: {
-                trigger: 'item', //数据项图形触发--'axis'坐标轴触发
-                backgroundColor: "rgba(238, 238, 238, 0.75)", //设置背景图片 rgba格式
-                borderWidth: "1", //边框宽度设置1
-                // show: false, //选中提示面板不显示
-                axisPointer: { //去掉移动的指示线
-                    type: 'none'
-                },
-                textStyle: {
-                    color: "black" //设置文字颜色
-                },
-                formatter: "{c}%",
-                position: function (p) { //其中p为当前鼠标的位置
-                    return [p[0] + 10, p[1] - 22];
-                },
-                extraCssText: 'width:160px;height:40px;background:red;'
-                // formatter: function (params, ticket, callback) {
-                //     const item = params[0]
-                //     return item.value + '%';
-                // }
-            },
-            // color: ['#296FD8', '#BF29D8', '#FF8900', '#00EDFF'],
-            legend: {
-                // data: ['q', 'e'],
-                // left: '10%',
-                // right: '10%',
-                // padding: 5,
-                // bottom: '-6%',
-                // icon: 'rect',
-                // itemWidth: 14, //图例的宽度
-                // itemHeight: 14, //图例的高度
-                // textStyle: { //图例文字的样式
-                //     color: '#ccc',
-                //     fontSize: 14
-                // },
-                // selectedMode: false, //控制是否可以通过点击图例改变系列的显示状态
-
-            },
-            grid: {
-                //   show: true,
-                top: 50,
-                bottom: 20,
-                right: rpx,
-                left: 0,
-                // right: '2%',
-                // bottom: '3%',
-                containLabel: true,
-                width: 'auto',
-                z: 10,
-            },
-            //  toolbox: {
-            //      feature: {
-            //          saveAsImage: {}
-            //      }
-            //  }, //下载图标
-            xAxis: {
-                type: 'category',
-                axisLine: {
-                    onZero: false,
-                    lineStyle: {
-                        color: '#CDCDCD'
-                    }
-                },
-                boundaryGap: false,
-                // data: ['周一', '周2一', '周一3', '周二', '周三', '周四', '周五', '周六', '周7', '周五', '周六', '周7'],
-                // data: that.data.xAxisData,
-                data: function () {
-                    var list = [];
-                    for (let i in that.data.xAxisData) {
-                        var item = that.data.dateArr[i] + '\n' + that.data.xAxisData[i]
-                        list.push(item);
-                    }
-                    return list;
-                }(),
-                splitLine: {
-                    show: true,
-                    lineStyle: {
-                        color: ['#F8F8F8'], //修改分割线颜色
-                        width: 1,
-                        type: 'solid'
-                    }
-                },
-                axisTick: {
-                    show: false,
-                },
-                axisLabel: {
-                    interval: 0 //设置X坐标数据隔一个显示
-                },
-                // axisTick: {
-                //     length: 5
-                // },
-            },
-            yAxis: {
-                // type: 'category',
-                splitNumber: 10,
-                axisLine: {
-                    lineStyle: {
-                        color: '#CDCDCD'
-                    }
-                },
-                axisTick: {
-                    show: false
-                },
-                splitLine: {
-                    show: false
-                }
-            },
-            series: [{
-                // barWidth: 10, //柱图宽度
-                // name: '有机质含量',
-                type: 'scatter',
-                symbolSize: 12,
-                lineStyle: {
-                    color: '#FEC81E',
-                    width: 2,
-                    type: 'solid'
-                },
-                itemStyle: {
-                    normal: {
-                        color: (params) => {
-                            var col = params.data.isAbnormal == '1' ? 'red' : '#FE9800'
-                            return col;
-                        }
-                    }
-                },
-                stack: '',
-                symbol: 'circle',
-                data: that.data.dataArr,
-                markLine: {
-                    symbol: "none", //去掉警戒线最后面的箭头
-                    label: {
-                        position: "end", //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
-                        formatter: ""
-                    },
-                    data: [{
-                        silent: false, //鼠标悬停事件  true没有，false有
-                        lineStyle: { //警戒线的样式  ，虚实  颜色
-                            type: "dashed",
-                            color: "#CDCDCD"
-                        },
-                        name: '警戒线',
-                        yAxis: that.data.lowerLimit
-                    }, {
-                        silent: false, //鼠标悬停事件  true没有，false有
-                        lineStyle: { //警戒线的样式  ，虚实  颜色
-                            type: "dashed",
-                            color: "#CDCDCD"
-                        },
-                        name: '警戒线',
-                        yAxis: that.data.upperLimit
-                    }],
-
-                }
-            }, ],
-
-            dataZoom: [{
-                    show: true,
-                    id: 'dataZoomX',
-                    type: 'inside', //滚动条作用域在统计图里,不显示出滚动条框
-                    xAxisIndex: [0],
-                    filterMode: 'filter',
-                    start: that.data.startLength,
-                    end: that.data.endLength,
-                    // end: 100,
-                    filterMode: 'empty',
-                    //  end: 50,
-                    //  start: (1 - 5/ 6) * 100,
-                    handleSize: 8,
-                    showDetail: true,
-                    fillerColor: "rgba(167,183,204,0.3)", //选中范围的填充颜色
-                    // zoomLock:true,
-                    textStyle: {
-                        color: "#8e8e8e",
-                        fontSize: "0" //手柄字体大小 左右两边的文字
-                    }
-                },
-
-
-            ],
-
-        };
-        return option
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.echartsComponnet = this.selectComponent('#mychart-dom-basicData');
-        this.init_echarts()
+        this.echartsComponent = this.selectComponent('#mychart-dom-basicData');
         this.getBaseList()
         this.getBaseChart()
     },

@@ -106,10 +106,10 @@
 }
 
 .goalIcon {
-    width: 26rpx;
-    height: 26rpx;
-    background: #296FD8;
     margin-right: 14rpx;
+}
+
+.goalIcon.circle {
     border-radius: 50%;
 }
 
