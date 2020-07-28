@@ -1,4 +1,6 @@
-// pages/MyRecord/MyRecord.js
+const {
+    promiseRequest
+} = require("../../../utils/Requests")
 Page({
 
     /**
@@ -9,7 +11,7 @@ Page({
         option1: [{
                 text: '全部商品',
                 value: 0,
-                icon:null
+                icon: null
             },
             {
                 text: '新款商品',
@@ -50,6 +52,32 @@ Page({
         value2: 'a',
         value3: 'a',
     },
+    getMaternalDetailsProject() {
+        let requestObj = {
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "getMaternalDetailsProject",
+                "data": []
+            }
+        };
+        promiseRequest(requestObj).then((res) => {
+            console.log(res);
+            if (res.data.code === '0') {
+
+
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                    icon: 'none',
+                    duration: 2000
+                })
+            }
+        }).catch((errMsg) => {
+            console.log(errMsg); //错误提示信息
+        });
+    },
     TabsChange(e) {
         let index = e.currentTarget.dataset.index
         this.setData({
@@ -60,7 +88,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        this.getMaternalDetailsProject()
     },
 
     /**

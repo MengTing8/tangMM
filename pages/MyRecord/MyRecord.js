@@ -74,9 +74,6 @@ Page({
     //获取我的记录
     getMyRecord() {
         let self = this
-        /*
-         * 如果调用该接口是状态吗返回60000或70000，则需要重新调用login获取新的token。因为该次请求已失败，会把本次请求参数以及回到放到全局参数promiseQueue中，登录成功后会循环promiseQueue重新发起请求。
-         */
         let requestObj = {
             method: "POST",
             url: '/wxrequest',

@@ -66,50 +66,8 @@
 				},
 				{
 					"id": -1,
-					"name": "pages/LeaveMessage/LeaveMessage",
-					"pathName": "pages/LeaveMessage/LeaveMessage",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "食物类别",
-					"pathName": "pages/DietAndExercise/recordDiet/recordDiet",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "DietSearch",
-					"pathName": "pages/DietAndExercise/recordDietSearch/recordDietSearch",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
 					"name": "pages/basicdata/basicdata",
 					"pathName": "pages/basicdata/basicdata",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/basicDataHistory/basicDataHistory",
-					"pathName": "pages/basicDataHistory/basicDataHistory",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/DietAndExercise/historyDietRecords/historyDietRecords",
-					"pathName": "pages/DietAndExercise/historyDietRecords/historyDietRecords",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/myinfo/myinfo",
-					"pathName": "pages/myinfo/myinfo",
 					"query": "",
 					"scene": null
 				},
@@ -122,8 +80,9 @@
 				},
 				{
 					"id": -1,
-					"name": "pages/myinfo/myinfo",
-					"pathName": "pages/myinfo/myinfo",
+					"name": "pages/MedicalCare/patientInfo/patientInfo",
+					"pathName": "pages/MedicalCare/patientInfo/patientInfo",
+					"query": "",
 					"scene": null
 				}
 			]
