@@ -29,7 +29,7 @@
 }
 
 .writeTime {
-    flex: 2.5;
+    flex: 1.5;
     padding-left: 10rpx;
 }
 

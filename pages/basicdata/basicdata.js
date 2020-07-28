@@ -411,7 +411,7 @@
           var data = e.detail.value;
           let NewObj = this.data.baseData
           NewObj.abdominalCircumference = data
-          NewObj.date = this.data.dateRecord
+          NewObj.date=this.data.dateRecord
           this.setData({
               baseData: NewObj
           })

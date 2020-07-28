@@ -59,6 +59,7 @@
 .tabsBox {
     display: flex;
     text-align: center;
+    font-size: 28rpx;
 }
 
 .tabsItem {
