@@ -116,7 +116,7 @@
 .titleContent {
     position: absolute;
     bottom: -5%;
-    left: 29%;
+    left: 50%;
+    transform: translateX(-50%);
     margin: 0 auto;
-    padding: 0 40rpx;
 }

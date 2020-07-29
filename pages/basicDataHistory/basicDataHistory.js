@@ -207,7 +207,6 @@ Page({
         }else{
             this.getBaseList()
         }
-        // this.init_echarts()
     },
     //初始化图表  
     init_echarts: function (options) {
