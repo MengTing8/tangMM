@@ -16,13 +16,13 @@
           StartDt: '2020年06月18日',
           EndDt: '2029年01月01',
           EXDATE: '2020年06月18日',
-        //   fundalHeight: "", //宫高
-        //   abdominalCircumference: "", //腹围
-        //   hba1c: "", //糖化血红蛋白
+          //   fundalHeight: "", //宫高
+          //   abdominalCircumference: "", //腹围
+          //   hba1c: "", //糖化血红蛋白
           baseData: {
               entity: "base",
               patientId: wx.getStorageSync('patientId'),
-              date:date[0].time,
+              date: date[0].time,
               id: '',
               rowMd5: '',
               fundalHeight: "",
@@ -53,8 +53,8 @@
       SaveBasicdata() {
           let self = this
           let NewData = self.data.dataArray
-          let topNo=false
-          let bottomNo=false
+          let topNo = false
+          let bottomNo = false
           if (self.data.DeleteList.length > 0) {
               self.DeleteDaseDetail()
           }
@@ -90,12 +90,12 @@
                       })
                       return false;
                   }
-              }else{
+              } else {
                   topNo = true
               }
           }
           // 宫高组校验
-          if (self.data.baseData.fundalHeight|| self.data.baseData.abdominalCircumference|| self.data.baseData.hba1c) {
+          if (self.data.baseData.fundalHeight || self.data.baseData.abdominalCircumference || self.data.baseData.hba1c) {
               if (!self.data.baseData.fundalHeight) {
                   wx.showToast({
                       title: '请输入宫高',
@@ -118,55 +118,57 @@
                   })
                   return false;
               }
-          }else{
+          } else {
               bottomNo = true
           }
           if (bottomNo && topNo) {
-                wx.showToast({
-                    title: '请输入数据',
-                    icon: 'none',
-                    duration: 3000
-                })
+              wx.showToast({
+                  title: '请输入数据',
+                  icon: 'none',
+                  duration: 3000
+              })
               return false;
           } else if (bottomNo) {
-                 self.requestSave(NewData)
+              self.requestSave(NewData)
               return false;
           } else if (topNo) {
-                 self.requestSave([self.data.baseData])
+              self.requestSave([self.data.baseData])
               return false;
-          }else{
-                 let params = self.deepCopy(NewData)
-                 params.push(self.data.baseData)
-                 self.requestSave(params)
+          } else {
+              let params = self.deepCopy(NewData)
+              params.push(self.data.baseData)
+              self.requestSave(params)
               return false;
           }
       },
-requestSave(params) {
-          let that=this
-       request({
-           method: "POST",
-           url: '/wxrequest',
-           data: {
-               "token": wx.getStorageSync('token'),
-               "function": "save",
-               "data": params
-           }
-       }).then(res => {
-           if (res.data.code === '0') {
-               wx.showToast({
-                   title: res.data.message,
-                   icon: 'none',
-                   duration: 2000
-               })
-               that.getBasicdata()
-           } else {
-               wx.showToast({
-                   title: res.data.message,
-                   icon: 'none',
-                   duration: 2000
-               })
-           }
-       })
+      requestSave(params) {
+          console.log(params);
+          let that = this
+          request({
+              method: "POST",
+              url: '/wxrequest',
+              data: {
+                  "token": wx.getStorageSync('token'),
+                  "function": "save",
+                  "data": params
+              }
+          }).then(res => {
+              console.log(res, "save");
+              if (res.data.code === '0') {
+                  wx.showToast({
+                      title: res.data.message,
+                      icon: 'none',
+                      duration: 2000
+                  })
+                  that.getBasicdata()
+              } else {
+                  wx.showToast({
+                      title: res.data.message,
+                      icon: 'none',
+                      duration: 2000
+                  })
+              }
+          })
       },
       DeleteDaseDetail() {
           let self = this
@@ -203,58 +205,24 @@ requestSave(params) {
               }
           }).then(res => {
               if (res.data.code === '0') {
-                  var ResData = res.data.data[0]
-                  if (res.data.data.length > 0) {
-                      if (ResData.items.length > 0) {
-                          var newArr = ResData.items
-                          for (const key in newArr) {
-                              newArr[key].entity = "baseDetail"
-                              newArr[key].patientId = wx.getStorageSync('patientId')
-                              newArr[key].status = 1
-                              newArr[key].rowMd5 = newArr[key].rowMd5
-                              newArr[key].id = newArr[key].id
-                              self.setData({
-                                  dataArray: newArr,
-                                  DeleteList: []
-                              })
-                          }
-                      }else{
-                          var newArr = self.data.dataArray
-                          newArr = [{
-                              entity: "baseDetail",
-                              patientId: wx.getStorageSync('patientId'),
-                              status: 1,
-                              time: '',
-                              heartRate: '',
-                              systolicPressure: "",
-                              diastolicPressure: '',
-                              date: self.data.dateRecord,
-                              id: '',
-                              rowMd5: '',
-                          }]
-                           self.setData({
-                               dataArray: newArr,
-                               DeleteList: []
-                           })
+                  let ResData = res.data.data[0]
+                      let NewbaseData = self.data.baseData
+                      let newArr = self.data.dataArray
+                  if (ResData.items.length > 0) {
+                      let newArr = ResData.items
+                      for (const key in newArr) {
+                          newArr[key].entity = "baseDetail"
+                          newArr[key].patientId = wx.getStorageSync('patientId')
+                          newArr[key].status = 1
+                          newArr[key].rowMd5 = newArr[key].rowMd5
+                          newArr[key].id = newArr[key].id
+                          self.setData({
+                              dataArray: newArr,
+                              DeleteList: []
+                          })
                       }
-                      var NewbaseData = self.data.baseData
-                      NewbaseData.abdominalCircumference = ResData.abdominalCircumference
-                      NewbaseData.hba1c = ResData.hba1c
-                      if (ResData.date) {
-                      NewbaseData.date = ResData.date
-                      }
-                      NewbaseData.id = ResData.id
-                      NewbaseData.rowMd5 = ResData.rowMd5
-                      NewbaseData.fundalHeight = ResData.fundalHeight
-                      self.setData({
-                          baseData: NewbaseData,
-                          BasicRowMd5: ResData.rowMd5,
-                          DeleteList: []
-
-                      })
                   } else {
-                      var newArrs = self.data.dataArray
-                      newArrs = [{
+                      newArr = [{
                           entity: "baseDetail",
                           patientId: wx.getStorageSync('patientId'),
                           status: 1,
@@ -266,8 +234,27 @@ requestSave(params) {
                           id: '',
                           rowMd5: '',
                       }]
-                      var NewbaseDatas = self.data.baseData
-                      NewbaseDatas = {
+                      self.setData({
+                          dataArray: newArr,
+                          DeleteList: []
+                      })
+                  }
+                  if (ResData.hba1c) {
+                      NewbaseData.abdominalCircumference = ResData.abdominalCircumference
+                      NewbaseData.hba1c = ResData.hba1c
+                      NewbaseData.date = ResData.date
+                      NewbaseData.id = ResData.id
+                      NewbaseData.rowMd5 = ResData.rowMd5
+                      NewbaseData.fundalHeight = ResData.fundalHeight
+                      NewbaseData.patientId = wx.getStorageSync('patientId')
+                      self.setData({
+                          baseData: NewbaseData,
+                          BasicRowMd5: ResData.rowMd5,
+                          DeleteList: []
+
+                      })
+                  } else {
+                      NewbaseData = {
                               entity: "base",
                               patientId: wx.getStorageSync('patientId'),
                               date: self.data.dateRecord,
@@ -281,11 +268,9 @@ requestSave(params) {
                           },
                           self.setData({
                               DeleteList: [],
-                              baseData: NewbaseDatas,
-                              dataArray: newArrs,
+                              baseData: NewbaseData,
                           })
                   }
-
               } else {
                   wx.showToast({
                       title: res.data.message,
@@ -391,10 +376,10 @@ requestSave(params) {
           let NewObj = this.data.baseData
           var data = e.detail.value;
           NewObj.fundalHeight = data
-         NewObj.date=this.data.dateRecord,
-          this.setData({
-              baseData: NewObj
-          })
+          NewObj.date = this.data.dateRecord,
+              this.setData({
+                  baseData: NewObj
+              })
       },
       //糖化血红蛋白
       bindHba1cInput(e) {
@@ -411,7 +396,7 @@ requestSave(params) {
           var data = e.detail.value;
           let NewObj = this.data.baseData
           NewObj.abdominalCircumference = data
-          NewObj.date=this.data.dateRecord
+          NewObj.date = this.data.dateRecord
           this.setData({
               baseData: NewObj
           })
@@ -421,7 +406,7 @@ requestSave(params) {
           for (var key in checkArr) {
               if (checkArr.hasOwnProperty(key)) {
                   if (typeof checkArr[key] === "object" && checkArr[key] !== null) {
-                      result[key] = this.deepCopy(checkArr[key]); 
+                      result[key] = this.deepCopy(checkArr[key]);
                   } else {
                       result[key] = checkArr[key];
                   }

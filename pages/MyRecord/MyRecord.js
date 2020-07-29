@@ -6,11 +6,7 @@ const {
     getDates
 } = require("../../utils/util")
 let app = getApp()
-
 Page({
-    /**
-     * 页面的初始数据
-     */
     data: {
         userType: '',
         MyRecordData: {},
@@ -19,7 +15,6 @@ Page({
         CurrentDay: "",
         patientId: '',
         gestationalWeek: ""
-
     },
     goRecordInfo(e) {
         let index = e.currentTarget.dataset.index
@@ -113,48 +108,6 @@ Page({
         }).catch((errMsg) => {
             console.log(errMsg); //错误提示信息
         });
-
-
-        // --------------
-        // request({
-        //     method: "POST",
-        //     url: '/wxrequest',
-        //     data: {
-        //         "token": wx.getStorageSync('token'),
-        //         "function": "getMyRecord",
-        //         "data": []
-        //     }
-        // }).then(res => {
-        //     if (res.data.code === '0') {
-        //      let date = getDates(1, res.data.data[0].currentDate);
-        //        let str = res.data.data[0].currentDate
-        //        let newStr = str.split("-").reverse().join("/")
-        //        let searchStr = newStr.substring(0,2);
-        //        let srtEndIndex = newStr.indexOf(searchStr) + searchStr.length;
-        //        let newStrs =newStr.substring(srtEndIndex);
-        //         self.setData({
-        //             MyRecordData: res.data.data[0],
-        //             CurrentWeek: date[0].week,
-        //             CurrentDate: newStrs,
-        //             CurrentDay: searchStr,
-        //             patientId: res.data.data[0].id
-        //         })
-
-        //     }
-        //     // else if (res.data.message == "无效token") {
-        //     //           wx.clearStorage()
-        //     //           wx.navigateTo({
-        //     //               url: "../../index/index"
-        //     //           })
-        //     // }
-        //      else {
-        //         wx.showToast({
-        //             title: res.data.message,
-        //             icon: 'none',
-        //             duration: 2000
-        //         })
-        //     }
-        // })
     },
     /**
      * 生命周期函数--监听页面加载
