@@ -60,13 +60,20 @@
             </view>
         </view>
         <view class="" hidden="{{TabsIndex !==1}}">
-            <StartAndEndTimes TimeObj="{{TimeObjByDate}}" bindStartTimeChange='bindStartTimeChangeByDate' bindEndTimeChange='bindEndTimeChangeByDate'></StartAndEndTimes>
             <view class="mychartContent">
                 <!-- <scroll-view class="scrollContainer"   scroll-x scroll-with-animation="true"  bindscroll="getleft"> -->
                 <view class="container">
-                    <ec-canvas id="mychart-dom-scatter" canvas-id="mychart-scatter" ec="{{ ec }}" bind:init="echartInit"></ec-canvas>
+                    <ec-canvas id="mychart-dom-scatter" canvas-id="mychart-scatter" ec="{{ ec }}"></ec-canvas>
                 </view>
                 <!-- </scroll-view> -->
+                <view class="titleContent">
+                    <view class="titleContentBox">
+                        <view class="goalBox" wx:for="{{legendList}}" wx:key="index">
+                            <view class="goalIcon {{item.symbol}}" style="background:{{item.color}};width:{{item.size.width}};height:{{item.size.height}}"></view>
+                            <view class="">{{item.value}}</view>
+                        </view>
+                    </view>
+                </view>
             </view>
         </view>
     </view>

@@ -49,7 +49,6 @@ Page({
             EndDATE: EndDATE2,
         },
         ec: {
-            
         },
         TabsIndex: 0,
         predays: [gas],
@@ -59,41 +58,20 @@ Page({
         GA: 53,
         bmi: '',
         target: '',
-        RecordList: []
+        RecordList: [],
+        legendList: null
     },
     bindCurrentShowWeek() {
         this.setData({
             CurrentShowDate: true,
         })
-         this.getWeightListByWeek()
+        this.getWeightListByWeek()
     },
     bindCurrentShowDate() {
         this.setData({
             CurrentShowDate: false,
         })
         this.getWeightListByDate()
-    },
-    bindStartTimeChangeByDate(e) {
-        var NewData = this.data.TimeObjByDate;
-        let val = e.detail.value
-        // val = ;
-        NewData.StarDATE = val;
-        this.setData({
-            TimeObjByDate: NewData
-
-        })
-
-    },
-    bindEndTimeChangeByDate(e) {
-        var NewData = this.data.TimeObjByDate;
-        let val = e.detail.value
-        // val = ;
-        NewData.EndDATE = val;
-        this.setData({
-            TimeObjByDate: NewData
-
-        })
-
     },
     bindStartTimeChange(e) {
         var NewData = this.data.TimeObj;
@@ -214,230 +192,80 @@ Page({
     },
     TabsChange(e) {
         let index = e.currentTarget.dataset.index
+        if(index == 1) {
+            this.getWeightChart()
+        }
         this.setData({
             TabsIndex: index
         })
     },
-    initChart() {
-        const option = {
-            "title": {
-
-            },
-            "xAxis": {
-                "data": [
-                    0,
-                    1,
-                    2,
-                    3,
-                    4,
-                    5,
-                    6,
-                    7,
-                    8,
-                    9,
-                    10,
-                    11
-                ],
-                "name": "å­•æœŸ(å‘¨)",
-                "type": "category",
-                "nameGap": 30,
-                "axisLine": {
-                    "onZero": true
-                },
-                "axisTick": {
-                    "show": false
-                },
-                "axisLabel": {
-                    "show": true,
-                    "showMinLabel": true
-                },
-                "splitLine": {
-                    "show": true
-                },
-                "boundaryGap": false,
-                "nameLocation": "middle"
-            },
-            "yAxis": {
-                "max": 59,
-                "min": 56,
-                "name": "ä½“é‡(Kg)",
-                "nameGap": 20,
-                "axisLine": {
-                    "onZero": true
-                },
-                "axisTick": {
-                    "show": false
-                },
-                "axisLabel": {
-                    "show": true,
-                    "showMinLabel": false
-                },
-                "splitLine": {
-                    "show": false
-                },
-                "nameRotate": -90,
-                "splitNumber": 3,
-                "nameLocation": "middle"
-            },
-            "series": [
-                {
-                    "data": [
-                        56.11,
-                        56.22,
-                        56.33,
-                        56.44,
-                        56.56,
-                        56.67,
-                        56.78,
-                        56.89,
-                        57,
-                        57.11,
-                        57.22
-                    ],
-                    "type": "line",
-                    "symbol": "none",
-                    "itemStyle": {
-                        "color": null
-                    },
-                    "lineStyle": {
-                        "type": "dashed",
-                        "color": "gray"
-                    },
-                    "hoverAnimation": false
-                },
-                {
-                    "data": [
-                        "",
-                        57,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null
-                    ],
-                    "type": "line",
-                    "symbol": "circle",
-                    "itemStyle": {
-                        "color": null
-                    },
-                    "lineStyle": {
-                        "color": "orange"
-                    },
-                    "symbolSize": 20,
-                    "hoverAnimation": false
-                },
-                {
-                    "data": [
-                        56.03,
-                        56.06,
-                        56.08,
-                        56.11,
-                        56.14,
-                        56.17,
-                        56.19,
-                        56.22,
-                        56.25,
-                        56.28,
-                        56.31
-                    ],
-                    "type": "line",
-                    "symbol": "none",
-                    "itemStyle": {
-                        "color": null
-                    },
-                    "lineStyle": {
-                        "type": "dashed",
-                        "color": "gray"
-                    },
-                    "hoverAnimation": false
+    getWeightChart() {
+        let self = this
+        request({
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "getWeightChart",
+                "data": []
+            }
+        }).then(res => {
+            if (res.data.code === '0') {
+                let color = JSON.parse(res.data.data[0].color);
+                let option = JSON.parse(res.data.data[0].option);
+                let yAxisLabelValues;
+                if (res.data.data[0].yAxisLabelValues !== undefined) {
+                    yAxisLabelValues = JSON.parse(res.data.data[0].yAxisLabelValues);
                 }
-            ],
-            "dataZoom": [
-                {
-                    "type": "inside",
-                    "endValue": 10,
-                    "filterMode": "empty",
-                    "startValue": 0
+                for (var i = 0; i < color.length; i++) {
+                    if (color[i].length > 1) {
+                        option.series[i].itemStyle.color = (o) => { return color[o.seriesIndex][o.dataIndex]; };
+                    }
                 }
-            ]
-        }
-        this.echartsComponnet.init((canvas, width, height) => {
-            // 初始化图表      
+                if (yAxisLabelValues !== undefined && yAxisLabelValues.length > 0) {
+                    option.yAxis.axisLabel = {
+                        formatter: function (v, i) {
+                            return yAxisLabelValues[i];
+                        }
+                    }
+                }
+                this.setData({
+                    legendList: res.data.data[0].legend
+                })
+                option.tooltip = {
+                    show: true,
+                    trigger: 'item'
+                }
+                this.init_echarts(option)
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                    icon: 'none',
+                    duration: 2000
+                })
+            }
+        })
+    },
+    init_echarts: function (options) {
+        this.echartsComponent.init((canvas, width, height) => {
+            // 初始化图表
             const Chart = echarts.init(canvas, null, {
                 width: width,
                 height: height
             });
-            Chart.setOption(option);
+            Chart.setOption(options);
             // 注意这里一定要返回 chart 实例，否则会影响事件处理等    
             return Chart;
         });
     },
-    /**
-     * 生命周期函数--监听页面加载
-     */
     onLoad: function (options) {
-        this.echartsComponnet = this.selectComponent('#mychart-dom-weight');
-        this.initChart()
         let {
             GA
         } = options
         this.setData({
             GA
         })
+        this.echartsComponent = this.selectComponent('#mychart-dom-scatter')
         this.getWeightListByWeek()
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady() {
-        var time3 = new Date();
-        this.echartsComponnet = this.selectComponent('#mychart-dom-scatter');
-    },
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
     }
 })

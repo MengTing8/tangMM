@@ -226,7 +226,6 @@ Page({
         if (index == 1) {
             this.getBaseChart()
         }
-        // this.init_echarts()
     },
     //初始化图表  
     init_echarts: function (options) {
@@ -247,6 +246,5 @@ Page({
     onLoad: function (options) {
         this.echartsComponent = this.selectComponent('#mychart-dom-basicData');
         this.getBaseList()
-        this.getBaseChart()
     }
 })
