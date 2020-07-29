@@ -258,6 +258,7 @@
                         validQuantity: 0, //有效胎动次数
                         clock: "00:00",
                         refreshClock: true,
+                        total_econd: ""
                     });
                     self.getFetalMovementList()
                     self.getFetalMovementListW()

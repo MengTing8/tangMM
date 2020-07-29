@@ -184,7 +184,11 @@
     display: block;
 }
 
-.courseware_content {
-    /* margin-top: 40rpx; */
+.arrive_btn{
+    z-index: 999;
+    width: 100%;
+position: fixed;
+bottom: 0;
+background-color: #ffff;
+padding-bottom: 40rpx;
 }
-

@@ -36,43 +36,43 @@ Page({
 
         }],
         RecordList: [{
-                logo: "../../../img/fetal.png",
+                logo: "../../../images/1taidong.png",
                 title: '胎动监测',
                 info: '感知宝宝的存在',
                 Achieve: 1,
             },
             {
-                logo: "../../../img/basicData.png",
+                logo: "../../../images/1taidong.png",
                 title: '基础数据',
                 info: '记录每天基础数据',
                 Achieve: 2,
             }, {
-                logo: "../../../img/weighMa.png",
+                logo: "../../../images/1taidong.png",
                 title: '宝马空腹体重',
                 info: '记录体重对孕期观察有帮助',
                 Achieve: 2,
             }, {
-                logo: "../../../img/fetaWeight.png",
+                logo: "../../../images/1taidong.png",
                 title: '胎儿体重',
                 info: '胎儿体重对胎儿健康影响至关重要',
                 Achieve: 3,
             }, {
-                logo: "../../../img/diet.png",
+                logo: "../../../images/1taidong.png",
                 title: '饮食记录',
                 info: '每日能量摄入记录',
                 Achieve: 2,
             }, {
-                logo: "../../../img/sportsRecord.png",
+                logo: "../../../images/1taidong.png",
                 title: '运动记录',
                 info: '坚持配合运动治疗',
                 Achieve: 1,
             }, {
-                logo: "../../../img/glucose.png",
+                logo: "../../../images/1taidong.png",
                 title: '血糖趋势',
                 info: '记录跟踪血糖情况',
                 Achieve: 2,
             }, {
-                logo: "../../../img/insulin.png",
+                logo: "../../../images/1taidong.png",
                 title: '胰岛素使用登记',
                 info: '妊娠糖尿病患者需密切观察血糖',
                 Achieve: 3,

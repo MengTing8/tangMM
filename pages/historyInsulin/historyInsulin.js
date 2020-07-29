@@ -9,28 +9,6 @@ for (let i = 10; i <= 40; i++) {
 for (let i = 0; i <= 6; i++) {
     days.push(i + '天')
 }
-var rpx;
-var rpxs;
-
-//获取屏幕宽度，获取自适应单位
-
-wx.getSystemInfo({
-
-    success: function (res) {
-        rpxs = res.windowWidth / 375;
-
-        if (res.windowWidth == 375) {
-            rpx = "20%"
-        } else if (res.windowWidth == 414) {
-            rpx = "10%"
-        } else if (res.windowWidth == 320) {
-            rpx = "32%"
-        }
-
-    },
-
-})
-
 function initChart(canvas, width, height) {
     const chart = echarts.init(canvas, null, {
         width: 440,
@@ -79,10 +57,8 @@ function initChart(canvas, width, height) {
             //   show: true,
             top: 30,
             bottom: 20,
-            right: rpx,
+            right: 10,
             left: 0,
-            // right: '2%',
-            // bottom: '3%',
             containLabel: true,
             width: 'auto',
             z: 10,
@@ -164,15 +140,7 @@ function initChart(canvas, width, height) {
                         position: "end", //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
                         formatter: ""
                     },
-                    // data: [{
-                    //     silent: false, //鼠标悬停事件  true没有，false有
-                    //     lineStyle: { //警戒线的样式  ，虚实  颜色
-                    //         type: "dashed",
-                    //         color: "#CDCDCD"
-                    //     },
-                    //     name: '警戒线',
-                    //     yAxis: 19
-                    // }]
+                   
 
                 }
             },
@@ -199,15 +167,7 @@ function initChart(canvas, width, height) {
                         position: "end", //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
                         formatter: ""
                     },
-                    // data: [{
-                    //     silent: false, //鼠标悬停事件  true没有，false有
-                    //     lineStyle: { //警戒线的样式  ，虚实  颜色
-                    //         type: "dashed",
-                    //         color: "#CDCDCD"
-                    //     },
-                    //     name: '',
-                    //     yAxis: 5
-                    // }]
+                   
                 }
             }, {
                 name: '午餐前',
@@ -232,15 +192,6 @@ function initChart(canvas, width, height) {
                         position: "end", //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
                         formatter: ""
                     },
-                    // data: [{
-                    //     silent: false, //鼠标悬停事件  true没有，false有
-                    //     lineStyle: { //警戒线的样式  ，虚实  颜色
-                    //         type: "dashed",
-                    //         color: "#CDCDCD"
-                    //     },
-                    //     name: '',
-                    //     yAxis: 5
-                    // }]
                 }
             }, {
                 name: '晚餐前',
@@ -266,62 +217,14 @@ function initChart(canvas, width, height) {
                         formatter: ""
                     },
                     data: [
-                        // {
-                        //     name: '平均线',
-                        //     // 支持 'average', 'min', 'max'
-                        //     type: 'average'
-                        // },
-                        // {
-                        //     name: 'Y 轴值为 100 的水平线',
-                        //     yAxis: 60
-                        // },
-                        // [{
-                        //         // 起点和终点的项会共用一个 name
-                        //         name: '最小值到最大值',
-                        //         type: 'min'
-                        //     },
-                        //     {
-                        //         type: 'max',
-                        //     }
-                        // ],
-                        // [{
-                        //         name: '两个坐标之间的标线',
-                        //         coord: [10, 20]
-                        //     },
-                        //     {
-                        //         coord: [20, 30]
-                        //     }
-                        // ],
                         [{
-                            // 固定起点的 x 像素位置，用于模拟一条指向最大值的水平线
                             yAxis: 'max',
                             x: '20%'
                         }, {
                             type: 'max',
                             x: '90%'
-
                         }],
-                        // [{
-                        //         name: '两个屏幕坐标之间的标线',
-                        //         x: 100,
-                        //         y: 200
-                        //     },
-                        //     {
-                        //         x: 500,
-                        //         y: 200
-                        //     }
-                        // ]
                     ]
-
-                    // data: [{
-                    //     silent: false, //鼠标悬停事件  true没有，false有
-                    //     lineStyle: { //警戒线的样式  ，虚实  颜色
-                    //         type: "dashed",
-                    //         color: "#CDCDCD"
-                    //     },
-                    //     name: '',
-                    //     yAxis: 80
-                    // }]
                 }
             }, {
                 name: '睡前',
@@ -347,52 +250,25 @@ function initChart(canvas, width, height) {
                         position: "end", //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
                         formatter: ""
                     },
-                    // data: [{
-                    //     silent: false, //鼠标悬停事件  true没有，false有
-                    //     lineStyle: { //警戒线的样式  ，虚实  颜色
-                    //         type: "dashed",
-                    //         color: "#CDCDCD"
-                    //     },
-                    //     name: '',
-                    //     yAxis: 80
-                    // }]
+                   
                 }
             },
 
 
         ],
-        // dataZoom: [{
-        //         show: false,
-        //         realtime: true,
-        //         start: 0,
-        //         end: 50
-        //     },
-        //     {
-        //         type: 'inside',
-        //         realtime: true,
-        //         start: 0,
-        //         end: 50
-        //     }
-        // ]
-        //  dataZoom: [{
-        //      type: 'inside'
-        //  }],
         dataZoom: [{
                 show: true,
                 id: 'dataZoomX',
-                type: 'inside', //滚动条作用域在统计图里,不显示出滚动条框
+                type: 'inside', 
                 xAxisIndex: [0],
                 filterMode: 'filter',
-                // start: 10,
-                // end: 100,
                 start: (1 - 5 / 10) * 100,
                 handleSize: 8,
                 showDetail: true,
-                fillerColor: "rgba(167,183,204,0.3)", //选中范围的填充颜色
-                // zoomLock:true,
+                fillerColor: "rgba(167,183,204,0.3)", 
                 textStyle: {
                     color: "#8e8e8e",
-                    fontSize: "0" //手柄字体大小 左右两边的文字
+                    fontSize: "0" 
                 }
             },
 

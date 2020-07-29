@@ -110,7 +110,7 @@
                     <view class="RecordTimes">
                         <text>{{item.date}}</text>
                         |
-                        <text>{{item.timeStart}}~{{item.xtimeEnd}}</text>
+                        <text>{{item.timeStart}}~{{item.timeEnd}}</text>
                     </view>
                     <view class="fetalInfo">
                         <view class="abnormalState" wx:if="{{item.isAbnormal=='1'}}">

@@ -63,6 +63,31 @@ Page({
             }
         };
         promiseRequest(requestObj).then((res) => {
+            if (res.data.code === '0') {
+
+
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                    icon: 'none',
+                    duration: 2000
+                })
+            }
+        }).catch((errMsg) => {
+            console.log(errMsg); //错误提示信息
+        });
+    },
+    getPatient() {
+        let requestObj = {
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "getPatient",
+                "data": []
+            }
+        };
+        promiseRequest(requestObj).then((res) => {
             console.log(res);
             if (res.data.code === '0') {
 
@@ -88,7 +113,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.getMaternalDetailsProject()
+        this.getPatient()
     },
 
     /**

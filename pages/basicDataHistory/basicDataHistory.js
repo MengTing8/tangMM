@@ -7,31 +7,9 @@ const {
     getDay
 } = require("../../utils/util")
 const moment = require('../../utils/moment.min.js');
-// let date = getDates(1, new Date());
 let newDate = moment(getDay(0)).format('YYYY年MM月DD日')
 var StarDATE = moment(getDay(-7)).format('YYYY年MM月DD日');
 var EndDATE = newDate
-var rpx;
-var rpxs;
-var arr = []
-//获取屏幕宽度，获取自适应单位
-
-wx.getSystemInfo({
-
-    success: function (res) {
-        rpxs = res.windowWidth / 375;
-        if (res.windowWidth == 375) {
-            rpx = "10%"
-        } else if (res.windowWidth == 414) {
-            rpx = "10%"
-        } else if (res.windowWidth == 320) {
-            rpx = "32%"
-        }
-
-    },
-
-})
-
 Page({
 
     /**
@@ -77,6 +55,7 @@ Page({
                 }]
             }
         }).then(res => {
+            console.log(res);
             if (res.data.code === '0') {
                 let color = JSON.parse(res.data.data[0].color);
                 let option = JSON.parse(res.data.data[0].option);
@@ -225,6 +204,8 @@ Page({
         })
         if (index == 1) {
             this.getBaseChart()
+        }else{
+            this.getBaseList()
         }
         // this.init_echarts()
     },
@@ -247,7 +228,6 @@ Page({
     onLoad: function (options) {
         this.echartsComponent = this.selectComponent('#mychart-dom-basicData');
         this.getBaseList()
-        this.getBaseChart()
     },
 
     /**

@@ -132,7 +132,7 @@
                  self.requestSave(NewData)
               return false;
           } else if (topNo) {
-                 self.requestSave(self.data.baseData)
+                 self.requestSave([self.data.baseData])
               return false;
           }else{
                  let params = self.deepCopy(NewData)
@@ -141,7 +141,7 @@
               return false;
           }
       },
-      requestSave(params) {
+requestSave(params) {
           let that=this
        request({
            method: "POST",
