@@ -51,7 +51,7 @@
                         </view>
                         <view class="pickerContent">
                             <view class="pickerBox">
-                                <picker mode="time" value="{{item.time}}" start="09:01" end="21:01" bindchange="bindTimeChange" data-index="{{index}}" data-periodCode="{{item.periodCode}}">
+                                <picker mode="time" value="{{item.time}}" start="00:00" end="23:59" bindchange="bindTimeChange" data-index="{{index}}" data-periodCode="{{item.periodCode}}">
                                     <view class="picker">{{item.time || '用餐时间'}}</view>
                                 </picker>
                             </view>

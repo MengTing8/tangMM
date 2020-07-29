@@ -19,7 +19,7 @@ Page({
         ec: {
         },
         TimeObj: {
-            StartDt: '2020年01月01日',
+            StartDt: '2000年01月01日',
             EndDt: '2029年01月01日',
             StarDATE,
             EndDATE,
@@ -27,7 +27,7 @@ Page({
         dateStart: getDay(-7),
         dateEnd:getDay(0),
         TimeObjChart: {
-            StartDt: '2020年01月01日',
+            StartDt: '2000年01月01日',
             EndDt: '2029年01月01日',
             StarDATE,
             EndDATE,
@@ -106,7 +106,7 @@ Page({
             if (res.data.code === '0') {
                 var ResData = res.data.data
                 for (let key in ResData) {
-                    ResData[key].time = moment(ResData[key].time).format('YYYY/MM/DD')
+                    ResData[key].time = ResData[key].time? moment(ResData[key].time).format('YYYY/MM/DD'):''
                 }
                  var afterData = []
                  ResData.forEach(item => {

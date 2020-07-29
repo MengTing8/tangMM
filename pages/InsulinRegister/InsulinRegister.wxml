@@ -92,13 +92,13 @@
                             <view class="ItemPickerContent">
                                 <view class="themeTextSize">从</view>
                                 <view class="pickerBox">
-                                    <picker mode="time" value="{{item.timeStart}}" start="09:01" end="21:01" bindchange="bindStartTimeChange" data-index="{{index}}">
+                                    <picker mode="time" value="{{item.timeStart}}" start="00:0" end="23:59" bindchange="bindStartTimeChange" data-index="{{index}}">
                                         <view class="picker">{{item.timeStart || '请选择'}}</view>
                                     </picker>
                                 </view>
                                 <view class="themeTextSize">到</view>
                                 <view class="pickerBox">
-                                    <picker mode="time" value="{{item.timeEnd}}" start="09:01" end="21:01" bindchange="bindEndTimeChange" data-index="{{index}}">
+                                    <picker mode="time" value="{{item.timeEnd}}" start="00:00" end="23:59" bindchange="bindEndTimeChange" data-index="{{index}}">
                                         <view class="picker">{{item.timeEnd || '请选择'}}</view>
                                     </picker>
                                 </view>
