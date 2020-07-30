@@ -70,7 +70,6 @@ Page({
                 "data": userData
             }
         }).then(res => {
-            console.log(res, "保存");
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
                 wx.showToast({
@@ -162,7 +161,6 @@ Page({
                 }]
             }
         }).then(res => {
-            console.log(res);
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
                 self.setData({
