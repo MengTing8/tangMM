@@ -13,22 +13,6 @@ let date = getDates(1, new Date());
 let newDate = moment(getDay(0)).format('YYYY年MM月DD日')
 var StarDATE = moment(getDay(-7)).format('YYYY年MM月DD日');
 var EndDATE = newDate
-var rpx;
-var rpxs;
-wx.getSystemInfo({
-    success: function (res) {
-        rpxs = res.windowWidth / 375;
-        if (res.windowWidth == 375) {
-            rpx = "10%"
-        } else if (res.windowWidth == 414) {
-            rpx = "6%"
-        } else if (res.windowWidth == 320) {
-            rpx = "32%"
-        }
-
-    },
-
-})
 Page({
 
     /**
@@ -184,14 +168,10 @@ Page({
             TabsIndex: index,
             typeCode: typecode
         })
-        this.initDietTabs()
     },
     onLoad: function (options) {
         this.echartsComponnetDiet = this.selectComponent('#mychartDiet');
         this.echartsComponnetTab = this.selectComponent('#mychartTabs');
-        this.initDiet_echarts()
-        this.initDietTabs()
-        this.getDietChart()
         this.getDietList()
     }
 })

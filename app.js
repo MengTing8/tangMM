@@ -55,10 +55,8 @@ App({
         userInfo: null,
         userType: null,
         playIndex: 0, //当前播放列表的index
-        //--------
         exeQueue: true,
         needBeginLogin: true,
         promiseQueue: [],
-        apiUrl: 'https://aaron.astraia.com.cn'
     }
 })

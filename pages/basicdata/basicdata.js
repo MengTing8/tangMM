@@ -16,9 +16,6 @@
           StartDt: '2020年06月18日',
           EndDt: '2029年01月01',
           EXDATE: '2020年06月18日',
-          //   fundalHeight: "", //宫高
-          //   abdominalCircumference: "", //腹围
-          //   hba1c: "", //糖化血红蛋白
           baseData: {
               entity: "base",
               patientId: wx.getStorageSync('patientId'),
@@ -251,7 +248,6 @@
                           baseData: NewbaseData,
                           BasicRowMd5: ResData.rowMd5,
                           DeleteList: []
-
                       })
                   } else {
                       NewbaseData = {
