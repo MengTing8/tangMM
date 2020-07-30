@@ -35,7 +35,6 @@
         <!-- 饮食录入列表 -->
         <view class="enteringList">
             <view class="enteringListView" wx:for="{{enteringItems}}" wx:key='index'>
-                <!-- 餐时 -->
                 <view class="inputList">
                     <view class="info_content">
                         <view class="expense_info_name">
@@ -67,9 +66,7 @@
                         </view>
                     </view>
                 </view>
-                <!-- 食物标签与上传 -->
                 <view class="classifyBox">
-                    <!-- 食物标签 -->
                     <view class="foodTagBox">
                         <view class="foodTagList">
                             <view class="foodTagItem" wx:for="{{item.food}}" wx:key='index' wx:for-item="F" wx:for-index="cd">
@@ -81,14 +78,13 @@
                             </view>
                         </view>
                     </view>
-                    <!-- 上传图片 -->
                     <view class="uploaderListContent">
                         <view class="uploaderImgBox"  data-index="{{index}}" data-periodCode="{{item.periodCode}}" bind:tap="UploadCourseware">
                             <van-icon name="photograph" color="#CDCDCD" size="48rpx" />
                             <view class="unifyFont">上传照片</view>
                         </view>
-                        <view class="PhotoShwoContent" wx:for="{{item.photo}}" wx:for-item="P" wx:for-index="D" wx:key="D">
-                            <image class="uploaderPhoto" wx:if='{{P.url}}' src="{{P.url}}" mode="widthFix" />
+                        <view class="PhotoShwoContent" wx:for="{{item.photo}}" wx:for-item="P" wx:for-index="D" wx:key="D" wx:if='{{P.url}}'>
+                            <image class="uploaderPhoto" src="{{P.url}}" mode="widthFix"/>
                             <view class="delPhoto" bind:tap="delPhoto" data-index='{{index}}' data-fileName="{{P.fileName}}" data-ins="{{D}}">
                                 <van-icon name="close" size="40rpx" color="#FFF" />
                             </view>

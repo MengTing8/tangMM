@@ -236,7 +236,6 @@ Page({
                     show: true,
                     trigger: 'item'
                 }
-                console.log(option);
                 this.init_echarts(option)
             } else {
                 wx.showToast({

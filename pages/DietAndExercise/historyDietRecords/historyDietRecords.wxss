@@ -14,11 +14,10 @@
     color: #0F1C36;
     font-size: 34rpx;
     font-weight: normal;
-    margin-bottom: 30rpx;
 }
 
 .ItemCard_Info {
-    padding-bottom: 40rpx;
+    padding-top:30rpx;
 }
 
 .PhotoList {

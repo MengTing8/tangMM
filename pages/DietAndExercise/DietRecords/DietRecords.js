@@ -77,8 +77,8 @@ Page({
                                     rowMd5: "",
                                     time: "",
                                     categoryCode: "",
-                                    food: [],
-                                    photo: []
+                                    food: null,
+                                    photo:null
                                 })
                             } else {
                                 newArr[index].date = that.data.dataTime
@@ -96,7 +96,8 @@ Page({
                     }
                 })
 
-            }
+            },
+           
         })
     },
     getDiet() {
@@ -506,7 +507,7 @@ Page({
                                 time: '',
                                 categoryCode: '',
                                 food: FoodDataList[i].foodArr,
-                                photo: []
+                                photo: null
                             })
                         }
 

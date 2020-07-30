@@ -11,7 +11,7 @@
                             <view wx:for="{{c.food}}" wx:for-item="f" wx:for-index="i" wx:key="i">{{f.name}}{{f.value}}g、 </view>
                         </view>
                         <view class="PhotoList">
-                            <view class="PhotoShwoContent" wx:for="{{c.photo}}" wx:for-item="p" wx:for-index="h" wx:key="h">
+                            <view class="PhotoShwoContent" wx:for="{{c.photo}}" wx:for-item="p" wx:for-index="h" wx:key="h" wx:if="{{p.url}}">
                                 <image class="uploaderPhoto" mode="widthFix" src="{{p.url}}" />
                             </view>
                         </view>
