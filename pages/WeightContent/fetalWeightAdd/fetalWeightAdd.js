@@ -1,6 +1,6 @@
 const {
-    request
-} = require("../../../utils/request")
+    promiseRequest
+} = require("../../../utils/Requests")
 const {
     getDates
 } = require("../../../utils/util")
@@ -63,7 +63,7 @@ Page({
             return
         }
 
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -109,7 +109,7 @@ Page({
     },
     getFetusWeight() {
         let self = this
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -198,12 +198,7 @@ Page({
             url: '../fetalWeight/fetalWeight'
         })
     },
-    // bindDateChange: function (e) {
-    //     this.setData({
-    //         DateSelect: e.detail.value
-    //     })
-    // },
-    /**
+        /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {

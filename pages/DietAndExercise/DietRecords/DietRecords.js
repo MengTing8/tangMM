@@ -1,6 +1,6 @@
 const {
-    request
-} = require("../../../utils/request")
+    promiseRequest
+} = require("../../../utils/Requests")
 const {
     getDates
 } = require("../../../utils/util")
@@ -88,7 +88,6 @@ Page({
                             // newArr[index].photo = ResData.data
                             that.setData({
                                 enteringItems,
-                                // fileList: tempFilePaths,
                                 fileList: ResData.data,
                                 enteringArray: newArr
                             })
@@ -107,7 +106,7 @@ Page({
             DeletePhotoList: [],
         })
         wx.removeStorageSync('FoodDataList')
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -194,7 +193,7 @@ Page({
     },
     DelFoodList() {
         let self = this
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -234,7 +233,7 @@ Page({
     },
     deleteFile() {
         let self = this
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -441,7 +440,7 @@ Page({
             }
         }
 
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -510,26 +509,6 @@ Page({
                                 photo: null
                             })
                         }
-
-                        // if (!enteringArray[foodIndex]) {
-                        //     enteringArray.push({
-                        //         date: that.data.dataTime,
-                        //         periodCode: FoodDataList[i].periodCode,
-                        //         id: '',
-                        //         rowMd5: '',
-                        //         time: '',
-                        //         categoryCode: '',
-                        //         food: FoodDataList[i].foodArr,
-                        //         photo: []
-                        //     })
-                        // } else {
-                        //     if (FoodDataList[i].foodArr) {
-                        //         enteringArray[foodIndex].food = FoodDataList[i].foodArr
-                        //     } else {
-                        //         enteringArray[foodIndex].food = FoodDataList[i].foodArr
-                        //         enteringArray[foodIndex].periodCode = FoodDataList[i].periodCode
-                        //     }
-                        // }
                         this.setData({
                             enteringItems,
                             enteringArray

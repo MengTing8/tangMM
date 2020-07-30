@@ -1,6 +1,6 @@
 const {
-    request
-} = require("../../utils/request")
+    promiseRequest
+} = require("../../utils/Requests")
 let windowHeight = ''
 wx.getSystemInfo({
     success: function (res) {
@@ -15,31 +15,13 @@ Page({
     data: {
         scrollHeight: ((windowHeight - 160) * 2) + 'rpx',
         userInputConten: '',
-        talkContent: [{
-            text: '护长，请问资料这样录入有问题吗？',
-            isMine: true,
-            satrtTime: '2020-02-10  20:20:51',
-            headImg: '../../img/user.png'
-        }, {
-            text: '可以的',
-            isMine: false,
-            satrtTime: '2020-02-10  20:20:51',
-            headImg: '../../img/user.png'
-
-        }, {
-            text: '好的',
-            isMine: true,
-            satrtTime: '2020-02-10  20:20:51',
-            headImg: '../../img/user.png'
-
-        }],
         MessageList: [],
         scrollToView: '',
 
     },
     getMessage() {
         let self = this
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -86,7 +68,7 @@ Page({
             return false;
 
         } else {
-            request({
+            promiseRequest({
                 method: "POST",
                 url: '/wxrequest',
                 data: {
@@ -103,10 +85,7 @@ Page({
             }).then(res => {
                 console.log(res);
                 if (res.data.code === '0') {
-                    // wx.showToast({
-                    //     title: res.data.message,
-                    //     duration: 2000
-                    // })
+                    
                     self.getMessage()
                     self.setData({
                         userInputConten: '',

@@ -78,9 +78,6 @@ Page({
                 "data": []
             }
         };
-        // wx.showLoading({
-        //     title: '努力加载中...',
-        // })
         promiseRequest(requestObj).then((res) => {
             if (res.data.code === '0') {
                 let date = getDates(1, res.data.data[0].currentDate);

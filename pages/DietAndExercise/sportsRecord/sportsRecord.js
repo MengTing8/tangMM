@@ -1,6 +1,6 @@
 const {
-    request
-} = require("../../../utils/request")
+    promiseRequest
+} = require("../../../utils/Requests")
 const {
     getDates
 } = require("../../../utils/util")
@@ -9,10 +9,6 @@ const tips = { periodCode: '请选择时段', wayCode: '请选择方式', levelC
 let date = getDates(1, new Date());
 let newDate = moment(date[0].time).format('YYYY年MM月DD日')
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
         note: "",
         levelList: [],
@@ -65,8 +61,7 @@ Page({
           userData[i].date = this.data.dataTime;
           userData[i].status = '1';
         }
-        
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -94,7 +89,7 @@ Page({
         })
     },
     delExercise() {
-      request({
+      promiseRequest({
         method: "POST",
         url: '/wxrequest',
         data: {
@@ -103,7 +98,6 @@ Page({
           "data": this.data.delList
         }
       }).then(res => {
-        console.log(res, "删除");
         if (res.data.code === '0') { 
           this.setData({
             delList: []
@@ -124,7 +118,7 @@ Page({
     },
     getExercise() {
         let self = this
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -135,7 +129,6 @@ Page({
                 }]
             }
         }).then(res => {
-            console.log(res, "获取运动记录");
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
                 self.setData({
@@ -157,7 +150,7 @@ Page({
     },
     getFieldHelp() {
         let self = this
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {

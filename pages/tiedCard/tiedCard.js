@@ -1,6 +1,6 @@
 const {
-    request
-} = require("../../utils/request")
+    promiseRequest
+} = require("../../utils/Requests")
 Page({
 
     /**
@@ -39,7 +39,7 @@ Page({
             // } else if (this.data.sms == '' || this.data.sms == undefined) {
             //     Toast.fail('请输入验证码');
         } else {
-            request({
+            promiseRequest({
                 method: "POST",
                 url: '/wxrequest',
                 data: {
@@ -116,7 +116,7 @@ Page({
             })
             return
         } else {
-            request({
+            promiseRequest({
                 method: "POST",
                 url: '/wxrequest',
                 data: {
@@ -170,7 +170,7 @@ Page({
             })
             return
         } else {
-            request({
+            promiseRequest({
                 method: "POST",
                 url: '/wxrequest',
                 data: {

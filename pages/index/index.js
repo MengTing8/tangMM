@@ -1,8 +1,7 @@
 const {
-    request
-} = require("../../utils/request")
+    promiseRequest
+} = require("../../utils/Requests")
 const app = getApp()
-
 Page({
     data: {
         motto: 'Hello World',
@@ -17,9 +16,6 @@ Page({
              icon: 'none',
              duration: 2000
          })
-        // this.setData({
-        //     // isEdit: false,
-        // })
     },
     //事件处理函数
     bindViewTap: function () {
@@ -77,7 +73,7 @@ Page({
             signature: e.detail.signature,
             hasUserInfo: true
         })
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {

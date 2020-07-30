@@ -289,8 +289,8 @@ function initChart(canvas, width, height) {
     return chart;
 }
 const {
-    request
-} = require("../../utils/request")
+    promiseRequest
+} = require("../../utils/Requests")
 Page({
 
     /**
@@ -389,7 +389,7 @@ Page({
     },
     getInsulinPumpList() {
         let self = this
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -414,7 +414,7 @@ Page({
     },
     getInsulinList() {
         let self = this
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {

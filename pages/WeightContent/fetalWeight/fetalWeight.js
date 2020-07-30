@@ -1,6 +1,6 @@
 const {
-    request
-} = require("../../../utils/request")
+    promiseRequest
+} = require("../../../utils/Requests")
 Page({
 
     /**
@@ -11,7 +11,7 @@ Page({
     },
     getFetusWeightList() {
         let self = this 
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -25,31 +25,6 @@ Page({
                 self.setData({
                     FetusWeightList: res.data.data
                 })
-                //  if (res.data.data.length > 0) {
-                //      var ResData = res.data.data[0]
-                //      let newObj = self.data.dateObj
-                //      newObj.DateSelect = moment(ResData.date).format('YYYY年MM月DD日')
-                //      self.setData({
-                //          dateObj: newObj,
-                //          rowMd5: ResData.rowMd5,
-                //          id: ResData.id,
-                //          BPD: ResData.biparietalDiametger,
-                //          HC: ResData.headCircumference,
-                //          AC: ResData.abdorminalCircumference,
-                //          FL: ResData.femurLength,
-                //      })
-                //  } else {
-                //      self.setData({
-                //          // dateObj: newObj,
-                //          rowMd5: '',
-                //          id: '',
-                //          BPD: '',
-                //          HC: '',
-                //          AC: '',
-                //          FL: '',
-                //      })
-                //  }
-
             } else {
                 wx.showToast({
                     title: res.data.message,

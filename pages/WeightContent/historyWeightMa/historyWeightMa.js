@@ -1,15 +1,13 @@
 // pages/historyWeightMa/historyWeightMa.js
 import * as echarts from '../../../components/ec-canvas/echarts';
-const app = getApp();
 const {
-    request
-} = require("../../../utils/request")
+    promiseRequest
+} = require("../../../utils/Requests")
 const {
     getDay,
     checkTime
 } = require("../../../utils/util")
 const moment = require('../../../utils/moment.min.js');
-// let date = getDates(1, new Date());
 let newDate = moment(getDay(0)).format('YYYY年MM月DD日')
 var StarDATE = moment(getDay(-7)).format('YYYY年MM月DD日');
 var StarDATE2 = moment(getDay(-7)).format('YYYY年MM月DD日');
@@ -20,11 +18,6 @@ const days = []
 for (let i = 0; i <= 40; i++) {
     gas.push(i + '周')
 }
-
-// for (let i = 0; i <= 6; i++) {
-//     days.push(i + '天')
-// }
-
 Page({
 
     /**
@@ -107,7 +100,7 @@ Page({
     },
     getWeightListByDate() {
         let self = this
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -144,7 +137,7 @@ Page({
     },
     getWeightListByWeek() {
         let self = this
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -201,7 +194,7 @@ Page({
     },
     getWeightChart() {
         let self = this
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {

@@ -1,6 +1,6 @@
 const {
-    request
-} = require("../../../utils/request")
+    promiseRequest
+} = require("../../../utils/Requests")
 Page({
 
     /**
@@ -73,7 +73,7 @@ Page({
     },
     getFood() {
         let self = this
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -82,7 +82,6 @@ Page({
                 "data": []
             }
         }).then(res => {
-            console.log(res, "食物");
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
                 let foodArr = []
@@ -182,15 +181,12 @@ Page({
                 }
             }
         }
-
         that.setData({
             foodArr: newArr,
             TabList: tabArr,
             FoodDataList: newFoodDataList
         })
         wx.setStorageSync('FoodDataList', newFoodDataList)
-        // wx.setStorageSync('codeArr', codeArr)
-        // wx.setStorageSync('foodArr', newArr)
     },
     saveFood() {
         let pages = getCurrentPages();
@@ -229,7 +225,6 @@ Page({
         let arr = []
         NewList.forEach(val => {
             let obj = {}
-            // 如果该品类已经存在数组中
             if (foodTypeArr.indexOf(val.foodType) !== -1) {
                 arr[foodTypeArr.indexOf(val.foodType)].nafoodChildrenme = arr[foodTypeArr.indexOf(val.foodType)].nafoodChildrenme.concat(val.foodChildren)
             } else {
@@ -293,7 +288,6 @@ Page({
         let {
             periodCode
         } = options
-        //   var food = JSON.parse(options.food);
         var that = this
         that.getFood()
         wx.getSystemInfo({
@@ -320,7 +314,6 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        console.log('show');
         this.setData({
             FoodDataList: wx.getStorageSync('FoodDataList') || [],
         })

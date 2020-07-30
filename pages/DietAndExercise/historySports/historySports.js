@@ -1,6 +1,6 @@
 const {
-    request
-} = require("../../../utils/request")
+    promiseRequest
+} = require("../../../utils/Requests")
 const {
     getDates,
     checkTime
@@ -27,7 +27,7 @@ Page({
     },
     getExerciseList() {
         let self = this
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -42,10 +42,6 @@ Page({
             console.log(res);
             if (res.data.code === '0') {
                 var ResData = res.data.data
-                // for (let key in ResData.items) {
-                //     ResData.items[key].date = moment(ResData.items[key].date).format('YYYY年MM月DD日')
-
-                // }
                 self.setData({
                     ExerciseList: ResData
                 })

@@ -1,6 +1,6 @@
 const {
-    request
-} = require("../../utils/request")
+    promiseRequest
+} = require("../../utils/Requests")
 const {
     getDates,
     checkTime
@@ -28,7 +28,7 @@ Page({
     },
     getBloodGlucoseList() {
         let self = this
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {

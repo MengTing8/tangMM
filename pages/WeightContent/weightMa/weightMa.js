@@ -1,8 +1,7 @@
 const {
-    request
-} = require("../../../utils/request")
+    promiseRequest
+} = require("../../../utils/Requests")
 const {
-    formatDate,
     getDates
 } = require("../../../utils/util")
 const moment = require('../../../utils/moment.min.js');
@@ -22,7 +21,7 @@ Page({
     },
     SaveWeight() {
         let self = this
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -70,7 +69,7 @@ Page({
     //获取宝妈空腹体重
     getWeight() {
         let self = this
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {

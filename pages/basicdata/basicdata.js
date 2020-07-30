@@ -1,17 +1,12 @@
   const {
-      request
-  } = require("../../utils/request")
+      promiseRequest
+  } = require("../../utils/Requests")
   const {
-      formatDate,
       getDates
   } = require("../../utils/util")
   const moment = require('../../utils/moment.min.js');
   let date = getDates(1, new Date());
   Page({
-
-      /**
-       * 页面的初始数据
-       */
       data: {
           StartDt: '2020年06月18日',
           EndDt: '2029年01月01',
@@ -139,9 +134,8 @@
           }
       },
       requestSave(params) {
-          console.log(params);
           let that = this
-          request({
+          let requestObj = {
               method: "POST",
               url: '/wxrequest',
               data: {
@@ -149,7 +143,8 @@
                   "function": "save",
                   "data": params
               }
-          }).then(res => {
+          };
+          promiseRequest(requestObj).then((res) => {
               console.log(res, "save");
               if (res.data.code === '0') {
                   wx.showToast({
@@ -169,7 +164,7 @@
       },
       DeleteDaseDetail() {
           let self = this
-          request({
+          let requestObj = {
               method: "POST",
               url: '/wxrequest',
               data: {
@@ -177,7 +172,8 @@
                   "function": "delete",
                   "data": self.data.DeleteList
               }
-          }).then(res => {
+          };
+          promiseRequest(requestObj).then((res) => {
               if (res.data.code === '0') {} else {
                   wx.showToast({
                       title: res.data.message,
@@ -190,91 +186,94 @@
       //取基础数据
       getBasicdata() {
           let self = this
-          request({
+          let requestObj = {
               method: "POST",
               url: '/wxrequest',
               data: {
-                  "token": wx.getStorageSync('token'),
-                  "function": "getBase",
-                  "data": [{
-                      "date": self.data.dateRecord
-                  }]
+                   "token": wx.getStorageSync('token'),
+                       "function": "getBase",
+                       "data": [{
+                           "date": self.data.dateRecord
+                       }]
               }
-          }).then(res => {
-              if (res.data.code === '0') {
-                  let ResData = res.data.data[0]
+          };
+          promiseRequest(requestObj).then((res) => {
+                  if (res.data.code === '0') {
+                      let ResData = res.data.data[0]
                       let NewbaseData = self.data.baseData
                       let newArr = self.data.dataArray
-                  if (ResData.items.length > 0) {
-                      let newArr = ResData.items
-                      for (const key in newArr) {
-                          newArr[key].entity = "baseDetail"
-                          newArr[key].patientId = wx.getStorageSync('patientId')
-                          newArr[key].status = 1
-                          newArr[key].rowMd5 = newArr[key].rowMd5
-                          newArr[key].id = newArr[key].id
+                      if (ResData.items.length > 0) {
+                          let newArr = ResData.items
+                          for (const key in newArr) {
+                              newArr[key].entity = "baseDetail"
+                              newArr[key].patientId = wx.getStorageSync('patientId')
+                              newArr[key].status = 1
+                              newArr[key].rowMd5 = newArr[key].rowMd5
+                              newArr[key].id = newArr[key].id
+                              self.setData({
+                                  dataArray: newArr,
+                                  DeleteList: []
+                              })
+                          }
+                      } else {
+                          newArr = [{
+                              entity: "baseDetail",
+                              patientId: wx.getStorageSync('patientId'),
+                              status: 1,
+                              time: '',
+                              heartRate: '',
+                              systolicPressure: "",
+                              diastolicPressure: '',
+                              date: self.data.dateRecord,
+                              id: '',
+                              rowMd5: '',
+                          }]
                           self.setData({
                               dataArray: newArr,
                               DeleteList: []
                           })
                       }
-                  } else {
-                      newArr = [{
-                          entity: "baseDetail",
-                          patientId: wx.getStorageSync('patientId'),
-                          status: 1,
-                          time: '',
-                          heartRate: '',
-                          systolicPressure: "",
-                          diastolicPressure: '',
-                          date: self.data.dateRecord,
-                          id: '',
-                          rowMd5: '',
-                      }]
-                      self.setData({
-                          dataArray: newArr,
-                          DeleteList: []
-                      })
-                  }
-                  if (ResData.hba1c) {
-                      NewbaseData.abdominalCircumference = ResData.abdominalCircumference
-                      NewbaseData.hba1c = ResData.hba1c
-                      NewbaseData.date = ResData.date
-                      NewbaseData.id = ResData.id
-                      NewbaseData.rowMd5 = ResData.rowMd5
-                      NewbaseData.fundalHeight = ResData.fundalHeight
-                      NewbaseData.patientId = wx.getStorageSync('patientId')
-                      self.setData({
-                          baseData: NewbaseData,
-                          BasicRowMd5: ResData.rowMd5,
-                          DeleteList: []
-                      })
-                  } else {
-                      NewbaseData = {
-                              entity: "base",
-                              patientId: wx.getStorageSync('patientId'),
-                              date: self.data.dateRecord,
-                              id: '',
-                              rowMd5: '',
-                              fundalHeight: "",
-                              abdominalCircumference: "",
-                              hba1c: "",
-                              status: 1,
-
-                          },
+                      if (ResData.hba1c) {
+                          NewbaseData.abdominalCircumference = ResData.abdominalCircumference
+                          NewbaseData.hba1c = ResData.hba1c
+                          NewbaseData.date = ResData.date
+                          NewbaseData.id = ResData.id
+                          NewbaseData.rowMd5 = ResData.rowMd5
+                          NewbaseData.fundalHeight = ResData.fundalHeight
+                          NewbaseData.patientId = wx.getStorageSync('patientId')
                           self.setData({
-                              DeleteList: [],
                               baseData: NewbaseData,
+                              BasicRowMd5: ResData.rowMd5,
+                              DeleteList: []
                           })
+                      } else {
+                          NewbaseData = {
+                                  entity: "base",
+                                  patientId: wx.getStorageSync('patientId'),
+                                  date: self.data.dateRecord,
+                                  id: '',
+                                  rowMd5: '',
+                                  fundalHeight: "",
+                                  abdominalCircumference: "",
+                                  hba1c: "",
+                                  status: 1,
+
+                              },
+                              self.setData({
+                                  DeleteList: [],
+                                  baseData: NewbaseData,
+                              })
+                      }
+                  } else {
+                      wx.showToast({
+                          title: res.data.message,
+                          icon: 'none',
+                          duration: 2000
+                      })
                   }
-              } else {
-                  wx.showToast({
-                      title: res.data.message,
-                      icon: 'none',
-                      duration: 2000
-                  })
-              }
           })
+
+        
       },
       tapHistory() {
           wx.navigateTo({
@@ -372,7 +371,6 @@
           let NewObj = this.data.baseData
           var data = e.detail.value;
           NewObj.fundalHeight = data
-          NewObj.date = this.data.dateRecord,
               this.setData({
                   baseData: NewObj
               })
@@ -382,7 +380,6 @@
           let NewObj = this.data.baseData
           var data = e.detail.value;
           NewObj.hba1c = data
-          NewObj.date = this.data.dateRecord
           this.setData({
               baseData: NewObj
           })
@@ -392,7 +389,6 @@
           var data = e.detail.value;
           let NewObj = this.data.baseData
           NewObj.abdominalCircumference = data
-          NewObj.date = this.data.dateRecord
           this.setData({
               baseData: NewObj
           })

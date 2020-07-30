@@ -90,7 +90,7 @@ Page({
                 })
             }
         }).catch((errMsg) => {
-        console.log(errMsg); //错误提示信息
+        console.log(errMsg); 
     });
 },
 getDietChart() {

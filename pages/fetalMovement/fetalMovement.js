@@ -9,6 +9,7 @@
     }
     // 倒计时
     var EndTime = new Date(new Date().getTime() + 1 * 60 * 60 * 1000).getTime() || [];
+
     function countdown(that) {
         if (that.data.refreshClock) {
             return;
@@ -67,12 +68,10 @@
         return min + ":" + sec;
     }
 
-
     const {
-        request
-    } = require("../../utils/request")
+        promiseRequest
+    } = require("../../utils/Requests")
     const {
-        formatDate,
         formatTime,
         getDates
     } = require("../../utils/util")
@@ -97,7 +96,6 @@
             quantity: 0, //原始胎动次数
             validQuantity: 0, //有效胎动次数
             clock: "00:00",
-            //------
             avatarUrl: "",
             name: '',
             descriptionUser: '',
@@ -136,8 +134,7 @@
                             });
                             back.stop()
                             that.SaveFetalMovement()
-                        } else if (res.cancel) {
-                        }
+                        } else if (res.cancel) {}
                     }
                 })
             }
@@ -165,8 +162,7 @@
                                 refreshClock: true,
                             })
                             back.stop()
-                        } else if (res.cancel) {
-                        }
+                        } else if (res.cancel) {}
                     }
                 })
             }
@@ -175,7 +171,7 @@
         //取胎动监测今日记录
         getFetalMovementList() {
             let self = this
-            request({
+            promiseRequest({
                 method: "POST",
                 url: '/wxrequest',
                 data: {
@@ -202,7 +198,7 @@
         //孕周记录
         getFetalMovementListW() {
             let self = this
-            request({
+            promiseRequest({
                 method: "POST",
                 url: '/wxrequest',
                 data: {
@@ -232,7 +228,7 @@
         SaveFetalMovement() {
             let self = this
             let date = getDates(1, new Date());
-            request({
+            promiseRequest({
                 method: "POST",
                 url: '/wxrequest',
                 data: {
@@ -289,10 +285,10 @@
                 EndTime = new Date(new Date().getTime() + 1 * 60 * 60 * 1000).getTime() || [];
                 countdown(that);
             } else {
-                if (this.data.total_econd == '' && that.data.validQuantity==0) {
-                       that.setData({
-                           validQuantity: that.data.validQuantity + 1,
-                       })
+                if (this.data.total_econd == '' && that.data.validQuantity == 0) {
+                    that.setData({
+                        validQuantity: that.data.validQuantity + 1,
+                    })
                 }
                 if (this.data.total_econd == '') {
                     // var strTime = new Date(new Date().getTime() + 1 * 5 * 60 * 1000).getTime(); //五分钟
@@ -409,7 +405,7 @@
         //获取胎动监测 -音乐列表
         getFetalMovement() {
             let self = this
-            request({
+            promiseRequest({
                 method: "POST",
                 url: '/wxrequest',
                 data: {
@@ -435,7 +431,7 @@
         }, //获取注意事项
         getFetalMovementNotice() {
             let self = this
-            request({
+            promiseRequest({
                 method: "POST",
                 url: '/wxrequest',
                 data: {
@@ -486,10 +482,10 @@
             this.setData({
                 TabsIndex: index
             })
-            if (index==0) {
-            this.getFetalMovementList()
-            }else{
-            this.getFetalMovementListW()
+            if (index == 0) {
+                this.getFetalMovementList()
+            } else {
+                this.getFetalMovementListW()
 
             }
         },

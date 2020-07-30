@@ -1,6 +1,6 @@
 const {
-    request
-} = require("../../utils/request")
+    promiseRequest
+} = require("../../utils/Requests")
 const {
     getDates,
     getDay
@@ -95,7 +95,7 @@ Page({
             userData[i].status = '1';
         }
 
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -127,7 +127,7 @@ Page({
         })
     },
     delInsulin() {
-        request({
+        promiseRequest({
           method: "POST",
           url: '/wxrequest',
           data: {
@@ -166,7 +166,7 @@ Page({
     getInsulin(date) {
         let self = this
         let InsulinData = self.data.InsulinData
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -201,7 +201,7 @@ Page({
         self.DeleteInsulinPump()
         }
         let params = self.data.MealArray.concat(self.data.dosageArray);
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -230,7 +230,7 @@ Page({
     getInsulinPump(date) {
         let self = this
         // let InsulinData = self.data.InsulinData
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -389,7 +389,7 @@ Page({
     },
     DeleteInsulinPump() {
         let self = this
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {

@@ -1,6 +1,6 @@
 const {
-    request
-} = require("../../utils/request")
+    promiseRequest
+} = require("../../utils/Requests")
 const moment = require('../../utils/moment.min.js');
 var dateTimePicker = require('../../utils/dateTimePicker.js');
 const date = new Date();
@@ -105,7 +105,7 @@ Page({
         } else if (PatientData.gdm == 0) {
             PatientData.gdmYear = ''
         }
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -271,7 +271,7 @@ Page({
     //获取职业
     getOccupation() {
         let self = this
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -296,7 +296,7 @@ Page({
     //获取我的个人信息
     getPatient() {
         let self = this
-        request({
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {

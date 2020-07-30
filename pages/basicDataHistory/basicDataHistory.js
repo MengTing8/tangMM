@@ -1,7 +1,7 @@
 import * as echarts from '../../components/ec-canvas/echarts';
 const {
-    request
-} = require("../../utils/request")
+    promiseRequest
+} = require("../../utils/Requests")
 const {
     checkTime,
     getDay
@@ -16,8 +16,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        ec: {
-        },
+        ec: {},
         TimeObj: {
             StartDt: '2000年01月01日',
             EndDt: '2029年01月01日',
@@ -25,7 +24,7 @@ Page({
             EndDATE,
         },
         dateStart: getDay(-7),
-        dateEnd:getDay(0),
+        dateEnd: getDay(0),
         TimeObjChart: {
             StartDt: '2000年01月01日',
             EndDt: '2029年01月01日',
@@ -33,7 +32,7 @@ Page({
             EndDATE,
         },
         dateStartChart: getDay(-7),
-        dateEndChart:getDay(0),
+        dateEndChart: getDay(0),
         selectedIndex: 0,
         listData: [],
         startLength: 0,
@@ -43,19 +42,19 @@ Page({
     //取图表
     getBaseChart() {
         let self = this
-        request({
-            method: "POST",
-            url: '/wxrequest',
-            data: {
-                "token": wx.getStorageSync('token'),
-                "function": "getBaseChart",
-                "data": [{
-                    "dateStart": self.data.dateStartChart,
-                    "dateEnd": self.data.dateEndChart
-                }]
-            }
-        }).then(res => {
-            console.log(res);
+        let requestObj = {
+           method: "POST",
+               url: '/wxrequest',
+               data: {
+                   "token": wx.getStorageSync('token'),
+                   "function": "getBaseChart",
+                   "data": [{
+                       "dateStart": self.data.dateStartChart,
+                       "dateEnd": self.data.dateEndChart
+                   }]
+               }
+        };
+        promiseRequest(requestObj).then((res) => {
             if (res.data.code === '0') {
                 let color = JSON.parse(res.data.data[0].color);
                 let option = JSON.parse(res.data.data[0].option);
@@ -65,7 +64,9 @@ Page({
                 }
                 for (var i = 0; i < color.length; i++) {
                     if (color[i].length > 1) {
-                        option.series[i].itemStyle.color = (o) => { return color[o.seriesIndex][o.dataIndex]; };
+                        option.series[i].itemStyle.color = (o) => {
+                            return color[o.seriesIndex][o.dataIndex];
+                        };
                     }
                 }
                 if (yAxisLabelValues !== undefined && yAxisLabelValues.length > 0) {
@@ -91,23 +92,24 @@ Page({
     //取基础数据历史记录列表
     getBaseList() {
         let self = this
-        request({
-            method: "POST",
-            url: '/wxrequest',
-            data: {
-                "token": wx.getStorageSync('token'),
-                "function": "getBaseList",
-                "data": [{
-                    "dateStart": self.data.dateStart,
-                    "dateEnd": self.data.dateEnd
-                }]
-            }
-        }).then(res => {
-            if (res.data.code === '0') {
-                var ResData = res.data.data
-                for (let key in ResData) {
-                    ResData[key].time = ResData[key].time? moment(ResData[key].time).format('YYYY/MM/DD'):''
-                }
+          let requestObj = {
+              method: "POST",
+              url: '/wxrequest',
+              data: {
+                  "token": wx.getStorageSync('token'),
+                      "function": "getBaseList",
+                      "data": [{
+                          "dateStart": self.data.dateStart,
+                          "dateEnd": self.data.dateEnd
+                      }]
+              }
+          };
+          promiseRequest(requestObj).then((res) => {
+             if (res.data.code === '0') {
+                 var ResData = res.data.data
+                 for (let key in ResData) {
+                     ResData[key].time = ResData[key].time ? moment(ResData[key].time).format('YYYY/MM/DD') : ''
+                 }
                  var afterData = []
                  ResData.forEach(item => {
                      let flag = afterData.find(item1 => item1.time === item.time)
@@ -120,20 +122,17 @@ Page({
                          flag.origin.push(item)
                      }
                  })
-                self.setData({
-                    listData: afterData
-                })
-
-                // self.backmusic();
-
-            } else {
-                wx.showToast({
-                    title: res.data.message,
-                    icon: 'none',
-                    duration: 2000
-                })
-            }
-        })
+                 self.setData({
+                     listData: afterData
+                 })
+             } else {
+                 wx.showToast({
+                     title: res.data.message,
+                     icon: 'none',
+                     duration: 2000
+                 })
+             }
+          })
     },
     bindStartTimeChange(e) {
         var NewData = this.data.TimeObj;
@@ -148,7 +147,6 @@ Page({
             })
             this.getBaseList()
         }
-
     },
     bindEndTimeChange(e) {
         var NewData = this.data.TimeObj;
@@ -163,7 +161,6 @@ Page({
             })
             this.getBaseList()
         }
-
     },
     bindStartTimeChart(e) {
         var NewData = this.data.TimeObjChart;
@@ -178,7 +175,6 @@ Page({
             })
             this.getBaseChart()
         }
-
     },
     bindEndTimeChart(e) {
         var NewData = this.data.TimeObjChart;
@@ -193,7 +189,6 @@ Page({
             })
             this.getBaseChart()
         }
-
     },
     handleTitleChange(e) {
         const {
@@ -204,20 +199,18 @@ Page({
         })
         if (index == 1) {
             this.getBaseChart()
-        }else{
+        } else {
             this.getBaseList()
         }
     },
     //初始化图表  
     init_echarts: function (options) {
         this.echartsComponent.init((canvas, width, height) => {
-            // 初始化图表      
             const Chart = echarts.init(canvas, null, {
                 width: width,
                 height: height
             });
             Chart.setOption(options);
-            // 注意这里一定要返回 chart 实例，否则会影响事件处理等    
             return Chart;
         });
     },
