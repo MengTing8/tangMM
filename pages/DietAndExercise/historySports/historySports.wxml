@@ -1,7 +1,7 @@
 <view class="historySportsContent">
     <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
     <view class="historyList">
-        <view class="ItemCard" wx:for="{{ExerciseList}}" wx:key="index">
+        <view class="ItemCard" wx:for="{{ExerciseList}}" wx:key="index" wx:if="{{item.date}}">
             <view class="ItemCard_Time">{{item.date}}</view>
             <view class="ItemCard_Info  unifyFont">
                 <view>时段：{{item.periodValue}}</view>
@@ -9,5 +9,8 @@
                 <view>强度：{{item.levelValue}}</view>
             </view>
         </view>
+    </view>
+    <view style=" text-align: center;margin: 150rpx auto;" wx:if="{{!ExerciseList[0].date}}">
+    暂无记录
     </view>
 </view>

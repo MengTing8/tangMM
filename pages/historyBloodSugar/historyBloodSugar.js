@@ -2,21 +2,19 @@ const {
     promiseRequest
 } = require("../../utils/Requests")
 const {
-    getDates,
-    checkTime
+    checkTime, getDay
 } = require("../../utils/util")
 const moment = require('../../utils/moment.min.js');
-let date = getDates(1, new Date());
-let newDate = moment(date[0].time).format('YYYY年MM月DD日')
-var StarDATE = "2020年06日01日"
+let newDate = moment(getDay(0)).format('YYYY年MM月DD日')
+var StarDATE = moment(getDay(-7)).format('YYYY年MM月DD日');
 var EndDATE = newDate
 Page({
     /**
      * 页面的初始数据
      */
     data: {
-        dateStart: "2020-06-01",
-        dateEnd: date[0].time,
+        dateStart: getDay(-7),
+        dateEnd: getDay(0),
         TimeObj: {
             StartDt: newDate,
             EndDt: '2029年01月01日',

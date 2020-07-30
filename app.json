@@ -38,7 +38,6 @@
       "pages": [
         "historySports/historySports",
         "sportsRecord/sportsRecord",
-          "recordDietSearch/recordDietSearch",
           "recordDiet/recordDiet",
           "historyDietRecords/historyDietRecords",
           "DietRecords/DietRecords"

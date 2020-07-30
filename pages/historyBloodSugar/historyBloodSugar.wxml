@@ -9,11 +9,11 @@
                         <view wx:for="{{item.items}}" wx:for-item="items" wx:for-index="Id" wx:key="Id">
                             {{items.periodSubvalue}}：{{items.value}}
                         </view>
-                        <!-- <view>早餐后2小时血糖：11</view>
-                        <view>午餐前血糖：12</view>
-                        <view>午餐后2小时血糖：22</view> -->
                     </view>
                 </view>
+            </view>
+            <view style=" text-align: center;margin: 150rpx auto;" wx:if="{{!BloodGlucoseList[0].date}}">
+                暂无记录
             </view>
         </view>
     </block>
