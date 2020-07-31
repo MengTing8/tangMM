@@ -274,7 +274,6 @@ Page({
             })
             codeList.push(that.data.periodCode)
         }
-        console.log(newFoodDataList);
         that.setData({
             FoodDataList: newFoodDataList,
             codeArr: newCode,

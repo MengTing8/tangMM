@@ -17,6 +17,7 @@ Page({
         userInputConten: '',
         MessageList: [],
         scrollToView: '',
+        patientId: wx.getStorageSync('patientId')
 
     },
     getMessage() {
@@ -28,9 +29,8 @@ Page({
                 "token": wx.getStorageSync('token'),
                 "function": "getMessage",
                 "data": [{
-                    patientId: wx.getStorageSync('patientId')
-                }]
-            }
+                    patientId: self.data.patientId
+            }]}
         }).then(res => {
             if (res.data.code === '0') {
                 let ResData = res.data.data[0]
@@ -59,7 +59,7 @@ Page({
     //
     saveMessage() {
         let self = this
-        if (self.data.userInputConten == '') {
+        if (!self.data.userInputConten) {
             wx.showToast({
                 title: '请输入信息',
                 icon: 'none',
@@ -76,9 +76,9 @@ Page({
                     "function": "save",
                     "data": [{
                         "entity": "message",
-                        "patientId": wx.getStorageSync('patientId'),
+                        "patientId": self.data.patientId,
                         "text": self.data.userInputConten,
-                        "writtenBy": wx.getStorageSync('patientId'),
+                        "writtenBy": self.data.patientId,
                         "status": "1"
                     }]
                 }

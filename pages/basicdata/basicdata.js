@@ -272,8 +272,6 @@
                       })
                   }
           })
-
-        
       },
       tapHistory() {
           wx.navigateTo({

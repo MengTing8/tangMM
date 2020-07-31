@@ -59,15 +59,12 @@ Page({
             }
         };
         promiseRequest(requestObj).then((res) => {
-                console.log(res);
                 if (res.data.code === '0') {
                     let ResData = res.data.data
                     var newData = []
                     let flag
                     ResData.forEach((item) => {
-                            console.log(item);
                             item.forEach(i => {
-                                    console.log(i);
                                     flag = newData.find(item1 => item1.date === i.date)
                                     if (!flag) {
                                         newData.push({

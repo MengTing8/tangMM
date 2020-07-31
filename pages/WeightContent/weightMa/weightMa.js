@@ -21,6 +21,14 @@ Page({
     },
     SaveWeight() {
         let self = this
+        if (!self.data.weight) {
+             wx.showToast({
+                 title: '请输入体重',
+                 icon: 'none',
+                 duration: 3000
+             })
+             return false;
+        }else{
         promiseRequest({
             method: "POST",
             url: '/wxrequest',
@@ -59,6 +67,7 @@ Page({
                 })
             }
         })
+            }
     },
     bindWeightInput(e) {
         var data = e.detail.value;
