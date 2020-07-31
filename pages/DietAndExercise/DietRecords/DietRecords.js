@@ -16,7 +16,6 @@ Page({
         DeletePhotoList: [],
         foodIndex: 0,
         foodArr: [],
-        fileList: [],
         dateObj: {
             StartDt: newDate,
             EndDt: '2029年01月01',
@@ -38,7 +37,6 @@ Page({
             periodcode
         } = e.currentTarget.dataset
         let enteringItems = this.data.enteringItems
-        var newArr = this.data.enteringArray
         that.setData({
             UploadShow: true,
         })
@@ -69,34 +67,16 @@ Page({
                             } else {
                                 enteringItems[index].photo = ResData.data
                             }
-                            if (!newArr[index]) {
-                                newArr.push({
-                                    date: that.data.dataTime,
-                                    periodCode: periodcode,
-                                    id: "",
-                                    rowMd5: "",
-                                    time: "",
-                                    categoryCode: "",
-                                    food: null,
-                                    photo:null
-                                })
-                            } else {
-                                newArr[index].date = that.data.dataTime
-                                newArr[index].photo = ResData.data
-                            }
-                            // newArr[index].date = that.data.dataTime
-                            // newArr[index].photo = ResData.data
+                            that.getenteringArray(periodcode, enteringItems[index].photo, enteringItems[index].time, enteringItems[index].categoryCode, enteringItems[index].food)
                             that.setData({
                                 enteringItems,
-                                fileList: ResData.data,
-                                enteringArray: newArr
                             })
                         }
                     }
                 })
 
             },
-           
+
         })
     },
     getDiet() {
@@ -133,8 +113,8 @@ Page({
                                     rowMd5: "",
                                     time: "",
                                     categoryCode: "",
-                                    food: [],
-                                    photo: []
+                                    food: null,
+                                    photo: null
                                 })
                             }
                             NewEnteringArray[key].periodCode = ResData.items[key].periodCode
@@ -262,33 +242,9 @@ Page({
         let val = e.detail.value
         enteringItems[index].categoryValue = self.data.categoryValues[val].value
         enteringItems[index].categoryCode = self.data.categoryValues[val].code
-        var newArr = self.data.enteringArray
-        let codeArr = []
-        newArr.forEach(item => {
-            codeArr.push(item.periodCode)
-        })
-        if (codeArr.includes(periodcode)) {
-            newArr[codeArr.indexOf(periodcode)].periodCode = periodcode
-            newArr[codeArr.indexOf(periodcode)].date = self.data.dataTime
-            newArr[codeArr.indexOf(periodcode)].categoryCode = self.data.categoryValues[val].code
-            newArr[codeArr.indexOf(periodcode)].food = self.data.enteringItems[index].food
-            newArr[codeArr.indexOf(periodcode)].time = self.data.enteringItems[index].time
-
-        } else {
-            newArr.push({
-                date: self.data.dataTime,
-                periodCode: periodcode,
-                id: "",
-                rowMd5: "",
-                time: self.data.enteringItems[index].time,
-                categoryCode: self.data.categoryValues[val].code,
-                food: [],
-                photo: self.data.enteringItems[index].photo
-            })
-        }
+        self.getenteringArray(periodcode, enteringItems[index].photo, enteringItems[index].time, enteringItems[index].categoryCode, enteringItems[index].food)
         this.setData({
             enteringItems,
-            enteringArray: newArr
         })
     },
     bindTimeChange: function (e) {
@@ -298,33 +254,11 @@ Page({
             index,
         } = e.currentTarget.dataset
         let enteringItems = this.data.enteringItems
-        let dataObj = e.detail.value;
-        enteringItems[index].time = dataObj
-        var newArr = this.data.enteringArray
-        let codeArr = []
-        newArr.forEach(item => {
-            codeArr.push(item.periodCode)
-        })
-        if (codeArr.includes(periodcode)) {
-            newArr[codeArr.indexOf(periodcode)].periodCode = periodcode
-            newArr[codeArr.indexOf(periodcode)].date = self.data.dataTime
-            newArr[codeArr.indexOf(periodcode)].time = dataObj
-
-        } else {
-            newArr.push({
-                date: self.data.dataTime,
-                periodCode: periodcode,
-                id: "",
-                rowMd5: "",
-                time: dataObj,
-                categoryCode: "",
-                food: [],
-                photo: self.data.enteringItems[index].photo
-            })
-        }
+        let timeData = e.detail.value;
+        enteringItems[index].time = timeData
+        self.getenteringArray(periodcode, enteringItems[index].photo, timeData, enteringItems[index].categoryCode, enteringItems[index].food)
         this.setData({
             enteringItems,
-            enteringArray: newArr
         })
     },
     tapFoodAdd(e) {
@@ -489,12 +423,13 @@ Page({
                         enteringArray.forEach(item => {
                             codeArr.push(item.periodCode)
                         })
+                        let current = codeArr.indexOf(FoodDataList[i].periodCode)
                         if (codeArr.includes(FoodDataList[i].periodCode)) {
                             if (FoodDataList[i].foodArr) {
-                                enteringArray[codeArr.indexOf(FoodDataList[i].periodCode)].food = FoodDataList[i].foodArr
+                                enteringArray[current].food = FoodDataList[i].foodArr
                             } else {
-                                enteringArray[codeArr.indexOf(FoodDataList[i].periodCode)].food = FoodDataList[i].foodArr
-                                enteringArray[codeArr.indexOf(FoodDataList[i].periodCode)].periodCode = FoodDataList[i].periodCode
+                                enteringArray[current].food = FoodDataList[i].foodArr
+                                enteringArray[current].periodCode = FoodDataList[i].periodCode
                             }
 
                         } else {
@@ -519,6 +454,37 @@ Page({
 
         }
 
+    },
+    getenteringArray(periodcode, photoData, timeData, categoryCode, foodData) {
+        var that = this
+        var newArr = this.data.enteringArray
+        let codeArr = []
+        newArr.forEach(item => {
+            codeArr.push(item.periodCode)
+        })
+        let key = codeArr.indexOf(periodcode)
+        if (codeArr.includes(periodcode)) {
+            newArr[key].periodCode = periodcode
+            newArr[key].date = that.data.dataTime
+            newArr[key].time = timeData
+            newArr[key].categoryCode = categoryCode
+            newArr[key].food = foodData
+            newArr[key].photo = photoData
+        } else {
+            newArr.push({
+                date: that.data.dataTime,
+                periodCode: periodcode,
+                id: "",
+                rowMd5: "",
+                time: timeData,
+                categoryCode: categoryCode,
+                food: foodData,
+                photo: photoData
+            })
+        }
+        that.setData({
+            enteringArray: newArr
+        })
     },
     /**
      * 生命周期函数--监听页面加载
