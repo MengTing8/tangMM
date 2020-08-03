@@ -1,5 +1,5 @@
 <Tabs bindtitleChange="handleTitleChange">
-    <block wx:if="{{selectedIndex==0}}">
+    <view style="display:{{selectedIndex==1?'none':'block'}}"> 
         <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
         <view class="bloodSugarInfoLIst">
             <view class="listCard" wx:for="{{BloodGlucoseList}}" wx:key="index" wx:if="{{item.date}}">
@@ -16,8 +16,36 @@
                 暂无记录
             </view>
         </view>
-    </block>
-    <block wx:if="{{selectedIndex==1}}">
+    </view>
+    <view style="display:{{selectedIndex==0?'none':'block'}}">
         <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
-    </block>
+        <view class="typeBtnContent">
+            <view class="typeItemList">
+                <view wx:for="{{tagList}}" class="typeItem {{item.isSelected === '1'?'selectedItem':''}}" bindtap="selectTag" wx:key="index" data-code="{{item.code}}">
+                    {{item.value}}
+                </view>
+            </view>
+        </view>
+        <view class="mychartContent">
+            <view class="container">
+                <ec-canvas id="GLU" canvas-id="GLU" ec="{{ ec }}"></ec-canvas>
+            </view>
+        </view>
+        <view class="titleContent">
+            <view class="titleContentBox">
+                <view class="legendBox" wx:for="{{legendList1}}" wx:key="index">
+                    <view class="legendIcon {{item.symbol}}" style="background:{{item.color}};width:{{item.size.width}};height:{{item.size.height}}"></view>
+                    <view class="">{{item.value}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="titleContent">
+            <view class="titleContentBox">
+                <view class="legendBox" wx:for="{{legendList2}}" wx:key="index">
+                    <view class="legendIcon {{item.symbol}}" style="background:{{item.color}};width:{{item.size.width}};height:{{item.size.height}}"></view>
+                    <view class="">{{item.value}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
 </Tabs>

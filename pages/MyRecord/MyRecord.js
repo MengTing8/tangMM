@@ -50,7 +50,7 @@ Page({
             URL = '../BloodSugarRecord/BloodSugarRecord'
         } else if (index == 7) {
             // 胰岛素
-            URL = '../InsulinRegister/InsulinRegister'
+            URL = '../InsulinRegister/InsulinRegister?gestationalWeek=' + gestationalWeek 
         }
         wx.navigateTo({
             url: URL

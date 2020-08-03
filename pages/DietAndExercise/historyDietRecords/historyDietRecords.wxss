@@ -76,3 +76,38 @@
 .chartsTabContent {
     margin-bottom: 80rpx;
 }
+
+.tabsContent {
+    position: relative;
+}
+
+.titleContentBox {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.legendBox {
+    display: flex;
+    align-items: center;
+    padding: 12rpx 30rpx;
+    font-size: 24rpx;
+}
+
+.legendIcon {
+    width: 26rpx;
+    height: 12rpx;
+    background: #296FD8;
+    margin-right: 14rpx;
+}
+
+.legendIcon.circle {
+    border-radius: 50%;
+}
+
+.titleContent {
+    position: absolute;
+    right: 0;
+    bottom: -5%;
+    left: 0;
+}

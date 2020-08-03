@@ -136,7 +136,12 @@ Page({
                     periodList: ResData.periodValues,
                     wayCode: ResData.wayCode,
                     periodCode: ResData.periodCode,
-                    userData: ResData.items ? ResData.items : this.data.userData
+                    userData: ResData.items ? ResData.items : [{
+                        periodCode: '',
+                        wayCode: '',
+                        levelCode: '',
+                        duration: ''
+                    }] 
                 })
             } else {
                 wx.showToast({

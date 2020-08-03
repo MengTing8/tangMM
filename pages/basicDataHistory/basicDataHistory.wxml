@@ -40,8 +40,8 @@
             </view>
             <view class="titleContent">
                 <view class="titleContentBox">
-                    <view class="goalBox" wx:for="{{legendList}}" wx:key="index">
-                        <view class="goalIcon {{item.symbol}}" style="background:{{item.color}};width:{{item.size.width}};height:{{item.size.height}}"></view>
+                    <view class="legendBox" wx:for="{{legendList}}" wx:key="index">
+                        <view class="legendIcon {{item.symbol}}" style="background:{{item.color}};width:{{item.size.width}};height:{{item.size.height}}"></view>
                         <view class="">{{item.value}}</view>
                     </view>
                 </view>

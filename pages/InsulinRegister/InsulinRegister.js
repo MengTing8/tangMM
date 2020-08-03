@@ -57,7 +57,8 @@ Page({
             categoryCode: '',
             value: ''
         }],
-        delList:[]
+        delList:[],
+        GA:''
     },
     SaveInsulin() {
         if (this.data.delList.length > 0) {
@@ -184,7 +185,12 @@ Page({
                     InsulinData: ResData,
                     categoryValues: ResData.categoryValues,
                     periodValues: ResData.periodValues,
-                    userData: ResData.items ? ResData.items : this.data.userData
+                    userData: ResData.items ? ResData.items : [{
+                        periodCode: '',
+                        periodOtherValue: '',
+                        categoryCode: '',
+                        value: ''
+                    }] 
                 })
             } else {
                 wx.showToast({
@@ -567,7 +573,7 @@ Page({
     },
     historyRecordBtn() {
         wx.navigateTo({
-            url: '../historyInsulin/historyInsulin'
+            url: '../historyInsulin/historyInsulin?GA=' + this.data.GA 
         })
     },
     bindPeriodChange(e) {
@@ -640,6 +646,12 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        let {
+            gestationalWeek
+        } = options
+        this.setData({
+            GA: gestationalWeek
+        }) 
         this.getInsulin()
         this.getInsulinPump()
     },

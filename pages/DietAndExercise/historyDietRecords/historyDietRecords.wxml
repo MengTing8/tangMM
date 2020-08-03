@@ -29,12 +29,20 @@
                         <ec-canvas id="mychartDiet" canvas-id="mychart-Diet" ec="{{ ec }}"></ec-canvas>
                     </view>
                 </view>
+                <view class="titleContent">
+                    <view class="titleContentBox">
+                        <view class="legendBox" wx:for="{{legendList1}}" wx:key="index">
+                            <view class="legendIcon {{item.symbol}}" style="background:{{item.color}};width:{{item.size.width}};height:{{item.size.height}}"></view>
+                            <view class="">{{item.value}}</view>
+                        </view>
+                    </view>
+                </view>
             </view>
-            <!-- <view class="chartsTabContent">
+            <view class="chartsTabContent">
                 <view class="tabsBox">
                     <block wx:for="{{tabCharts}}" wx:key="id">
-                        <view class="tabsItem {{TabsIndex==index?'selected':''}}" data-index='{{index}}' data-typeCode="{{item.typeCode}}" bindtap="handleChartsTabs">
-                            {{item.typeValue}}
+                        <view class="tabsItem {{TabsIndex==index?'selected':''}}" data-index='{{index}}' bindtap="handleChartsTabs">
+                            {{item}}
                         </view>
                     </block>
                 </view>
@@ -44,8 +52,16 @@
                             <ec-canvas id="mychartTabs" canvas-id="mychart-DietTabs" ec="{{ ec }}"></ec-canvas>
                         </view>
                     </view>
+                    <view class="titleContent">
+                        <view class="titleContentBox">
+                            <view class="legendBox" wx:for="{{legendList2}}" wx:key="index">
+                                <view class="legendIcon {{item.symbol}}" style="background:{{item.color}};width:{{item.size.width}};height:{{item.size.height}}"></view>
+                                <view class="">{{item.value}}</view>
+                            </view>
+                        </view>
+                    </view>
                 </view>
-            </view> -->
+            </view>
         </view>
     </Tabs>
 </view>

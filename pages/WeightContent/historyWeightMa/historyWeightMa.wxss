@@ -126,18 +126,14 @@
 .titleContentBox {
     display: flex;
     flex-wrap: wrap;
-
     align-items: center;
 }
 
 .legendBox {
     display: flex;
-    justify-content: left;
-
     align-items: center;
     padding: 12rpx 30rpx;
     font-size: 24rpx;
-    width: 30%;
 }
 
 .legendIcon {
@@ -147,26 +143,15 @@
     margin-right: 14rpx;
 }
 
-.goalBox {
-    margin-top: 50rpx;
-    display: flex;
-    align-items: center;
-    padding: 12rpx 12rpx;
-    font-size: 24rpx;
-}
-
-.goalIcon {
-    margin-right: 14rpx;
-}
-
-.goalIcon.circle {
+.legendIcon.circle {
     border-radius: 50%;
 }
 
 .titleContent {
     position: absolute;
+    right: 0;
     bottom: -5%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0 auto;
+    left: 0;
+    display: flex;
+    justify-content: center;
 }

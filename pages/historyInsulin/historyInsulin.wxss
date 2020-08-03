@@ -84,12 +84,12 @@
 
 /* 卡片结束 */
 .typeBtnContent {
-    padding: 40rpx 10rpx 10rpx 10rpx;
+    padding: 40rpx 10rpx 0 10rpx; 
 }
 
 .typeItemList {
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
     text-align: center;
 }
 
@@ -100,8 +100,8 @@
     border-radius: 12rpx;
     color: #121212;
     font-size: 24rpx;
-    margin: 0 20rpx;
-    line-height: 58rpx;
+    margin: 0 10rpx 20rpx; 
+    line-height: 30px; 
 }
 
 .selectedItem {
@@ -187,29 +187,17 @@
 
 
 
-.titleContent {
-    position: absolute;
-    bottom: 2%;
-
-    margin: 0 auto;
-    padding: 0 40rpx;
-}
-
 .titleContentBox {
     display: flex;
     flex-wrap: wrap;
-
     align-items: center;
 }
 
 .legendBox {
     display: flex;
-    justify-content: left;
-
     align-items: center;
-    padding: 12rpx 12rpx;
+    padding: 12rpx 30rpx;
     font-size: 24rpx;
-    width: 30%;
 }
 
 .legendIcon {
@@ -219,20 +207,13 @@
     margin-right: 14rpx;
 }
 
-.goalBox {
-    margin-top: 50rpx;
-    display: flex;
-    align-items: center;
-    padding: 12rpx 12rpx;
-    font-size: 24rpx;
-}
-
-.goalIcon {
-    width: 26rpx;
-    height: 26rpx;
-    background: #296FD8;
-    margin-right: 14rpx;
+.legendIcon.circle {
     border-radius: 50%;
 }
 
-.legendIName {}
+.titleContent {
+    position: absolute;
+    right: 0;
+    bottom: -8%;
+    left: 0;
+}

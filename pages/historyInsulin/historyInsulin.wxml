@@ -1,5 +1,5 @@
 <Tabs bindtitleChange="handleTitleChange">
-    <block wx:if="{{selectedIndex==0}}">
+    <view style="display:{{selectedIndex==1?'none':'block'}}">
         <view class="typeBtnContent">
             <view class="typeItemList">
                 <view class="typeItem  {{ convention &&index==1? 'selectedItem' : ''}}" bind:tap="toggleType" data-index='1'>
@@ -101,56 +101,48 @@
                 </block>
             </view>
         </view>
-    </block>
-    <block wx:if="{{selectedIndex==1}}">
-        <view class="selectedList">
-            <image src="../../img/checked.png" class="checkedImg" />
+    </view>
+    <view style="display:{{selectedIndex==0?'none':'block'}}">
+        <view class="selectedList" bind:tap="bindCurrentShowGA">
+            <image src="../../img/checked.png" class="checkedImg" wx:if="{{selectedByGA}}"/>
+            <image src="../../img/unchecked.png" class="checkedImg" wx:else/>
             <text>按孕周查看</text>
             <view class="check-sel">
-                <picker class="com-picker" mode="multiSelector" value="{{multiIndex}}" bindchange="bindChange" bindcolumnchange="bindMultiPickerColumnChange" range="{{predays}}">
-                    <!-- <view class="com-cell__bd-picker">{{GA}}周 {{Preday}}天</view> -->
-                    <view class="com-cell__bd-picker">请选择孕周</view>
+                <picker class="com-picker" mode="multiSelector" catchtap="tapHandle" value="" bindchange="bindChange" range="{{predays}}">
+                    <view class="com-cell__bd-picker" wx:if="{{GA!==''}}">{{GA}}周</view>
+                    <view class="com-cell__bd-picker" wx:else>请选择孕周</view>
                 </picker>
                 <image src="../../img/down.png"></image>
             </view>
         </view>
-        <view class="selectedList">
-            <image src="../../img/unchecked.png" class="checkedImg" />
+        <view class="selectedList" bind:tap="bindCurrentShowDate">
+            <image src="../../img/checked.png" class="checkedImg"   wx:if="{{!selectedByGA}}"/>
+            <image src="../../img/unchecked.png" class="checkedImg" wx:else/>
             <text>按孕期查看</text>
         </view>
+        <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
         <view class="typeBtnContent">
             <view class="typeItemList">
-                <view class="typeItem  {{convention &&index==1? 'selectedItem' : ''}}" bind:tap="toggleType" data-index='1'>
-                    常规
-                </view>
-                <view class="typeItem {{ convention &&index==2? 'selectedItem' : ''}} " bind:tap="toggleType" data-index='2'>
-                    胰岛素泵
-                </view>
-                <view class="typeItem  {{ GaShow &&index==3? 'selectedItem' : ''}}" bind:tap="toggleType" data-index='3'>
-                    按孕周
+                <view wx:for="{{tagList}}" class="typeItem {{item.isSelected === '1'?'selectedItem':''}}" bindtap="selectTag" wx:key="index" data-code="{{item.code}}">
+                    {{item.value}}
                 </view>
             </view>
         </view>
         <view>
             <view class="mychartContent">
                 <view class="container">
-                    <ec-canvas id="mychart-dom-scatter" canvas-id="mychart-scatter" ec="{{ ec }}" bind:init="echartInit"></ec-canvas>
+                    <ec-canvas id="mychart-dom-scatter" canvas-id="mychart-scatter" ec="{{ ec }}"></ec-canvas>
                 </view>
+                
                 <view class="titleContent">
                     <view class="titleContentBox">
-                        <view class="legendBox" wx:for="{{legendData}}" wx:key="index">
-                            <view class="legendIcon" style="background:{{item.color}}"></view>
-                            <view class="legendIName">{{item.name}}</view>
-                        </view>
-                    </view>
-                    <view class="titleContentBox">
-                        <view class="goalBox" wx:for="{{goalData}}" wx:key="index">
-                            <view class="goalIcon" style="background:{{item.color}}"></view>
-                            <view class="">{{item.name}}</view>
+                        <view class="legendBox" wx:for="{{legendList}}" wx:key="index">
+                            <view class="legendIcon {{item.symbol}}" style="background:{{item.color}};width:{{item.size.width}};height:{{item.size.height}}"></view>
+                            <view class="">{{item.value}}</view>
                         </view>
                     </view>
                 </view>
             </view>
         </view>
-    </block>
+    </view>
 </Tabs>

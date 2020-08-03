@@ -57,7 +57,13 @@ Page({
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
                 self.setData({
-                    BloodData: ResData.items ? ResData.items : this.data.BloodData,
+                    BloodData: ResData.items ? ResData.items : [{
+                        periodCode: '',
+                        periodSubcode: '',
+                        periodExtraValue: '',
+                        categoryCode: '',
+                        value: ''
+                    }], 
                     categoryValues: ResData.categoryValues,
                     periodValues: ResData.periodValues
                 })
