@@ -184,6 +184,7 @@ Page({
                 let option1 = this.getOption(dataList[0]);
                 let option2 = this.getOption(dataList[1]);
                 this.setData({
+                    TabsIndex: 0,
                     optionList: dataList,
                     legendList1: dataList[0].legend,
                     legendList2: dataList[1].legend,
