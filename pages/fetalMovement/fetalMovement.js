@@ -180,12 +180,10 @@
                     "data": []
                 }
             }).then(res => {
-                console.log(res);
                 if (res.data.code === '0') {
                     self.setData({
                         FetalMovementList: res.data.data
                     })
-                    // self.backmusic();
                 } else {
                     wx.showToast({
                         title: res.data.message,
@@ -209,12 +207,10 @@
                     }]
                 }
             }).then(res => {
-                console.log(res);
                 if (res.data.code === '0') {
                     self.setData({
                         WeeksRecordList: res.data.data
                     })
-                    // self.backmusic();
                 } else {
                     wx.showToast({
                         title: res.data.message,
@@ -401,6 +397,10 @@
             that.setData({
                 descriptionShow: (!that.data.descriptionShow)
             })
+            if (that.data.descriptionShow) {
+            that.getFetalMovementNotice()
+            }
+
         },
         //获取胎动监测 -音乐列表
         getFetalMovement() {
@@ -508,9 +508,8 @@
                 GA: gestationalWeek
             })
             this.getFetalMovement()
-            this.getFetalMovementNotice()
             this.getFetalMovementList()
-            this.getFetalMovementListW()
+            // this.getFetalMovementListW()
         },
 
         /**

@@ -24,7 +24,8 @@ Page({
             EndDt: '2029年01月01',
             EXDATE: newDate,
             DateSelect: newDate,
-            title: "选择时间"
+            title: "选择时间",
+            value:date[0].time
         },
         dataTime: date[0].time
     },
@@ -161,7 +162,7 @@ Page({
         var NewData = this.data.dateObj;
         let val = e.detail.value
         let dateSelect = e.detail.date
-        // val = ;
+        NewData.value = e.detail.date;
         NewData.DateSelect = val;
         this.setData({
             dateObj: NewData,

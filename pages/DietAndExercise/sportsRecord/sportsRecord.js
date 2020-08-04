@@ -25,7 +25,8 @@ Page({
             EndDt: '2029年01月01',
             EXDATE: newDate,
             DateSelect: newDate,
-            title: "记录时间"
+            title: "记录时间",
+            value: date[0].time
         },
         dataTime: date[0].time,
         ShowInfo: false,
@@ -224,6 +225,7 @@ Page({
         let val = e.detail.value
         let dateSelect = e.detail.date
         NewData.DateSelect = val;
+        NewData.value = e.detail.date;
         this.setData({
             dateObj: NewData,
             dataTime: dateSelect

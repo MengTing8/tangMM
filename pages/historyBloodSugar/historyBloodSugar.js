@@ -16,17 +16,19 @@ Page({
      * 页面的初始数据
      */
     data: {
-        dateStart: getDay(-7),
-        dateEnd: getDay(0),
+        // dateStart: getDay(-7),
+        // dateEnd: getDay(0),
         TimeObj: {
             StartDt: newDate,
             EndDt: '2029年01月01日',
             StarDATE,
             EndDATE,
+            dateStart: getDay(-7),
+            dateEnd: getDay(0),
         },
         selectedIndex: 0,
         BloodGlucoseList: [],
-        ec:{
+        ec: {
 
         },
         legendList: null,
@@ -42,8 +44,8 @@ Page({
                 "token": wx.getStorageSync('token'),
                 "function": "getBloodGlucoseList",
                 "data": [{
-                    "dateStart": self.data.dateStart,
-                    "dateEnd": self.data.dateEnd
+                    "dateStart": self.data.TimeObj.dateStart,
+                    "dateEnd": self.data.TimeObj.dateEnd
                 }]
             }
         }).then(res => {
@@ -65,13 +67,12 @@ Page({
     bindStartTimeChange(e) {
         var NewData = this.data.TimeObj;
         let val = e.detail.value
-        let dateStart = e.detail.date
-        NewData.StarDATE = val;
-        let timeCheck = checkTime(dateStart, this.data.dateEnd)
+        let date = e.detail.date
         const owner = e.currentTarget.dataset.owner
-        if (timeCheck) {
+        if (checkTime(date, NewData.dateEnd)) {
+            NewData.StarDATE = val;
+            NewData.dateStart = date;
             this.setData({
-                dateStart,
                 TimeObj: NewData
             })
             if (this.data.selectedIndex === 1) {
@@ -84,13 +85,12 @@ Page({
     bindEndTimeChange(e) {
         var NewData = this.data.TimeObj;
         let val = e.detail.value
-        let dateEnd = e.detail.date
-        NewData.EndDATE = val;
-        let timeCheck = checkTime(this.data.dateStart, dateEnd)
+        let date = e.detail.date
         const owner = e.currentTarget.dataset.owner
-        if (timeCheck) {
+        if (checkTime(NewData.dateStart, date)) {
+            NewData.EndDATE = val;
+            NewData.dateEnd = date;
             this.setData({
-                dateEnd,
                 TimeObj: NewData
             })
             if (this.data.selectedIndex === 1) {
@@ -102,7 +102,7 @@ Page({
     },
     handleTitleChange(e) {
         let index = e.detail.index
-        if(index === 1) {
+        if (index === 1) {
             this.getGLUChart()
         }
         this.setData({
@@ -123,8 +123,8 @@ Page({
                 "token": wx.getStorageSync('token'),
                 "function": "getBloodGlucoseChartByDate",
                 "data": [{
-                    "dateStart": this.data.dateStart,
-                    "dateEnd": this.data.dateEnd,
+                    "dateStart": this.data.TimeObj.dateStart,
+                    "dateEnd": this.data.TimeObj.dateEnd,
                     'tag': tags
                 }]
             }
@@ -138,7 +138,9 @@ Page({
                 }
                 for (var i = 0; i < color.length; i++) {
                     if (color[i].length > 1) {
-                        option.series[i].itemStyle.color = (o) => { return color[o.seriesIndex][o.dataIndex]; };
+                        option.series[i].itemStyle.color = (o) => {
+                            return color[o.seriesIndex][o.dataIndex];
+                        };
                     }
                 }
                 if (yAxisLabelValues !== undefined && yAxisLabelValues.length > 0) {

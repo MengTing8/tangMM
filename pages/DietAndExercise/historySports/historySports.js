@@ -15,13 +15,14 @@ Page({
      */
     data: {
         ExerciseList: [],
-        dateStart: getDay(-7),
-        dateEnd: getDay(0),
+
         TimeObj: {
             StartDt: newDate,
             EndDt: '2029年01月01日',
             StarDATE,
             EndDATE,
+            dateStart: getDay(-7),
+            dateEnd: getDay(0),
         },
     },
     getExerciseList() {
@@ -33,8 +34,8 @@ Page({
                 "token": wx.getStorageSync('token'),
                 "function": "getExerciseList",
                 "data": [{
-                    "dateStart": self.data.dateStart,
-                    "dateEnd": self.data.dateEnd
+                    "dateStart": self.data.TimeObj.dateStart,
+                    "dateEnd": self.data.TimeObj.dateEnd
                 }]
             }
         }).then(res => {
@@ -57,30 +58,28 @@ Page({
     bindStartTimeChange(e) {
         var NewData = this.data.TimeObj;
         let val = e.detail.value
-        let dateStart = e.detail.date
-        NewData.StarDATE = val;
-         let timeCheck = checkTime(dateStart, this.data.dateEnd)
-         if (timeCheck) {
-              this.setData({
-                  dateStart,
-                  TimeObj: NewData
-              })
-             this.getExerciseList()
-         }
+        let date = e.detail.date
+        if (checkTime(date, NewData.dateEnd)) {
+             NewData.StarDATE = val;
+             NewData.dateStart = date;
+            this.setData({
+                TimeObj: NewData
+            })
+            this.getExerciseList()
+        }
     },
     bindEndTimeChange(e) {
         var NewData = this.data.TimeObj;
         let val = e.detail.value
         let dateEnd = e.detail.date
-        NewData.EndDATE = val;
-         let timeCheck = checkTime(this.data.dateStart,dateEnd)
-         if (timeCheck) {
-             this.setData({
-                 dateEnd,
-                 TimeObj: NewData
-             })
-             this.getExerciseList()
-         }
+        if (checkTime(NewData.dateStart, dateEnd)) {
+             NewData.EndDATE = val;
+             NewData.dateEnd = dateEnd;
+            this.setData({
+                TimeObj: NewData
+            })
+            this.getExerciseList()
+        }
     },
     /**
      * 生命周期函数--监听页面加载

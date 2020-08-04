@@ -28,15 +28,15 @@ Page({
      * 页面的初始数据
      */
     data: {
-        ec: {
-        },
-        dateStart: getDay(-7),
-        dateEnd: getDay(0),
+        ec: {},
+
         TimeObj: {
             StartDt: newDate,
             EndDt: '2029年01月01日',
             StarDATE,
             EndDATE,
+            dateStart: getDay(-7),
+            dateEnd: getDay(0),
         },
         selectedIndex: 0,
         convention: true,
@@ -75,10 +75,10 @@ Page({
 
         ],
         InsulinList: [],
-        InsulinPumpList:[],
+        InsulinPumpList: [],
         legendList: [],
         tagList: [],
-        selectedTagList:['0']
+        selectedTagList: ['0']
     },
     getInsulinPumpList() {
         let self = this
@@ -94,7 +94,7 @@ Page({
             console.log(res, "胰岛素泵");
             if (res.data.code === '0') {
                 self.setData({
-                     InsulinPumpList: res.data.data,
+                    InsulinPumpList: res.data.data,
                 })
             } else {
                 wx.showToast({
@@ -148,14 +148,14 @@ Page({
                 GaShow: false,
                 InsulinPump: false,
             })
-        this.getInsulinList()
+            this.getInsulinList()
         } else if (this.data.index == '2') {
             this.setData({
                 InsulinPump: true,
                 convention: false,
                 GaShow: false,
             })
-        this.getInsulinPumpList()
+            this.getInsulinPumpList()
         } else {
             this.setData({
                 convention: false,
@@ -168,7 +168,7 @@ Page({
         const {
             index
         } = e.detail;
-        if(index === 1) {
+        if (index === 1) {
             this.getInsulinChartByWeek()
         }
         this.setData({
@@ -216,66 +216,9 @@ Page({
                 }
                 for (var i = 0; i < color.length; i++) {
                     if (color[i].length > 1) {
-                        option.series[i].itemStyle.color = (o) => { return color[o.seriesIndex][o.dataIndex]; };
-                    }
-                }
-                if (yAxisLabelValues !== undefined && yAxisLabelValues.length > 0) {
-                    option.yAxis.axisLabel = {
-                        formatter: function (v, i) {
-                            return yAxisLabelValues[i];
-                        }
-                    }
-                }
-
-                let tagList = res.data.data[0].tags.sort((a,b) => {
-                    return a.sequence - b.sequence
-                })
-                
-                this.setData({
-                    legendList: res.data.data[0].legend,
-                    tagList
-                })
-                this.init_echarts(option)
-            } else {
-                wx.showToast({
-                    title: res.data.message,
-                    icon: 'none',
-                    duration: 2000
-                })
-            }
-        })
-    },
-    getInsulinChartByDate() {
-        let tags = [];
-        for (const item of this.data.selectedTagList) {
-            tags.push({
-                code: item
-            })
-        }
-        
-        promiseRequest({
-            method: "POST",
-            url: '/wxrequest',
-            data: {
-                "token": wx.getStorageSync('token'),
-                "function": "getInsulinChartByDate",
-                "data": [{
-                    "dateStart": this.data.dateStart,
-                    "dateEnd": this.data.dateEnd,
-                    "tags": tags
-                }]
-            }
-        }).then(res => {
-            if (res.data.code === '0') {
-                let color = JSON.parse(res.data.data[0].color);
-                let option = JSON.parse(res.data.data[0].option);
-                let yAxisLabelValues;
-                if (res.data.data[0].yAxisLabelValues !== undefined) {
-                    yAxisLabelValues = JSON.parse(res.data.data[0].yAxisLabelValues);
-                }
-                for (var i = 0; i < color.length; i++) {
-                    if (color[i].length > 1) {
-                        option.series[i].itemStyle.color = (o) => { return color[o.seriesIndex][o.dataIndex]; };
+                        option.series[i].itemStyle.color = (o) => {
+                            return color[o.seriesIndex][o.dataIndex];
+                        };
                     }
                 }
                 if (yAxisLabelValues !== undefined && yAxisLabelValues.length > 0) {
@@ -304,7 +247,67 @@ Page({
             }
         })
     },
-    init_echarts(option){
+    getInsulinChartByDate() {
+        let tags = [];
+        for (const item of this.data.selectedTagList) {
+            tags.push({
+                code: item
+            })
+        }
+        promiseRequest({
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "getInsulinChartByDate",
+                "data": [{
+                    "dateStart": this.data.TimeObj.dateStart,
+                    "dateEnd": this.data.TimeObj.dateEnd,
+                    "tags": tags
+                }]
+            }
+        }).then(res => {
+            if (res.data.code === '0') {
+                let color = JSON.parse(res.data.data[0].color);
+                let option = JSON.parse(res.data.data[0].option);
+                let yAxisLabelValues;
+                if (res.data.data[0].yAxisLabelValues !== undefined) {
+                    yAxisLabelValues = JSON.parse(res.data.data[0].yAxisLabelValues);
+                }
+                for (var i = 0; i < color.length; i++) {
+                    if (color[i].length > 1) {
+                        option.series[i].itemStyle.color = (o) => {
+                            return color[o.seriesIndex][o.dataIndex];
+                        };
+                    }
+                }
+                if (yAxisLabelValues !== undefined && yAxisLabelValues.length > 0) {
+                    option.yAxis.axisLabel = {
+                        formatter: function (v, i) {
+                            return yAxisLabelValues[i];
+                        }
+                    }
+                }
+
+                let tagList = res.data.data[0].tags.sort((a, b) => {
+                    return a.sequence - b.sequence
+                })
+
+                this.setData({
+                    legendList: res.data.data[0].legend,
+                    tagList
+                })
+                this.init_echarts(option)
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                    icon: 'none',
+                    duration: 2000
+                })
+            }
+        })
+    },
+    init_echarts(option) {
         this.echartsComponent.init((canvas, width, height) => {
             // 初始化图表
             const Chart = echarts.init(canvas, null, {
@@ -325,41 +328,39 @@ Page({
 
         if (index === -1) {
             selectedTagList.push(code)
-        }else {
-            selectedTagList.splice(index,1)
+        } else {
+            selectedTagList.splice(index, 1)
         }
 
         if (this.data.selectedByGA) {
             this.getInsulinChartByWeek()
-        }else {
+        } else {
             this.getInsulinChartByDate()
         }
     },
     bindStartTimeChange(e) {
         var NewData = this.data.TimeObj;
         let val = e.detail.value
-        let dateStart = e.detail.date
-        NewData.StarDATE = val;
-        let timeCheck = checkTime(dateStart, this.data.dateEnd)
-        if (timeCheck) {
+        let date = e.detail.date
+        if (checkTime(date, NewData.dateEnd)) {
+            NewData.StarDATE = val;
+            NewData.dateStart = date;
             this.setData({
-                dateStart,
                 TimeObj: NewData,
                 CurrentShowDate: false,
                 selectedByGA: false
             })
             this.getInsulinChartByDate()
         }
-    }, 
+    },
     bindEndTimeChange(e) {
         var NewData = this.data.TimeObj;
         let val = e.detail.value
-        let dateEnd = e.detail.date
-        NewData.EndDATE = val;
-        let timeCheck = checkTime(this.data.dateStart, dateEnd)
-        if (timeCheck) {
+        let date = e.detail.date
+        if (checkTime(NewData.dateStart, date)) {
+             NewData.EndDATE = val;
+             NewData.dateEnd = date;
             this.setData({
-                dateEnd,
                 TimeObj: NewData,
                 CurrentShowDate: false,
                 selectedByGA: false

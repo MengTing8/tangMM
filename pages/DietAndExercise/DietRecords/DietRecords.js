@@ -2,7 +2,7 @@ const {
     promiseRequest
 } = require("../../../utils/Requests")
 const {
-    getDates
+    getDates, sortFun
 } = require("../../../utils/util")
 const moment = require('../../../utils/moment.min.js');
 let date = getDates(1, new Date());
@@ -21,7 +21,8 @@ Page({
             EndDt: '2029年01月01',
             EXDATE: '2019年12月01日',
             DateSelect: newDate,
-            title: "记录时间"
+            title: "记录时间",
+            value: date[0].time
         },
         rniList: {},
         enteringItems: [],
@@ -132,6 +133,7 @@ Page({
                         enteringArray: NewEnteringArray,
                     })
                 }
+                 ResData.items.sort(sortFun(`sequence`))
                 self.setData({
                     enteringArray: NewEnteringArray,
                     categoryValues: ResData.categoryValues,
@@ -304,6 +306,7 @@ Page({
         let val = e.detail.value
         let dateSelect = e.detail.date
         NewData.DateSelect = val;
+        NewData.value = e.detail.date;
         this.setData({
             dateObj: NewData,
             dataTime: dateSelect

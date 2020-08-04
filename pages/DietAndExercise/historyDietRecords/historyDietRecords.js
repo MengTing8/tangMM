@@ -24,60 +24,59 @@ Page({
             EndDt: '2029年01月01日',
             StarDATE,
             EndDATE,
+            dateStart: getDay(-7),
+            dateEnd: getDay(0),
         },
-        dateStartChart: getDay(-7),
-        dateEndChart: getDay(0),
         TimeObj: {
             StartDt: newDate,
             EndDt: '2029年01月01日',
             StarDATE,
             EndDATE,
+            dateStart: getDay(-7),
+            dateEnd: getDay(0),
         },
-        dateStart: getDay(-7),
-        dateEnd: getDay(0),
         historyFootList: [],
         selectedIndex: 0,
         heatCharts: {},
         startLength: 0,
         endLength: 0,
         TabsIndex: 0,
-        tabCharts: ['蛋白质','碳水化合物','脂肪'],
-        optionList:[],
+        tabCharts: ['蛋白质', '碳水化合物', '脂肪'],
+        optionList: [],
         legendList1: [],
         legendList2: [],
     },
     getDietList() {
         let _that = this
-        let requestObj = {
-            method: "POST",
-            url: '/wxrequest',
-            data: {
-                "token": wx.getStorageSync('token'),
-                "function": "getDietList",
-                "data": [{
-                    "dateStart": _that.data.dateStart,
-                    "dateEnd": _that.data.dateEnd
-                }]
-            }
-        };
-        promiseRequest(requestObj).then((res) => {
-                if (res.data.code === '0') {
-                    let ResData = res.data.data
-                    var newData = []
-                    let flag
-                    ResData.forEach((item) => {
-                            item.forEach(i => {
-                                    flag = newData.find(item1 => item1.date === i.date)
-                                    if (!flag) {
-                                        newData.push({
-                                            date: i.date,
-                                            children: [i]
-                                        })
-                                    } else {
-                                        flag.children.push(i)
-                                    }
+        promiseRequest({
+                method: "POST",
+                url: '/wxrequest',
+                data: {
+                    "token": wx.getStorageSync('token'),
+                    "function": "getDietList",
+                    "data": [{
+                        "dateStart": _that.data.TimeObj.dateStart,
+                        "dateEnd": _that.data.TimeObj.dateEnd
+                    }]
+                }
+            }).then((res) => {
+            if (res.data.code === '0') {
+                let ResData = res.data.data
+                var newData = []
+                let flag
+                ResData.forEach((item) => {
+                    item.forEach(i => {
+                        flag = newData.find(item1 => item1.date === i.date)
+                        if (!flag) {
+                            newData.push({
+                                date: i.date,
+                                children: [i]
                             })
+                        } else {
+                            flag.children.push(i)
+                        }
                     })
+                })
                 _that.setData({
                     historyFootList: newData,
                 })
@@ -95,12 +94,11 @@ Page({
     bindStartTimeChart(e) {
         var NewData = this.data.TimeObjChart;
         let val = e.detail.value
-        let dateStartChart = e.detail.date
-        NewData.StarDATE = val;
-        let timeCheck = checkTime(dateStartChart, this.data.dateEndChart)
-        if (timeCheck) {
+        let date = e.detail.date
+        if (checkTime(date, NewData.dateEnd)) {
+            NewData.StarDATE = val;
+            NewData.dateStart = date;
             this.setData({
-                dateStartChart,
                 TimeObjChart: NewData
             })
             this.getDietChart()
@@ -109,12 +107,11 @@ Page({
     bindEndTimeChart(e) {
         var NewData = this.data.TimeObjChart;
         let val = e.detail.value
-        let dateEndChart = e.detail.date
-        NewData.EndDATE = val;
-        let timeCheck = checkTime(this.data.dateStartChart, dateEndChart)
-        if (timeCheck) {
+        let date = e.detail.date
+        if (checkTime(NewData.dateStart, date)) {
+             NewData.EndDATE = val;
+             NewData.dateEnd = date;
             this.setData({
-                dateEndChart,
                 TimeObjChart: NewData
             })
             this.getDietChart()
@@ -123,12 +120,11 @@ Page({
     bindStartTimeChange(e) {
         var NewData = this.data.TimeObj;
         let val = e.detail.value
-        let dateStart = e.detail.date
-        let timeCheck = checkTime(dateStart, this.data.dateEnd)
-        NewData.StarDATE = val;
-        if (timeCheck) {
+        let date = e.detail.date
+        if (checkTime(date, NewData.dateEnd)) {
+              NewData.StarDATE = val;
+              NewData.dateStart = date;
             this.setData({
-                dateStart,
                 TimeObj: NewData
             })
             this.getDietList()
@@ -137,12 +133,11 @@ Page({
     bindEndTimeChange(e) {
         var NewData = this.data.TimeObj;
         let val = e.detail.value
-        let dateEnd = e.detail.date
-        NewData.EndDATE = val;
-         let timeCheck = checkTime(this.data.dateStart, dateEnd)
-        if (timeCheck) {
+        let dgitate = e.detail.date
+        if (checkTime(NewData.dateStart, date)) {
+             NewData.EndDATE = val;
+             NewData.dateEnd = date;
             this.setData({
-                dateEnd,
                 TimeObj: NewData
             })
             this.getDietList()
@@ -168,14 +163,14 @@ Page({
                 "token": wx.getStorageSync('token'),
                 "function": "getDietChart",
                 "data": [{
-                    "dateStart": this.data.dateStartChart,
-                    "dateEnd": this.data.dateEndChart
+                    "dateStart": self.data.TimeObjChart.dateStart,
+                    "dateEnd": self.data.TimeObjChart.dateEnd
                 }]
             }
         }).then(res => {
             if (res.data.code === '0') {
-                const dataList =  res.data.data;
-                
+                const dataList = res.data.data;
+
                 dataList.sort((a, b) => {
                     return a.sequence - b.sequence
                 })
@@ -229,10 +224,10 @@ Page({
         } = e.currentTarget.dataset;
         this.setData({
             TabsIndex: index,
-            legendList2: this.data.optionList[index+1].legend
+            legendList2: this.data.optionList[index + 1].legend
         })
-        const option = this.getOption(this.data.optionList[index+1])
-        this.initOtherECharts(option)      
+        const option = this.getOption(this.data.optionList[index + 1])
+        this.initOtherECharts(option)
     },
     getOption(params) {
         let color = JSON.parse(params.color);
@@ -243,7 +238,9 @@ Page({
         }
         for (var i = 0; i < color.length; i++) {
             if (color[i].length > 1) {
-                option.series[i].itemStyle.color = (o) => { return color[o.seriesIndex][o.dataIndex]; };
+                option.series[i].itemStyle.color = (o) => {
+                    return color[o.seriesIndex][o.dataIndex];
+                };
             }
         }
         if (yAxisLabelValues !== undefined && yAxisLabelValues.length > 0) {

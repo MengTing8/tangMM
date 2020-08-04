@@ -4,7 +4,7 @@
             <text>记录时间</text>
         </view>
         <view class="textBox">
-            <picker mode="date" value="{{WeightDate}}" start="{{}}" end="{{}}" bindchange="bindDateChange">
+            <picker mode="date" value="{{dateRecord}}" start="{{}}" end="{{}}" bindchange="bindDateChange">
                 <view>{{WeightDate}}</view>
             </picker>
         </view>

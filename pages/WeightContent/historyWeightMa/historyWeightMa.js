@@ -24,8 +24,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        dateStart: getDay(-7),
-        dateEnd: getDay(0),
+
         CurrentShowDate: true,
         // CurrentShowWeek: false,
         TimeObj: {
@@ -33,16 +32,10 @@ Page({
             EndDt: '2029年01月01日',
             StarDATE,
             EndDATE,
+            dateStart: getDay(-7),
+            dateEnd: getDay(0),
         },
-        //图标日期
-        TimeObjByDate: {
-            StartDt: newDate,
-            EndDt: '2029年01月01日',
-            StarDATE: StarDATE2,
-            EndDATE: EndDATE2,
-        },
-        ec: {
-        },
+        ec: {},
         TabsIndex: 0,
         predays: [gas],
         multiIndex: [0, 0],
@@ -69,12 +62,11 @@ Page({
     bindStartTimeChange(e) {
         var NewData = this.data.TimeObj;
         let val = e.detail.value
-        let dateStart = e.detail.date
-        NewData.StarDATE = val;
-        let timeCheck = checkTime(dateStart, this.data.dateEnd)
-        if (timeCheck) {
+        let date = e.detail.date
+        if (checkTime(date, this.data.dateEnd)) {
+             NewData.StarDATE = val;
+             NewData.dateStart = date;
             this.setData({
-                dateStart,
                 TimeObj: NewData,
                 CurrentShowDate: false,
             })
@@ -85,12 +77,11 @@ Page({
     bindEndTimeChange(e) {
         var NewData = this.data.TimeObj;
         let val = e.detail.value
-        let dateEnd = e.detail.date
-        NewData.EndDATE = val;
-        let timeCheck = checkTime(this.data.dateStart, dateEnd)
-        if (timeCheck) {
+        let date = e.detail.date
+        if (checkTime(NewData.dateStart, date)) {
+             NewData.EndDATE = val;
+             NewData.EndValue = date;
             this.setData({
-                dateEnd,
                 TimeObj: NewData,
                 CurrentShowDate: false,
             })
@@ -107,8 +98,8 @@ Page({
                 "token": wx.getStorageSync('token'),
                 "function": "getWeightListByDate",
                 "data": [{
-                    "dateStart": self.data.dateStart,
-                    "dateEnd": self.data.dateEnd
+                    "dateStart": self.data.TimeObj.dateStart,
+                    "dateEnd": self.data.TimeObj.dateEnd
                 }]
             }
         }).then(res => {
@@ -185,7 +176,7 @@ Page({
     },
     TabsChange(e) {
         let index = e.currentTarget.dataset.index
-        if(index == 1) {
+        if (index == 1) {
             this.getWeightChart()
         }
         this.setData({
@@ -212,7 +203,9 @@ Page({
                 }
                 for (var i = 0; i < color.length; i++) {
                     if (color[i].length > 1) {
-                        option.series[i].itemStyle.color = (o) => { return color[o.seriesIndex][o.dataIndex]; };
+                        option.series[i].itemStyle.color = (o) => {
+                            return color[o.seriesIndex][o.dataIndex];
+                        };
                     }
                 }
                 if (yAxisLabelValues !== undefined && yAxisLabelValues.length > 0) {

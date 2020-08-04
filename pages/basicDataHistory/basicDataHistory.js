@@ -22,17 +22,11 @@ Page({
             EndDt: '2029年01月01日',
             StarDATE,
             EndDATE,
+            dateStart: getDay(-7),
+            dateEnd: getDay(0),
         },
         dateStart: getDay(-7),
         dateEnd: getDay(0),
-        TimeObjChart: {
-            StartDt: '2000年01月01日',
-            EndDt: '2029年01月01日',
-            StarDATE,
-            EndDATE,
-        },
-        dateStartChart: getDay(-7),
-        dateEndChart: getDay(0),
         selectedIndex: 0,
         listData: [],
         startLength: 0,
@@ -43,16 +37,16 @@ Page({
     getBaseChart() {
         let self = this
         let requestObj = {
-           method: "POST",
-               url: '/wxrequest',
-               data: {
-                   "token": wx.getStorageSync('token'),
-                   "function": "getBaseChart",
-                   "data": [{
-                       "dateStart": self.data.dateStartChart,
-                       "dateEnd": self.data.dateEndChart
-                   }]
-               }
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "getBaseChart",
+                "data": [{
+                    "dateStart": self.data.TimeObj.dateStart,
+                    "dateEnd": self.data.TimeObj.dateEnd
+                }]
+            }
         };
         promiseRequest(requestObj).then((res) => {
             if (res.data.code === '0') {
@@ -92,102 +86,82 @@ Page({
     //取基础数据历史记录列表
     getBaseList() {
         let self = this
-          let requestObj = {
-              method: "POST",
-              url: '/wxrequest',
-              data: {
-                  "token": wx.getStorageSync('token'),
-                      "function": "getBaseList",
-                      "data": [{
-                          "dateStart": self.data.dateStart,
-                          "dateEnd": self.data.dateEnd
-                      }]
-              }
-          };
-          promiseRequest(requestObj).then((res) => {
-             if (res.data.code === '0') {
-                 var ResData = res.data.data
-                 for (let key in ResData) {
-                     ResData[key].time = ResData[key].time ? moment(ResData[key].time).format('YYYY/MM/DD') : ''
-                 }
-                 var afterData = []
-                 ResData.forEach(item => {
-                     let flag = afterData.find(item1 => item1.time === item.time)
-                     if (!flag) {
-                         afterData.push({
-                             time: item.time,
-                             origin: [item]
-                         })
-                     } else {
-                         flag.origin.push(item)
-                     }
-                 })
-                 self.setData({
-                     listData: afterData
-                 })
-             } else {
-                 wx.showToast({
-                     title: res.data.message,
-                     icon: 'none',
-                     duration: 2000
-                 })
-             }
-          })
+        let requestObj = {
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "getBaseList",
+                "data": [{
+                    "dateStart": self.data.TimeObj.dateStart,
+                    "dateEnd": self.data.TimeObj.dateEnd
+                }]
+            }
+        };
+        promiseRequest(requestObj).then((res) => {
+            if (res.data.code === '0') {
+                var ResData = res.data.data
+                for (let key in ResData) {
+                    ResData[key].time = ResData[key].time ? moment(ResData[key].time).format('YYYY/MM/DD') : ''
+                }
+                var afterData = []
+                ResData.forEach(item => {
+                    let flag = afterData.find(item1 => item1.time === item.time)
+                    if (!flag) {
+                        afterData.push({
+                            time: item.time,
+                            origin: [item]
+                        })
+                    } else {
+                        flag.origin.push(item)
+                    }
+                })
+                self.setData({
+                    listData: afterData
+                })
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                    icon: 'none',
+                    duration: 2000
+                })
+            }
+        })
     },
     bindStartTimeChange(e) {
         var NewData = this.data.TimeObj;
         let val = e.detail.value
         let dateStart = e.detail.date
-        NewData.StarDATE = val;
-        let timeCheck = checkTime(dateStart, this.data.dateEnd)
-        if (timeCheck) {
+        if (checkTime(dateStart, NewData.dateEnd)) {
+            NewData.StarDATE = val;
+            NewData.dateStart = dateStart;
             this.setData({
-                dateStart,
                 TimeObj: NewData
             })
-            this.getBaseList()
+            if (this.data.selectedIndex == 1) {
+                this.getBaseChart()
+            } else {
+                this.getBaseList()
+
+            }
         }
     },
     bindEndTimeChange(e) {
         var NewData = this.data.TimeObj;
         let val = e.detail.value
         let dateEnd = e.detail.date
-        NewData.EndDATE = val;
-        let timeCheck = checkTime(this.data.dateStart, dateEnd)
-        if (timeCheck) {
+        if (checkTime(NewData.dateStart, dateEnd)) {
+            NewData.EndDATE = val;
+            NewData.dateEnd = dateEnd;
             this.setData({
-                dateEnd,
                 TimeObj: NewData
             })
-            this.getBaseList()
-        }
-    },
-    bindStartTimeChart(e) {
-        var NewData = this.data.TimeObjChart;
-        let val = e.detail.value
-        let dateStartChart = e.detail.date
-        NewData.StarDATE = val;
-        let timeCheck = checkTime(dateStartChart, this.data.dateEndChart)
-        if (timeCheck) {
-            this.setData({
-                dateStartChart,
-                TimeObjChart: NewData
-            })
-            this.getBaseChart()
-        }
-    },
-    bindEndTimeChart(e) {
-        var NewData = this.data.TimeObjChart;
-        let val = e.detail.value
-        let dateEndChart = e.detail.date
-        NewData.EndDATE = val;
-        let timeCheck = checkTime(this.data.dateStartChart, dateEndChart)
-        if (timeCheck) {
-            this.setData({
-                dateEndChart,
-                TimeObjChart: NewData
-            })
-            this.getBaseChart()
+            if (this.data.selectedIndex == 1) {
+                this.getBaseChart()
+            } else {
+                this.getBaseList()
+
+            }
         }
     },
     handleTitleChange(e) {

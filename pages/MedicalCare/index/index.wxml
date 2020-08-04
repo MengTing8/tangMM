@@ -6,8 +6,8 @@
                     <image class="imageUser" src="../../../img/user.png" />
                 </view>
                 <view>
-                    <text class="userName">李小欣</text>
-                    <view>住院部妇产科护士长</view>
+                    <text class="userName">{{NurseData.name}}</text>
+                    <view>{{NurseData.departmentValue}}{{NurseData.jobTitleValue}}</view>
                 </view>
             </view>
             <view class="pagesHeader_ImgBox">
@@ -17,12 +17,12 @@
         <view class="tabContent">
             <view class="pagesDateInfo">
                 <view class="tabsBox">
-                    <block wx:for="{{['新留言','项目更新','全部患者']}}" wx:key="id">
+                    <block wx:for="{{NurseData.tabs}}" wx:key="id">
                         <view class="tabsItem {{TabsIndex==index?'selected':''}}" data-index='{{index}}' bind:tap="TabsChange">
-                            <view class="num" wx:if="{{index==0}}">1</view>
-                            <view class="num" wx:if="{{index==1}}">3</view>
-                            <view class="num" wx:if="{{index==2}}">13</view>
-                            <view>{{item}}</view>
+                            <view class="num">{{item.quantity}}</view>
+                            <!-- <view class="num" wx:if="{{index==1}}">3</view>
+                            <view class="num" wx:if="{{index==2}}">13</view> -->
+                            <view>{{item.value}}</view>
                         </view>
                     </block>
                 </view>
@@ -35,11 +35,19 @@
         </view>
         <view style="padding:0 40rpx;">
             <view class="dropdownContent">
-                <van-dropdown-menu active-color='#FEC81E' overlay='{{false}}'>
-                    <van-dropdown-item title="胎数" value="{{ value1 }}" options="{{ option1 }}" />
-                    <van-dropdown-item title="胰岛素类型" value="{{ value2 }}" options="{{ option2 }}" />
-                    <van-dropdown-item title="特殊高危人群" value="{{ value3 }}" options="{{ option3 }}" />
-                </van-dropdown-menu>
+                <view class="dropdownTitle">
+                    <view class='top-selected' bindtap='bindShowMsg' wx:for="{{MenuTitle}}" wx:key="index" data-index="{{index}}">
+                        <view class="titleContent">
+                            <view class="itmeName">{{item}}</view>
+                            <view class="{{activeIndex==index?'triangle-top':'triangle-bottom'}}"></view>
+                        </view>
+                    </view>
+                </view>
+                <view class="select_box" wx:if="{{activeIndex==ids}}">
+                    <view class="select_one" bindtap="mySelect" data-value="{{a.value}}" wx:for="{{MenuItems[activeIndex].combobox}}" wx:for-item="a" wx:for-index="x" wx:key="x">
+                        {{a.value}}
+                    </view>
+                </view>
             </view>
         </view>
         <view class="tabsContent">

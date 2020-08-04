@@ -1,6 +1,9 @@
 const {
     promiseRequest
 } = require("../../utils/Requests")
+const {
+    getPickerValue, getAge
+}=require('../../utils/util')
 const moment = require('../../utils/moment.min.js');
 var dateTimePicker = require('../../utils/dateTimePicker.js');
 const date = new Date();
@@ -11,13 +14,13 @@ for (let i = 2008; i <= date.getFullYear() + 5; i++) {
     years.push(i);
 }
 Page({
-
     /**
      * 页面的初始数据
      */
     data: {
         SwitchMusic: false,
         years: years,
+        pickerIndex:12,
         PatientData: {},
         BMI: '',
         suggestion: '',
@@ -305,13 +308,14 @@ Page({
                 "data": []
             }
         }).then(res => {
+            console.log(res);
             if (res.data.code === '0') {
                 let Data = res.data.data[0]
                 let age = ''
                 let birthday = ''
                 let lmp = ''
                 if (Data.birthday) {
-                    age = this.getAge(Data.birthday)
+                    age = getAge(Data.birthday)
                     birthday = moment(Data.birthday).format('YYYY年MM月DD日')
                 } else {
                     age = ''
@@ -322,7 +326,18 @@ Page({
                 } else {
                     lmp = ''
                 }
+                let indexs=[]
+                let arr = self.data.dateTimeArray
+                let time = Data.deliveryLastTime
+               indexs.push(getPickerValue(arr[0],time.substring(0, 4)))
+               indexs.push(getPickerValue(arr[1],time.substring(5, 7)))
+               indexs.push(getPickerValue(arr[2],time.substring(8, 10)))
+               indexs.push(getPickerValue(arr[3],time.substring(11, 13)))
+               indexs.push(getPickerValue(arr[4],time.substring(14, 17)))
+                 
                 self.setData({
+                    dateTime:indexs,
+                    pickerIndex: getPickerValue(self.data.years, Data.diabetesYearB4Gestation),
                     PatientData: Data,
                     BMI: Data.bmi,
                     // suggestion: Data.bmiComment,
@@ -334,6 +349,7 @@ Page({
                     TermList: Data.stageValues,
                     LMP: lmp
                 })
+                 
                 this.calculateBMI()
 
             } else {
@@ -429,7 +445,7 @@ Page({
         var val = e.detail.value
         let PatientData = this.data.PatientData
         PatientData.birthday = val
-        var age = this.getAge(val)
+        var age =getAge(val)
         this.setData({
             PatientData,
             PatientAge: age,
@@ -457,49 +473,7 @@ Page({
             dateTime: arr
         });
     },
-    // 根据出生日期计算年龄周岁
-    getAge(strBirthday) {
-        var returnAge = '';
-        var mouthAge = '';
-        var strBirthdayArr = strBirthday.split("-");
-        var birthYear = strBirthdayArr[0];
-        var birthMonth = strBirthdayArr[1];
-        var birthDay = strBirthdayArr[2];
-        var d = new Date();
-        var nowYear = d.getFullYear();
-        var nowMonth = d.getMonth() + 1;
-        var nowDay = d.getDate();
-        if (nowYear == birthYear) {
-            // returnAge = 0; //同年 则为0岁
-            var monthDiff = nowMonth - birthMonth; //月之差 
-            if (monthDiff < 0) {} else {
-                mouthAge = monthDiff + '个月';
-            }
-        } else {
-            var ageDiff = nowYear - birthYear; //年之差
-            if (ageDiff > 0) {
-                if (nowMonth == birthMonth) {
-                    var dayDiff = nowDay - birthDay; //日之差 
-                    if (dayDiff < 0) {
-                        returnAge = ageDiff - 1;
-                    } else {
-                        returnAge = ageDiff;
-                    }
-                } else {
-                    var monthDiff = nowMonth - birthMonth; //月之差 
-                    if (monthDiff < 0) {
-                        returnAge = ageDiff - 1;
-                    } else {
-                        mouthAge = monthDiff + '个月';
-                        returnAge = ageDiff;
-                    }
-                }
-            } else {
-                returnAge = -1; //返回-1 表示出生日期输入错误 晚于今天
-            }
-        }
-        return returnAge; //返回周岁年龄+月份
-    },
+  
     /**
      * 生命周期函数--监听页面加载
      */
@@ -508,15 +482,11 @@ Page({
         // this.getOccupation()
         // 获取完整的年月日 时分秒，以及默认显示的数组
         var obj = dateTimePicker.dateTimePicker(this.data.startYear, this.data.endYear);
-        var obj1 = dateTimePicker.dateTimePicker(this.data.startYear, this.data.endYear);
+        console.log(obj);
         // 精确到分的处理，将数组的秒去掉
-        var lastArray = obj1.dateTimeArray.pop();
-        var lastTime = obj1.dateTime.pop();
         this.setData({
             dateTime: obj.dateTime,
             dateTimeArray: obj.dateTimeArray,
-            dateTimeArray1: obj1.dateTimeArray,
-            dateTime1: obj1.dateTime
         });
     },
     /**

@@ -7,50 +7,67 @@ Page({
      * 页面的初始数据
      */
     data: {
+        activeIndex: null,
         TabsIndex: 0,
-        option1: [{
-                text: '全部商品',
-                value: 0,
-                icon: null
-            },
-            {
-                text: '新款商品',
-                value: 1
-            },
-            {
-                text: '活动商品',
-                value: 2
-            },
-        ],
-        option2: [{
-                text: '默认排序',
-                value: 'a'
-            },
-            {
-                text: '好评排序',
-                value: 'b'
-            },
-            {
-                text: '销量排序',
-                value: 'c'
-            },
-        ],
-        option3: [{
-                text: '默认排序',
-                value: 'a'
-            },
-            {
-                text: '好评排序',
-                value: 'b'
-            },
-            {
-                text: '销量排序',
-                value: 'c'
-            },
-        ],
-        value1: 0,
-        value2: 'a',
-        value3: 'a',
+        NurseData: {},
+        tabs: [],
+        MenuTitle: ['胎数', "胰岛素类型", '特殊高危人群'],
+        MenuItems: [],
+        ids: 0,
+    },
+    bindShowMsg(e) {
+        let index = e.currentTarget.dataset.index
+        this.setData({
+            activeIndex: this.data.activeIndex == index ? -1 : index,
+            ids: index
+        })
+    },
+    mySelect(e) {
+        var name = e.currentTarget.dataset.value
+        let arr = this.data.MenuTitle
+        arr[this.data.activeIndex] = name
+        this.setData({
+            MenuTitle: arr,
+            activeIndex: null
+        })
+    },
+    changeDevelop(i) {
+        console.log(i);
+        //  this.title = this.developList[i - 1].text
+    },
+    getNurse() {
+        let that = this
+        promiseRequest({
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "getNurse",
+                "data": []
+            }
+        }).then((res) => {
+            console.log(res, "getNurse");
+            if (res.data.code === '0') {
+                // let items = res.data.data[0].items
+                // let newItems = res.data.data[0].items
+                // newItems.forEach(element => {
+                //     element.combobox = JSON.parse(JSON.stringify(element.combobox).replace(/value/g, "text"));
+                // });
+                that.setData({
+                    NurseData: res.data.data[0],
+                    MenuItems: res.data.data[0].items
+                })
+
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                    icon: 'none',
+                    duration: 2000
+                })
+            }
+        }).catch((errMsg) => {
+            console.log(errMsg); //错误提示信息
+        });
     },
     getMaternalDetailsProject() {
         let requestObj = {
@@ -88,7 +105,6 @@ Page({
             }
         };
         promiseRequest(requestObj).then((res) => {
-            console.log(res);
             if (res.data.code === '0') {
 
 
@@ -114,6 +130,7 @@ Page({
      */
     onLoad: function (options) {
         this.getPatient()
+        this.getNurse()
     },
 
     /**

@@ -16,7 +16,7 @@
                 <text>现处阶段</text>
             </view>
             <view class="textBox">
-                <picker mode="selector" value="" range="{{TermList}}" range-key="{{'value'}}" bindchange="bindStageChange">
+                <picker mode="selector" value="{{[PatientData.stageCode-1]}}" range="{{TermList}}" range-key="{{'value'}}" bindchange="bindStageChange">
                     <view class="">
                         {{TermList[PatientData.stageCode-1].value||'请选择'}}
                     </view>
@@ -48,7 +48,7 @@
                 <text>出生日期</text>
             </view>
             <view class="textBox">
-                <picker mode="date" value="{{LMP}}" start="{{StartDt}}" end="{{EndDt}}" bindchange="bindAgeChange">
+                <picker mode="date" value="{{PatientData.birthday}}" start="{{StartDt}}" end="{{EndDt}}" bindchange="bindAgeChange">
                     <!-- <view>{{LMP}}</view> -->
                     <view>{{dateBirth||'请选择'}}</view>
                 </picker>
@@ -104,7 +104,7 @@
                 <text>孕次</text>
             </view>
             <view class="textBox">
-                <picker mode="selector" value="" range="{{gravidityList}}" range-key="{{'Name'}}" bindchange="bindGravidityChange">
+                <picker mode="selector" value="{{[PatientData.gravidity]}}" range="{{gravidityList}}" range-key="{{'Name'}}" bindchange="bindGravidityChange">
                     <view class="weui-input_10">{{PatientData.gravidity||'请选择'}}</view>
                     <!-- <view class="weui-input_10">{{TermList[0].Name}}</view> -->
                 </picker>
@@ -119,7 +119,7 @@
                 <text>产次</text>
             </view>
             <view class="textBox">
-                <picker mode="selector" value="" range="{{parityList}}" range-key="{{'Name'}}" bindchange="bindParityChange">
+                <picker mode="selector" value="{{[PatientData.parity]}}" range="{{parityList}}" range-key="{{'Name'}}" bindchange="bindParityChange">
                     <view class="weui-input_10">{{PatientData.parity||'请选择'}}</view>
                     <!-- <view class="weui-input_10">{{TermList[0].Name}}</view> -->
                 </picker>
@@ -134,8 +134,7 @@
                 <text>胎数</text>
             </view>
             <view class="textBox">
-                <picker mode="selector" value="" range="{{embryoNum}}" range-key="{{'Name'}}" bindchange="bindNumberOfFetusChange">
-                    <!-- <view class="weui-input_10">{{embryoNum[0].Name}}</view> -->
+                <picker mode="selector" value="{{[PatientData.numberOfFetus-1]}}" range="{{embryoNum}}" range-key="{{'Name'}}" bindchange="bindNumberOfFetusChange">
                     <view class="weui-input_10">
                         {{embryoNum[PatientData.numberOfFetus-1].Name||'请选择'}}
                     </view>
@@ -151,9 +150,6 @@
             </view>
             <view class="textBox">
                 <picker mode="multiSelector" value="{{dateTime}}" bindchange="changeDateTime" bindcolumnchange="changeDateTimeColumn" range="{{dateTimeArray}}">
-                    <!-- <view class="tui-picker-detail">
-                        {{dateTimeArray[0][dateTime[0]]}}-{{dateTimeArray[1][dateTime[1]]}}-{{dateTimeArray[2][dateTime[2]]}} {{dateTimeArray[3][dateTime[3]]}}:{{dateTimeArray[4][dateTime[4]]}}
-                    </view> -->
                     <view>{{PatientData.deliveryLastTime||'请选择'}}</view>
                 </picker>
             </view>
@@ -173,7 +169,7 @@
                 <text>职业</text>
             </view>
             <view class="textBox">
-                <picker mode="selector" value="" range="{{professionList}}" range-key="{{'value'}}" bindchange="bindOccupationChange">
+                <picker mode="selector" value="{{[PatientData.occupationCode]}}" range="{{professionList}}" range-key="{{'value'}}" bindchange="bindOccupationChange">
                     <text style="font-size:30rpx; ">{{PatientData.occupationValue|| "请选择"}}</text>
                     <!-- <view class="weui-input_10">{{professionList[0].Name}}</view> -->
                     <text style="font-size: 28rpx; color:#999999; margin-left: 36rpx;">
@@ -256,7 +252,7 @@
                 <text>末次月经</text>
             </view>
             <view class="textBox">
-                <picker mode="date" value="{{LMP}}" start="{{StartDt}}" end="{{EndDt}}" bindchange="bindLMPChange">
+                <picker mode="date" value="{{PatientData.lmp}}" start="{{StartDt}}" end="{{EndDt}}" bindchange="bindLMPChange">
                     <view>{{LMP||'请选择'}}</view>
                     <!-- <view>{{PatientData.lmp||'请选择'}}</view> -->
                 </picker>
@@ -277,7 +273,7 @@
         </view>
         <view class="cell" wx:if="{{PatientData.diabetesB4Gestation==1}}">
             <view class="pickerBox">
-                <picker value="{{index}}" range="{{years}}" bindchange="bindDiabetesYearChange">
+                <picker value="{{pickerIndex}}" range="{{years}}" bindchange="bindDiabetesYearChange">
                     <view class="textColor" wx:if="{{PatientData.diabetesYearB4Gestation==0}}">{{dateList[12]}}年</view>
                     <view class="textColor" wx:else>{{PatientData.diabetesYearB4Gestation}}年</view>
                 </picker>

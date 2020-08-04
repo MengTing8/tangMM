@@ -1,8 +1,8 @@
 <Tabs bindtitleChange="handleTitleChange">
+ <!-- 日期筛选开始 -->
+ <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
+ <!-- 日期筛选结束 -->
     <view style="display:{{selectedIndex==1?'none':'block'}}">
-        <!-- 日期筛选开始 -->
-        <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
-        <!-- 日期筛选结束 -->
         <!-- 记录表格开始 -->
         <view class="recordList">
             <view class="recordTitle">
@@ -31,9 +31,9 @@
         <!-- 记录表格结束 -->
     </view>
     <view style="display:{{selectedIndex==0?'none':'block'}}">
-        <view class="TimeContent">
+        <!-- <view class="TimeContent">
             <StartAndEndTimes TimeObj="{{TimeObjChart}}" bindStartTimeChange='bindStartTimeChart' bindEndTimeChange='bindEndTimeChart'></StartAndEndTimes>
-        </view>
+        </view> -->
         <view class="mychartContent">
             <view class="container">
                 <ec-canvas id="mychart-dom-basicData" canvas-id="mychart-basicData" ec="{{ec}}"></ec-canvas>

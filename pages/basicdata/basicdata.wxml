@@ -6,7 +6,7 @@
                 <text>记录时间</text>
             </view>
             <view class="textBox">
-                <picker mode="date" value="{{RecordDate}}" start="{{}}" end="{{EndDt}}" bindchange="bindRecordDateChange">
+                <picker mode="date" value="{{dateRecord}}" start="2018-01-01" end="{{EndDt}}" bindchange="bindRecordDateChange">
                     <view class="weui-input_10">{{RecordDate}}</view>
                 </picker>
             </view>

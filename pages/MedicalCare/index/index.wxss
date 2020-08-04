@@ -1,4 +1,47 @@
-.pagesContent {}
+.van-dropdown-menu__item:first-child {
+    display: flex;
+    flex: 0.5 !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.van-dropdown-menu {
+    /* padding: 0 30rpx; */
+}
+
+.van-dropdown-item__icon {
+    display: none !important;
+    width: 0 !important;
+}
+
+.van-dropdown-item__title {
+    text-align: center !important;
+}
+
+.van-cell__title {
+    flex: 120 !important;
+    text-align: right !important;
+}
+
+.van-cell__value {
+    /* flex: 0 !important; */
+    /* display: none !important; */
+}
+
+.van-dropdown-item--down {
+    bottom: 0;
+    width: 370px;
+    height: 230rpx;
+    padding: 30rpx 0;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 20px 12px 0px rgba(238, 238, 238, 1);
+    border-radius: 6px;
+    margin: 0 auto;
+}
+
+.van-cell:after {
+    border: none !important;
+}
 
 .pagesHeader {
     background: #FEE55F;
@@ -103,58 +146,11 @@
     box-shadow: 0px 2px 14px 0px rgba(190, 190, 190, 0.29);
     border-radius: 6px;
 }
-
-.van-dropdown-menu__item:first-child {
-    display: flex;
-    flex: 0.5 !important;
-    align-items: center;
-    justify-content: center;
-}
-
-.van-dropdown-menu {
-    /* padding: 0 30rpx; */
-}
-
-.van-dropdown-item__icon {
-    display: none !important;
-    width: 0 !important;
-}
-
-.van-dropdown-item__title {
-    text-align: center !important;
-}
-
-.van-cell__title {
-    flex: 120 !important;
-    text-align: right !important;
-}
-
-.van-cell__value {
-    /* flex: 0 !important; */
-    /* display: none !important; */
-}
-
-.van-dropdown-item--down {
-    bottom: 0;
-    width: 370px;
-    height: 230rpx;
-    padding: 30rpx 0;
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0px 20px 12px 0px rgba(238, 238, 238, 1);
-    border-radius: 6px;
-    margin: 0 auto;
-}
-
-.van-cell:after {
-    border: none !important;
-}
-
 .tabsContent {
     padding: 0 40rpx;
     margin: 30rpx auto;
 }
 
-.NewMessageContent {}
 
 .MessageList {
     /* width:345px; */
@@ -169,9 +165,9 @@
     display: flex;
     /* align-items: center; */
     justify-content: space-between;
-     border-bottom: 2rpx solid #EFF0F5;
-     /* margin: 40rpx; */
-     padding-bottom: 30rpx;
+    border-bottom: 2rpx solid #EFF0F5;
+    /* margin: 40rpx; */
+    padding-bottom: 30rpx;
 }
 
 .ItemInfo {
@@ -180,35 +176,117 @@
     justify-content: space-between;
     margin-left: 40rpx;
 }
-.stateBtnBox{
+
+.stateBtnBox {
     margin-right: 40rpx;
-    
+
 }
-.stateBtnBox view{
-    width:68px !important;
-    height:18px;
-    background:rgba(254, 200, 30, 0.2);
-    border-radius:9px;
+
+.stateBtnBox view {
+    width: 68px !important;
+    height: 18px;
+    background: rgba(254, 200, 30, 0.2);
+    border-radius: 9px;
     color: #FE9800;
     font-size: 24rpx;
     text-align: center;
 }
-.infoContent{
+
+.infoContent {
     line-height: 50rpx;
     color: #333333;
     font-size: 26rpx;
 }
-.infoContent_Name{
-     color: #121212;
-     font-size: 32rpx;
-     font-weight: 550;
-     margin-right: 20rpx;
+
+.infoContent_Name {
+    color: #121212;
+    font-size: 32rpx;
+    font-weight: 550;
+    margin-right: 20rpx;
 }
+
 .infoContent_text {
     color: #979797;
     font-size: 24rpx;
 }
-.MessageList_bottom{
+
+.MessageList_bottom {
     padding: 20rpx 40rpx 0 40rpx;
-    
+
+}
+
+.dropdownTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 96rpx;
+    padding: 0 20rpx;
+}
+
+.top-selected {
+    padding: 0 10rpx;
+    font-size: 30rpx;
+}
+.titleContent {
+    /* width: 30%; */
+    /* flex: 1; */
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+}
+.itmeName{
+    max-width:160rpx;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+ 
+
+.select_box {
+    background-color: #fff;
+    position: relative;
+    right: 0;
+    z-index: 1;
+    overflow: hidden;
+    text-align: left;
+    animation: myfirst 0.5s;
+    font-size: 30rpx;
+    text-align: center;
+}
+
+.select_one {
+    padding-left: 20rpx;
+    width: 100%;
+    height: 60rpx;
+    position: relative;
+    line-height: 60rpx;
+}
+
+/* 下拉过度效果 */
+
+@keyframes myfirst {
+    from {
+        height: 0rpx;
+    }
+
+    to {
+        height: 210rpx;
+    }
+}
+
+.triangle-bottom {
+    width: 0;
+    height: 0;
+    border-top: 12rpx solid #A8BACF;
+    border-left: 12rpx solid transparent;
+    border-right: 12rpx solid transparent;
+    margin-left: 20rpx;
+}
+.triangle-top {
+    width: 0;
+    height: 0;
+    border-bottom: 12rpx solid #FEC81E;
+    border-left: 12rpx solid transparent;
+    border-right: 12rpx solid transparent;
+    margin-left: 20rpx;
 }
