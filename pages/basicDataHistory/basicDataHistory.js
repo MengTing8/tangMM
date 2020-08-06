@@ -33,6 +33,7 @@ Page({
         endLength: 0,
         legendList: []
     },
+    
     //取图表
     getBaseChart() {
         let self = this
@@ -104,6 +105,9 @@ Page({
                 for (let key in ResData) {
                     ResData[key].time = ResData[key].time ? moment(ResData[key].time).format('YYYY/MM/DD') : ''
                 }
+                ResData.sort(function (a, b) {
+                    return a.time < b.time ? 1 : -1;
+                });
                 var afterData = []
                 ResData.forEach(item => {
                     let flag = afterData.find(item1 => item1.time === item.time)

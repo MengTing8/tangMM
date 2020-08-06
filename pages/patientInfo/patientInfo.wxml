@@ -3,15 +3,16 @@
         <view class="userInfoBox">
             <view class="userInfo">
                 <view class="imageBox">
-                    <image class="imageUser" src="../../../img/user.png" />
+                    <image class="imageUser" src="../../img/user.png" />
                 </view>
                 <view>
-                    <text class="userName">李小欣</text>
-                    <view>住院部妇产科护士长</view>
+                    <text class="userName">{{ProjectsData.name}}</text>
+                    <view>{{ProjectsData.description}}</view>
+                    <view>糖尿病{{ProjectsData.gdmType}}型</view>
                 </view>
             </view>
             <view class="pagesHeader_ImgBox">
-                <image class="banner" src="../../../img/banner.png" mode="widthFix" />
+                <image class="banner" src="../../img/banner.png" mode="widthFix" />
             </view>
         </view>
         <view class="tabContent">
@@ -21,18 +22,18 @@
     <view class="pagesFoot">
         <view wx:if="{{TabsIndex==0}}">
             <view class="projectContent">
-                <view class="MyRecordList" wx:for="{{RecordList}}" wx:key="index">
+                <view class="MyRecordList" wx:for="{{ProjectsData.items}}" wx:key="index">
                     <view class="LogoBox">
-                        <image class="RecordLogo" src="{{item.logo}}" />
+                        <image class="RecordLogo" src="{{item.iconUrl}}" />
                     </view>
                     <view class="RecordTitle">
-                        <view class="RecordName">{{item.title}}</view>
-                        <view>{{item.info}}</view>
+                        <view class="RecordName">{{item.name}}</view>
+                        <view>{{item.description}}</view>
                     </view>
                     <view class="RecordStatus">
-                        <view class="grayBox" wx:if="{{item.Achieve==1}}">我已看</view>
-                        <view class="orangeBox" wx:elif="{{item.Achieve==2}}">未看</view>
-                        <view class="greenBox" wx:else>他人已看</view>
+                        <view class="orangeBox" wx:if="{{item.statusCode=='0'}}">{{item.statusValue}}</view>
+                        <view class="grayBox" wx:elif="{{item.statusCode=='1'}}">{{item.statusValue}}</view>
+                        <view class="greenBox" wx:else>{{item.statusValue}}</view>
                     </view>
                     <view class="itemBox_rightArrow"></view>
                 </view>

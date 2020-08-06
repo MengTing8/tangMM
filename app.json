@@ -11,15 +11,16 @@
     "pages/BloodSugarRecord/BloodSugarRecord",
     "pages/InsulinRegister/InsulinRegister",
     "pages/basicdata/basicdata",
-    "pages/basicDataHistory/basicDataHistory"
+    "pages/basicDataHistory/basicDataHistory",
+    "pages/patientInfo/patientInfo"
   ],
   "subPackages": [
     {
       "root": "pages/MedicalCare",
       "name": "MedicalCare",
       "pages": [
-        "index/index",
-        "patientInfo/patientInfo"
+        "index/index"
+       
       ]
     },
     {

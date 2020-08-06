@@ -14,6 +14,10 @@ Page({
         MenuTitle: ['胎数', "胰岛素类型", '特殊高危人群'],
         MenuItems: [],
         ids: 0,
+        GravidaList: [],
+        tabCode: '1',
+        searchValue: '',
+        items: []
     },
     bindShowMsg(e) {
         let index = e.currentTarget.dataset.index
@@ -23,17 +27,44 @@ Page({
         })
     },
     mySelect(e) {
-        var name = e.currentTarget.dataset.value
+        console.log(e);
+        var {
+            value,
+            code,
+            sequence
+        } = e.currentTarget.dataset
         let arr = this.data.MenuTitle
-        arr[this.data.activeIndex] = name
+        let datas = this.data.items
+        arr[this.data.activeIndex] = value
+        let codeArr = []
+        datas.forEach(item => {
+            codeArr.push(item.sequence)
+        })
+        let key = codeArr.indexOf(sequence)
+        if (codeArr.includes(sequence)) {
+            datas[key].sequence = sequence
+            datas[key].code = code
+        } else {
+            datas.push({
+                sequence: sequence,
+                code: code,
+            })
+        }
         this.setData({
             MenuTitle: arr,
-            activeIndex: null
+            activeIndex: null,
+            items: datas
         })
+        this.getGravida()
     },
-    changeDevelop(i) {
-        console.log(i);
-        //  this.title = this.developList[i - 1].text
+    onSearch(e) {
+        this.setData({
+            searchValue: e.detail
+        })
+        this.getGravida()
+    },
+    onCancel(e) {
+        console.log(e);
     },
     getNurse() {
         let that = this
@@ -56,6 +87,38 @@ Page({
                 that.setData({
                     NurseData: res.data.data[0],
                     MenuItems: res.data.data[0].items
+                })
+
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                    icon: 'none',
+                    duration: 2000
+                })
+            }
+        }).catch((errMsg) => {
+            console.log(errMsg); //错误提示信息
+        });
+    },
+    getGravida() {
+        let requestObj = {
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "getGravida",
+                "data": [{
+                    "tabCode": this.data.tabCode,
+                    "searchKeyword": this.data.searchValue,
+                    "items": this.data.items
+                }]
+            }
+        };
+        promiseRequest(requestObj).then((res) => {
+            console.log(res);
+            if (res.data.code === '0') {
+                this.setData({
+                    GravidaList: res.data.data[0]
                 })
 
             } else {
@@ -120,9 +183,13 @@ Page({
         });
     },
     TabsChange(e) {
-        let index = e.currentTarget.dataset.index
+        let {
+            index,
+            code
+        } = e.currentTarget.dataset
         this.setData({
-            TabsIndex: index
+            TabsIndex: index,
+            tabCode: code,
         })
     },
     /**
@@ -131,6 +198,7 @@ Page({
     onLoad: function (options) {
         this.getPatient()
         this.getNurse()
+        this.getGravida()
     },
 
     /**

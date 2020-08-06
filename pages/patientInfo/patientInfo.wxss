@@ -6,7 +6,7 @@
 
 .userInfoBox {
     display: flex;
-    padding-bottom: 20rpx;
+    padding-bottom: 40rpx;
     justify-content: space-between;
 }
 
@@ -15,8 +15,6 @@
     color: #9B884F;
     line-height: 48rpx;
     padding-top: 40rpx;
-    /* display: flex; */
-    /* align-items: center; */
 }
 
 .imageBox {
