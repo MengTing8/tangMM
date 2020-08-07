@@ -16,8 +16,9 @@ Page({
         patientId: '',
         gestationalWeek: ""
     },
-    goRecordInfo(e) {
-        let index = e.currentTarget.dataset.index
+    RecordInfo(e) {
+        console.log(e);
+        let index = e.detail.index
         let {
             avatarUrl,
             name,

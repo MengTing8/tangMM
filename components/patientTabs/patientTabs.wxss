@@ -1,14 +1,16 @@
 .tabsBox {
     display: flex;
     text-align: center;
-    line-height: 58rpx;
+    font-size:30rpx;
+    /* line-height: 48rpx; */
+    /* padding: 20rpx 0; */
 }
 
 .tabsItem {
     color: #979797;
     flex: 1;
-    padding: 20rpx 0;
-    /* margin: 0 50rpx; */
+    padding:24rpx 0;
+    margin: 0 50rpx;
 }
 
 .num {
@@ -19,7 +21,7 @@
 
 .selected {
     border-bottom: 4rpx solid #FEC81E;
-    color: #121212;
+    /* color: #121212; */
 }
 
 .pagesDateInfo {

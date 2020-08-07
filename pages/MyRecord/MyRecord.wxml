@@ -28,10 +28,10 @@
         </view>
     </view>
     <view class="MyRecordFoot">
-        <view class="MyRecordList" wx:for="{{MyRecordData.items}}" wx:key="index" bind:tap="goRecordInfo" data-index='{{index}}'>
+                <RecordInfo  Records="{{MyRecordData.items}}"  bindRecordInfo="RecordInfo"></RecordInfo>
+        <!-- <view class="MyRecordList" wx:for="{{MyRecordData.items}}" wx:key="index" bind:tap="goRecordInfo" data-index='{{index}}'>
             <view class="LogoBox">
                 <image class="RecordLogo" src="{{item.iconUrl}}" />
-                <!-- <image class="RecordLogo" src="../../img/basicData.png" /> -->
             </view>
             <view class="RecordTitle">
                 <view class="RecordName">{{item.name}}</view>
@@ -41,6 +41,6 @@
                 <view class="onAchieve" wx:if="{{item.status=='已完成'}}">{{item.status}}</view>
                 <view class="notAchieve" wx:else>{{item.status}}</view>
             </view>
-        </view>
+        </view> -->
     </view>
 </view>

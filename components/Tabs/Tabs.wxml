@@ -1,10 +1,10 @@
-    <view class="tabsBox">
-<block wx:for="{{['列表','图表']}}" wx:key="id">
-<view class="tabsItem {{TabsIndex==index?'selected':''}}" data-index='{{index}}'  bindtap="handleTitleChange">
-{{item}}
-</view>
-</block>
+<view class="tabsBox">
+    <block wx:for="{{['列表','图表']}}" wx:key="id">
+        <view class="tabsItem {{TabsIndex==index?'selected':''}}" data-index='{{index}}' bindtap="handleTitleChange">
+            {{item}}
+        </view>
+    </block>
 </view>
 <view class="tabsContent">
-<slot></slot>
+    <slot></slot>
 </view>

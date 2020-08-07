@@ -65,9 +65,9 @@
 					"scene": null
 				},
 				{
-					"id": 1,
-					"name": "pages/patientInfo/patientInfo",
-					"pathName": "pages/patientInfo/patientInfo",
+					"id": -1,
+					"name": "pages/MedicalCare/patientInfo/patientInfo",
+					"pathName": "pages/MedicalCare/patientInfo/patientInfo",
 					"query": "",
 					"scene": null
 				}

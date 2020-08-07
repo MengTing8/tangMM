@@ -3,16 +3,16 @@
         <view class="userInfoBox">
             <view class="userInfo">
                 <view class="imageBox">
-                    <image class="imageUser" src="../../img/user.png" />
+                    <image class="imageUser" src="../../../img/user.png" />
                 </view>
                 <view>
-                    <text class="userName">{{ProjectsData.name}}</text>
+                    <view class="userName">{{ProjectsData.name}}</view>
                     <view>{{ProjectsData.description}}</view>
                     <view>糖尿病{{ProjectsData.gdmType}}型</view>
                 </view>
             </view>
             <view class="pagesHeader_ImgBox">
-                <image class="banner" src="../../img/banner.png" mode="widthFix" />
+                <image class="banner" src="../../../img/banner.png" mode="widthFix" />
             </view>
         </view>
         <view class="tabContent">
@@ -22,45 +22,36 @@
     <view class="pagesFoot">
         <view wx:if="{{TabsIndex==0}}">
             <view class="projectContent">
-                <view class="MyRecordList" wx:for="{{ProjectsData.items}}" wx:key="index">
-                    <view class="LogoBox">
-                        <image class="RecordLogo" src="{{item.iconUrl}}" />
-                    </view>
-                    <view class="RecordTitle">
-                        <view class="RecordName">{{item.name}}</view>
-                        <view>{{item.description}}</view>
-                    </view>
-                    <view class="RecordStatus">
-                        <view class="orangeBox" wx:if="{{item.statusCode=='0'}}">{{item.statusValue}}</view>
-                        <view class="grayBox" wx:elif="{{item.statusCode=='1'}}">{{item.statusValue}}</view>
-                        <view class="greenBox" wx:else>{{item.statusValue}}</view>
-                    </view>
-                    <view class="itemBox_rightArrow"></view>
-                </view>
+                <RecordInfo Records="{{ProjectsData.items}}" bindRecordInfo="RecordInfo"></RecordInfo>
             </view>
         </view>
         <view wx:if="{{TabsIndex==1}}">
             <view class="MessageContent">
                 <view class="msgBox">
-                    <view wx:for="{{talkContent}}" wx:key="index">
-                        <view class="itemTip">{{item.satrtTime}}</view>
-                        <view class="msgItem {{item.isMine?'msgItemMine':'msgItemAdverse'}}">
-                            <image src="{{item.headImg}}" alt="" srcset="" class="headImg" />
-                            <view class="textBox ">
-                                <view class="userNickname {{item.isMine?'userNametMine':'userNameAdverse'}}">
-                                    李晓新
-                                </view>
-                                <view class="{{item.isMine?'textMine':'textAdverse'}}">
-                                    {{item.text}}
+                    <view class="messageContent">
+                        <scroll-view scroll-y scroll-into-view="{{scrollToView}}" style="height:{{scrollHeight}}">
+                            <view wx:for="{{MessageList}}" wx:key="index" wx:if="{{item.text}}" id="msg{{index}}">
+                                <view class="itemTip">{{item.createdDateTime}}</view>
+                                <view class="msgItem {{item.writtenBy==NurseId?'msgItemMine':'msgItemAdverse'}}">
+                                    <image src="{{item.avatarUrl}}" alt="" srcset="" class="headImg" />
+                                    <view class="textBox ">
+                                        <view class="MeName {{item.writtenBy==NurseId?'userNametMine':'userNameAdverse'}}">
+                                            {{item.nickName}}
+                                        </view>
+                                        <view class="{{item.writtenBy==NurseId?'textMine':'textAdverse'}}">
+                                            {{item.text}}
+                                        </view>
+                                    </view>
                                 </view>
                             </view>
-                        </view>
+                            <view id="scroll-bottom" v-if="scrollToView"></view>
+                        </scroll-view>
                     </view>
                 </view>
                 <view class="sendContent">
                     <view class="inputBox">
-                        <input class="InputContent" type="text" value="{{userInputConten}}" bindinput="InputBlur" />
-                        <view class="sendBtn">发送</view>
+                        <input class="InputContent" type="text" value="{{userInputConten}}" bindinput="InputMessage" />
+                        <view class="sendBtn" bind:tap="saveMessage">发送</view>
                     </view>
                 </view>
             </view>
@@ -72,7 +63,7 @@
                         <view class="headerTitle">
                             <text>阶段</text>
                             <view class="stageBox">
-                                <text class="type">糖尿病类型：GDMA1型</text>
+                                <text class="type">糖尿病类型：{{PatientInfo.gdmType}}1型</text>
                             </view>
                         </view>
                         <view class="cell">
@@ -80,7 +71,9 @@
                                 <text>现处阶段</text>
                             </view>
                             <view class="textBox">
-                                <view class="weui-input_10">备孕期</view>
+                                <view wx:if="{{PatientInfo.stageCode=='1'}}">备孕期</view>
+                                <view wx:if="{{PatientInfo.stageCode=='2'}}">孕期</view>
+                                <view wx:if="{{PatientInfo.stageCode=='3'}}">产后</view>
                             </view>
                         </view>
                     </view>
@@ -93,17 +86,16 @@
                                 <text>姓名</text>
                             </view>
                             <view class="textBox">
-                                <text>李晓光</text>
+                                <text>{{PatientInfo.name}}</text>
                             </view>
                         </view>
                         <view class="cell">
                             <view class="cell_title">
-                                <text>年龄</text>
+                                <text>出生日期</text>
                             </view>
                             <view class="textBox">
-                                35
-                                <!-- <view>25</view> -->
-                                <view>高龄</view>
+                                <view>{{PatientInfo.birthday}}</view>
+                                <view wx:if="{{PatientAge>=35}}">高龄</view>
                             </view>
                         </view>
                         <view class="cell">
@@ -112,7 +104,7 @@
                             </view>
                             <view class="textBox">
                                 <view class="inpText">
-                                    161
+                                    {{PatientInfo.tall}}
                                     <text>cm</text>
                                 </view>
                             </view>
@@ -123,30 +115,47 @@
                             </view>
                             <view class="textBox">
                                 <view class="inpText">
-                                    55
+                                    {{PatientInfo.weight}}
                                     <text>kg</text>
                                 </view>
-                                <view style="font-size: 24rpx;">BMI：3.5 | 偏重 | 增重目标：-1.5kg</view>
+                                <view style="font-size: 22rpx;" wx:if="{{PatientInfo.bmi>0}}">
+                                    <text style="padding-right:12rpx">BMI：{{PatientInfo.bmi}}</text>
+                                    |
+                                    <text style="padding:0 12rpx">{{suggestion}}</text>
+                                    |
+                                    <text wx:if="{{PatientInfo.bmi<18.5&&PatientInfo.bmi>0}}">
+                                        增重目标：15.25kg
+                                    </text>
+                                    <text wx:elif="{{PatientInfo.bmi<24.9&&PatientInfo.bmi>18.5}}">
+                                        增重目标：13.75kg
+                                    </text>
+                                    <text wx:elif="{{PatientInfo.bmi<29.9&&PatientInfo.bmi>24.9}}">
+                                        增重目标：9.25kg
+                                    </text>
+                                    <text wx:else>增重目标：7kg</text>
+                                </view>
                             </view>
                         </view>
                         <view class="cell">
                             <view class="cell_title">
                                 <text>孕次</text>
                             </view>
-                            <view class="textBox">1</view>
+                            <view class="textBox">{{PatientInfo.gravidity}}</view>
                         </view>
                         <view class="cell">
                             <view class="cell_title">
                                 <text>产次</text>
                             </view>
-                            <view class="textBox">1</view>
+                            <view class="textBox">{{PatientInfo.parity}}</view>
                         </view>
                         <view class="cell">
                             <view class="cell_title">
                                 <text>胎数</text>
                             </view>
                             <view class="textBox">
-                                <view class="weui-input_10">单胎</view>
+                                <view wx:if="{{PatientInfo.numberOfFetus=='1'}}">单胎</view>
+                                <view wx:if="{{PatientInfo.numberOfFetus=='2'}}">双胎</view>
+                                <view wx:if="{{PatientInfo.numberOfFetus=='3'}}">三胎</view>
                             </view>
                         </view>
                         <view class="cell">
@@ -154,75 +163,67 @@
                                 <text>末次分娩时间</text>
                             </view>
                             <view class="textBox">
-                                <view class="tui-picker-detail">2020-02-12 15:30</view>
+                                <view class="tui-picker-detail">
+                                    {{PatientInfo.deliveryLastTime}}
+                                </view>
                             </view>
                         </view>
                         <view class="cell">
                             <view class="cell_title">
                                 <text>手机号码</text>
                             </view>
-                            <view class="textBox">15454545432</view>
-                            <view class="imgBox"></view>
+                            <view class="textBox">{{PatientInfo.mobile}}</view>
                         </view>
                         <view class="cell">
                             <view class="cell_title">
                                 <text>职业</text>
                             </view>
                             <view class="textBox">
-                                <text class="weui-input_10">教师</text>
-                                中等体力劳动
+                                <text>{{PatientInfo.occupationValue}}</text>
+                                <text style="font-size: 28rpx; color:#999999; margin-left: 36rpx;">
+                                    {{PatientInfo.occupationComment}}
+                                </text>
                             </view>
-                            <view class="imgBox"></view>
                         </view>
                         <view class="cell">
                             <view class="cell_title">
                                 <text>葡萄糖耐量</text>
                             </view>
-                            <!-- <view class="textBox">
-                <picker mode="selector" value="" range="{{professionList}}" range-key="{{'Name'}}" bindchange="bindDateChange">
-                    <view class="weui-input_10">{{professionList[0].Name}}</view>
-                </picker>
-                中等体力劳动
-            </view>
-            <view class="imgBox">
-                <image class="textArrow" src="../../img/list_arrow.png" alt="" srcset="" />
-            </view> -->
                         </view>
-                        <view class="cell clPadding">
-                            <view class="clPadding_title">
+                        <view class="cell">
+                            <view class="cell_title">
                                 <text>空腹</text>
                             </view>
-                            <view class="clPadding_textBox">
-                                12
-                                <text class="unitsBox">mmol/L</text>
+                            <view class="textBox">
+                                <text class="unitsBox">{{PatientInfo.ogtt_0}}</text>
+                                <text>mmol/L</text>
                             </view>
                         </view>
-                        <view class="clPadding">
-                            <view class="clPadding_title">
+                        <view class="cell">
+                            <view class="cell_title">
                                 <text>1小时</text>
                             </view>
-                            <view class="clPadding_textBox">
-                                12
-                                <text class="unitsBox">mmol/L</text>
+                            <view class="textBox">
+                                <text class="unitsBox">{{PatientInfo.ogtt_1}}</text>
+                                <text>mmol/L</text>
                             </view>
-                            <view class="clPadding_imgBox"></view>
                         </view>
-                        <view class="clPadding">
-                            <view class="clPadding_title">
+                        <view class="cell">
+                            <view class="cell_title">
                                 <text>2小时</text>
                             </view>
-                            <view class="clPadding_textBox">
-                                11
-                                <text class="unitsBox">mmol/L</text>
+                            <view class="textBox">
+                                <text class="unitsBox">{{PatientInfo.ogtt_2}}</text>
+                                <text>mmol/L</text>
                             </view>
                         </view>
-                        <view class="clPadding">
-                            <view class="clPadding_title">
+                        <view class="cell">
+                            <view class="cell_title">
                                 <text>糖化血红蛋白</text>
                             </view>
-                            <view class="clPadding_textBox">
-                                34
-                                <text class="unitsBox">%</text>
+                            <view class="textBox">
+                                <text class="unitsBox">{{PatientInfo.hba1c}}</text>
+                                <text>%</text>
                             </view>
                         </view>
                     </view>
@@ -235,7 +236,7 @@
                                 <text>就诊卡号</text>
                             </view>
                             <view class="textBox">
-                                <text>12334332</text>
+                                <text>{{PatientInfo.cardNumber}}</text>
                             </view>
                         </view>
                         <view class="cell">
@@ -243,7 +244,7 @@
                                 <text>末次月经</text>
                             </view>
                             <view class="textBox">
-                                <view>2019年1月2日</view>
+                                <view>{{PatientInfo.lmp}}</view>
                             </view>
                         </view>
                         <view class="cell">
@@ -253,7 +254,7 @@
                                 </view>
                             </view>
                             <view class="textBox">
-                                <view>是</view>
+                                <view>{{PatientInfo.diabetesB4Gestation=='1'?'是':'否'}}</view>
                             </view>
                         </view>
                         <view class="cell">
@@ -263,7 +264,7 @@
                                 </view>
                             </view>
                             <view class="textBox">
-                                <view>是</view>
+                                <view>{{PatientInfo.gdm=='1'?'是':'否'}}</view>
                             </view>
                         </view>
                         <view class="cell">
@@ -273,7 +274,7 @@
                                 </view>
                             </view>
                             <view class="textBox">
-                                <view>是</view>
+                                <view>{{PatientInfo.diabeticFamilyHistory=='1'?'是':'否'}}</view>
                             </view>
                         </view>
                     </view>

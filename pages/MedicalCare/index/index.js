@@ -17,7 +17,8 @@ Page({
         GravidaList: [],
         tabCode: '1',
         searchValue: '',
-        items: []
+        items: [],
+        NurseId:'',
     },
     bindShowMsg(e) {
         let index = e.currentTarget.dataset.index
@@ -27,7 +28,6 @@ Page({
         })
     },
     mySelect(e) {
-        console.log(e);
         var {
             value,
             code,
@@ -63,8 +63,11 @@ Page({
         })
         this.getGravida()
     },
-    onCancel(e) {
-        console.log(e);
+    getPatientInfo(e) {
+        let id = e.currentTarget.dataset.id
+         wx.navigateTo({
+             url: `../patientInfo/patientInfo?patientId=${id}&NurseId=${this.data.NurseId}`
+         })
     },
     getNurse() {
         let that = this
@@ -79,14 +82,10 @@ Page({
         }).then((res) => {
             console.log(res, "getNurse");
             if (res.data.code === '0') {
-                // let items = res.data.data[0].items
-                // let newItems = res.data.data[0].items
-                // newItems.forEach(element => {
-                //     element.combobox = JSON.parse(JSON.stringify(element.combobox).replace(/value/g, "text"));
-                // });
                 that.setData({
                     NurseData: res.data.data[0],
-                    MenuItems: res.data.data[0].items
+                    MenuItems: res.data.data[0].items,
+                    NurseId: res.data.data[0].id
                 })
 
             } else {
@@ -132,71 +131,21 @@ Page({
             console.log(errMsg); //错误提示信息
         });
     },
-    getMaternalDetailsProject() {
-        let requestObj = {
-            method: "POST",
-            url: '/wxrequest',
-            data: {
-                "token": wx.getStorageSync('token'),
-                "function": "getMaternalDetailsProject",
-                "data": []
-            }
-        };
-        promiseRequest(requestObj).then((res) => {
-            if (res.data.code === '0') {
-
-
-            } else {
-                wx.showToast({
-                    title: res.data.message,
-                    icon: 'none',
-                    duration: 2000
-                })
-            }
-        }).catch((errMsg) => {
-            console.log(errMsg); //错误提示信息
-        });
-    },
-    getPatient() {
-        let requestObj = {
-            method: "POST",
-            url: '/wxrequest',
-            data: {
-                "token": wx.getStorageSync('token'),
-                "function": "getPatient",
-                "data": []
-            }
-        };
-        promiseRequest(requestObj).then((res) => {
-            if (res.data.code === '0') {
-
-
-            } else {
-                wx.showToast({
-                    title: res.data.message,
-                    icon: 'none',
-                    duration: 2000
-                })
-            }
-        }).catch((errMsg) => {
-            console.log(errMsg); //错误提示信息
-        });
-    },
     TabsChange(e) {
         let {
             index,
             code
-        } = e.currentTarget.dataset
+        } = e.detail
         this.setData({
             TabsIndex: index,
             tabCode: code,
         })
+        this.getGravida()
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.getPatient()
         this.getNurse()
         this.getGravida()
     },

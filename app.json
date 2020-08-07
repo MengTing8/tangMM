@@ -11,16 +11,16 @@
     "pages/BloodSugarRecord/BloodSugarRecord",
     "pages/InsulinRegister/InsulinRegister",
     "pages/basicdata/basicdata",
-    "pages/basicDataHistory/basicDataHistory",
-    "pages/patientInfo/patientInfo"
+    "pages/basicDataHistory/basicDataHistory"
   ],
   "subPackages": [
     {
       "root": "pages/MedicalCare",
       "name": "MedicalCare",
       "pages": [
-        "index/index"
-       
+        "index/index",
+        "patientInfo/patientInfo",
+        "FetalMRecord/FetalMRecord"
       ]
     },
     {
@@ -39,9 +39,9 @@
       "pages": [
         "historySports/historySports",
         "sportsRecord/sportsRecord",
-          "recordDiet/recordDiet",
-          "historyDietRecords/historyDietRecords",
-          "DietRecords/DietRecords"
+        "recordDiet/recordDiet",
+        "historyDietRecords/historyDietRecords",
+        "DietRecords/DietRecords"
       ]
     }
   ],

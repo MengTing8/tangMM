@@ -1,0 +1,20 @@
+<view class="MyRecordList" wx:for="{{Records}}" wx:key="index" bind:tap="handRecordInfo" data-index='{{index}}'>
+    <view class="LogoBox">
+        <image class="RecordLogo" src="{{item.iconUrl}}" />
+    </view>
+    <view class="RecordTitle">
+        <view class="RecordName">{{item.name}}</view>
+        <view>{{item.description}}</view>
+    </view>
+    <view class="RecordStatus">
+        <view wx:if="{{item.statusValue}}">
+            <view class="orangeBox" wx:if="{{item.statusCode=='0'}}">{{item.statusValue}}</view>
+            <view class="grayBox" wx:elif="{{item.statusCode=='1'}}">{{item.statusValue}}</view>
+            <view class="greenBox" wx:else>{{item.statusValue}}</view>
+        </view>
+        <view wx:if="{{!item.statusValue}}">
+            <view class="onAchieve" wx:if="{{item.status=='已完成'}}">{{item.status}}</view>
+            <view class="notAchieve" wx:else>{{item.status}}</view>
+        </view>
+    </view>
+</view>

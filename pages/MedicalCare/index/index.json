@@ -1,5 +1,7 @@
 {
-  "usingComponents": {},
-  "navigationBarTitleText": "柔济糖妈妈"
+    "usingComponents": {
+        "patientTabs": "../../../components/patientTabs/patientTabs"
+    },
+    "navigationBarTitleText": "柔济糖妈妈"
 
 }

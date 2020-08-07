@@ -1,0 +1,161 @@
+.movemrntRecord_content_tab {
+    width: 100%;
+    background: #fff;
+    box-shadow: 0px 2px 4px 0px rgba(238, 238, 238, 0.77);
+    border-radius: 28px 28px 0px 0px;
+}
+
+.tabsItem {
+    color: #666666;
+    /* border-bottom: 2rpx solid #F3F3F3; */
+    flex: 1;
+    padding: 20rpx 0;
+    font-size: 30rpx;
+
+}
+
+.selected {
+    border-bottom: 4rpx solid #FEC81E;
+    color: #121212;
+    font-weight: 550;
+}
+
+.tabsBox {
+    display: flex;
+    text-align: center;
+    padding-top: 20rpx;
+}
+
+.movemrntRecord_content_List {
+    padding: 0rpx 0 40rpx 0;
+    margin-bottom: 160rpx;
+}
+
+.RecordTodayList {
+    border-bottom: 2rpx solid #F3F3F3;
+    padding: 34rpx 40rpx;
+}
+
+.fetalInfo {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    color: #999999;
+    font-size: 24rpx;
+    margin-top: 20rpx;
+}
+
+.fetalInfo view {
+    margin-right: 30rpx;
+
+}
+
+.abnormalState {
+    background-color: #FA5151;
+    color: #fff;
+    padding: 6rpx 18rpx;
+    border-radius: 30rpx;
+    height: 34rpx;
+    /* margin-right: 20rpx; */
+}
+
+.abnormalStateW {
+    background-color: #FA5151;
+    color: #fff;
+    padding: 6rpx 18rpx;
+    border-radius: 30rpx;
+    height: 34rpx;
+    line-height: 37rpx;
+    font-size: 24rpx;
+}
+
+.warnImg {
+    width: 20rpx;
+    vertical-align: middle;
+    margin-right: 12rpx;
+
+}
+
+.fetalInfo {}
+
+.noDataBox {
+    margin: 160rpx auto;
+    text-align: center;
+}
+
+.noDataImg {
+    width: 280rpx;
+}
+
+.com-cell {
+    line-height: 98rpx;
+    padding: 20rpx 42rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.check-music {
+    font-size: 28rpx;
+    color: #333333;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: space-between;
+    padding: 4rpx 10rpx 4rpx 4rpx;
+    height: 30px;
+    border-radius: 36rpx;
+    border: 1px solid #FE9800 !important;
+
+}
+
+.muicFont {
+    color: #FE9800;
+}
+
+.check-sel {
+    padding: 4rpx 24rpx;
+    height: 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(242, 242, 242, 1);
+}
+
+
+
+.GaRecordList_title {
+    display: flex;
+    align-items: center;
+    background: #F8F8F8;
+    font-size: 26rpx;
+    color: #999999;
+    padding: 20rpx 30rpx;
+    /* text-align: center; */
+
+}
+
+.gaWeeks {
+    flex: 1;
+}
+
+.Count {
+    flex: 1;
+    text-align: center;
+}
+
+.timefragme {
+    flex: 1.5;
+}
+
+.GaRecordList_item {
+    display: flex;
+    align-items: center;
+    padding: 30rpx 20rpx;
+    border-bottom: 2rpx solid #F3F3F3;
+
+
+}
+
+.total {
+    color: #999;
+    font-size: 26rpx;
+}

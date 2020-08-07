@@ -15,16 +15,7 @@
             </view>
         </view>
         <view class="tabContent">
-            <view class="pagesDateInfo">
-                <view class="tabsBox">
-                    <block wx:for="{{NurseData.tabs}}" wx:key="id">
-                        <view class="tabsItem {{TabsIndex==index?'selected':''}}" data-index='{{index}}' bind:tap="TabsChange" data-code="{{item.code}}">
-                            <view class="num">{{item.quantity}}</view>
-                            <view>{{item.value}}</view>
-                        </view>
-                    </block>
-                </view>
-            </view>
+            <patientTabs tabs="{{NurseData.tabs}}" bindTabsChange='TabsChange'></patientTabs>
         </view>
     </view>
     <view class="pagesFoot">
@@ -43,15 +34,16 @@
                 </view>
                 <view class="select_box" wx:if="{{activeIndex==ids}}">
                     <view class="select_one" bindtap="mySelect" data-value="{{a.value}}" data-code="{{a.code}}" wx:for="{{MenuItems[activeIndex].combobox}}" wx:for-item="a" wx:for-index="x" wx:key="x" data-sequence="{{MenuItems[activeIndex].sequence}}">
-                       <view style="{{MenuTitle[activeIndex]==a.value?'color:#FEC81E':''}}"> {{a.value}}</view>
+                        <view style="{{MenuTitle[activeIndex]==a.value?'color:#FEC81E':''}}">
+                            {{a.value}}
+                        </view>
                     </view>
                 </view>
             </view>
         </view>
         <view class="tabsContent">
-            <view class="" hidden="{{TabsIndex !==0}}">
                 <view class="NewMessageContent">
-                    <view class="MessageList" wx:for="{{GravidaList}}" wx:key="index">
+                    <view class="MessageList" wx:for="{{GravidaList}}" wx:key="index" bind:tap="getPatientInfo" data-id='{{item.id}}'>
                         <view class="MessageList_top">
                             <view class="ItemInfo">
                                 <view class="imageBox">
@@ -72,12 +64,10 @@
                             </view>
                         </view>
                         <view class="MessageList_bottom">
-                            <view class="infoContent_text">回复：{{item.lastMessage}}</view>
+                            <view class="infoContent_text" wx:if="{{item.lastMessage}}">回复：{{item.lastMessage}}</view>
                         </view>
-                    </view>
                 </view>
             </view>
-            <view class="" hidden="{{TabsIndex !==1}}">122222222</view>
         </view>
     </view>
 </view>

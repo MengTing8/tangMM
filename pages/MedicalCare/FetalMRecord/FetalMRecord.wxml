@@ -1,0 +1,80 @@
+<!-- 记录 列表部分 -->
+<view class="movemrntRecord_content_tab">
+    <view class="tabsBox">
+        <block wx:for="{{['今日记录','孕周记录']}}" wx:key="id">
+            <view class="tabsItem {{TabsIndex==index?'selected':''}}" data-index='{{index}}' bindtap="handleTitleChange">
+                {{item}}
+            </view>
+        </block>
+    </view>
+</view>
+<view class="movemrntRecord_content_List">
+    <view class="" hidden="{{TabsIndex !==0}}">
+        <!-- 今日记录 -->
+        <view class="RecordTodayContent">
+            <view class="RecordTodayList" wx:for="{{FetalMovementList}}" wx:key="index">
+                <view class="RecordTimes">
+                    <text>{{item.date}}</text>
+                    |
+                    <text>{{item.timeStart}}~{{item.timeEnd}}</text>
+                </view>
+                <view class="fetalInfo">
+                    <view class="abnormalState" wx:if="{{item.isAbnormal=='1'}}">
+                        <image class="warnImg" src="../../../img/warn.png" mode="widthFix" />
+                        <text>胎动异常</text>
+                    </view>
+                    <view>有效胎动{{item.validQuantity}}次</view>
+                    <view>原始胎动{{item.quantity}}次</view>
+                </view>
+            </view>
+        </view>
+        <!-- 无数据提示 -->
+        <view class="noDataBox" wx:if="{{FetalMovementList.length==0}}">
+            <image class="noDataImg" src="../../../img/noData.png" mode="widthFix" />
+            <view>当前孕周没记录哟</view>
+        </view>
+    </view>
+    <view class="" hidden="{{TabsIndex !==1}}">
+        <view class="com-cell">
+            <view class="">
+                <view class="check-sel">
+                    <picker class="com-picker" mode="multiSelector" value="{{multiIndex}}" bindchange="bindChange" bindcolumnchange="bindMultiPickerColumnChange" range="{{predays}}">
+                        <view class="com-cell__bd-picker">孕{{GA}}周</view>
+                    </picker>
+                    <image src="../../../img/down.png"></image>
+                </view>
+            </view>
+        </view>
+        <view class="GaRecordContent">
+            <view class="GaRecordList">
+                <view class="GaRecordList_title">
+                    <view class="gaWeeks">孕周</view>
+                    <view class="timefragme">时间段</view>
+                    <view class="Count">有效次数</view>
+                    <view class="Count">说明</view>
+                </view>
+                <view wx:for="{{WeeksRecordList}}" wx:key="index">
+                    <view class="GaRecordList_item" wx:if="{{item.type==0}}">
+                        <view class="gaWeeks">{{item.row.week}}</view>
+                        <view class="timefragme">{{item.row.duration}}</view>
+                        <view class="Count">{{item.row.validQuantity}}</view>
+                        <view class="Count">
+                            <view class="abnormalStateW" wx:if="{{item.row.isAbnormal=='1'}}">
+                                <image class="warnImg" src="../../../img/warn.png" mode="widthFix" />
+                                <text>胎动异常</text>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="GaRecordList_item" wx:if="{{item.type==1}}">
+                        <view class="total">{{item.row.subtotal}}</view>
+                    </view>
+                </view>
+            </view>
+            <!-- 无数据提示 -->
+            <view class="noDataBox" wx:if="{{WeeksRecordList.length==0}}">
+                <image class="noDataImg" src="../../../img/noData.png" mode="widthFix" />
+                <view>今日还没记录哟</view>
+            </view>
+        </view>
+    </view>
+</view>

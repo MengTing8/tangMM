@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-      "patientTabs": "../../../components/patientTabs/patientTabs"
-  },
-  "navigationBarTitleText": "患者详情"
-}
