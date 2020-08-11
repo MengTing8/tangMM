@@ -56,6 +56,7 @@ Page({
         scrollToView: '',
         NurseId:'',
         patientId: '',
+        userType: wx.getStorageSync('userType')
     },
     getMessage() {
         let self = this
@@ -76,6 +77,13 @@ Page({
                 for (const key in ResData) {
                     ResData[key].createdDateTime = ResData[key].createdDateTime.substring(0, 19)
                 }
+                if (ResData.length>0) {
+                    ResData.sort(function (a, b) {
+                        return a.createdDateTime > b.createdDateTime ? 1 : -1;
+                    });
+                }
+                 
+
                 self.setData({
                     MessageList: ResData,
                 })
@@ -245,41 +253,34 @@ Page({
         }
     },
       RecordInfo(e) {
-          console.log(e);
           let index = e.detail.index
-        //   let {
-        //       avatarUrl,
-        //       name,
-        //       description,
-        //       id,
-        //       gestationalWeek
-        //   } = this.data.MyRecordData
+          let userType = this.data.userType
+          let gestationalWeek = this.data.ProjectsData.gestationalWeek
           let URL = ''
           if (index == 0) {
               // 胎动监测
-              URL = `../FetalMRecord/FetalMRecord`
+              URL = `../FetalMRecord/FetalMRecord?GA=${gestationalWeek}`
           } else if (index == 1) {
               // 基础数据
-              URL = '../../basicDataHistory/basicDataHistory'
+              URL = '../../basicDataHistory/basicDataHistory?userType=' + userType
           } else if (index == 2) {
               // 妈妈空腹体重
-              // URL = '../weightMa/weightMa'
-              URL = '../../WeightContent/historyWeightMa/historyWeightMa?GA=' + gestationalWeek
+              URL = `../../WeightContent/historyWeightMa/historyWeightMa?GA=${gestationalWeek}&userType=${userType}`
           } else if (index == 3) {
               // 胎儿体重
-              URL = '../../WeightContent/fetalWeight/fetalWeight'
+              URL = '../../WeightContent/fetalWeight/fetalWeight?userType=' + userType
           } else if (index == 4) {
               // 饮食记录
-              URL = '../../DietAndExercise/historyDietRecords/historyDietRecords'
+              URL = '../../DietAndExercise/historyDietRecords/historyDietRecords?userType=' + userType
           } else if (index == 5) {
               // 运动记录
-              URL = '../../DietAndExercise/historySports/historySports'
+              URL = '../../DietAndExercise/historySports/historySports?userType=' + userType
           } else if (index == 6) {
               // 血糖
-              URL = '../../historyBloodSugar/historyBloodSugar'
+              URL = '../../historyBloodSugar/historyBloodSugar?userType=' + userType
           } else if (index == 7) {
               // 胰岛素
-              URL = '../../historyInsulin/historyInsulin?GA=' + gestationalWeek
+              URL =`../../historyInsulin/historyInsulin?GA=${gestationalWeek}&userType=${userType}`
           }
           wx.navigateTo({
               url: URL
@@ -293,6 +294,7 @@ Page({
             patientId: options.patientId,
             NurseId: options.NurseId
         })
+         wx.setStorageSync('PatientId', options.patientId)
         this.getMyRecord4Nurse()
     },
 

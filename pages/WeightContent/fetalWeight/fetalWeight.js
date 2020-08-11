@@ -17,7 +17,7 @@ Page({
             data: {
                 "token": wx.getStorageSync('token'),
                 "function": "getFetusWeightList",
-                "data": []
+                "data": [{}]
             }
         }).then(res => {
             console.log(res, "列表");

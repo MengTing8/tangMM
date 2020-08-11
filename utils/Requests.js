@@ -56,10 +56,10 @@
                                      }
 
                                  }).catch((errMsg) => {
-                                    //  wx.hideLoading()
+                                     //  wx.hideLoading()
                                      console.log(errMsg); //错误提示信息
                                  });
-                                //  wx.hideLoading()
+                                 //  wx.hideLoading()
                              }
                          })
                      }
@@ -77,7 +77,15 @@
   */
  const app = getApp()
  const promiseRequest = (requestObj) => {
+     let userType = wx.getStorageSync('userType')
+     let PatientId = wx.getStorageSync('PatientId')
      var DataArr = requestObj.data.data
+     let fun = requestObj.data.function
+     if (userType == '1') {
+         if (fun == 'getBaseChart' || fun == "getWeightListByWeek" || fun == "getWeightListByDate" || fun == "getWeightChart" || fun == "getFetusWeightList" || fun == "getDietList" || fun == "getDietChart" || fun == "getExerciseList" || fun == "getBloodGlucoseList" || fun == "getBloodGlucoseChartByDate" || fun == "getInsulinList" || fun == "getInsulinPumpList" || fun == "getInsulinListByWeek"||fun=="getInsulinChartByWeek"||fun=="getInsulinChartByDate"||fun=="getBaseList") {
+             DataArr[0].patientId = PatientId
+         }
+     }
      for (const key in DataArr) {
          if (DataArr[key].rowMd5 == '' || DataArr[key].rowMd5 == null || DataArr[key].rowMd5 == undefined) {
              delete DataArr[key].rowMd5

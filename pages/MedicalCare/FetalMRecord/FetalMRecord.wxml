@@ -38,7 +38,7 @@
         <view class="com-cell">
             <view class="">
                 <view class="check-sel">
-                    <picker class="com-picker" mode="multiSelector" value="{{multiIndex}}" bindchange="bindChange" bindcolumnchange="bindMultiPickerColumnChange" range="{{predays}}">
+                    <picker class="com-picker" mode="multiSelector" value="{{multiIndex}}" bindchange="bindChange" range="{{predays}}">
                         <view class="com-cell__bd-picker">孕{{GA}}周</view>
                     </picker>
                     <image src="../../../img/down.png"></image>

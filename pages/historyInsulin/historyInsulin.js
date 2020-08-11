@@ -88,7 +88,7 @@ Page({
             data: {
                 "token": wx.getStorageSync('token'),
                 "function": "getInsulinPumpList",
-                "data": []
+                "data": [{}]
             }
         }).then(res => {
             console.log(res, "胰岛素泵");
@@ -113,7 +113,7 @@ Page({
             data: {
                 "token": wx.getStorageSync('token'),
                 "function": "getInsulinList",
-                "data": []
+                "data": [{}]
             }
         }).then(res => {
             console.log(res, "常规列表");

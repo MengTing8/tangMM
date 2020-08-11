@@ -31,9 +31,10 @@ Page({
         listData: [],
         startLength: 0,
         endLength: 0,
-        legendList: []
+        legendList: [],
+        userType: '',
     },
-    
+
     //取图表
     getBaseChart() {
         let self = this
@@ -87,7 +88,7 @@ Page({
     //取基础数据历史记录列表
     getBaseList() {
         let self = this
-        let requestObj = {
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -98,8 +99,7 @@ Page({
                     "dateEnd": self.data.TimeObj.dateEnd
                 }]
             }
-        };
-        promiseRequest(requestObj).then((res) => {
+        }).then((res) => {
             if (res.data.code === '0') {
                 var ResData = res.data.data
                 for (let key in ResData) {
@@ -196,6 +196,9 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        this.setData({
+            userType: options.userType
+        })
         this.echartsComponent = this.selectComponent('#mychart-dom-basicData');
         this.getBaseList()
     },

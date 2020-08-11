@@ -28,4 +28,7 @@
             </view>
         </view>
     </view>
+        <view style=" text-align: center;margin: 150rpx auto;" wx:if="{{!FetusWeightList[0].date}}">
+        暂无记录
+    </view>
 </view>

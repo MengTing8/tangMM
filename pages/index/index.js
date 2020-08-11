@@ -119,7 +119,7 @@ Page({
                     })
                 } else if (userType == 1) {
                     wx.redirectTo ({
-                        // url: '../MyRecord/MyRecord'
+                        url: '../MedicalCare/index/index'
                     })
                 }
 

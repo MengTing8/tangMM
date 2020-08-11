@@ -55,7 +55,7 @@
                                         <text>{{item.age}}岁</text>
                                     </view>
                                     <view class="infoContent_text">
-                                        {{item.stageValue}} | {{item.gdmType}}
+                                        <text>{{item.stageValue||''}}</text> | <text>{{item.gdmType||''}}</text>
                                     </view>
                                 </view>
                             </view>

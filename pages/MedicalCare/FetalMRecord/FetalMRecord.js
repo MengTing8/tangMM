@@ -34,7 +34,9 @@
                 data: {
                     "token": wx.getStorageSync('token'),
                     "function": "getFetalMovementList",
-                    "data": []
+                    "data": [{
+                        "patientId": wx.getStorageSync('PatientId')
+                    }]
                 }
             }).then(res => {
                 if (res.data.code === '0') {
@@ -60,7 +62,8 @@
                     "token": wx.getStorageSync('token'),
                     "function": "getFetalMovementListByWeek",
                     "data": [{
-                        "gestationalWeek": self.data.GA
+                        "gestationalWeek": self.data.GA,
+                        "patientId": wx.getStorageSync('PatientId')
                     }]
                 }
             }).then(res => {
@@ -77,22 +80,32 @@
                 }
             })
         },
-          handleTitleChange(e) {
-              let index = e.currentTarget.dataset.index
-              this.setData({
-                  TabsIndex: index
-              })
-              if (index == 0) {
-                  this.getFetalMovementList()
-              } else {
-                  this.getFetalMovementListW()
+        bindChange(e) {
+            const val = e.detail.value
+            this.setData({
+                GA: this.data.gas[val[0]].replace('周', ''),
+            })
+            this.getFetalMovementListW()
+        },
+        handleTitleChange(e) {
+            let index = e.currentTarget.dataset.index
+            this.setData({
+                TabsIndex: index
+            })
+            if (index == 0) {
+                this.getFetalMovementList()
+            } else {
+                this.getFetalMovementListW()
 
-              }
-          },
+            }
+        },
         /**
          * 生命周期函数--监听页面加载
          */
         onLoad: function (options) {
+            this.setData({
+                GA: options.GA
+            })
             this.getFetalMovementList()
         },
 
