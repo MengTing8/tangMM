@@ -128,6 +128,7 @@ Page({
                     }]
                 }
             }).then(res => {
+                console.log(res);
                 if (res.data.code === '0') {
                     // 发送成功ses
                     wx.showToast({
@@ -135,13 +136,11 @@ Page({
                         icon: 'success',
                         duration: 3000
                     })
-                    wx.setStorageSync('userType', '-1')
-                    setTimeout(() => {
-                        _that.setData({
-                            currentTabsIndex: 1
-                        })
-                    }, 3000);
-
+                        setTimeout(() => {
+                            _that.setData({
+                                currentTabsIndex: 1
+                            })
+                        }, 3000);
                 } else {
                     wx.showToast({
                         title: res.data.message,

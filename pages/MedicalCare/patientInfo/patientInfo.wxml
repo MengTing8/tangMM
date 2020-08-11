@@ -119,19 +119,9 @@
                                     <text>kg</text>
                                 </view>
                                 <view style="font-size: 22rpx;" wx:if="{{PatientInfo.bmi>0}}">
-                                    <text style="padding-right:12rpx">BMI：{{PatientInfo.bmi}}</text>
-                                    |
-                                    <text style="padding:0 12rpx">{{suggestion}}</text>
-                                    |
-                                    <text wx:if="{{PatientInfo.bmi<18.5&&PatientInfo.bmi>0}}">
-                                        增重目标：15.25kg
-                                    </text>
-                                    <text wx:elif="{{PatientInfo.bmi<24.9&&PatientInfo.bmi>18.5}}">
-                                        增重目标：13.75kg
-                                    </text>
-                                    <text wx:elif="{{PatientInfo.bmi<29.9&&PatientInfo.bmi>24.9}}">
-                                        增重目标：9.25kg
-                                    </text>
+                                    <text style="padding-right:12rpx">BMI：{{PatientInfo.bmi}}</text>|<text style="padding:0 12rpx">{{suggestion}}</text>|<text wx:if="{{PatientInfo.bmi<18.5&&PatientInfo.bmi>0}}">增重目标：15.25kg</text>
+                                    <text wx:elif="{{PatientInfo.bmi<24.9&&PatientInfo.bmi>18.5}}">增重目标：13.75kg</text>
+                                    <text wx:elif="{{PatientInfo.bmi<29.9&&PatientInfo.bmi>24.9}}">增重目标：9.25kg</text>
                                     <text wx:else>增重目标：7kg</text>
                                 </view>
                             </view>

@@ -29,8 +29,12 @@ Page({
           })
         const userType = wx.getStorageSync('userType');
         if (userType == 2) {
-            wx.navigateTo({
+            wx.redirectTo({
                 url: '../MyRecord/MyRecord?userType=' + userType
+            })
+        } else if (userType == 1) {
+            wx.redirectTo({
+                url: '../MedicalCare/index/index'
             })
         }
         if (app.globalData.userInfo) {
@@ -99,16 +103,11 @@ Page({
                 // 1 = 医务人员
                 // 2 = 孕产妇
                 if (userType == -2) {
-                    console.log("：未绑定手机用户");
-                    
                     // -2 ：未绑定手机用户
                     wx.redirectTo ({
-
                         url: '../tiedCard/tiedCard?tabsItem=' + 0
                     })
                 } else if (userType == -1) {
-                    console.log("未绑定诊疗卡用户");
-
                     // -1 = 未绑定诊疗卡用户
                     wx.redirectTo ({
                         url: '../tiedCard/tiedCard?tabsItem=' + 1
@@ -122,7 +121,6 @@ Page({
                         url: '../MedicalCare/index/index'
                     })
                 }
-
 
             } else {
                 wx.showToast({

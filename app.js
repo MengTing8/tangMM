@@ -3,9 +3,13 @@ App({
     onLaunch: function () {
         const userType = wx.getStorageSync('userType');
         if (userType == 2) {
-            //   wx.navigateTo({
-            //          url: '/pages/LeaveMessage/LeaveMessage'
-            //   })
+            wx.redirectTo({
+                url: '/pages/MyRecord/MyRecord?userType=' + userType
+            })
+        } else if (userType == 1) {
+            wx.redirectTo({
+                url: '/pages/MedicalCare/index/index'
+            })
         }
         var _self = this
         // 展示本地存储能力
