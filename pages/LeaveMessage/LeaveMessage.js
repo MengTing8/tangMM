@@ -35,7 +35,9 @@ Page({
             if (res.data.code === '0') {
                 let ResData = res.data.data[0]
                 for (const key in ResData) {
+                    if (ResData[key].createdDateTime) {
                     ResData[key].createdDateTime = ResData[key].createdDateTime.substring(0, 19)
+                    }
                 }
                 self.setData({
                     MessageList: ResData,

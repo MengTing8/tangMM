@@ -73,7 +73,7 @@ Page({
         this.setData({
             userInfo: e.detail.userInfo,
             iv: e.detail.iv,
-            rawData: e.detail.rawData,
+            rawData: e.detail.rawData, 
             signature: e.detail.signature,
             hasUserInfo: true
         })

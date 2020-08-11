@@ -2,11 +2,11 @@
 App({
     onLaunch: function () {
         const userType = wx.getStorageSync('userType');
-        if (userType == 2) {
+        if (userType == '2') {
             wx.redirectTo({
                 url: '/pages/MyRecord/MyRecord?userType=' + userType
             })
-        } else if (userType == 1) {
+        } else if (userType =='1') {
             wx.redirectTo({
                 url: '/pages/MedicalCare/index/index'
             })

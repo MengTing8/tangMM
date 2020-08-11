@@ -1,5 +1,5 @@
 const {
-    promiseRequest
+    promiseRequest, login
 } = require("../../utils/Requests")
 Page({
 
@@ -219,6 +219,7 @@ Page({
                 currentTabsIndex: 1
             })
         }
+        login()
     },
 
     /**

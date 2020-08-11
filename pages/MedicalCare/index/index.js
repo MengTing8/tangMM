@@ -116,10 +116,11 @@ Page({
         promiseRequest(requestObj).then((res) => {
             console.log(res);
             if (res.data.code === '0') {
-                this.setData({
-                    GravidaList: res.data.data[0]
-                })
-
+                if (res.data.data.length > 0) {
+                     this.setData({
+                         GravidaList: res.data.data[0]
+                     })
+                }
             } else {
                 wx.showToast({
                     title: res.data.message,

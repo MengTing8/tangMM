@@ -155,4 +155,5 @@
  }
  module.exports = {
      promiseRequest,
+     login
  }

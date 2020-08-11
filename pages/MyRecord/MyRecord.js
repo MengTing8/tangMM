@@ -51,7 +51,7 @@ Page({
             URL = '../BloodSugarRecord/BloodSugarRecord'
         } else if (index == 7) {
             // 胰岛素
-            URL = '../InsulinRegister/InsulinRegister?gestationalWeek=' + gestationalWeek 
+            URL = '../InsulinRegister/InsulinRegister?gestationalWeek=' + gestationalWeek
         }
         wx.navigateTo({
             url: URL
@@ -81,21 +81,27 @@ Page({
         };
         promiseRequest(requestObj).then((res) => {
             if (res.data.code === '0') {
-                let date = getDates(1, res.data.data[0].currentDate);
-                let str = res.data.data[0].currentDate
-                let newStr = str.split("-").reverse().join("/")
-                let searchStr = newStr.substring(0, 2);
-                let srtEndIndex = newStr.indexOf(searchStr) + searchStr.length;
-                let newStrs = newStr.substring(srtEndIndex);
-                wx.setStorageSync('patientId', res.data.data[0].id)
-                self.setData({
-                    MyRecordData: res.data.data[0],
-                    CurrentWeek: date[0].week,
-                    CurrentDate: newStrs,
-                    CurrentDay: searchStr,
-                    patientId: res.data.data[0].id
-                })
-
+                if (res.data.data.length > 0) {
+                    let date = getDates(1, res.data.data[0].currentDate);
+                    let str = res.data.data[0].currentDate
+                    let newStr = str.split("-").reverse().join("/")
+                    let newStrs
+                    let searchStr
+                    let srtEndIndex
+                    if (newStr) {
+                        searchStr = newStr.substring(0, 2);
+                        srtEndIndex = newStr.indexOf(searchStr) + searchStr.length;
+                        newStrs = newStr.substring(srtEndIndex);
+                    }
+                    wx.setStorageSync('patientId', res.data.data[0].id)
+                    self.setData({
+                        MyRecordData: res.data.data[0],
+                        CurrentWeek: date[0].week,
+                        CurrentDate: newStrs,
+                        CurrentDay: searchStr,
+                        patientId: res.data.data[0].id
+                    })
+                }
             } else {
                 wx.showToast({
                     title: res.data.message,

@@ -2,8 +2,9 @@ const {
     promiseRequest
 } = require("../../utils/Requests")
 const {
-    getPickerValue, getAge
-}=require('../../utils/util')
+    getPickerValue,
+    getAge
+} = require('../../utils/util')
 const moment = require('../../utils/moment.min.js');
 var dateTimePicker = require('../../utils/dateTimePicker.js');
 const date = new Date();
@@ -20,7 +21,7 @@ Page({
     data: {
         SwitchMusic: false,
         years: years,
-        pickerIndex:12,
+        pickerIndex: 12,
         PatientData: {},
         BMI: '',
         suggestion: '',
@@ -326,17 +327,18 @@ Page({
                 } else {
                     lmp = ''
                 }
-                let indexs=[]
+                let indexs = []
                 let arr = self.data.dateTimeArray
                 let time = Data.deliveryLastTime
-               indexs.push(getPickerValue(arr[0],time.substring(0, 4)))
-               indexs.push(getPickerValue(arr[1],time.substring(5, 7)))
-               indexs.push(getPickerValue(arr[2],time.substring(8, 10)))
-               indexs.push(getPickerValue(arr[3],time.substring(11, 13)))
-               indexs.push(getPickerValue(arr[4],time.substring(14, 17)))
-                 
+                if (time) {
+                    indexs.push(getPickerValue(arr[0], time.substring(0, 4)))
+                    indexs.push(getPickerValue(arr[1], time.substring(5, 7)))
+                    indexs.push(getPickerValue(arr[2], time.substring(8, 10)))
+                    indexs.push(getPickerValue(arr[3], time.substring(11, 13)))
+                    indexs.push(getPickerValue(arr[4], time.substring(14, 17)))
+                }
                 self.setData({
-                    dateTime:indexs,
+                    dateTime: indexs,
                     pickerIndex: getPickerValue(self.data.years, Data.diabetesYearB4Gestation),
                     PatientData: Data,
                     BMI: Data.bmi,
@@ -349,7 +351,7 @@ Page({
                     TermList: Data.stageValues,
                     LMP: lmp
                 })
-                 
+
                 this.calculateBMI()
 
             } else {
@@ -445,7 +447,7 @@ Page({
         var val = e.detail.value
         let PatientData = this.data.PatientData
         PatientData.birthday = val
-        var age =getAge(val)
+        var age = getAge(val)
         this.setData({
             PatientData,
             PatientAge: age,
@@ -473,7 +475,7 @@ Page({
             dateTime: arr
         });
     },
-  
+
     /**
      * 生命周期函数--监听页面加载
      */
