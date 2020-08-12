@@ -166,7 +166,7 @@
                             </view>
                             <view class="textBox">
                                 <view class="tui-picker-detail">
-                                    {{PatientInfo.deliveryLastTime}}
+                                    {{PatientInfo.deliveryLastTime||''}}
                                 </view>
                             </view>
                         </view>

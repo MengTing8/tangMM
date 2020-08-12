@@ -47,7 +47,7 @@
                             </picker>
                         </view>
                         <view class="item">
-                            <input class="input" type="number" data-index="{{index}}" placeholder-class="inputholder" placeholder="请输入" value="{{item.value}}" bindinput="bindValueInput"></input>
+                            <input class="input" type="digit" data-index="{{index}}" placeholder-class="inputholder" placeholder="请输入" value="{{item.value}}" bindinput="bindValueInput"></input>
                         </view>
                         <view class="delBox" bindtap="delRecordList" data-index="{{index}}" data-id="{{item.id}}" data-rowMd5="{{item.rowMd5}}">
                             <image src="../../img/del.png" class="img" />

@@ -125,7 +125,7 @@ Page({
                 "data": [{
                     "dateStart": this.data.TimeObj.dateStart,
                     "dateEnd": this.data.TimeObj.dateEnd,
-                    'tag': tags
+                    'tags': tags
                 }]
             }
         }).then(res => {

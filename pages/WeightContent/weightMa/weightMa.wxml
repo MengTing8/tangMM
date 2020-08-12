@@ -18,7 +18,7 @@
         </view>
         <view class="textBox">
             <view class="inpText">
-                <input type="number" value="{{weight}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindWeightInput" />
+                <input type="digit" value="{{weight}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindWeightInput" />
                 <text>kg</text>
             </view>
         </view>

@@ -18,7 +18,7 @@ Page({
         tabCode: '1',
         searchValue: '',
         items: [],
-        NurseId:'',
+        NurseId: '',
     },
     bindShowMsg(e) {
         let index = e.currentTarget.dataset.index
@@ -65,9 +65,9 @@ Page({
     },
     getPatientInfo(e) {
         let id = e.currentTarget.dataset.id
-         wx.navigateTo({
-             url: `../patientInfo/patientInfo?patientId=${id}&NurseId=${this.data.NurseId}`
-         })
+        wx.navigateTo({
+            url: `../patientInfo/patientInfo?patientId=${id}&NurseId=${this.data.NurseId}`
+        })
     },
     getNurse() {
         let that = this
@@ -117,9 +117,13 @@ Page({
             console.log(res);
             if (res.data.code === '0') {
                 if (res.data.data.length > 0) {
-                     this.setData({
-                         GravidaList: res.data.data[0]
-                     })
+                    this.setData({
+                        GravidaList: res.data.data[0]
+                    })
+                } else {
+                    this.setData({
+                        GravidaList: []
+                    })
                 }
             } else {
                 wx.showToast({
@@ -162,7 +166,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        wx.hideHomeButton()
     },
 
     /**

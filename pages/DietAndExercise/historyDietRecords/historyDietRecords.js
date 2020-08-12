@@ -62,24 +62,28 @@ Page({
             }).then((res) => {
             if (res.data.code === '0') {
                 let ResData = res.data.data
-                var newData = []
+                let newData = []
                 let flag
-                ResData.forEach((item) => {
-                    item.forEach(i => {
-                        flag = newData.find(item1 => item1.date === i.date)
-                        if (!flag) {
-                            newData.push({
-                                date: i.date,
-                                children: [i]
-                            })
-                        } else {
-                            flag.children.push(i)
-                        }
-                    })
-                })
-                _that.setData({
-                    historyFootList: newData,
-                })
+                let arr = Object.keys(ResData[0]);
+                 if (arr.length !== 0) {
+                      ResData.forEach((item) => {
+                          item.forEach(i => {
+                              flag = newData.find(item1 => item1.date === i.date)
+                              if (!flag) {
+                                  newData.push({
+                                      date: i.date,
+                                      children: [i]
+                                  })
+                              } else {
+                                  flag.children.push(i)
+                              }
+                          })
+                      })
+                      _that.setData({
+                          historyFootList: newData,
+                      })
+                 }
+                     
             } else {
                 wx.showToast({
                     title: res.data.message,
@@ -133,7 +137,7 @@ Page({
     bindEndTimeChange(e) {
         var NewData = this.data.TimeObj;
         let val = e.detail.value
-        let dgitate = e.detail.date
+        let date = e.detail.date
         if (checkTime(NewData.dateStart, date)) {
              NewData.EndDATE = val;
              NewData.dateEnd = date;

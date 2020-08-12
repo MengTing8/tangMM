@@ -47,38 +47,12 @@ Page({
         gas,
         GA: '',
         predays: [gas],
-        listData: [
-
-            {
-                "GA": "28周+1",
-                "breakfast": "0.2",
-                "ChineseFood": "0.3",
-                "dinner": '0',
-                "total": "4"
-            },
-
-            {
-                "GA": "28周+1",
-                "breakfast": "0.2",
-                "ChineseFood": "0.3",
-                "dinner": '0',
-                "total": "4"
-            },
-
-            {
-                "GA": "28周+1",
-                "breakfast": "0.2",
-                "ChineseFood": "0.3",
-                "dinner": '0',
-                "total": "4"
-            },
-
-        ],
         InsulinList: [],
         InsulinPumpList: [],
         legendList: [],
         tagList: [],
-        selectedTagList: ['0']
+        selectedTagList: ['0'],
+        InsulinListByWeek:[]
     },
     getInsulinPumpList() {
         let self = this
@@ -120,6 +94,31 @@ Page({
             if (res.data.code === '0') {
                 self.setData({
                     InsulinList: res.data.data,
+                })
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                    icon: 'none',
+                    duration: 2000
+                })
+            }
+        })
+    },
+    getInsulinListByWeek() {
+        let self = this
+        promiseRequest({
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "getInsulinListByWeek",
+                "data": [{}]
+            }
+        }).then(res => {
+            console.log(res, "孕周");
+            if (res.data.code === '0') {
+                self.setData({
+                    InsulinListByWeek: res.data.data,
                 })
             } else {
                 wx.showToast({
@@ -382,5 +381,6 @@ Page({
         this.echartsComponent = this.selectComponent('#mychart-dom-scatter');
         this.getInsulinList()
         this.getInsulinPumpList()
+        this.getInsulinListByWeek()
     }
 })

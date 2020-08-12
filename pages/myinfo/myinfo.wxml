@@ -191,7 +191,7 @@
                 <text>空腹</text>
             </view>
             <view class="clPadding_textBox">
-                <input type="number" value="{{PatientData.ogtt_0=='0'||PatientData.ogtt_0=='0.00'?'':PatientData.ogtt_0}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindOgtt_0Input" />
+                <input type="digit" value="{{PatientData.ogtt_0=='0'||PatientData.ogtt_0=='0.00'?'':PatientData.ogtt_0}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindOgtt_0Input" />
             </view>
             <view class="clPadding_imgBox">
                 <text class="unitsBox">mmol/L</text>
@@ -203,7 +203,7 @@
                 <text>1小时</text>
             </view>
             <view class="clPadding_textBox">
-                <input type="number" value="{{PatientData.ogtt_1=='0'||PatientData.ogtt_1=='0.00'?'':PatientData.ogtt_1}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindOgtt_1Input" />
+                <input type="digit" value="{{PatientData.ogtt_1=='0'||PatientData.ogtt_1=='0.00'?'':PatientData.ogtt_1}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindOgtt_1Input" />
             </view>
             <view class="clPadding_imgBox">
                 <text class="unitsBox">mmol/L</text>
@@ -215,7 +215,7 @@
                 <text>2小时</text>
             </view>
             <view class="clPadding_textBox">
-                <input type="number" value="{{PatientData.ogtt_2=='0'||PatientData.ogtt_2=='0.00'?'':PatientData.ogtt_2}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindOgtt_2Input" />
+                <input type="digit" value="{{PatientData.ogtt_2=='0'||PatientData.ogtt_2=='0.00'?'':PatientData.ogtt_2}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindOgtt_2Input" />
             </view>
             <view class="clPadding_imgBox">
                 <text class="unitsBox">mmol/L</text>
@@ -227,7 +227,7 @@
                 <text>糖化血红蛋白</text>
             </view>
             <view class="clPadding_textBox">
-                <input type="number" value="{{PatientData.hba1c=='0'||PatientData.hba1c=='0.00'?'':PatientData.hba1c}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindHba1cInput" />
+                <input type="digit" value="{{PatientData.hba1c=='0'||PatientData.hba1c=='0.00'?'':PatientData.hba1c}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindHba1cInput" />
             </view>
             <view class="clPadding_imgBox">
                 <text class="unitsBox">%</text>

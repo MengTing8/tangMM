@@ -10,19 +10,13 @@ const {
 const moment = require('../../../utils/moment.min.js');
 let newDate = moment(getDay(0)).format('YYYY年MM月DD日')
 var StarDATE = moment(getDay(-7)).format('YYYY年MM月DD日');
-var StarDATE2 = moment(getDay(-7)).format('YYYY年MM月DD日');
 var EndDATE = newDate
-var EndDATE2 = newDate
 const gas = []
 const days = []
 for (let i = 0; i <= 40; i++) {
     gas.push(i + '周')
 }
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
 
         CurrentShowDate: true,
@@ -63,7 +57,7 @@ Page({
         var NewData = this.data.TimeObj;
         let val = e.detail.value
         let date = e.detail.date
-        if (checkTime(date, this.data.dateEnd)) {
+        if (checkTime(date, NewData.dateEnd)) {
              NewData.StarDATE = val;
              NewData.dateStart = date;
             this.setData({
@@ -178,6 +172,8 @@ Page({
         let index = e.currentTarget.dataset.index
         if (index == 1) {
             this.getWeightChart()
+        }else{
+            this.getWeightListByWeek()
         }
         this.setData({
             TabsIndex: index
@@ -191,7 +187,7 @@ Page({
             data: {
                 "token": wx.getStorageSync('token'),
                 "function": "getWeightChart",
-                "data": []
+                "data": [{}]
             }
         }).then(res => {
             if (res.data.code === '0') {

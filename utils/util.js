@@ -44,17 +44,11 @@ function getDates(days, todate) {
 }
 
 function checkTime(startTime, endTime) {
-
     if (startTime.length > 0 && endTime.length > 0) {
-
         var startTmp = startTime.split("-");
-
         var endTmp = endTime.split("-");
-
         var sd = new Date(startTmp[0], startTmp[1], startTmp[2]);
-
         var ed = new Date(endTmp[0], endTmp[1], endTmp[2]);
-
         if (sd.getTime() > ed.getTime()) {
             wx.showToast({
                 title: "开始日期不能大于结束日期",

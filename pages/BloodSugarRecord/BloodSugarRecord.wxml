@@ -48,7 +48,7 @@
                 <!-- <view class="itemBox_date"> -->
                 <view class="textBox">
                     <view class="inpText">
-                        <input type="number" value="{{item.value}}" data-index="{{index}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindValueInput"/>
+                        <input type="digit" value="{{item.value}}" data-index="{{index}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindValueInput"/>
                     </view>
                 </view>
                 <text style="color:#999">mmol/L</text>

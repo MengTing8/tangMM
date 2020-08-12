@@ -43,7 +43,7 @@
                       </picker>
                     </view>
                     <view class="dataInfoItem">
-                      <input class="itemBox_inp" type="number" placeholder="请输入" placeholder-class="itemBox_inpholder" value="{{item.duration}}"  bindinput="bindDurationInput" data-index="{{index}}"></input>
+                      <input class="itemBox_inp" type="digit" placeholder="请输入" placeholder-class="itemBox_inpholder" value="{{item.duration}}"  bindinput="bindDurationInput" data-index="{{index}}"></input>
                     </view>
                     <view class="delBox" bindtap="delRecordList" data-index="{{index}}" data-id="{{item.id}}" data-rowMd5="{{item.rowMd5}}">
                         <image src="../../../img/del.png" class="img" />

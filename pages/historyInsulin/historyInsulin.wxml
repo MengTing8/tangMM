@@ -54,7 +54,7 @@
         </view>
         <!-- 胰岛素泵 -->
         <view class="pageContainer" wx:if="{{InsulinPump}}">
-            <view class="listItem" wx:for="{{InsulinPumpList}}" wx:key="index">
+            <view class="listItem" wx:for="{{InsulinPumpList}}" wx:key="index" wx:if="{{item.week}}">
                 <view class="item_content">
                     <view class="content_duration">
                         <text>{{item.week}}</text>
@@ -65,47 +65,29 @@
                         <text class="content_recording">总量</text>
                     </view>
                 </view>
-                <view class="item_partLength" >
-                    <view  wx:for="{{item.items1}}" wx:for-item="period" wx:for-index="periodCode" wx:key="periodCode">{{period.periodValue}}：{{period.value}}U</view>
-                                          <view wx:for="{{item.items2}}" wx:for-item="Time" wx:for-index="S" wx:key="S">
-                          {{Time.timeStart}}~{{Time.timeEnd}}：{{Time.value}}U
-                      </view>
+                <view class="item_partLength">
+                    <view wx:for="{{item.items1}}" wx:for-item="period" wx:for-index="periodCode" wx:key="periodCode">
+                        {{period.periodValue}}：{{period.value}}U
+                    </view>
+                    <view wx:for="{{item.items2}}" wx:for-item="Time" wx:for-index="S" wx:key="S">
+                        {{Time.timeStart}}~{{Time.timeEnd}}：{{Time.value}}U
+                    </view>
                 </view>
             </view>
         </view>
         <!-- 按孕周显示内容 -->
         <view class="TableContent" wx:if="{{GaShow}}">
-            <view class="table">
-                <view class="tr bg-w">
-                    <view class="th">孕周</view>
-                    <view class="th">早餐</view>
-                    <view class="th ">中餐</view>
-                    <view class="th ">晚餐</view>
-                    <view class="th ">总量</view>
+            <view class="InsulinListByWeek" wx:for="{{InsulinListByWeek}}" wx:key="index">
+                <view class="columns" wx:for="{{item.columns}}" wx:for-item="s" wx:for-index="d" wx:key="d">
+                    <view class="valuew">{{s.value}}</view>
                 </view>
-                <block wx:for="{{listData}}" wx:key="index">
-                    <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-                        <view class="td">{{item.GA}}</view>
-                        <view class="td">{{item.breakfast}}</view>
-                        <view class="td">{{item.ChineseFood}}</view>
-                        <view class="td">{{item.dinner}}</view>
-                        <view class="td">{{item.total}}</view>
-                    </view>
-                    <view class="tr" wx:else>
-                        <view class="td">{{item.GA}}</view>
-                        <view class="td">{{item.breakfast}}</view>
-                        <view class="td">{{item.ChineseFood}}</view>
-                        <view class="td">{{item.dinner}}</view>
-                        <view class="td">{{item.total}}</view>
-                    </view>
-                </block>
             </view>
         </view>
     </view>
     <view style="display:{{selectedIndex==0?'none':'block'}}">
         <view class="selectedList" bind:tap="bindCurrentShowGA">
-            <image src="../../img/checked.png" class="checkedImg" wx:if="{{selectedByGA}}"/>
-            <image src="../../img/unchecked.png" class="checkedImg" wx:else/>
+            <image src="../../img/checked.png" class="checkedImg" wx:if="{{selectedByGA}}" />
+            <image src="../../img/unchecked.png" class="checkedImg" wx:else />
             <text>按孕周查看</text>
             <view class="check-sel">
                 <picker class="com-picker" mode="multiSelector" catchtap="tapHandle" value="" bindchange="bindChange" range="{{predays}}">
@@ -116,8 +98,8 @@
             </view>
         </view>
         <view class="selectedList" bind:tap="bindCurrentShowDate">
-            <image src="../../img/checked.png" class="checkedImg"   wx:if="{{!selectedByGA}}"/>
-            <image src="../../img/unchecked.png" class="checkedImg" wx:else/>
+            <image src="../../img/checked.png" class="checkedImg" wx:if="{{!selectedByGA}}" />
+            <image src="../../img/unchecked.png" class="checkedImg" wx:else />
             <text>按孕期查看</text>
         </view>
         <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
@@ -133,7 +115,6 @@
                 <view class="container">
                     <ec-canvas id="mychart-dom-scatter" canvas-id="mychart-scatter" ec="{{ ec }}"></ec-canvas>
                 </view>
-                
                 <view class="titleContent">
                     <view class="titleContentBox">
                         <view class="legendBox" wx:for="{{legendList}}" wx:key="index">

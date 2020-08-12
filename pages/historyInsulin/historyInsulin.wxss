@@ -11,7 +11,7 @@
     box-shadow: 0rpx 4rpx 16rpx 0rpx rgba(202, 225, 226, 0.38);
     border-radius: 12rpx;
     padding: 40rpx 40rpx 0;
-    margin-bottom: 20rpx;
+    margin-bottom: 40rpx;
 }
 
 .item_content {
@@ -84,7 +84,7 @@
 
 /* 卡片结束 */
 .typeBtnContent {
-    padding: 40rpx 10rpx 0 10rpx; 
+    padding: 40rpx 10rpx 0 10rpx;
 }
 
 .typeItemList {
@@ -100,8 +100,8 @@
     border-radius: 12rpx;
     color: #121212;
     font-size: 24rpx;
-    margin: 0 10rpx 20rpx; 
-    line-height: 30px; 
+    margin: 0 10rpx 20rpx;
+    line-height: 30px;
 }
 
 .selectedItem {
@@ -109,59 +109,13 @@
     color: #FE9800 !important;
 }
 
-/* 表单开始 */
-.table {
-    border: 0px solid darkgray;
-}
-
-.tr {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    line-height: 88rpx;
-
-    align-items: center;
-}
-
-.td {
-    width: 40%;
-    justify-content: center;
-    text-align: center;
-    border-right: 2rpx solid #EFF0F5;
-    border-bottom: 2rpx solid #EFF0F5;
-
-
-}
-
-.bg-w {
-    /* background: snow; */
-}
-
-.bg-g {
-
-    /* background: #E6F3F9; */
-
-}
-
-.th {
-    width: 40%;
-    justify-content: center;
-    background: #F6F7F9;
-    color: #999;
-    display: flex;
-    line-height: 88rpx;
-    align-items: center;
-    border-right: 2rpx solid #EFF0F5;
-
-}
 
 .TableContent {
     width: 650rpx;
     margin: 30rpx auto;
-    border: 2rpx solid #EFF0F5;
+    border-top: 2rpx solid #EFF0F5;
+    border-left: 2rpx solid #EFF0F5;
 }
-
-/* 表单结束 */
 .selectedList {
     display: flex;
     padding: 30rpx;
@@ -216,4 +170,23 @@
     right: 0;
     bottom: -8%;
     left: 0;
+}
+
+.InsulinListByWeek {
+    display: flex;
+    align-items: center;
+}
+.InsulinListByWeek:first-child{
+   background: #F6F7F9;
+   color: #999;
+}
+.columns {
+    flex: 1;
+    text-align: center;
+    border-right: 2rpx solid #EFF0F5;
+    border-bottom: 2rpx solid #EFF0F5;
+}
+
+.valuew {
+    padding: 30rpx 8rpx;
 }
