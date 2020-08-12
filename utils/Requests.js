@@ -137,7 +137,6 @@
                      app.globalData.needBeginLogin = false;
                      login(requestObj)
                  } else {
-                     console.log(res);
                      resolve(res);
                      wx.showToast({
                          title: res.data.message,

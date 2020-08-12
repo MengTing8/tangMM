@@ -17,6 +17,10 @@ for (let i = 0; i <= 40; i++) {
     gas.push(i + '周')
 }
 Page({
+
+    /**
+     * 页面的初始数据
+     */
     data: {
 
         CurrentShowDate: true,
@@ -35,7 +39,7 @@ Page({
         multiIndex: [0, 0],
         gas,
         days,
-        GA: 53,
+        GA: '',
         bmi: '',
         target: '',
         RecordList: [],

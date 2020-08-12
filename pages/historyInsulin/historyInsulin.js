@@ -5,14 +5,11 @@ const days = []
 for (let i = 0; i <= 40; i++) {
     gas.push(i + '周')
 }
-
-//<<<<<<< HEAD
 const {
     getDay,
     checkTime
 } = require("../../utils/util")
 const moment = require('../../utils/moment.min.js');
-
 let newDate = moment(getDay(0)).format('YYYY年MM月DD日')
 var StarDATE = moment(getDay(-7)).format('YYYY年MM月DD日');
 var EndDATE = newDate
@@ -139,7 +136,6 @@ Page({
     toggleType(e) {
         this.setData({
             index: e.currentTarget.dataset.index
-
         })
         if (this.data.index == '1') {
             this.setData({

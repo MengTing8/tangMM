@@ -32,7 +32,6 @@ Page({
         startLength: 0,
         endLength: 0,
         legendList: [],
-        userType: '',
     },
 
     //取图表
@@ -196,9 +195,6 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.setData({
-            userType: options.userType
-        })
         this.echartsComponent = this.selectComponent('#mychart-dom-basicData');
         this.getBaseList()
     },

@@ -47,16 +47,6 @@
                     <view class="weight">{{item.weight}}</view>
                     <view class="WeightTarget">{{item.gainWeight}}</view>
                 </view>
-                <!-- <view class="recordInfo">
-                    <view class="writeTime">2019年12月6日</view>
-                    <view class="weight">56</view>
-                    <view class="WeightTarget">-1.5kg</view>
-                </view>
-                <view class="recordInfo">
-                    <view class="writeTime">2019年12月6日</view>
-                    <view class="weight">56</view>
-                    <view class="WeightTarget">-1.5kg</view>
-                </view> -->
             </view>
         </view>
         <view class="" hidden="{{TabsIndex !==1}}">

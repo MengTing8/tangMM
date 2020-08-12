@@ -159,18 +159,17 @@ Page({
         })
     },
     getPatient4Nurse() {
-        let requestObj = {
-            method: "POST",
-            url: '/wxrequest',
-            data: {
-                "token": wx.getStorageSync('token'),
-                "function": "getPatient4Nurse",
-                "data": [{
-                    "patientId": this.data.patientId
-                }]
-            }
-        };
-        promiseRequest(requestObj).then((res) => {
+        promiseRequest({
+                method: "POST",
+                url: '/wxrequest',
+                data: {
+                    "token": wx.getStorageSync('token'),
+                    "function": "getPatient4Nurse",
+                    "data": [{
+                        "patientId": this.data.patientId
+                    }]
+                }
+            }).then((res) => {
             console.log(res);
             if (res.data.code === '0') {
                 let Data = res.data.data[0]
@@ -211,18 +210,17 @@ Page({
         });
     },
     getMyRecord4Nurse() {
-        let requestObj = {
-            method: "POST",
-            url: '/wxrequest',
-            data: {
-                "token": wx.getStorageSync('token'),
-                "function": "getMyRecord4Nurse",
-                "data": [{
-                    "patientId": this.data.patientId
-                }]
-            }
-        };
-        promiseRequest(requestObj).then((res) => {
+        promiseRequest({
+                method: "POST",
+                url: '/wxrequest',
+                data: {
+                    "token": wx.getStorageSync('token'),
+                    "function": "getMyRecord4Nurse",
+                    "data": [{
+                        "patientId": this.data.patientId
+                    }]
+                }
+            }).then((res) => {
             console.log(res);
             if (res.data.code === '0') {
                 this.setData({
@@ -236,7 +234,7 @@ Page({
                 })
             }
         }).catch((errMsg) => {
-            console.log(errMsg); //错误提示信息
+            console.log(errMsg); 
         });
     },
     TabsChange(e) {
@@ -256,7 +254,6 @@ Page({
     },
       RecordInfo(e) {
           let index = e.detail.index
-          let userType = this.data.userType
           let gestationalWeek = this.data.ProjectsData.gestationalWeek
           let URL = ''
           if (index == 0) {
@@ -264,25 +261,25 @@ Page({
               URL = `../FetalMRecord/FetalMRecord?GA=${gestationalWeek}`
           } else if (index == 1) {
               // 基础数据
-              URL = '../../basicDataHistory/basicDataHistory?userType=' + userType
+              URL = '../../basicDataHistory/basicDataHistory'
           } else if (index == 2) {
               // 妈妈空腹体重
-              URL = `../../WeightContent/historyWeightMa/historyWeightMa?GA=${gestationalWeek}&userType=${userType}`
+              URL = `../../WeightContent/historyWeightMa/historyWeightMa?GA=${gestationalWeek}`
           } else if (index == 3) {
               // 胎儿体重
-              URL = '../../WeightContent/fetalWeight/fetalWeight?userType=' + userType
+              URL = '../../WeightContent/fetalWeight/fetalWeight'
           } else if (index == 4) {
               // 饮食记录
-              URL = '../../DietAndExercise/historyDietRecords/historyDietRecords?userType=' + userType
+              URL = '../../DietAndExercise/historyDietRecords/historyDietRecords'
           } else if (index == 5) {
               // 运动记录
-              URL = '../../DietAndExercise/historySports/historySports?userType=' + userType
+              URL = '../../DietAndExercise/historySports/historySports'
           } else if (index == 6) {
               // 血糖
-              URL = '../../historyBloodSugar/historyBloodSugar?userType=' + userType
+              URL = '../../historyBloodSugar/historyBloodSugar'
           } else if (index == 7) {
               // 胰岛素
-              URL =`../../historyInsulin/historyInsulin?GA=${gestationalWeek}&userType=${userType}`
+              URL =`../../historyInsulin/historyInsulin?GA=${gestationalWeek}`
           }
           wx.navigateTo({
               url: URL
