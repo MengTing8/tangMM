@@ -1,34 +1,53 @@
 <!-- pages/fetalWeight/fetalWeight.wxml -->
-<view class="pageContainer">
-    <view class="listItem" wx:for="{{FetusWeightList}}" wx:key="index">
-        <view class="item_content">
-            <view class="content_duration">
-                <text>{{item.week}}</text>
-                <text class="duration_date">{{item.date}}</text>
-            </view>
-            <view wx:for="{{item.items}}" wx:for-item="D" wx:for-index="K" wx:key="K">
-                <view class="content_fetalWeight">
-                    <text class="thisFetalWeight">{{D.weight}}g</text>
-                    <text class="lastFetalWeight">{{D.increasement}}g</text>
-                </view>
-                <view class="content_recording">
-                    <text>本次记录</text>
-                    <text>环比上次记录</text>
-                </view>
-                <view class="item_partLength">
-                    <view>
-                        <view>头围：{{D.headCircumference}}mm</view>
-                        <view>腹围：{{D.abdorminalCircumference}}mm</view>
+<Tabs bindtitleChange="handleTitleChange">
+    <view class="pageContainer">
+        <view hidden="{{selectedIndex==1}}">
+            <view class="listItem" wx:for="{{FetusWeightList}}" wx:key="index">
+                <view class="item_content">
+                    <view class="content_duration">
+                        <text>{{item.week}}</text>
+                        <text class="duration_date">{{item.date}}</text>
                     </view>
-                    <view>
-                        <view>双顶径：{{D.biparietalDiametger}}mm</view>
-                        <view>股骨长：{{D.femurLength}}mm</view>
+                    <view wx:for="{{item.items}}" wx:for-item="D" wx:for-index="K" wx:key="K">
+                        <view class="content_fetalWeight">
+                            <text class="thisFetalWeight">{{D.weight}}g</text>
+                            <text class="lastFetalWeight">{{D.increasement}}g</text>
+                        </view>
+                        <view class="content_recording">
+                            <text>本次记录</text>
+                            <text>环比上次记录</text>
+                        </view>
+                        <view class="item_partLength">
+                            <view>
+                                <view>头围：{{D.headCircumference}}mm</view>
+                                <view>腹围：{{D.abdorminalCircumference}}mm</view>
+                            </view>
+                            <view>
+                                <view>双顶径：{{D.biparietalDiametger}}mm</view>
+                                <view>股骨长：{{D.femurLength}}mm</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view style=" text-align: center;margin: 150rpx auto;" wx:if="{{!FetusWeightList[0].date}}">
+                暂无记录
+            </view>
+        </view>
+        <view hidden="{{selectedIndex==0}}">
+            <view class="mychartContent">
+                <view class="container">
+                    <ec-canvas id="mychart-dom-weightData" canvas-id="mychart-weightData" ec="{{ec}}"></ec-canvas>
+                </view>
+                <view class="titleContent">
+                    <view class="titleContentBox">
+                        <view class="legendBox" wx:for="{{legendList}}" wx:key="index">
+                            <view class="legendIcon {{item.symbol}}" style="background:{{item.color}};width:{{item.size.width}};height:{{item.size.height}}"></view>
+                            <view class="">{{item.value}}</view>
+                        </view>
                     </view>
                 </view>
             </view>
         </view>
     </view>
-        <view style=" text-align: center;margin: 150rpx auto;" wx:if="{{!FetusWeightList[0].date}}">
-        暂无记录
-    </view>
-</view>
+</Tabs>

@@ -1,3 +1,4 @@
+    import * as echarts from '../../components/ec-canvas/echarts';
     const gas = []
     const days = []
     for (let i = 0; i <= 40; i++) {
@@ -112,6 +113,8 @@
             GA: '',
             description: '',
             descriptionShow: false,
+            ec: {},
+            legendList: [],
         },
         bindEnd() {
             let that = this
@@ -484,15 +487,72 @@
             })
             if (index == 0) {
                 this.getFetalMovementList()
-            } else {
+            } else if(index == 1) {
                 this.getFetalMovementListW()
-
+            }else {
+                this.getFetalMovementChart()
             }
+        },
+        getFetalMovementChart() {
+            let requestObj = {
+                method: "POST",
+                url: '/wxrequest',
+                data: {
+                    "token": wx.getStorageSync('token'),
+                    "function": "getFetalMovementChart",
+                    "data": []
+                }
+            };
+            promiseRequest(requestObj).then((res) => {
+                if (res.data.code === '0') {
+                    let color = JSON.parse(res.data.data[0].color);
+                    let option = JSON.parse(res.data.data[0].option);
+                    let yAxisLabelValues;
+                    if (res.data.data[0].yAxisLabelValues !== undefined) {
+                        yAxisLabelValues = JSON.parse(res.data.data[0].yAxisLabelValues);
+                    }
+                    for (var i = 0; i < color.length; i++) {
+                        if (color[i].length > 1) {
+                            option.series[i].itemStyle.color = (o) => {
+                                return color[o.seriesIndex][o.dataIndex];
+                            };
+                        }
+                    }
+                    if (yAxisLabelValues !== undefined && yAxisLabelValues.length > 0) {
+                        option.yAxis.axisLabel = {
+                            formatter: function (v, i) {
+                                return yAxisLabelValues[i];
+                            }
+                        }
+                    }
+                    this.setData({
+                        legendList: res.data.data[0].legend
+                    })
+                    this.init_echarts(option)
+                } else {
+                    wx.showToast({
+                        title: res.data.message,
+                        icon: 'none',
+                        duration: 2000
+                    })
+                }
+            })
+        },
+        init_echarts: function (options) {
+            this.echartsComponent.init((canvas, width, height) => {
+                const Chart = echarts.init(canvas, null, {
+                    width: width,
+                    height: height
+                });
+                Chart.setOption(options);
+                return Chart;
+            });
         },
         /**
          * 生命周期函数--监听页面加载
          */
         onLoad: function (options) {
+            this.echartsComponent = this.selectComponent('#mychart-dom-movementData');
             let {
                 avatarUrl,
                 name,
@@ -545,7 +605,7 @@
          * 生命周期函数--监听页面显示
          */
         onShow: function () {
-
+        
         },
 
         /**

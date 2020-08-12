@@ -163,12 +163,9 @@ Page({
         })
     },
     getPrevData() {
-        const prevDate = getDay(-1)
-        if (this.data.TabsIndex === 0) {
-            this.getInsulin(prevDate)
-        } else {
-            this.getInsulinPump(prevDate)
-        }
+        const prevDate = getDay(-1,this.data.dataTime)
+        this.getInsulin(prevDate)
+        this.getInsulinPump(prevDate)
     },
     getInsulin(date) {
         let self = this

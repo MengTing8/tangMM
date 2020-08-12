@@ -82,8 +82,13 @@ getDay(0); //当天日期
 getDay(-3); //3天前日期
 
 //获取最近7天日期
-function getDay(day) {
-    var today = new Date();
+function getDay(day,dateTime) {
+    var today;
+    if (dateTime) {
+        today = new Date(dateTime)
+    } else {
+        today = new Date();
+    }
 
     var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;
     today.setTime(targetday_milliseconds); //注意，这行是关键代码
