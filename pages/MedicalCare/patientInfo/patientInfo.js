@@ -181,7 +181,6 @@ Page({
                 if (Data.lmp) {
                     age = getAge(Data.birthday)
                     Data.lmp = moment(Data.lmp).format('YYYY年MM月DD日')
-
                 }
                 var theSug = ''
                 if (Data.bmi <= 18.4) {
@@ -253,31 +252,31 @@ Page({
         }
     },
       RecordInfo(e) {
-          let index = e.detail.index
+          let code = e.detail.code
           let gestationalWeek = this.data.ProjectsData.gestationalWeek
           let URL = ''
-          if (index == 0) {
+          if (code == '1') {
               // 胎动监测
               URL = `../FetalMRecord/FetalMRecord?GA=${gestationalWeek}`
-          } else if (index == 1) {
+          } else if (code == '2') {
               // 基础数据
               URL = '../../basicDataHistory/basicDataHistory'
-          } else if (index == 2) {
+          } else if (code == '3') {
               // 妈妈空腹体重
               URL = `../../WeightContent/historyWeightMa/historyWeightMa?GA=${gestationalWeek}`
-          } else if (index == 3) {
+          } else if (code =='4') {
               // 胎儿体重
               URL = '../../WeightContent/fetalWeight/fetalWeight'
-          } else if (index == 4) {
+          } else if (code =='5') {
               // 饮食记录
               URL = '../../DietAndExercise/historyDietRecords/historyDietRecords'
-          } else if (index == 5) {
+          } else if (code == '6') {
               // 运动记录
               URL = '../../DietAndExercise/historySports/historySports'
-          } else if (index == 6) {
+          } else if (code == '7') {
               // 血糖
               URL = '../../historyBloodSugar/historyBloodSugar'
-          } else if (index == 7) {
+          } else if (code == '8') {
               // 胰岛素
               URL =`../../historyInsulin/historyInsulin?GA=${gestationalWeek}`
           }

@@ -1,4 +1,4 @@
-<view class="MyRecordList" wx:for="{{Records}}" wx:key="index" bind:tap="handRecordInfo" data-index='{{index}}'>
+<view class="MyRecordList" wx:for="{{Records}}" wx:key="index" bind:tap="handRecordInfo" data-index='{{index}}' data-code="{{item.code}}">
     <view class="LogoBox">
         <image class="RecordLogo" src="{{item.iconUrl}}" />
     </view>

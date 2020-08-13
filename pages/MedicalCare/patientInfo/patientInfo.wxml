@@ -94,7 +94,7 @@
                                 <text>出生日期</text>
                             </view>
                             <view class="textBox">
-                                <view>{{PatientInfo.birthday}}</view>
+                                <view>{{PatientInfo.birthday||''}}</view>
                                 <view wx:if="{{PatientAge>=35}}">高龄</view>
                             </view>
                         </view>
@@ -246,7 +246,7 @@
                                 <text>末次月经</text>
                             </view>
                             <view class="textBox">
-                                <view>{{PatientInfo.lmp}}</view>
+                                <view>{{PatientInfo.lmp||''}}</view>
                             </view>
                         </view>
                         <view class="cell">
@@ -259,6 +259,14 @@
                                 <view>{{PatientInfo.diabetesB4Gestation=='1'?'是':'否'}}</view>
                             </view>
                         </view>
+                        <view class="cell" wx:if="{{PatientInfo.diabetesB4Gestation=='1'}}">
+                            <view class="cell_title"></view>
+                            <view class="textBox">
+                                <view>
+                                    {{PatientInfo.diabetesYearB4Gestation}}年
+                                </view>
+                            </view>
+                        </view>
                         <view class="cell">
                             <view class="cell_title">
                                 <view class="cell_title_name">
@@ -267,6 +275,12 @@
                             </view>
                             <view class="textBox">
                                 <view>{{PatientInfo.gdm=='1'?'是':'否'}}</view>
+                            </view>
+                        </view>
+                        <view class="cell" wx:if="{{PatientInfo.gdm=='1'}}">
+                            <view class="cell_title"></view>
+                            <view class="textBox">
+                                <view>{{PatientInfo.gdmYear}}年</view>
                             </view>
                         </view>
                         <view class="cell">

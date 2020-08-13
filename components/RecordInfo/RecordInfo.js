@@ -23,10 +23,10 @@ Component({
   methods: {
   handRecordInfo(e) {
       const {
-          index,
+          index,code
       } = e.currentTarget.dataset;
       this.triggerEvent("RecordInfo", {
-          index
+          index,code
       });
   }
   }

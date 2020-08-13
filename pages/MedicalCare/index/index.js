@@ -85,10 +85,9 @@ Page({
                 that.setData({
                     NurseData: res.data.data[0],
                     MenuItems: res.data.data[0].items,
-                    NurseId: res.data.data[0].id
+                    NurseId: res.data.data[0].id,
+                    tabs: res.data.data[0].tabs
                 })
-                that.getGravida()
-
             } else {
                 wx.showToast({
                     title: res.data.message,
@@ -119,13 +118,21 @@ Page({
             if (res.data.code === '0') {
                 if (res.data.data.length > 0) {
                     this.setData({
-                        GravidaList: res.data.data[0]
+                        GravidaList: res.data.data,
                     })
                 } else {
                     this.setData({
                         GravidaList: []
                     })
                 }
+                let arr = this.data.tabs
+                if (arr[this.data.tabCode - 1]) {
+                    arr[this.data.tabCode - 1].quantity = res.data.data.length
+                    this.setData({
+                        tabs: arr
+                    })
+                }
+
             } else {
                 wx.showToast({
                     title: res.data.message,
@@ -152,6 +159,8 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        this.getNurse()
+
     },
 
     /**
@@ -165,7 +174,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        this.getNurse()
+        this.getGravida()
         wx.hideHomeButton()
     },
 

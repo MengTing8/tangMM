@@ -17,7 +17,7 @@ Page({
         gestationalWeek: ""
     },
     RecordInfo(e) {
-        let index = e.detail.index
+        let code = e.detail.code
         let {
             avatarUrl,
             name,
@@ -26,29 +26,29 @@ Page({
             gestationalWeek
         } = this.data.MyRecordData
         let URL = ''
-        if (index == 0) {
+        if (code == '1') {
             // 胎动监测
             URL = `../fetalMovement/fetalMovement?avatarUrl=${avatarUrl}&name=${name}&description=${description}&patientId=${id}&gestationalWeek=${gestationalWeek}`
-        } else if (index == 1) {
+        } else if (code == '2') {
             // 基础数据
             URL = '../basicdata/basicdata'
-        } else if (index == 2) {
+        } else if (code =='3') {
             // 妈妈空腹体重
             // URL = '../weightMa/weightMa'
             URL = '../WeightContent/weightMa/weightMa?gestationalWeek=' + gestationalWeek
-        } else if (index == 3) {
+        } else if (code == '4') {
             // 胎儿体重
             URL = '../WeightContent/fetalWeightAdd/fetalWeightAdd'
-        } else if (index == 4) {
+        } else if (code == '5') {
             // 饮食记录
             URL = '../DietAndExercise/DietRecords/DietRecords'
-        } else if (index == 5) {
+        } else if (code == '6') {
             // 运动记录
             URL = '../DietAndExercise/sportsRecord/sportsRecord'
-        } else if (index == 6) {
+        } else if (code =='7') {
             // 血糖
             URL = '../BloodSugarRecord/BloodSugarRecord'
-        } else if (index == 7) {
+        } else if (code == '8') {
             // 胰岛素
             URL = '../InsulinRegister/InsulinRegister?gestationalWeek=' + gestationalWeek
         }
