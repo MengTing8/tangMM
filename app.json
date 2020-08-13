@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/MyRecord/MyRecord",
     "pages/tiedCard/tiedCard",
-    "pages/index/index",
     "pages/myinfo/myinfo",
     "pages/LeaveMessage/LeaveMessage",
     "pages/fetalMovement/fetalMovement",

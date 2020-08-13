@@ -2,15 +2,21 @@
 App({
     onLaunch: function () {
         const userType = wx.getStorageSync('userType');
-        if (userType == '2') {
-            wx.redirectTo({
-                url: '/pages/MyRecord/MyRecord?userType=' + userType
-            })
-        } else if (userType =='1') {
-            wx.redirectTo({
-                url: '/pages/MedicalCare/index/index'
-            })
+        if (wx.getStorageSync('token')) {
+            setTimeout(() => {
+                if (userType == '2') {
+                    wx.redirectTo({
+                        url: '/pages/MyRecord/MyRecord'
+                    })
+                } else if (userType == '1') {
+                    wx.reLaunch({
+                        url: '/pages/MedicalCare/index/index'
+                    })
+                }
+            }, 0);
         }
+        
+       
         var _self = this
         // 展示本地存储能力
         var logs = wx.getStorageSync('logs') || []

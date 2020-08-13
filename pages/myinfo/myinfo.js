@@ -482,10 +482,7 @@ Page({
     onLoad() {
         this.getPatient()
         // this.getOccupation()
-        // 获取完整的年月日 时分秒，以及默认显示的数组
         var obj = dateTimePicker.dateTimePicker(this.data.startYear, this.data.endYear);
-        console.log(obj);
-        // 精确到分的处理，将数组的秒去掉
         this.setData({
             dateTime: obj.dateTime,
             dateTimeArray: obj.dateTimeArray,

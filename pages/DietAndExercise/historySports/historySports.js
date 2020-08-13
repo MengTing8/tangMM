@@ -16,7 +16,7 @@ Page({
      */
     data: {
         ExerciseList: [],
-
+        ec: {},
         TimeObj: {
             StartDt: newDate,
             EndDt: '2029年01月01日',
@@ -62,8 +62,8 @@ Page({
         let val = e.detail.value
         let date = e.detail.date
         if (checkTime(date, NewData.dateEnd)) {
-             NewData.StarDATE = val;
-             NewData.dateStart = date;
+            NewData.StarDATE = val;
+            NewData.dateStart = date;
             this.setData({
                 TimeObj: NewData
             })
@@ -75,8 +75,8 @@ Page({
         let val = e.detail.value
         let dateEnd = e.detail.date
         if (checkTime(NewData.dateStart, dateEnd)) {
-             NewData.EndDATE = val;
-             NewData.dateEnd = dateEnd;
+            NewData.EndDATE = val;
+            NewData.dateEnd = dateEnd;
             this.setData({
                 TimeObj: NewData
             })

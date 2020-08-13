@@ -85,9 +85,7 @@ Page({
                     }]
                 }
             }).then(res => {
-                console.log(res);
                 if (res.data.code === '0') {
-                    
                     self.getMessage()
                     self.setData({
                         userInputConten: '',

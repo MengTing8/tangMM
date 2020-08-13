@@ -17,7 +17,6 @@ Page({
         gestationalWeek: ""
     },
     RecordInfo(e) {
-        console.log(e);
         let index = e.detail.index
         let {
             avatarUrl,
@@ -80,6 +79,7 @@ Page({
             }
         };
         promiseRequest(requestObj).then((res) => {
+            console.log(res);
             if (res.data.code === '0') {
                 if (res.data.data.length > 0) {
                     let date = getDates(1, res.data.data[0].currentDate);
@@ -135,24 +135,25 @@ Page({
      */
     onShow: function () {
         this.getMyRecord()
-        const token = wx.getStorageSync('token');
-        const userType = wx.getStorageSync('userType')
-        if (!token) {
-            wx.redirectTo({
-                url: '/pages/index/index',
-            });
-        }
-        if (userType == -2) {
-            // -2 ：未绑定手机用户
-            wx.redirectTo({
-                url: '/pages/tiedCard/tiedCard?tabsItem=' + 0
-            })
-        } else if (userType == -1) {
-            // -1 = 未绑定诊疗卡用户
-            wx.redirectTo({
-                url: '/pages/tiedCard/tiedCard?tabsItem=' + 1
-            })
-        }
+        wx.hideHomeButton()
+        // const token = wx.getStorageSync('token');
+        // const userType = wx.getStorageSync('userType')
+        // if (!token) {
+        //     wx.redirectTo({
+        //         url: '/pages/index/index',
+        //     });
+        // }
+        // if (userType == -2) {
+        //     // -2 ：未绑定手机用户
+        //     wx.redirectTo({
+        //         url: '/pages/tiedCard/tiedCard?tabsItem=' + 0
+        //     })
+        // } else if (userType == -1) {
+        //     // -1 = 未绑定诊疗卡用户
+        //     wx.redirectTo({
+        //         url: '/pages/tiedCard/tiedCard?tabsItem=' + 1
+        //     })
+        // }
     },
 
     /**

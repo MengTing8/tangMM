@@ -10,7 +10,6 @@
              wx.getSetting({
                  success: res => {
                      if (res.authSetting['scope.userInfo']) {
-                         // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
                          wx.getUserInfo({
                              success: res => {
                                  let RequestObjs = {
@@ -62,6 +61,10 @@
                                  //  wx.hideLoading()
                              }
                          })
+                     }else{
+                        //  wx.reLaunch({
+                        //      url: '/pages/index/index'
+                        //  })
                      }
                  }
              })
@@ -82,7 +85,7 @@
      var DataArr = requestObj.data.data
      let fun = requestObj.data.function
      if (userType == '1') {
-         if (fun == 'getBaseChart' || fun == "getWeightListByWeek" || fun == "getWeightListByDate" || fun == "getWeightChart" || fun == "getFetusWeightList" || fun == "getDietList" || fun == "getDietChart" || fun == "getExerciseList" || fun == "getBloodGlucoseList" || fun == "getBloodGlucoseChartByDate" || fun == "getInsulinList" || fun == "getInsulinPumpList" || fun == "getInsulinListByWeek"||fun=="getInsulinChartByWeek"||fun=="getInsulinChartByDate"||fun=="getBaseList") {
+         if (fun == 'getBaseChart' || fun == "getWeightListByWeek" || fun == "getWeightListByDate" || fun == "getWeightChart" || fun == "getFetusWeightList" || fun == "getDietList" || fun == "getDietChart" || fun == "getExerciseList" || fun == "getBloodGlucoseList" || fun == "getBloodGlucoseChartByDate" || fun == "getInsulinList" || fun == "getInsulinPumpList" || fun == "getInsulinListByWeek"||fun=="getInsulinChartByWeek"||fun=="getInsulinChartByDate"||fun=="getBaseList"||fun=="getFetusWeightChart"||fun=="getExerciseChart") {
              DataArr[0].patientId = PatientId
          }
      }
@@ -126,6 +129,7 @@
                      }
                  } else if (res.data.code == '-99') {
                      //token失效，重新调用login换取token
+                     wx.clearStorageSync()
                      requestObj.resolve = resolve;
                      promiseQueue.push(requestObj);
                      //请求失败了，把该请求放到promise队列，等待更新token后重新调用。
@@ -134,6 +138,7 @@
                          return;
                      }
                      //防止重复调用login。
+                    //  debugger;
                      app.globalData.needBeginLogin = false;
                      login(requestObj)
                  } else {

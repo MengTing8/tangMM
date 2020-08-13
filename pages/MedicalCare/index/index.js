@@ -87,6 +87,7 @@ Page({
                     MenuItems: res.data.data[0].items,
                     NurseId: res.data.data[0].id
                 })
+                that.getGravida()
 
             } else {
                 wx.showToast({
@@ -151,8 +152,6 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.getNurse()
-        this.getGravida()
     },
 
     /**
@@ -166,6 +165,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
+        this.getNurse()
         wx.hideHomeButton()
     },
 

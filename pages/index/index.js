@@ -27,16 +27,16 @@ Page({
           this.setData({
               isEdit: true,
           })
-        const userType = wx.getStorageSync('userType');
-        if (userType == 2) {
-            wx.redirectTo({
-                url: '../MyRecord/MyRecord?userType=' + userType
-            })
-        } else if (userType == 1) {
-            wx.redirectTo({
-                url: '../MedicalCare/index/index'
-            })
-        }
+        // const userType = wx.getStorageSync('userType');
+        // if (userType == 2) {
+        //     wx.redirectTo({
+        //         url: '../MyRecord/MyRecord?userType=' + userType
+        //     })
+        // } else if (userType == 1) {
+        //     wx.redirectTo({
+        //         url: '../MedicalCare/index/index'
+        //     })
+        // }
         if (app.globalData.userInfo) {
             this.setData({
                 userInfo: app.globalData.userInfo,
@@ -91,7 +91,6 @@ Page({
                 }]
             },
         }).then(res => {
-            console.log(res);
             if (res.data.code === '0') {
                 let userType = res.data.data[0].userType
                 let DataArr = res.data.data[0]
