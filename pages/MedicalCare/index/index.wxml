@@ -64,7 +64,7 @@
                             </view>
                         </view>
                         <view class="MessageList_bottom">
-                            <view class="infoContent_text" wx:if="{{item.lastMessage}}">回复：{{item.lastMessage}}</view>
+                            <view class="infoContent_text" wx:if="{{item.lastMessage}}">{{item.lastMessage}}</view>
                         </view>
                 </view>
             </view>
