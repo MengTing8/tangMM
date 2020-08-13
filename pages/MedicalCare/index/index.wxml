@@ -60,7 +60,7 @@
                                 </view>
                             </view>
                             <view class="stateBtnBox">
-                                <view>新留言{{item.quantity}}</view>
+                                <view wx:if="{{item.quantity > 0}}">{{item.quantity}}条</view>
                             </view>
                         </view>
                         <view class="MessageList_bottom">
