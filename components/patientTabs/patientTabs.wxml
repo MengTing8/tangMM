@@ -2,7 +2,7 @@
     <view class="tabsBox">
         <block wx:for="{{tabs}}" wx:key="id">
             <view class="tabsItem {{TabsIndex==index?'selected':''}}" data-index='{{index}}' data-code="{{item.code}}" bindtap="handleTitleChange">
-                <view class="num">{{item.quantity}}</view>
+                <!-- view class="num">{{item.quantity}}</view -->
                 <view>{{item.value}}</view>
             </view>
         </block>
