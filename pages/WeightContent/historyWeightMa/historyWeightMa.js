@@ -49,13 +49,15 @@ Page({
         this.setData({
             CurrentShowDate: true,
         })
-        this.getWeightListByWeek()
+        //this.getWeightListByWeek()
+        this.getWeightList(1)
     },
     bindCurrentShowDate() {
         this.setData({
             CurrentShowDate: false,
         })
-        this.getWeightListByDate()
+        //this.getWeightListByDate()
+        this.getWeightList(2)
     },
     bindStartTimeChange(e) {
         var NewData = this.data.TimeObj;
@@ -68,7 +70,8 @@ Page({
                 TimeObj: NewData,
                 CurrentShowDate: false,
             })
-            this.getWeightListByDate()
+            //this.getWeightListByDate()
+            this.getWeightList(2)
         }
 
     },
@@ -83,10 +86,47 @@ Page({
                 TimeObj: NewData,
                 CurrentShowDate: false,
             })
-            this.getWeightListByDate()
+            //this.getWeightListByDate()
+            this.getWeightList(2)
         }
 
     },
+    getWeightList(type) {
+        let self = this
+        promiseRequest({
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "getWeightList",
+                "data": [{
+                    "type":type,
+                    "gestationalWeek": self.data.GA,
+                    "dateStart": self.data.TimeObj.dateStart,
+                    "dateEnd": self.data.TimeObj.dateEnd
+                }]
+            }
+        }).then(res => {
+            if (res.data.code === '0') {
+                var ResData = res.data.data[0]
+                for (let key in ResData.items) {
+                    ResData.items[key].date = moment(ResData.items[key].date).format('YYYY年MM月DD日')
+                }
+                self.setData({
+                    RecordList: ResData.items,
+                    bmi: ResData.bmi,
+                    target: ResData.target,
+                })
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                    icon: 'none',
+                    duration: 2000
+                })
+            }
+        })
+    },
+/*    
     getWeightListByDate() {
         let self = this
         promiseRequest({
@@ -152,6 +192,7 @@ Page({
             }
         })
     },
+*/
     bindExDateChangeA: function (e) {
         this.setData({
             EXDATE: e.detail.value
@@ -162,14 +203,16 @@ Page({
         this.setData({
             GA: this.data.gas[val[0]].replace('周', ''),
         })
-        this.getWeightListByWeek()
+        //this.getWeightListByWeek()
+        this.getWeightList(1)
     },
     TabsChange(e) {
         let index = e.currentTarget.dataset.index
         if (index == 1) {
             this.getWeightChart()
         }else{
-            this.getWeightListByWeek()
+            //this.getWeightListByWeek()
+            this.getWeightList(1)
         }
         this.setData({
             TabsIndex: index
@@ -244,6 +287,7 @@ Page({
             GA
         })
         this.echartsComponent = this.selectComponent('#mychart-dom-scatter')
-        this.getWeightListByWeek()
+        //this.getWeightListByWeek()
+        this.getWeightList(1)
     }
 })

@@ -83,7 +83,7 @@
      var DataArr = requestObj.data.data
      let fun = requestObj.data.function
      if (userType == '1') {
-         if (fun == 'getBaseChart' || fun == "getWeightListByWeek" || fun == "getWeightListByDate" || fun == "getWeightChart" || fun == "getFetusWeightList" || fun == "getDietList" || fun == "getDietChart" || fun == "getExerciseList" || fun == "getBloodGlucoseList" || fun == "getBloodGlucoseChartByDate" || fun == "getInsulinList" || fun == "getInsulinPumpList" || fun == "getInsulinListByWeek"||fun=="getInsulinChartByWeek"||fun=="getInsulinChartByDate"||fun=="getBaseList"||fun=="getFetusWeightChart"||fun=="getExerciseChart") {
+         if (fun == 'getBaseChart' || fun == "getWeightList" || fun == "getWeightChart" || fun == "getFetusWeightList" || fun == "getDietList" || fun == "getDietChart" || fun == "getExerciseList" || fun == "getBloodGlucoseList" || fun == "getBloodGlucoseChartByDate" || fun == "getInsulinList" || fun == "getInsulinPumpList" || fun == "getInsulinListByWeek"||fun=="getInsulinChartByWeek"||fun=="getInsulinChartByDate"||fun=="getBaseList"||fun=="getFetusWeightChart"||fun=="getExerciseChart") {
              DataArr[0].patientId = PatientId
          }
      }

@@ -401,7 +401,7 @@
                 descriptionShow: (!that.data.descriptionShow)
             })
             if (that.data.descriptionShow) {
-            that.getFetalMovementNotice()
+            that.getNotice()
             }
 
         },
@@ -432,15 +432,15 @@
                 }
             })
         }, //获取注意事项
-        getFetalMovementNotice() {
+        getNotice() {
             let self = this
             promiseRequest({
                 method: "POST",
                 url: '/wxrequest',
                 data: {
                     "token": wx.getStorageSync('token'),
-                    "function": "getFetalMovementNotice",
-                    "data": []
+                    "function": "getNotice",
+                    "data": [{"type":"1"}]
                 }
             }).then(res => {
                 if (res.data.code === '0') {
