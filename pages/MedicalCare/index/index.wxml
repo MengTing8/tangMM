@@ -3,7 +3,7 @@
         <view class="userInfoBox">
             <view class="userInfo">
                 <view class="imageBox">
-                    <image class="imageUser" src="../../../img/user.png" />
+                    <image class="imageUser" src="{{NurseData.avatarUrl}}" />
                 </view>
                 <view>
                     <text class="userName">{{NurseData.name}}</text>

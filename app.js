@@ -2,6 +2,7 @@
 App({
     onLaunch: function () {
         const userType = wx.getStorageSync('userType');
+        console.log(wx.getStorageSync('token'), userType);
         if (wx.getStorageSync('token') && userType) {
             setTimeout(() => {
                 if (userType == '2') {
@@ -12,12 +13,12 @@ App({
                     wx.reLaunch({
                         url: '/pages/MedicalCare/index/index'
                     })
-                } else if (userType == -2) {
+                } else if (userType == '-2') {
                     // -2 ：未绑定手机用户
                     wx.reLaunch({
                         url: '/pages/tiedCard/tiedCard?tabsItem=' + 0
                     })
-                } else if (userType == -1) {
+                } else if (userType == '-1') {
                     // -1 = 未绑定诊疗卡用户
                     wx.reLaunch({
                         url: '/pages/tiedCard/tiedCard?tabsItem=' + 1
@@ -25,6 +26,8 @@ App({
                 }
             }, 0);
         }
+    },
+    onShow: function () {
     },
 
     globalData: {

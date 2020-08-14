@@ -26,7 +26,6 @@ Page({
      */
     data: {
         ec: {},
-
         TimeObj: {
             StartDt: newDate,
             EndDt: '2029年01月01日',
@@ -157,6 +156,7 @@ Page({
                 GaShow: true,
                 InsulinPump: false,
             })
+            this.getInsulinListByWeek()
         }
     },
     handleTitleChange(e) {
@@ -165,6 +165,14 @@ Page({
         } = e.detail;
         if (index === 1) {
             this.getInsulinChartByWeek()
+        }else{
+            // if (this.data.index == '1') {
+            //     this.getInsulinList()
+            // } else if (this.data.index == '2') {
+            //     this.getInsulinPumpList()
+            // } else {
+            //     this.getInsulinListByWeek()
+            // }
         }
         this.setData({
             selectedIndex: index,
@@ -376,7 +384,7 @@ Page({
         })
         this.echartsComponent = this.selectComponent('#mychart-dom-scatter');
         this.getInsulinList()
-        this.getInsulinPumpList()
-        this.getInsulinListByWeek()
+        // this.getInsulinPumpList()
+        // this.getInsulinListByWeek()
     }
 })

@@ -15,7 +15,7 @@
         </view>
         <!-- 常规显示内容 -->
         <view class="pageContainer" wx:if="{{convention}}">
-            <view class="listItem" wx:for="{{InsulinList}}" wx:key="index">
+            <view class="listItem" wx:for="{{InsulinList}}" wx:key="index" wx:if="{{item.week}}">
                 <view class="item_content">
                     <view class="content_duration">
                         <text>{{item.week}}</text>
@@ -28,29 +28,11 @@
                 </view>
                 <view class="item_partLength" wx:for="{{item.items}}" wx:for-item="C" wx:for-index="D" wx:key="D">
                     <text>{{C.periodValue}}：{{C.value}}U(类型：{{C.categoryValue}})</text>
-                    <!-- <text>午餐前：0U</text>
-                    <text>晚餐前：0U</text>
-                    <text>睡前：0U</text> -->
                 </view>
             </view>
-            <!-- <view class="listItem">
-                <view class="item_content">
-                    <view class="content_duration">
-                        <text>孕28周+1天</text>
-                        <text class="content_date">2020-02-21</text>
-                    </view>
-                    <view class="content_fetalWeight">
-                        <text class="thisFetalWeight">1U</text>
-                        <text class="content_recording">总量</text>
-                    </view>
-                </view>
-                <view class="item_partLength">
-                    <text>早餐前：1U(类型：精蛋白生物合成)</text>
-                    <text>午餐前：0U</text>
-                    <text>晚餐前：0U</text>
-                    <text>睡前：0U</text>
-                </view>
-            </view> -->
+            <view style=" text-align: center;margin: 150rpx auto;" wx:if="{{!InsulinList[0].date}}">
+                暂无记录
+            </view>
         </view>
         <!-- 胰岛素泵 -->
         <view class="pageContainer" wx:if="{{InsulinPump}}">
@@ -74,6 +56,9 @@
                     </view>
                 </view>
             </view>
+            <view style=" text-align: center;margin: 150rpx auto;" wx:if="{{!InsulinPumpList[0].date}}">
+                暂无记录
+            </view>
         </view>
         <!-- 按孕周显示内容 -->
         <view class="TableContent" wx:if="{{GaShow}}">
@@ -81,6 +66,9 @@
                 <view class="columns" wx:for="{{item.columns}}" wx:for-item="s" wx:for-index="d" wx:key="d">
                     <view class="valuew">{{s.value}}</view>
                 </view>
+            </view>
+            <view style=" text-align: center;margin: 150rpx auto;" wx:if="{{!InsulinListByWeek[0].columns[0].value}}">
+                暂无记录
             </view>
         </view>
     </view>

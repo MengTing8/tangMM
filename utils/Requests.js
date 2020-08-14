@@ -3,6 +3,7 @@
   * successCb 
   */
  function login(successCb) {
+     console.log(successCb);
      let code = ''
      wx.login({
          success: function (res) {
@@ -10,6 +11,7 @@
              wx.getSetting({
                  success: res => {
                      if (res.authSetting['scope.userInfo']) {
+                         console.log("有授权");
                          wx.getUserInfo({
                              success: res => {
                                  let RequestObjs = {
@@ -26,11 +28,7 @@
                                          }]
                                      }
                                  }
-                                 //  wx.showLoading({
-                                 //      title: '努力加载中...',
-                                 //  })
                                  promiseRequest(RequestObjs).then((res) => {
-                                     //  wx.hideLoading()
                                      if (res.data.code == "0") {
                                          let promiseQueue = app.globalData.promiseQueue;
                                          let userType = res.data.data[0].userType
@@ -54,16 +52,15 @@
                                      }
 
                                  }).catch((errMsg) => {
-                                     //  wx.hideLoading()
                                      console.log(errMsg); //错误提示信息
                                  });
-                                 //  wx.hideLoading()
                              }
                          })
                      }else{
-                        //  wx.reLaunch({
-                        //      url: '/pages/index/index'
-                        //  })
+                         console.log("未授权");
+                         wx.reLaunch({
+                             url: '/pages/index/index'
+                         })
                      }
                  }
              })
@@ -98,17 +95,15 @@
      let apiUrl = 'https://aaron.astraia.com.cn'
      return new Promise((resolve, reject) => {
           if (!requestObj.data.token && requestObj.data.function !== 'mpLogin') {
-              console.log("getl");
               login(requestObj)
                 return
-          } else {
+          }
          //网络请求
          wx.request({
              url: apiUrl + requestObj.url,
              method: requestObj.method,
              data: JSON.stringify(requestObj.data),
              success: function (res) {
-                 //  wx.hideLoading()
                  let promiseQueue = app.globalData.promiseQueue;
                  if (res.data.code == '0') {
                      if (requestObj.resolve) { //如果是promise队列中的请求。
@@ -154,12 +149,11 @@
                  }
              },
              error: function (e) {
+                 console.log(e);
                  //  wx.hideLoading()
                  reject(e);
              }
          })
-     }
-
      });
  }
  module.exports = {
