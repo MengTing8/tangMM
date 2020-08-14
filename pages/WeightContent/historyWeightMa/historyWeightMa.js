@@ -78,7 +78,7 @@ Page({
         let date = e.detail.date
         if (checkTime(NewData.dateStart, date)) {
              NewData.EndDATE = val;
-             NewData.EndValue = date;
+             NewData.dateEnd = date;
             this.setData({
                 TimeObj: NewData,
                 CurrentShowDate: false,
@@ -101,20 +101,16 @@ Page({
                 }]
             }
         }).then(res => {
-            console.log(res, "按日期查询");
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
                 for (let key in ResData.items) {
                     ResData.items[key].date = moment(ResData.items[key].date).format('YYYY年MM月DD日')
-
                 }
                 self.setData({
                     RecordList: ResData.items,
                     bmi: ResData.bmi,
                     target: ResData.target,
                 })
-
-
             } else {
                 wx.showToast({
                     title: res.data.message,
@@ -137,20 +133,16 @@ Page({
                 }]
             }
         }).then(res => {
-            console.log(res, "孕周");
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
                 for (let key in ResData.items) {
                     ResData.items[key].date = moment(ResData.items[key].date).format('YYYY年MM月DD日')
-
                 }
                 self.setData({
                     RecordList: ResData.items,
                     bmi: ResData.bmi,
                     target: ResData.target,
                 })
-
-
             } else {
                 wx.showToast({
                     title: res.data.message,

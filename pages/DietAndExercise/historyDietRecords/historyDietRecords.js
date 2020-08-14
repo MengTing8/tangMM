@@ -46,44 +46,55 @@ Page({
         legendList1: [],
         legendList2: [],
     },
+    handlePreviewImage(e) {
+        const {
+            pindex, ind,d
+        } = e.currentTarget.dataset;
+        const urls = this.data.historyFootList[ind].children[d].photo.map(v => v.url);
+        const current = urls[pindex];
+        wx.previewImage({
+            current,
+            urls
+        });
+    },
     getDietList() {
         let _that = this
         promiseRequest({
-                method: "POST",
-                url: '/wxrequest',
-                data: {
-                    "token": wx.getStorageSync('token'),
-                    "function": "getDietList",
-                    "data": [{
-                        "dateStart": _that.data.TimeObj.dateStart,
-                        "dateEnd": _that.data.TimeObj.dateEnd
-                    }]
-                }
-            }).then((res) => {
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "getDietList",
+                "data": [{
+                    "dateStart": _that.data.TimeObj.dateStart,
+                    "dateEnd": _that.data.TimeObj.dateEnd
+                }]
+            }
+        }).then((res) => {
             if (res.data.code === '0') {
                 let ResData = res.data.data
                 let newData = []
                 let flag
                 let arr = Object.keys(ResData[0]);
-                 if (arr.length !== 0) {
-                      ResData.forEach((item) => {
-                          item.forEach(i => {
-                              flag = newData.find(item1 => item1.date === i.date)
-                              if (!flag) {
-                                  newData.push({
-                                      date: i.date,
-                                      children: [i]
-                                  })
-                              } else {
-                                  flag.children.push(i)
-                              }
-                          })
-                      })
-                      _that.setData({
-                          historyFootList: newData,
-                      })
-                 }
-                     
+                if (arr.length !== 0) {
+                    ResData.forEach((item) => {
+                        item.forEach(i => {
+                            flag = newData.find(item1 => item1.date === i.date)
+                            if (!flag) {
+                                newData.push({
+                                    date: i.date,
+                                    children: [i]
+                                })
+                            } else {
+                                flag.children.push(i)
+                            }
+                        })
+                    })
+                    _that.setData({
+                        historyFootList: newData,
+                    })
+                }
+
             } else {
                 wx.showToast({
                     title: res.data.message,
@@ -113,8 +124,8 @@ Page({
         let val = e.detail.value
         let date = e.detail.date
         if (checkTime(NewData.dateStart, date)) {
-             NewData.EndDATE = val;
-             NewData.dateEnd = date;
+            NewData.EndDATE = val;
+            NewData.dateEnd = date;
             this.setData({
                 TimeObjChart: NewData
             })
@@ -126,8 +137,8 @@ Page({
         let val = e.detail.value
         let date = e.detail.date
         if (checkTime(date, NewData.dateEnd)) {
-              NewData.StarDATE = val;
-              NewData.dateStart = date;
+            NewData.StarDATE = val;
+            NewData.dateStart = date;
             this.setData({
                 TimeObj: NewData
             })
@@ -139,8 +150,8 @@ Page({
         let val = e.detail.value
         let date = e.detail.date
         if (checkTime(NewData.dateStart, date)) {
-             NewData.EndDATE = val;
-             NewData.dateEnd = date;
+            NewData.EndDATE = val;
+            NewData.dateEnd = date;
             this.setData({
                 TimeObj: NewData
             })

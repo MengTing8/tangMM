@@ -16,7 +16,6 @@
                                      method: "POST",
                                      url: '/wxrequest',
                                      data: {
-                                         "token": wx.getStorageSync('token'),
                                          'function': 'mpLogin',
                                          'data': [{
                                              'code': code,
@@ -76,7 +75,6 @@
  /**
   * 封装的promise
   * 参数： requestObj 请求成功回调
-  * throwError: true|false  如果传true则不判断code直接执行requestObj。否则code为100000时提示网络异常
   */
  const app = getApp()
  const promiseRequest = (requestObj) => {
@@ -90,15 +88,20 @@
          }
      }
      for (const key in DataArr) {
-         if (DataArr[key].rowMd5 == '' || DataArr[key].rowMd5 == null || DataArr[key].rowMd5 == undefined) {
+         if (!DataArr[key].rowMd5) {
              delete DataArr[key].rowMd5
          }
-         if (DataArr[key].id == '' || DataArr[key].id == null || DataArr[key].id == undefined) {
+         if (!DataArr[key].id) {
              delete DataArr[key].id
          }
      }
      let apiUrl = 'https://aaron.astraia.com.cn'
      return new Promise((resolve, reject) => {
+          if (!requestObj.data.token && requestObj.data.function !== 'mpLogin') {
+              console.log("getl");
+              login(requestObj)
+                return
+          } else {
          //网络请求
          wx.request({
              url: apiUrl + requestObj.url,
@@ -143,11 +146,11 @@
                      login(requestObj)
                  } else {
                      resolve(res);
-                     wx.showToast({
-                         title: res.data.message,
-                         icon: 'none',
-                         duration: 2000
-                     })
+                    //  wx.showToast({
+                    //      title: res.data.message,
+                    //      icon: 'none',
+                    //      duration: 2000
+                    //  })
                  }
              },
              error: function (e) {
@@ -155,6 +158,8 @@
                  reject(e);
              }
          })
+     }
+
      });
  }
  module.exports = {

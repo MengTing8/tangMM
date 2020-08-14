@@ -12,7 +12,7 @@
                         </view>
                         <view class="PhotoList">
                             <view class="PhotoShwoContent" wx:for="{{c.photo}}" wx:for-item="p" wx:for-index="h" wx:key="h" wx:if="{{p.url}}">
-                                <image class="uploaderPhoto" mode="widthFix" src="{{p.url}}" />
+                                <image class="uploaderPhoto" mode="widthFix" src="{{p.url}}" bind:tap="handlePreviewImage"data-pindex="{{h}}" data-ind="{{index}}" data-d="{{d}}"/>
                             </view>
                         </view>
                     </view>

@@ -29,6 +29,7 @@ Page({
         // }
     },
     getUserInfo: function (e) {
+         wx.clearStorageSync()
         let code=''
         app.globalData.userInfo = e.detail.userInfo
          wx.login({
@@ -55,20 +56,20 @@ Page({
                            wx.setStorageSync('userType', userType)
                            if (userType == -2) {
                                // -2 ：未绑定手机用户
-                               wx.redirectTo ({
+                               wx.reLaunch({
                                    url: '../tiedCard/tiedCard?tabsItem=' + 0
                                })
                            } else if (userType == -1) {
                                // -1 = 未绑定诊疗卡用户
-                               wx.redirectTo ({
+                               wx.reLaunch({
                                    url: '../tiedCard/tiedCard?tabsItem=' + 1
                                })
                            } else if (userType == 2) {
-                               wx.redirectTo ({
+                               wx.reLaunch({
                                    url: '../MyRecord/MyRecord'
                                })
                            } else if (userType == 1) {
-                               wx.redirectTo ({
+                               wx.reLaunch({
                                    url: '../MedicalCare/index/index'
                                })
                            }
