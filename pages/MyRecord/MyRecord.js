@@ -32,7 +32,7 @@ Page({
         } else if (code == '2') {
             // 基础数据
             URL = '../basicdata/basicdata'
-        } else if (code =='3') {
+        } else if (code == '3') {
             // 妈妈空腹体重
             // URL = '../weightMa/weightMa'
             URL = '../WeightContent/weightMa/weightMa?gestationalWeek=' + gestationalWeek
@@ -45,7 +45,7 @@ Page({
         } else if (code == '6') {
             // 运动记录
             URL = '../DietAndExercise/sportsRecord/sportsRecord'
-        } else if (code =='7') {
+        } else if (code == '7') {
             // 血糖
             URL = '../BloodSugarRecord/BloodSugarRecord'
         } else if (code == '8') {
@@ -69,7 +69,7 @@ Page({
     //获取我的记录
     getMyRecord() {
         let self = this
-        let requestObj = {
+        promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
@@ -77,8 +77,7 @@ Page({
                 "function": "getMyRecord",
                 "data": []
             }
-        };
-        promiseRequest(requestObj).then((res) => {
+        }).then((res) => {
             console.log(res);
             if (res.data.code === '0') {
                 if (res.data.data.length > 0) {
@@ -118,9 +117,9 @@ Page({
      */
     onLoad: function (options) {
 
-        this.setData({
-            userType: options.userType
-        })
+        // this.setData({
+        //     userType: options.userType
+        // })
     },
 
     /**
@@ -135,7 +134,9 @@ Page({
      */
     onShow: function () {
         this.getMyRecord()
-        wx.hideHomeButton()
+        if (wx.canIUse('hideHomeButton')) {
+            wx.hideHomeButton()
+        }
         // const token = wx.getStorageSync('token');
         // const userType = wx.getStorageSync('userType')
         // if (!token) {

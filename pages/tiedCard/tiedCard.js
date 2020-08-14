@@ -188,9 +188,8 @@ Page({
                         icon: 'success',
                         duration: 3000
                     })
-                    wx.setStorageSync('userType', '2')
                     setTimeout(() => {
-                        wx.navigateTo({
+                        wx.reLaunch({
                             url: '../MyRecord/MyRecord'
                         })
                     }, 3000);
@@ -233,16 +232,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        // const userType = wx.getStorageSync('userType')
-        // if (userType == -1) {
-        //     setTimeout(() => {
-        //         wx.showToast({
-        //             title: "手机号已绑定",
-        //             icon: 'none',
-        //             duration: 2000
-        //         })
-        //     }, 2000);
-        // }
+       wx.hideHomeButton()
     },
 
     /**

@@ -17,7 +17,7 @@ Page({
         userInputConten: '',
         MessageList: [],
         scrollToView: '',
-        patientId: wx.getStorageSync('patientId')
+        // patientId:
 
     },
     getMessage() {
@@ -29,7 +29,7 @@ Page({
                 "token": wx.getStorageSync('token'),
                 "function": "getMessage",
                 "data": [{
-                    patientId: self.data.patientId
+                    patientId: wx.getStorageSync('patientId')
             }]}
         }).then(res => {
             if (res.data.code === '0') {
@@ -78,9 +78,9 @@ Page({
                     "function": "save",
                     "data": [{
                         "entity": "message",
-                        "patientId": self.data.patientId,
+                        "patientId": wx.getStorageSync('patientId'),
                         "text": self.data.userInputConten,
-                        "writtenBy": self.data.patientId,
+                        "writtenBy": wx.getStorageSync('patientId'),
                         "status": "1"
                     }]
                 }
