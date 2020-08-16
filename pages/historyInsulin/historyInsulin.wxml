@@ -52,7 +52,7 @@
                         {{period.periodValue}}：{{period.value}}U
                     </view>
                     <view wx:for="{{item.items2}}" wx:for-item="Time" wx:for-index="S" wx:key="S">
-                        {{Time.timeStart}}~{{Time.timeEnd}}：{{Time.value}}U
+                        {{Time.timeStart}}~{{Time.timeEnd}}:{{Time.value}},{{Time.value2}}U
                     </view>
                 </view>
             </view>
