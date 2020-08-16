@@ -71,7 +71,7 @@
                                         <view class="food_weight">
                                             <view class="food_weight_content">
                                                 <input class="weui-input" type="digit" value="{{item.value}}"  data-index="{{index}}" data-code="{{item.periodCode}}" data-id="{{item.id}}"  data-rowMd5="{{item.rowMd5}}" bindinput="bindMealValueInput" placeholder="请输入" placeholder-class="placeholder_class" />
-                                                <text>U/h</text>
+                                                <text>U</text>
                                             </view>
                                         </view>
                                     </view>

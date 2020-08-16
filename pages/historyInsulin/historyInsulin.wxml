@@ -8,9 +8,9 @@
                 <view class="typeItem {{  InsulinPump &&index==2? 'selectedItem' : ''}} " bind:tap="toggleType" data-index='2'>
                     胰岛素泵
                 </view>
-                <view class="typeItem  {{ GaShow &&index==3? 'selectedItem' : ''}}" bind:tap="toggleType" data-index='3'>
+                <!-- <view class="typeItem  {{ GaShow &&index==3? 'selectedItem' : ''}}" bind:tap="toggleType" data-index='3'>
                     按孕周
-                </view>
+                </view> -->
             </view>
         </view>
         <!-- 常规显示内容 -->

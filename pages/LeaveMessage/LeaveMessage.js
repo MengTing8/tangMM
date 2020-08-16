@@ -39,6 +39,11 @@ Page({
                     ResData[key].createdDateTime = ResData[key].createdDateTime.substring(0, 19)
                     }
                 }
+                if (ResData.length>0) {
+                    ResData.sort(function (a, b) {
+                        return a.createdDateTime > b.createdDateTime ? 1 : -1;
+                    });
+                }
                 self.setData({
                     MessageList: ResData,
                 })
