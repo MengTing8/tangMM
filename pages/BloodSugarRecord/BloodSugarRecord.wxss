@@ -14,7 +14,7 @@
     display: flex;
     align-items: center;
     height: 108rpx;
-    border-bottom: 2rpx solid #F6F6F6;
+    /* border-bottom: 2rpx solid #F6F6F6; */
     padding-right: 40rpx;
 }
 
@@ -23,8 +23,8 @@
     display: flex;
     align-items: center;
     height: 108rpx;
-    border-bottom: 2rpx solid #F6F6F6;
-    border-left: 2rpx solid #F6F6F6;
+    /* border-bottom: 2rpx solid #F6F6F6; */
+    /* border-left: 2rpx solid #F6F6F6; */
     padding: 0 36rpx 0 20rpx;
 
 }

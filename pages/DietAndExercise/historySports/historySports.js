@@ -67,7 +67,11 @@ Page({
             this.setData({
                 TimeObj: NewData
             })
-            this.getExerciseList()
+            if (this.data.selectedIndex == 0) {
+                this.getExerciseList()
+            } else {
+                this.getExerciseChart()
+            }
         }
     },
     bindEndTimeChange(e) {
@@ -80,7 +84,11 @@ Page({
             this.setData({
                 TimeObj: NewData
             })
-            this.getExerciseList()
+            if (this.data.selectedIndex == 0) {
+                this.getExerciseList()
+            } else {
+                this.getExerciseChart()
+            }
         }
     },
     handleTitleChange(e) {

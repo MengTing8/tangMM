@@ -1,6 +1,6 @@
 <Tabs bindtitleChange="handleTitleChange">
+     <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
     <view style="display:{{selectedIndex==1?'none':'block'}}"> 
-        <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
         <view class="bloodSugarInfoLIst">
             <view class="listCard" wx:for="{{BloodGlucoseList}}" wx:key="index" wx:if="{{item.date}}">
                 <view class="listCard_top">{{item.date}}</view>
@@ -18,7 +18,7 @@
         </view>
     </view>
     <view style="display:{{selectedIndex==0?'none':'block'}}">
-        <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
+        <!-- <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes> -->
         <view class="typeBtnContent">
             <view class="typeItemList">
                 <view wx:for="{{tagList}}" class="typeItem {{item.isSelected === '1'?'selectedItem':''}}" bindtap="selectTag" wx:key="index" data-code="{{item.code}}">

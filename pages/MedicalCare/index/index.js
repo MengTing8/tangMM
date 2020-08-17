@@ -159,7 +159,6 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.getNurse()
 
     },
 
@@ -174,6 +173,8 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
+        console.log('onShow--医务端');
+        this.getNurse()
         this.getGravida()
         wx.hideHomeButton()
     },

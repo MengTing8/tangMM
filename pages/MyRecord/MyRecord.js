@@ -117,9 +117,6 @@ Page({
      */
     onLoad: function (options) {
 
-        // this.setData({
-        //     userType: options.userType
-        // })
     },
 
     /**
@@ -133,28 +130,11 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
+        console.log('onShow--孕端');
         this.getMyRecord()
         if (wx.canIUse('hideHomeButton')) {
             wx.hideHomeButton()
         }
-        // const token = wx.getStorageSync('token');
-        // const userType = wx.getStorageSync('userType')
-        // if (!token) {
-        //     wx.redirectTo({
-        //         url: '/pages/index/index',
-        //     });
-        // }
-        // if (userType == -2) {
-        //     // -2 ：未绑定手机用户
-        //     wx.redirectTo({
-        //         url: '/pages/tiedCard/tiedCard?tabsItem=' + 0
-        //     })
-        // } else if (userType == -1) {
-        //     // -1 = 未绑定诊疗卡用户
-        //     wx.redirectTo({
-        //         url: '/pages/tiedCard/tiedCard?tabsItem=' + 1
-        //     })
-        // }
     },
 
     /**

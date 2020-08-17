@@ -163,9 +163,23 @@ Page({
         })
     },
     getPrevData() {
-        const prevDate = getDay(-1,this.data.dataTime)
-        this.getInsulin(prevDate)
-        this.getInsulinPump(prevDate)
+        let that=this
+          wx.showModal({
+              title: '提示',
+              content: "确定取前一天数据吗？",
+              success(res) {
+                  if (res.confirm) {
+                     const prevDate = getDay(-1, that.data.dataTime)
+                     if (that.data.TabsIndex==0) {
+                           that.getInsulin(prevDate)
+                     }else{
+                     that.getInsulinPump(prevDate)
+
+                     }
+                  } else if (res.cancel) {}
+              }
+          })
+        
     },
     getInsulin(date) {
         let self = this
@@ -184,7 +198,12 @@ Page({
             console.log(res, "普通");
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
+                let NewData = self.data.dateObj;
+                NewData.DateSelect = moment(ResData.date).format('YYYY年MM月DD日');
+                NewData.value = ResData.date;
                 self.setData({
+                    dateObj: NewData,
+                    dataTime: ResData.date,
                     InsulinData: ResData,
                     categoryValues: ResData.categoryValues,
                     periodValues: ResData.periodValues,
@@ -381,9 +400,13 @@ Page({
 
                     })
                 }
-
+                 var NewData = self.data.dateObj;
+                 NewData.DateSelect = moment(ResData.date).format('YYYY年MM月DD日');
+                 NewData.value =ResData.date;
                 self.setData({
                     mealItem: ResData.items1,
+                     dataTime: ResData.date,
+                     dateObj: NewData,
                     DeleteList: []
 
                 })
