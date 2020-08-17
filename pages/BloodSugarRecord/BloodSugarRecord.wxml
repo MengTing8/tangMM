@@ -5,7 +5,7 @@
         <image src="../../img/del.png" class="img" />
     </view>
     <view class="pickerContent">
-        <view class="itemBox_time">
+        <view class="item_time">
             <text class="itemBox_title">时间段</text>
             <view class="itemBox_content">
                 <view class="itemBox_date">
@@ -32,7 +32,7 @@
         <input type="text" value="{{item.periodExtraValue}}" data-index="{{index}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindExtraValueInput"/>
     </view>
     <view class="pickerContent">
-        <view class="itemBox_time">
+        <view class="item_time">
             <text class="itemBox_title">测量值</text>
             <view class="itemBox_content">
                 <view class="itemBox_date">
