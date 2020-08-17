@@ -181,9 +181,9 @@
                                 <text>职业</text>
                             </view>
                             <view class="textBox">
-                                <text>{{PatientInfo.occupationValue}}</text>
+                                <text>{{PatientInfo.occupationValue||''}}</text>
                                 <text style="font-size: 28rpx; color:#999999; margin-left: 36rpx;">
-                                    {{PatientInfo.occupationComment}}
+                                    {{PatientInfo.occupationComment||''}}
                                 </text>
                             </view>
                         </view>
@@ -262,8 +262,14 @@
                         <view class="cell" wx:if="{{PatientInfo.diabetesB4Gestation=='1'}}">
                             <view class="cell_title"></view>
                             <view class="textBox">
-                                <view>
-                                    {{PatientInfo.diabetesYearB4Gestation}}年
+                                <view>{{PatientInfo.diabetesYearB4Gestation}}年</view>
+                            </view>
+                        </view>
+                        <view class="cell" wx:if="{{PatientInfo.diabetesB4Gestation==1}}">
+                            <view class="cell_title"></view>
+                            <view class="textBox">
+                                <view class="">
+                                    {{PatientInfo.diabetesTypeB4GestationValue}}
                                 </view>
                             </view>
                         </view>

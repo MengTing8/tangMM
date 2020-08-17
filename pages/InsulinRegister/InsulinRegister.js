@@ -163,23 +163,23 @@ Page({
         })
     },
     getPrevData() {
-        let that=this
-          wx.showModal({
-              title: '提示',
-              content: "确定取前一天数据吗？",
-              success(res) {
-                  if (res.confirm) {
-                     const prevDate = getDay(-1, that.data.dataTime)
-                     if (that.data.TabsIndex==0) {
-                           that.getInsulin(prevDate)
-                     }else{
-                     that.getInsulinPump(prevDate)
+        let that = this
+        wx.showModal({
+            title: '提示',
+            content: "确定取前一天数据吗？",
+            success(res) {
+                if (res.confirm) {
+                    const prevDate = getDay(-1, that.data.dataTime)
+                    if (that.data.TabsIndex == 0) {
+                        that.getInsulin(prevDate)
+                    } else {
+                        that.getInsulinPump(prevDate)
 
-                     }
-                  } else if (res.cancel) {}
-              }
-          })
-        
+                    }
+                } else if (res.cancel) {}
+            }
+        })
+
     },
     getInsulin(date) {
         let self = this
@@ -228,7 +228,19 @@ Page({
         if (self.data.DeleteList.length > 0) {
             self.DeleteInsulinPump()
         }
-        let params = self.data.MealArray.concat(self.data.dosageArray);
+        const newArray = [];
+        for (const t of self.data.dosageArray) {
+            if (newArray.find(i => i.timeStart === t.timeStart && i.timeEnd === t.timeEnd)) {
+                   wx.showToast({
+                       title: "时间段重复",
+                       icon: 'none',
+                       duration: 2000
+                   })
+                return false;
+            }
+            newArray.push(t);
+        }
+        let params = self.data.MealArray.concat(newArray);
         promiseRequest({
             method: "POST",
             url: '/wxrequest',
@@ -400,13 +412,13 @@ Page({
 
                     })
                 }
-                 var NewData = self.data.dateObj;
-                 NewData.DateSelect = moment(ResData.date).format('YYYY年MM月DD日');
-                 NewData.value =ResData.date;
+                var NewData = self.data.dateObj;
+                NewData.DateSelect = moment(ResData.date).format('YYYY年MM月DD日');
+                NewData.value = ResData.date;
                 self.setData({
                     mealItem: ResData.items1,
-                     dataTime: ResData.date,
-                     dateObj: NewData,
+                    dataTime: ResData.date,
+                    dateObj: NewData,
                     DeleteList: []
 
                 })

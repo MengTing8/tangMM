@@ -300,3 +300,9 @@
     display: inline-block;
     width: 150rpx;
 }
+
+.imageUser {
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 50%;
+}
