@@ -130,17 +130,38 @@ Page({
             }).then(res => {
                 console.log(res);
                 if (res.data.code === '0') {
+                     let userType = res.data.data[0].userType
+                     wx.setStorageSync('userType', userType)
+                     if (userType == '-2') {
+                         // -2 ：未绑定手机用户
+                          setTimeout(() => {
+                              _that.setData({
+                                  currentTabsIndex: 0
+                              })
+                          }, 3000);
+                     } else if (userType == '-1') {
+                         // -1 = 未绑定诊疗卡用户
+                         setTimeout(() => {
+                             _that.setData({
+                                 currentTabsIndex: 1
+                             })
+                         }, 3000);
+                     } else if (userType == '2') {
+                         wx.reLaunch({
+                             url: '../MyRecord/MyRecord'
+                         })
+                     } else if (userType == '1') {
+                         wx.reLaunch({
+                             url: '../MedicalCare/index/index'
+                         })
+                     }
                     // 发送成功ses
                     wx.showToast({
                         title: '绑定成功',
                         icon: 'success',
                         duration: 3000
                     })
-                        setTimeout(() => {
-                            _that.setData({
-                                currentTabsIndex: 1
-                            })
-                        }, 3000);
+                        
                 } else {
                     wx.showToast({
                         title: res.data.message,

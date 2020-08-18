@@ -4,7 +4,7 @@
     请认真核对信息，以免影响您孕期信息的准确性
 </view>
 <view class="pageContainer">
-    <view class="basicInfo">
+    <view class="basicInfo">  
         <view class="headerTitle">
             <text>阶段</text>
             <view class="stageBox">

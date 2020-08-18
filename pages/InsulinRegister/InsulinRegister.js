@@ -3,7 +3,8 @@ const {
 } = require("../../utils/Requests")
 const {
     getDates,
-    getDay
+    getDay,
+    sortFun, contrastTime
 } = require("../../utils/util")
 const moment = require('../../utils/moment.min.js');
 const tips = {
@@ -33,29 +34,8 @@ Page({
         },
         dataTime: date[0].time,
         TabsIndex: 0,
-        dosageArray: [{
-            entity: "insulinPump",
-            patientId: wx.getStorageSync('patientId'),
-            date: date[0].time,
-            type: 2,
-            status: 1,
-            id: '',
-            rowMd5: '',
-            timeStart: '',
-            timeEnd: '',
-            value: ''
-        }],
-        MealArray: [{
-            entity: "insulin",
-            patientId: wx.getStorageSync('patientId'),
-            date: date[0].time,
-            type: 2,
-            status: 1,
-            id: '',
-            rowMd5: '',
-            periodCode: '',
-            value: ''
-        }],
+        dosageArray: [],
+        MealArray: [],
         DeleteList: [],
         userData: [{
             periodCode: '',
@@ -170,6 +150,13 @@ Page({
             success(res) {
                 if (res.confirm) {
                     const prevDate = getDay(-1, that.data.dataTime)
+                    let NewData = that.data.dateObj;
+                    NewData.DateSelect = moment(prevDate).format('YYYY年MM月DD日');
+                    NewData.value = prevDate;
+                    that.setData({
+                        dateObj: NewData,
+                        dataTime: prevDate
+                    })
                     if (that.data.TabsIndex == 0) {
                         that.getInsulin(prevDate)
                     } else {
@@ -198,12 +185,7 @@ Page({
             console.log(res, "普通");
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
-                let NewData = self.data.dateObj;
-                NewData.DateSelect = moment(ResData.date).format('YYYY年MM月DD日');
-                NewData.value = ResData.date;
                 self.setData({
-                    dateObj: NewData,
-                    dataTime: ResData.date,
                     InsulinData: ResData,
                     categoryValues: ResData.categoryValues,
                     periodValues: ResData.periodValues,
@@ -230,12 +212,35 @@ Page({
         }
         const newArray = [];
         for (const t of self.data.dosageArray) {
+            if (!t.timeStart) {
+                wx.showToast({
+                    title: '请选择开始时间',
+                    icon: 'none',
+                    duration: 2000
+                })
+                return false;
+            } else if (!t.timeEnd) {
+                wx.showToast({
+                    title: '请选择结束时间',
+                    icon: 'none',
+                    duration: 2000
+                })
+                return false;
+            } else if (!t.value) {
+                wx.showToast({
+                    title: '请输入剂量',
+                    icon: 'none',
+                    duration: 2000
+                })
+                return false;
+            }
+            console.log(t);
             if (newArray.find(i => i.timeStart === t.timeStart && i.timeEnd === t.timeEnd)) {
-                   wx.showToast({
-                       title: "时间段重复",
-                       icon: 'none',
-                       duration: 2000
-                   })
+                wx.showToast({
+                    title: "时间段重复",
+                    icon: 'none',
+                    duration: 2000
+                })
                 return false;
             }
             newArray.push(t);
@@ -287,17 +292,7 @@ Page({
                 let NewMealArray = self.data.MealArray
                 let NewDosageArray = self.data.dosageArray
                 if (ResData.items1[0].id) {
-                    NewMealArray = [{
-                        entity: "insulin",
-                        patientId: wx.getStorageSync('patientId'),
-                        date: self.data.dataTime,
-                        type: 2,
-                        status: 1,
-                        id: '',
-                        rowMd5: '',
-                        periodCode: '',
-                        value: ''
-                    }]
+                    NewMealArray = []
                     for (const key in ResData.items1) {
                         if (ResData.items1[key].id && ResData.items1[key].rowMd5) {
                             if (!NewMealArray[key]) {
@@ -320,23 +315,13 @@ Page({
                         }
                     }
                 } else {
-                    NewMealArray = [{
-                        entity: "insulin",
-                        patientId: wx.getStorageSync('patientId'),
-                        date: self.data.dataTime,
-                        type: 2,
-                        status: 1,
-                        id: '',
-                        rowMd5: '',
-                        periodCode: '',
-                        value: ''
-                    }]
-                    self.setData({
-                        MealArray: NewMealArray,
-                        DeleteList: []
-                    })
+                    NewMealArray = []
                 }
-
+                ResData.items1.sort(sortFun(`periodCode`))
+                self.setData({
+                    MealArray: NewMealArray,
+                    DeleteList: []
+                })
                 if (ResData.items2.length > 0) {
                     NewDosageArray = [{
                         entity: "insulinPump",
@@ -352,7 +337,6 @@ Page({
                     }]
                     for (const key in ResData.items2) {
                         if (ResData.items2[key].id && ResData.items2[key].rowMd5) {
-
                             if (!NewDosageArray[key]) {
                                 NewDosageArray.push({
                                     entity: "insulinPump",
@@ -394,31 +378,16 @@ Page({
                         timeEnd: '',
                         value: ''
                     }]
-                    NewMealArray = [{
-                        entity: "insulin",
-                        patientId: wx.getStorageSync('patientId'),
-                        date: self.data.dataTime,
-                        type: 2,
-                        status: 1,
-                        id: '',
-                        rowMd5: '',
-                        periodCode: '',
-                        value: ''
-                    }]
                     self.setData({
-                        MealArray: NewMealArray,
+                        MealArray: [],
                         dosageArray: NewDosageArray,
                         DeleteList: []
 
                     })
                 }
-                var NewData = self.data.dateObj;
-                NewData.DateSelect = moment(ResData.date).format('YYYY年MM月DD日');
-                NewData.value = ResData.date;
+
                 self.setData({
                     mealItem: ResData.items1,
-                    dataTime: ResData.date,
-                    dateObj: NewData,
                     DeleteList: []
 
                 })
@@ -537,32 +506,53 @@ Page({
     },
     bindMealValueInput(e) {
         let self = this
-
         let {
             code,
-            index,
             rowmd5,
             id
         } = e.target.dataset
-        var newArr = this.data.MealArray
-        var dataObj = e.detail.value;
-        if (!newArr[index]) {
+        let val = e.detail.value;
+
+        var newArr = self.data.MealArray
+        let codeArr = []
+        newArr.forEach(item => {
+            codeArr.push(item.periodCode)
+        })
+        let key = codeArr.indexOf(code)
+        if (codeArr.includes(code)) {
+            newArr[key].value = val
+            newArr[key].periodCode = code
+            newArr[key].rowMd5 = rowmd5
+            newArr[key].id = id
+            if (!newArr[codeArr.indexOf(code)].value) {
+                if (id && rowmd5) {
+                    let NewList = self.data.DeleteList
+                    NewList.push({
+                        entity: "insulin",
+                        id: id,
+                        rowMd5: rowmd5,
+                    })
+                    self.setData({
+                        DeleteList: NewList
+                    })
+                }
+                newArr.splice(codeArr.indexOf(code), 1)
+                codeArr.splice(codeArr.indexOf(code), 1)
+            }
+        } else {
             newArr.push({
                 entity: "insulin",
                 patientId: wx.getStorageSync('patientId'),
                 date: self.data.dataTime,
                 type: 2,
                 status: 1,
-                id: '',
-                rowMd5: '',
-                periodCode: '',
-                value: ''
+                id: id,
+                rowMd5: rowmd5,
+                periodCode: code,
+                value: val
             })
         }
-        newArr[index].value = dataObj
-        newArr[index].periodCode = code
-        newArr[index].rowMd5 = rowmd5
-        newArr[index].id = id
+
         this.setData({
             MealArray: newArr
         })
@@ -573,19 +563,24 @@ Page({
         let newArray = this.data.dosageArray
         let dataObj = e.detail.value;
         newArray[index].timeStart = dataObj
-        this.setData({
-            dosageArray: newArray
-        })
+        if (contrastTime(dataObj, newArray[index].timeEnd)) {
+            this.setData({
+                dosageArray: newArray
+            })
+        }
+        
     },
     //时间选择器
     bindEndTimeChange: function (e) {
         let index = Number(e.target.dataset.index)
         let newArray = this.data.dosageArray
-        let dataObj = e.detail.value;
+        let dataObj = e.detail.value;  
         newArray[index].timeEnd = dataObj
-        this.setData({
-            dosageArray: newArray
-        })
+        if(contrastTime(newArray[index].timeStart, dataObj)){
+           this.setData({
+               dosageArray: newArray
+           })
+        }
     },
     //输入框绑定
     bindDosageInput(e) {

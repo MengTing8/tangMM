@@ -44,6 +44,7 @@ function getDates(days, todate) {
 }
 
 function checkTime(startTime, endTime) {
+    console.log(startTime, endTime);
     if (startTime.length > 0 && endTime.length > 0) {
         var startTmp = startTime.split("-");
         var endTmp = endTime.split("-");
@@ -60,7 +61,20 @@ function checkTime(startTime, endTime) {
     }
     return true;
 }
-
+function contrastTime(begin, end) {
+    var d = new Date();
+    var str = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate(); //获取当前实际日期
+    var difference = (Date.parse(str + ' ' + end) - Date.parse(str + ' ' + begin)) / 1000 / 60; //利用时间戳算出相差的分钟
+     if (difference<=0) {
+         wx.showToast({
+             title: "开始时间不能大于结束时间",
+             icon: 'none',
+             duration: 2000
+         })
+         return false;
+     }
+    return true;
+}
 function dateLater(dates, later) {
     let dateObj = {};
     let show_day = new Array('星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六');
@@ -186,5 +200,6 @@ module.exports = {
     getDay: getDay,
     sortFun:sortFun,
     getPickerValue: getPickerValue,
-    getAge: getAge
+    getAge: getAge,
+    contrastTime: contrastTime
 }

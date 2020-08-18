@@ -234,7 +234,6 @@ Page({
         })
     },
     bindCategoryChange(e) {
-
         let self = this
         let {
             periodcode,

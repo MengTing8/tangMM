@@ -48,7 +48,7 @@ Page({
         legendList: [],
         tagList: [],
         selectedTagList: ['0'],
-        InsulinListByWeek:[]
+        InsulinListByWeek: []
     },
     getInsulinPumpList() {
         let self = this
@@ -165,7 +165,7 @@ Page({
         } = e.detail;
         if (index === 1) {
             this.getInsulinChartByWeek()
-        }else{
+        } else {
             // if (this.data.index == '1') {
             //     this.getInsulinList()
             // } else if (this.data.index == '2') {
@@ -361,8 +361,8 @@ Page({
         let val = e.detail.value
         let date = e.detail.date
         if (checkTime(NewData.dateStart, date)) {
-             NewData.EndDATE = val;
-             NewData.dateEnd = date;
+            NewData.EndDATE = val;
+            NewData.dateEnd = date;
             this.setData({
                 TimeObj: NewData,
                 CurrentShowDate: false,

@@ -18,8 +18,8 @@
             </view>
         </view>
         <view class="movemrntRecord_content_List">
+                            <!-- 普通 -->
             <view class="" hidden="{{TabsIndex !==0}}">
-                <!-- 普通 -->
                 <view class="ordinary">
                     <view class="header">
                         <view class="item">

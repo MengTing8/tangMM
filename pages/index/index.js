@@ -71,21 +71,21 @@ Page({
                            let DataArr = res.data.data[0]
                            wx.setStorageSync('token', DataArr.token)
                            wx.setStorageSync('userType', userType)
-                           if (userType == -2) {
+                           if (userType == '-2') {
                                // -2 ：未绑定手机用户
                                wx.reLaunch({
                                    url: '../tiedCard/tiedCard?tabsItem=' + 0
                                })
-                           } else if (userType == -1) {
+                           } else if (userType == '-1') {
                                // -1 = 未绑定诊疗卡用户
                                wx.reLaunch({
                                    url: '../tiedCard/tiedCard?tabsItem=' + 1
                                })
-                           } else if (userType == 2) {
+                           } else if (userType =='2') {
                                wx.reLaunch({
                                    url: '../MyRecord/MyRecord'
                                })
-                           } else if (userType == 1) {
+                           } else if (userType == '1') {
                                wx.reLaunch({
                                    url: '../MedicalCare/index/index'
                                })
