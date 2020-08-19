@@ -33,7 +33,7 @@ Page({
         },
         legendList: null,
         tagList: [],
-        selectedTagList: ['0']
+        selectedTagList: []
     },
     getBloodGlucoseList() {
         let self = this
@@ -129,6 +129,7 @@ Page({
                 }]
             }
         }).then(res => {
+
             if (res.data.code === '0') {
                 let color = JSON.parse(res.data.data[0].color);
                 let option = JSON.parse(res.data.data[0].option);
@@ -153,11 +154,17 @@ Page({
                 let tagList = res.data.data[0].tags.sort((a, b) => {
                     return a.sequence - b.sequence
                 })
-
+                let selectedTagList = []
+                tagList.forEach(element => {
+                    if (element.isSelected=='1') {
+                        selectedTagList.push(element.code)
+                    }
+                });
                 this.setData({
                     legendList1: res.data.data[0].legend1,
                     legendList2: res.data.data[0].legend2,
-                    tagList
+                    tagList,
+                    selectedTagList
                 })
                 this.init_echarts(option)
             } else {
@@ -182,6 +189,7 @@ Page({
         });
     },
     selectTag(e) {
+        console.log(e);
         const code = e.currentTarget.dataset.code
         let selectedTagList = this.data.selectedTagList
         let index = selectedTagList.findIndex((x) => {
@@ -193,7 +201,7 @@ Page({
         } else {
             selectedTagList.splice(index, 1)
         }
-
+console.log(selectedTagList);
         this.getGLUChart()
     },
     onLoad: function (options) {

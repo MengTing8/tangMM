@@ -42,10 +42,7 @@ function getDates(days, todate) {
     return dateArry;
     //返回日期和星期
 }
-
 function checkTime(startTime, endTime) {
-    console.log(startTime);
-    console.log(endTime);
     if (startTime.length > 0 && endTime.length > 0) {
         var startTmp = startTime.split("-");
         var endTmp = endTime.split("-");
