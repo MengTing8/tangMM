@@ -19,7 +19,7 @@
                         <view class="food_name">{{f.name}}</view>
                         <view class="food_weight">
                             <view class="food_weight_content">
-                                <input id="point{{f.code}}" class="weui-input" type="digit" value="{{f.value}}" data-index="{{d}}" data-index1='{{btnnum}}' data-code="{{f.code}}" data-name="{{f.name}}" bindinput="bindFoodValueInput" placeholder="请输入" placeholder-class="placeholder_class" />
+                                <input class="weui-input" type="digit" value="{{f.value}}" data-index="{{d}}" data-index1='{{btnnum}}' data-code="{{f.code}}" data-name="{{f.name}}" bindinput="bindFoodValueInput" placeholder="请输入" placeholder-class="placeholder_class" />
                                 <text>g</text>
                             </view>
                         </view>
@@ -36,8 +36,8 @@
 <view class="content" wx:if="{{!ShowTab}}">
     <view class="footContent">
         <view class="footList" wx:for="{{SearchFoodList}}" wx:for-item="C" wx:key="c">
-            <view class="classNameFoot unifyFont">{{C.foodType}}</view>
-            <view class="footItem" wx:for="{{C.nafoodChildrenme}}" wx:for-item="s" wx:for-index="x" wx:key="index" bind:tap="bindSearchFood" data-foodCode='{{C.foodCode}}' data-id="{{s.code}}">
+            <view class="classNameFoot unifyFont">{{C.groupValue}}</view>
+            <view class="footItem" wx:for="{{C.foodValues}}" wx:for-item="s" wx:for-index="x" wx:key="index" bind:tap="bindSearchFood" data-groupCode='{{C.groupCode}}' data-groupValue="{{C.groupValue}}" data-item="{{s}}">
                 <view class="footName">{{s.name}}</view>
                 <view class="rightArrow"></view>
             </view>

@@ -189,19 +189,16 @@ Page({
         });
     },
     selectTag(e) {
-        console.log(e);
         const code = e.currentTarget.dataset.code
         let selectedTagList = this.data.selectedTagList
         let index = selectedTagList.findIndex((x) => {
             return x === code
         })
-
         if (index === -1) {
             selectedTagList.push(code)
         } else {
             selectedTagList.splice(index, 1)
         }
-console.log(selectedTagList);
         this.getGLUChart()
     },
     onLoad: function (options) {

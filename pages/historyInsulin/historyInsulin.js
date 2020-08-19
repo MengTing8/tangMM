@@ -47,7 +47,7 @@ Page({
         InsulinPumpList: [],
         legendList: [],
         tagList: [],
-        selectedTagList: ['0'],
+        selectedTagList: [],
         InsulinListByWeek: []
     },
     getInsulinPumpList() {
@@ -235,10 +235,16 @@ Page({
                 let tagList = res.data.data[0].tags.sort((a, b) => {
                     return a.sequence - b.sequence
                 })
-
+                let selectedTagList = []
+                tagList.forEach(element => {
+                    if (element.isSelected == '1') {
+                        selectedTagList.push(element.code)
+                    }
+                });
                 this.setData({
                     legendList: res.data.data[0].legend,
-                    tagList
+                    tagList,
+                    selectedTagList
                 })
                 this.init_echarts(option)
             } else {
@@ -291,14 +297,19 @@ Page({
                         }
                     }
                 }
-
                 let tagList = res.data.data[0].tags.sort((a, b) => {
                     return a.sequence - b.sequence
                 })
-
+                let selectedTagList = []
+                tagList.forEach(element => {
+                    if (element.isSelected == '1') {
+                        selectedTagList.push(element.code)
+                    }
+                });
                 this.setData({
                     legendList: res.data.data[0].legend,
-                    tagList
+                    tagList,
+                    selectedTagList
                 })
                 this.init_echarts(option)
             } else {

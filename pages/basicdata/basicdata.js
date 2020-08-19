@@ -2,7 +2,7 @@
       promiseRequest
   } = require("../../utils/Requests")
   const {
-      getDates
+      getDates, deepCopy
   } = require("../../utils/util")
   const moment = require('../../utils/moment.min.js');
   let date = getDates(1, new Date());
@@ -127,7 +127,7 @@
               self.requestSave([self.data.baseData])
               return false;
           } else {
-              let params = self.deepCopy(NewData)
+              let params =deepCopy(NewData)
               params.push(self.data.baseData)
               self.requestSave(params)
               return false;
@@ -391,19 +391,7 @@
               baseData: NewObj
           })
       },
-      deepCopy(checkArr) {
-          var result = Array.isArray(checkArr) ? [] : {};
-          for (var key in checkArr) {
-              if (checkArr.hasOwnProperty(key)) {
-                  if (typeof checkArr[key] === "object" && checkArr[key] !== null) {
-                      result[key] = this.deepCopy(checkArr[key]);
-                  } else {
-                      result[key] = checkArr[key];
-                  }
-              }
-          }
-          return result;
-      },
+     
       /**
        * 生命周期函数--监听页面加载
        */

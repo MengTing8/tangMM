@@ -1,6 +1,9 @@
 const {
     promiseRequest
 } = require("../../../utils/Requests")
+const {
+    deepCopy
+} = require("../../../utils/util")
 Page({
 
     /**
@@ -10,6 +13,8 @@ Page({
         btnnum: 1,
         ShowTab: true,
         SearchFoodList: [],
+        SearchIndex: '',
+        SearchItem: [],
         SearchValue: "",
         active: 1,
         inputCode1: true,
@@ -24,9 +29,8 @@ Page({
     },
     Tabchange(event) {
         var singleNavWidth = this.data.windowWidth / 5;
-        let {
-            index
-        } = event.currentTarget.dataset
+        let {index} = event.currentTarget.dataset
+        let TabList = this.data.TabList
         this.setData({
             navScrollLeft: (index - 2) * singleNavWidth
         })
@@ -37,39 +41,56 @@ Page({
                 btnnum: index
             })
         }
+        if (this.data.btnnum == this.data.SearchIndex) {
+            TabList[this.data.SearchIndex].foodValues = this.data.SearchItem
+            this.setData({
+                TabList
+            })
+        }
     },
     bindSearchFood(e) {
         let that = this
         let {
-            foodcode,
-            id
+            groupcode,
+            groupvalue,
+            item
         } = e.currentTarget.dataset
-        let item = that.data.TabList
+        let newTabList = that.data.TabList
         let index = ''
-        for (const key in item) {
-            let items = item[key]
-            if (items.groupCode.indexOf(foodcode) !== -1) {
+        for (const key in newTabList) {
+            let items = newTabList[key]
+            if (items.groupCode.indexOf(groupcode) !== -1) {
                 index = key
             }
         }
+        let Arrs = deepCopy(newTabList[index].foodValues)
+
+        newTabList[index].foodValues = [item]
+        newTabList[index].groupValue = groupvalue
+        newTabList[index].groupCode = groupcode
         if (index !== '') {
+            var singleNavWidth = that.data.windowWidth / 5;
             that.setData({
+                navScrollLeft: (index - 2) * singleNavWidth,
                 btnnum: Number(index),
                 ShowTab: true,
-                SearchValue: ""
+                SearchValue: "",
+                TabList: newTabList,
+                SearchIndex: index,
+                SearchItem: Arrs
             })
         }
-        let query = wx.createSelectorQuery()
-        query.select('#point' + (id)).boundingClientRect()
-        query.selectViewport().scrollOffset()
-        query.exec(function (res) {
-            if (res[0] && res[1]) {
-                wx.pageScrollTo({
-                    scrollTop: res[0].top + res[1].scrollTop,
-                    duration: 300
-                })
-            }
-        })
+        // let query = wx.createSelectorQuery()
+        // query.select('#point' + (id)).boundingClientRect()
+        // query.selectViewport().scrollOffset()
+        // query.exec(function (res) {
+        //     if (res[0] && res[1]) {
+        //         wx.pageScrollTo({
+        //             scrollTop: res[0].top + res[1].scrollTop,
+        //             duration: 300
+        //         })
+        //     }
+        // })
     },
     getFood() {
         let self = this
@@ -94,8 +115,7 @@ Page({
                 if (codeArr.includes(self.data.periodCode)) {
                     FoodData[codeArr.indexOf(self.data.periodCode)].periodCode = self.data.periodCode
                     foodArr = FoodData[codeArr.indexOf(self.data.periodCode)].foodArr
-                } else {
-                }
+                } else {}
                 for (const key in ResData) {
                     let items = ResData[key]
                     for (const Index in items.foodValues) {
@@ -214,8 +234,8 @@ Page({
                 if (foodArr.name.indexOf(that.data.SearchValue) !== -1) {
                     let obj = {}
                     obj.foodChildren = [foodArr]
-                    obj.foodType = items.groupValue
-                    obj.foodCode = items.groupCode
+                    obj.groupValue = items.groupValue
+                    obj.groupCode = items.groupCode
 
                     NewList.push(obj)
                 }
@@ -225,13 +245,13 @@ Page({
         let arr = []
         NewList.forEach(val => {
             let obj = {}
-            if (foodTypeArr.indexOf(val.foodType) !== -1) {
-                arr[foodTypeArr.indexOf(val.foodType)].nafoodChildrenme = arr[foodTypeArr.indexOf(val.foodType)].nafoodChildrenme.concat(val.foodChildren)
+            if (foodTypeArr.indexOf(val.groupValue) !== -1) {
+                arr[foodTypeArr.indexOf(val.groupValue)].foodValues = arr[foodTypeArr.indexOf(val.groupValue)].foodValues.concat(val.foodChildren)
             } else {
-                foodTypeArr.push(val.foodType)
-                obj.foodType = val.foodType
-                obj.foodCode = val.foodCode
-                obj.nafoodChildrenme = val.foodChildren
+                foodTypeArr.push(val.groupValue)
+                obj.groupValue = val.groupValue
+                obj.groupCode = val.groupCode
+                obj.foodValues = val.foodChildren
                 arr.push(obj)
             }
 

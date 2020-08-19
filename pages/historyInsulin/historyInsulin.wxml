@@ -30,7 +30,7 @@
                     <text>{{C.periodValue}}：{{C.value}}U(类型：{{C.categoryValue}})</text>
                 </view>
             </view>
-            <view style=" text-align: center;margin: 150rpx auto;" wx:if="{{!InsulinList[0].date}}">
+            <view style=" text-align: center;margin: 150rpx auto;" wx:if="{{!InsulinList[0].total}}">
                 暂无记录
             </view>
         </view>

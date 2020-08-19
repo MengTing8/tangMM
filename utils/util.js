@@ -190,7 +190,22 @@ function getAge(strBirthday) {
       }
       return returnAge; //返回周岁年龄+月份
   }
+  //深拷贝
+ function deepCopy(checkArr) {
+       var result = Array.isArray(checkArr) ? [] : {};
+       for (var key in checkArr) {
+           if (checkArr.hasOwnProperty(key)) {
+               if (typeof checkArr[key] === "object" && checkArr[key] !== null) {
+                   result[key] = deepCopy(checkArr[key]);
+               } else {
+                   result[key] = checkArr[key];
+               }
+           }
+       }
+       return result;
+   }
 module.exports = {
+    deepCopy: deepCopy,
     formatTime: formatTime,
     formatDate: formatDate,
     getDates: getDates,
