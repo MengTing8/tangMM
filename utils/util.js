@@ -44,7 +44,8 @@ function getDates(days, todate) {
 }
 
 function checkTime(startTime, endTime) {
-    console.log(startTime, endTime);
+    console.log(startTime);
+    console.log(endTime);
     if (startTime.length > 0 && endTime.length > 0) {
         var startTmp = startTime.split("-");
         var endTmp = endTime.split("-");
@@ -67,7 +68,7 @@ function contrastTime(begin, end) {
     var difference = (Date.parse(str + ' ' + end) - Date.parse(str + ' ' + begin)) / 1000 / 60; //利用时间戳算出相差的分钟
      if (difference<=0) {
          wx.showToast({
-             title: "开始时间不能大于结束时间",
+             title: "开始时间需小于结束时间",
              icon: 'none',
              duration: 2000
          })

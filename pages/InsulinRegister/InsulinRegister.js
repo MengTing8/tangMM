@@ -4,7 +4,8 @@ const {
 const {
     getDates,
     getDay,
-    sortFun, contrastTime
+    sortFun,
+    contrastTime
 } = require("../../utils/util")
 const moment = require('../../utils/moment.min.js');
 const tips = {
@@ -211,41 +212,54 @@ Page({
             self.DeleteInsulinPump()
         }
         const newArray = [];
+        let params= []
         for (const t of self.data.dosageArray) {
-            if (!t.timeStart) {
-                wx.showToast({
-                    title: '请选择开始时间',
-                    icon: 'none',
-                    duration: 2000
-                })
-                return false;
-            } else if (!t.timeEnd) {
-                wx.showToast({
-                    title: '请选择结束时间',
-                    icon: 'none',
-                    duration: 2000
-                })
-                return false;
-            } else if (!t.value) {
-                wx.showToast({
-                    title: '请输入剂量',
-                    icon: 'none',
-                    duration: 2000
-                })
-                return false;
+            if (!t.timeStart && !t.timeEnd && !t.value) {
+                params = self.data.MealArray
+            } else {
+                if (!t.timeStart) {
+                    wx.showToast({
+                        title: '请选择开始时间',
+                        icon: 'none',
+                        duration: 2000
+                    })
+                    return false;
+                } else if (!t.timeEnd) {
+                    wx.showToast({
+                        title: '请选择结束时间',
+                        icon: 'none',
+                        duration: 2000
+                    })
+                    return false;
+                } else if (!t.value) {
+                    wx.showToast({
+                        title: '请输入剂量',
+                        icon: 'none',
+                        duration: 2000
+                    })
+                    return false;
+                }
+                if (newArray.find(i => i.timeStart === t.timeStart && i.timeEnd === t.timeEnd)) {
+                    wx.showToast({
+                        title: "时间段重复",
+                        icon: 'none',
+                        duration: 2000
+                    })
+                    return false;
+                }
+                newArray.push(t);
+                params = self.data.MealArray.concat(newArray);
             }
-            console.log(t);
-            if (newArray.find(i => i.timeStart === t.timeStart && i.timeEnd === t.timeEnd)) {
-                wx.showToast({
-                    title: "时间段重复",
-                    icon: 'none',
-                    duration: 2000
-                })
-                return false;
-            }
-            newArray.push(t);
+
         }
-        let params = self.data.MealArray.concat(newArray);
+        if (params.length==0) {
+             wx.showToast({
+                 title: "请输入数据",
+                 icon: 'none',
+                 duration: 2000
+             })
+             return false;
+        }else{
         promiseRequest({
             method: "POST",
             url: '/wxrequest',
@@ -271,6 +285,7 @@ Page({
                 })
             }
         })
+        }
     },
     getInsulinPump(date) {
         let self = this
@@ -320,21 +335,9 @@ Page({
                 ResData.items1.sort(sortFun(`periodCode`))
                 self.setData({
                     MealArray: NewMealArray,
-                    DeleteList: []
                 })
                 if (ResData.items2.length > 0) {
-                    NewDosageArray = [{
-                        entity: "insulinPump",
-                        patientId: wx.getStorageSync('patientId'),
-                        date: self.data.dataTime,
-                        type: 2,
-                        status: 1,
-                        id: '',
-                        rowMd5: '',
-                        timeStart: '',
-                        timeEnd: '',
-                        value: ''
-                    }]
+                    NewDosageArray = []
                     for (const key in ResData.items2) {
                         if (ResData.items2[key].id && ResData.items2[key].rowMd5) {
                             if (!NewDosageArray[key]) {
@@ -362,8 +365,6 @@ Page({
                         MealArray: NewMealArray,
                         dosageArray: NewDosageArray,
                         mealItem: ResData.items1,
-                        DeleteList: []
-
                     })
                 } else {
                     NewDosageArray = [{
@@ -379,17 +380,12 @@ Page({
                         value: ''
                     }]
                     self.setData({
-                        MealArray: [],
                         dosageArray: NewDosageArray,
-                        DeleteList: []
-
                     })
                 }
-
                 self.setData({
                     mealItem: ResData.items1,
                     DeleteList: []
-
                 })
             } else {
                 wx.showToast({
@@ -561,25 +557,38 @@ Page({
     bindStartTimeChange: function (e) {
         let index = Number(e.target.dataset.index)
         let newArray = this.data.dosageArray
-        let dataObj = e.detail.value;
-        newArray[index].timeStart = dataObj
-        if (contrastTime(dataObj, newArray[index].timeEnd)) {
+        let val = e.detail.value;
+        if (newArray[index].timeEnd) {
+            if (contrastTime(val, newArray[index].timeEnd)) {
+                newArray[index].timeStart = val
+                this.setData({
+                    dosageArray: newArray
+                })
+            }
+        } else {
+            newArray[index].timeStart = val
             this.setData({
                 dosageArray: newArray
             })
         }
-        
     },
     //时间选择器
     bindEndTimeChange: function (e) {
         let index = Number(e.target.dataset.index)
         let newArray = this.data.dosageArray
-        let dataObj = e.detail.value;  
-        newArray[index].timeEnd = dataObj
-        if(contrastTime(newArray[index].timeStart, dataObj)){
-           this.setData({
-               dosageArray: newArray
-           })
+        let val = e.detail.value;
+        if (newArray[index].timeStart) {
+            if (contrastTime(newArray[index].timeStart, val)) {
+                newArray[index].timeEnd = val
+                this.setData({
+                    dosageArray: newArray
+                })
+            }
+        } else {
+            newArray[index].timeEnd = val
+            this.setData({
+                dosageArray: newArray
+            })
         }
     },
     //输入框绑定
@@ -693,6 +702,6 @@ Page({
             GA: gestationalWeek
         })
         this.getInsulin()
-        this.getInsulinPump()
+        // this.getInsulinPump()
     },
 })
