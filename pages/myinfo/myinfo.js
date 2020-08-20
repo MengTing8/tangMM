@@ -33,7 +33,7 @@ Page({
         time: '12:00',
         dateTimeArray: null,
         dateTime: null,
-        startYear: 2000,
+        startYear: 1900,
         endYear: 2050,
         StartDt: '2018年01月01日',
         EndDt: '2029年01月01',

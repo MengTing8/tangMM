@@ -20,7 +20,6 @@
                     <view class="">
                         {{TermList[PatientData.stageCode-1].value||'请选择'}}
                     </view>
-                    <!-- <view class="weui-input_10">{{TermList[0].Name}}</view> -->
                 </picker>
             </view>
             <view class="imgBox">

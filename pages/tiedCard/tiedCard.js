@@ -36,8 +36,6 @@ Page({
                 duration: 2000
             })
             return
-            // } else if (this.data.sms == '' || this.data.sms == undefined) {
-            //     Toast.fail('请输入验证码');
         } else {
             promiseRequest({
                 method: "POST",
@@ -209,6 +207,7 @@ Page({
                         icon: 'success',
                         duration: 3000
                     })
+                    wx.setStorageSync('userType', '2')
                     setTimeout(() => {
                         wx.reLaunch({
                             url: '../MyRecord/MyRecord'

@@ -5,7 +5,8 @@ const {
     getDates,
     getDay,
     sortFun,
-    contrastTime
+    contrastTime,
+    isDatesBetween
 } = require("../../utils/util")
 const moment = require('../../utils/moment.min.js');
 const tips = {
@@ -17,6 +18,7 @@ const tips = {
 let date = getDates(1, new Date());
 let newDate = moment(date[0].time).format('YYYY年MM月DD日')
 moment.locale();
+
 Page({
 
     /**
@@ -151,13 +153,6 @@ Page({
             success(res) {
                 if (res.confirm) {
                     const prevDate = getDay(-1, that.data.dataTime)
-                    let NewData = that.data.dateObj;
-                    NewData.DateSelect = moment(prevDate).format('YYYY年MM月DD日');
-                    NewData.value = prevDate;
-                    that.setData({
-                        dateObj: NewData,
-                        dataTime: prevDate
-                    })
                     if (that.data.TabsIndex == 0) {
                         that.getInsulin(prevDate)
                     } else {
@@ -206,14 +201,32 @@ Page({
             }
         })
     },
+    compareDate(begin, over) {
+        begin = begin.sort();
+        over = over.sort();
+        for (var i = 0; i < begin.length; i++) {
+            if (begin[i] <= over[i - 1]) {
+                wx.showToast({
+                    title: "时间段重复!",
+                    icon: 'none',
+                    duration: 2000
+                })
+                return false;
+            }
+        }
+        return true;
+    },
     SaveInsulinPump() {
         let self = this
         if (self.data.DeleteList.length > 0) {
             self.DeleteInsulinPump()
         }
-        const newArray = [];
-        let params= []
+        var begin = [];
+        var over = [];
+        let params = []
         for (const t of self.data.dosageArray) {
+            begin.push(t.timeStart)
+            over.push(t.timeEnd)
             if (!t.timeStart && !t.timeEnd && !t.value) {
                 params = self.data.MealArray
             } else {
@@ -239,53 +252,47 @@ Page({
                     })
                     return false;
                 }
-                if (newArray.find(i => i.timeStart === t.timeStart && i.timeEnd === t.timeEnd)) {
-                    wx.showToast({
-                        title: "时间段重复",
-                        icon: 'none',
-                        duration: 2000
-                    })
-                    return false;
-                }
-                newArray.push(t);
-                params = self.data.MealArray.concat(newArray);
             }
-
+            params = self.data.MealArray.concat(self.data.dosageArray);
         }
-        if (params.length==0) {
-             wx.showToast({
-                 title: "请输入数据",
-                 icon: 'none',
-                 duration: 2000
-             })
-             return false;
-        }else{
-        promiseRequest({
-            method: "POST",
-            url: '/wxrequest',
-            data: {
-                "token": wx.getStorageSync('token'),
-                "function": "save",
-                "data": params
-            }
-        }).then(res => {
-            console.log(res, "保存");
-            if (res.data.code === '0') {
+        if (self.compareDate(begin, over)) {
+            if (params.length == 0) {
                 wx.showToast({
-                    title: res.data.message,
+                    title: "请输入数据",
                     icon: 'none',
                     duration: 2000
                 })
-                self.getInsulinPump()
+                return false;
             } else {
-                wx.showToast({
-                    title: res.data.message,
-                    icon: 'none',
-                    duration: 2000
+                promiseRequest({
+                    method: "POST",
+                    url: '/wxrequest',
+                    data: {
+                        "token": wx.getStorageSync('token'),
+                        "function": "save",
+                        "data": params
+                    }
+                }).then(res => {
+                    console.log(res, "保存");
+                    if (res.data.code === '0') {
+                        wx.showToast({
+                            title: res.data.message,
+                            icon: 'none',
+                            duration: 2000
+                        })
+                        self.getInsulinPump()
+                    } else {
+                        wx.showToast({
+                            title: res.data.message,
+                            icon: 'none',
+                            duration: 2000
+                        })
+                    }
                 })
             }
-        })
         }
+
+        
     },
     getInsulinPump(date) {
         let self = this

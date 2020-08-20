@@ -11,7 +11,6 @@
              wx.getSetting({
                  success: res => {
                      if (res.authSetting['scope.userInfo']) {
-                         console.log("有授权");
                          wx.getUserInfo({
                              success: res => {
                                  let RequestObjs = {
@@ -136,7 +135,6 @@
                          return;
                      }
                      //防止重复调用login。
-                    //  debugger;
                      app.globalData.needBeginLogin = false;
                      login(requestObj)
                  } else if (res.data.code == '-1' && res.data.message.indexOf("token")!==-1) {
@@ -150,6 +148,7 @@
                      app.globalData.needBeginLogin = false;
                      login(requestObj)
                  } else {
+                 console.log(res.data);
                      resolve(res);
                     //  wx.showToast({
                     //      title: res.data.message,

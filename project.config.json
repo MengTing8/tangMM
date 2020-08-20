@@ -77,12 +77,6 @@
 					"pathName": "pages/historyInsulin/historyInsulin",
 					"query": "",
 					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/historyBloodSugar/historyBloodSugar",
-					"pathName": "pages/historyBloodSugar/historyBloodSugar",
-					"scene": null
 				}
 			]
 		}
