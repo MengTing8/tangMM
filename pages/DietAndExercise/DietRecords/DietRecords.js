@@ -18,8 +18,7 @@ Page({
         foodArr: [],
         dateObj: {
             StartDt: newDate,
-            EndDt: '2029年01月01',
-            EXDATE: '2019年12月01日',
+            EndDt: date[0].time,
             DateSelect: newDate,
             title: "记录时间",
             value: date[0].time

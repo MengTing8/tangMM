@@ -2,19 +2,17 @@
       promiseRequest
   } = require("../../utils/Requests")
   const {
-      getDates, deepCopy
+      deepCopy,
+      getDay
   } = require("../../utils/util")
   const moment = require('../../utils/moment.min.js');
-  let date = getDates(1, new Date());
   Page({
       data: {
-          StartDt: '2020年06月18日',
-          EndDt: '2029年01月01',
-          EXDATE: '2020年06月18日',
+          EndDt: getDay(0),
           baseData: {
               entity: "base",
               patientId: wx.getStorageSync('patientId'),
-              date: date[0].time,
+              date: getDay(0),
               id: '',
               rowMd5: '',
               fundalHeight: "",
@@ -23,8 +21,8 @@
               status: 1,
 
           },
-          dateRecord: date[0].time,
-          RecordDate: moment(date[0].time).format('YYYY年MM月DD日'),
+          dateRecord: getDay(0),
+          RecordDate: moment(getDay(0)).format('YYYY年MM月DD日'),
           time: '',
           BasicRowMd5: '',
           dataArray: [{
@@ -35,11 +33,61 @@
               heartRate: '',
               systolicPressure: "",
               diastolicPressure: '',
-              date: date[0].time,
+              date: getDay(0),
               id: '',
               rowMd5: '',
           }],
           DeleteList: [],
+      },
+      //删除当日数据
+      DeleteCurrentData(e) {
+          let date = e.currentTarget.dataset.date
+          let that = this
+             if (that.data.baseData.fundalHeight || that.data.dataArray[0].id) {
+                  wx.showModal({
+                      title: '提示',
+                      content: "确定删除当日数据？",
+                      success(res) {
+                          if (res.confirm) {
+                              promiseRequest({
+                                  method: "POST",
+                                  url: '/wxrequest',
+                                  data: {
+                                      "token": wx.getStorageSync('token'),
+                                      "function": "deleteByDate",
+                                      "data": [{
+                                          "entity": "base",
+                                          "date": date
+                                      }]
+                                  }
+                              }).then((res) => {
+                                  console.log(res, "删除");
+                                  if (res.data.code === '0') {
+                                      wx.showToast({
+                                          title: res.data.message,
+                                          icon: 'none',
+                                          duration: 3000
+                                      })
+                                      that.getBasicdata()
+                                  } else {
+                                      wx.showToast({
+                                          title: res.data.message,
+                                          icon: 'none',
+                                          duration: 3000
+                                      })
+                                  }
+                              })
+                          } else if (res.cancel) {}
+                      }
+                  })
+             }else{
+                 wx.showToast({
+                     title: '无数据可删！',
+                     icon: 'none',
+                     duration: 2000
+                 })
+             }
+         
       },
       //保存基础数据
       SaveBasicdata() {
@@ -127,7 +175,7 @@
               self.requestSave([self.data.baseData])
               return false;
           } else {
-              let params =deepCopy(NewData)
+              let params = deepCopy(NewData)
               params.push(self.data.baseData)
               self.requestSave(params)
               return false;
@@ -190,87 +238,88 @@
               method: "POST",
               url: '/wxrequest',
               data: {
-                   "token": wx.getStorageSync('token'),
-                       "function": "getBase",
-                       "data": [{
-                           "date": self.data.dateRecord
-                       }]
+                  "token": wx.getStorageSync('token'),
+                  "function": "getBase",
+                  "data": [{
+                      "date": self.data.dateRecord
+                  }]
               }
           };
           promiseRequest(requestObj).then((res) => {
-                  if (res.data.code === '0') {
-                      let ResData = res.data.data[0]
-                      let NewbaseData = self.data.baseData
-                      let newArr = self.data.dataArray
-                      if (ResData.items.length > 0) {
-                          let newArr = ResData.items
-                          for (const key in newArr) {
-                              newArr[key].entity = "baseDetail"
-                              newArr[key].patientId = wx.getStorageSync('patientId')
-                              newArr[key].status = 1
-                              newArr[key].rowMd5 = newArr[key].rowMd5
-                              newArr[key].id = newArr[key].id
-                              self.setData({
-                                  dataArray: newArr,
-                                  DeleteList: []
-                              })
-                          }
-                      } else {
-                          newArr = [{
-                              entity: "baseDetail",
-                              patientId: wx.getStorageSync('patientId'),
-                              status: 1,
-                              time: '',
-                              heartRate: '',
-                              systolicPressure: "",
-                              diastolicPressure: '',
-                              date: self.data.dateRecord,
-                              id: '',
-                              rowMd5: '',
-                          }]
+              console.log(res);
+              if (res.data.code === '0') {
+                  let ResData = res.data.data[0]
+                  let NewbaseData = self.data.baseData
+                  let newArr = self.data.dataArray
+                  if (ResData.items.length > 0) {
+                      let newArr = ResData.items
+                      for (const key in newArr) {
+                          newArr[key].entity = "baseDetail"
+                          newArr[key].patientId = wx.getStorageSync('patientId')
+                          newArr[key].status = 1
+                          newArr[key].rowMd5 = newArr[key].rowMd5
+                          newArr[key].id = newArr[key].id
                           self.setData({
                               dataArray: newArr,
                               DeleteList: []
                           })
                       }
-                      if (ResData.hba1c) {
-                          NewbaseData.abdominalCircumference = ResData.abdominalCircumference
-                          NewbaseData.hba1c = ResData.hba1c
-                          NewbaseData.date = ResData.date
-                          NewbaseData.id = ResData.id
-                          NewbaseData.rowMd5 = ResData.rowMd5
-                          NewbaseData.fundalHeight = ResData.fundalHeight
-                          NewbaseData.patientId = wx.getStorageSync('patientId')
-                          self.setData({
-                              baseData: NewbaseData,
-                              BasicRowMd5: ResData.rowMd5,
-                              DeleteList: []
-                          })
-                      } else {
-                          NewbaseData = {
-                                  entity: "base",
-                                  patientId: wx.getStorageSync('patientId'),
-                                  date: self.data.dateRecord,
-                                  id: '',
-                                  rowMd5: '',
-                                  fundalHeight: "",
-                                  abdominalCircumference: "",
-                                  hba1c: "",
-                                  status: 1,
-
-                              },
-                              self.setData({
-                                  DeleteList: [],
-                                  baseData: NewbaseData,
-                              })
-                      }
                   } else {
-                      wx.showToast({
-                          title: res.data.message,
-                          icon: 'none',
-                          duration: 2000
+                      newArr = [{
+                          entity: "baseDetail",
+                          patientId: wx.getStorageSync('patientId'),
+                          status: 1,
+                          time: '',
+                          heartRate: '',
+                          systolicPressure: "",
+                          diastolicPressure: '',
+                          date: self.data.dateRecord,
+                          id: '',
+                          rowMd5: '',
+                      }]
+                      self.setData({
+                          dataArray: newArr,
+                          DeleteList: []
                       })
                   }
+                  if (ResData.hba1c) {
+                      NewbaseData.abdominalCircumference = ResData.abdominalCircumference
+                      NewbaseData.hba1c = ResData.hba1c
+                      NewbaseData.date = ResData.date
+                      NewbaseData.id = ResData.id
+                      NewbaseData.rowMd5 = ResData.rowMd5
+                      NewbaseData.fundalHeight = ResData.fundalHeight
+                      NewbaseData.patientId = wx.getStorageSync('patientId')
+                      self.setData({
+                          baseData: NewbaseData,
+                          BasicRowMd5: ResData.rowMd5,
+                          DeleteList: []
+                      })
+                  } else {
+                      NewbaseData = {
+                              entity: "base",
+                              patientId: wx.getStorageSync('patientId'),
+                              date: self.data.dateRecord,
+                              id: '',
+                              rowMd5: '',
+                              fundalHeight: "",
+                              abdominalCircumference: "",
+                              hba1c: "",
+                              status: 1,
+
+                          },
+                          self.setData({
+                              DeleteList: [],
+                              baseData: NewbaseData,
+                          })
+                  }
+              } else {
+                  wx.showToast({
+                      title: res.data.message,
+                      icon: 'none',
+                      duration: 2000
+                  })
+              }
           })
       },
       tapHistory() {
@@ -369,9 +418,9 @@
           let NewObj = this.data.baseData
           var data = e.detail.value;
           NewObj.fundalHeight = data
-              this.setData({
-                  baseData: NewObj
-              })
+          this.setData({
+              baseData: NewObj
+          })
       },
       //糖化血红蛋白
       bindHba1cInput(e) {
@@ -391,7 +440,7 @@
               baseData: NewObj
           })
       },
-     
+
       /**
        * 生命周期函数--监听页面加载
        */

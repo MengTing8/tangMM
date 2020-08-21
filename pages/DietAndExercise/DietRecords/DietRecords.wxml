@@ -86,7 +86,7 @@
                         <view class="PhotoShwoContent" wx:for="{{item.photo}}" wx:for-item="P" wx:for-index="D" wx:key="D" wx:if='{{P.url}}'>
                             <image class="uploaderPhoto" src="{{P.url}}" mode="widthFix"/>
                             <view class="delPhoto" bind:tap="delPhoto" data-index='{{index}}' data-fileName="{{P.fileName}}" data-ins="{{D}}">
-                                <van-icon name="close" size="40rpx" color="#FFF" />
+                                <van-icon name="close" size="40rpx" color="#FFF" wx:if='{{P.url}}'/>
                             </view>
                         </view>
                     </view>

@@ -28,7 +28,7 @@ Page({
         ec: {},
         TimeObj: {
             StartDt: newDate,
-            EndDt: '2029年01月01日',
+            EndDt:getDay(0),
             StarDATE,
             EndDATE,
             dateStart: getDay(-7),

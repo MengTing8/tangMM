@@ -27,7 +27,7 @@ Page({
         }],
         dateObj: {
             StartDt: newDate,
-            EndDt: '2029年01月01',
+            EndDt: date[0].time,
             EXDATE: newDate,
             DateSelect: newDate,
             title: "记录时间",

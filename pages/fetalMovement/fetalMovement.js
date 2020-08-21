@@ -445,7 +445,7 @@
             }).then(res => {
                 if (res.data.code === '0') {
                     self.setData({
-                        description: res.data.data[0].description
+                        description: res.data.data[0].text
                     })
                 } else {
                     wx.showToast({

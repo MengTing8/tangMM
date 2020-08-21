@@ -4,11 +4,9 @@ const {
 } = require("../../../utils/Requests")
 const {
     getDay,
-    getDates,
     checkTime
 } = require("../../../utils/util")
 const moment = require('../../../utils/moment.min.js');
-let date = getDates(1, new Date());
 let newDate = moment(getDay(0)).format('YYYY年MM月DD日')
 var StarDATE = moment(getDay(-7)).format('YYYY年MM月DD日');
 var EndDATE = newDate
@@ -21,7 +19,7 @@ Page({
         ec: {},
         TimeObjChart: {
             StartDt: newDate,
-            EndDt: '2029年01月01日',
+            EndDt:getDay(0),
             StarDATE,
             EndDATE,
             dateStart: getDay(-7),
@@ -29,7 +27,7 @@ Page({
         },
         TimeObj: {
             StartDt: newDate,
-            EndDt: '2029年01月01日',
+            EndDt:getDay(0),
             StarDATE,
             EndDATE,
             dateStart: getDay(-7),

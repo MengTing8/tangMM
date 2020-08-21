@@ -11,7 +11,10 @@
                 </picker>
             </view>
             <view class="cell_arrow">
-                <van-icon name="arrow" size="34rpx" />
+                <view class="delBox" bindtap="DeleteCurrentData" data-date="{{dateRecord}}">
+                    <image src="../../img/del.png" class="img" />
+                </view>
+                <!-- <van-icon name="arrow" size="34rpx" /> -->
             </view>
         </view>
         <view class="dataRecord">

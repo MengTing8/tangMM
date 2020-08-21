@@ -18,8 +18,7 @@ Page({
     data: {
         ec: {},
         TimeObj: {
-            StartDt: '2000年01月01日',
-            EndDt: '2029年01月01日',
+            EndDt: getDay(0),
             StarDATE,
             EndDATE,
             dateStart: getDay(-7),

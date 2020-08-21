@@ -29,8 +29,7 @@ Page({
         InsulinData: {},
         dateObj: {
             StartDt: newDate,
-            EndDt: '2029年01月01',
-            EXDATE: newDate,
+            EndDt: date[0].time,
             DateSelect: newDate,
             value: date[0].time,
             title: "日期"
@@ -252,8 +251,9 @@ Page({
                     })
                     return false;
                 }
-            }
             params = self.data.MealArray.concat(self.data.dosageArray);
+
+            }
         }
         if (self.compareDate(begin, over)) {
             if (params.length == 0) {

@@ -21,8 +21,7 @@ Page({
         FL: '',
         dateObj: {
             StartDt: newDate,
-            EndDt: '2029年01月01',
-            EXDATE: newDate,
+            EndDt: date[0].time,
             DateSelect: newDate,
             title: "选择时间",
             value:date[0].time
