@@ -230,6 +230,9 @@ Page({
                 codeArr.push(item.periodCode)
             })
             this.data.enteringArray[codeArr.indexOf(periodcode)].food = null
+            if (!this.data.enteringItems[index].time && this.data.enteringItems[index].categoryCode == '0' && !this.data.enteringItems[index].photo) {
+                this.data.enteringArray.splice(codeArr.indexOf(periodcode), 1)
+            }
         }
         this.setData({
             enteringItems: this.data.enteringItems
@@ -258,7 +261,6 @@ Page({
         })
     },
     delPhoto(e) {
-        console.log(e);
         let {
             index,
             filename,
@@ -280,6 +282,9 @@ Page({
                 codeArr.push(item.periodCode)
             })
             self.data.enteringArray[codeArr.indexOf(periodcode)].photo = null
+            if (!self.data.enteringItems[index].time &&self.data.enteringItems[index].categoryCode =='0'&& !self.data.enteringItems[index].food) {
+                self.data.enteringArray.splice(codeArr.indexOf(periodcode), 1)
+            }
         }
         self.setData({
             enteringItems: self.data.enteringItems,
