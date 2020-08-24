@@ -165,7 +165,6 @@ Page({
     },
     getInsulin(date) {
         let self = this
-        let InsulinData = self.data.InsulinData
         promiseRequest({
             method: "POST",
             url: '/wxrequest',
@@ -180,6 +179,16 @@ Page({
             console.log(res, "普通");
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
+                if (date) {
+                    for (const key in ResData.items) {
+                        if (ResData.items[key].rowMd5) {
+                            delete ResData.items[key].rowMd5
+                        }
+                        if (ResData.items[key].id) {
+                            delete ResData.items[key].id
+                        }
+                    }
+                }
                 self.setData({
                     InsulinData: ResData,
                     categoryValues: ResData.categoryValues,
@@ -251,7 +260,7 @@ Page({
                     })
                     return false;
                 }
-            params = self.data.MealArray.concat(self.data.dosageArray);
+                params = self.data.MealArray.concat(self.data.dosageArray);
 
             }
         }
@@ -292,7 +301,7 @@ Page({
             }
         }
 
-        
+
     },
     getInsulinPump(date) {
         let self = this
