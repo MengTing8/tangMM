@@ -23,8 +23,14 @@ Component({
     methods: {
         bindDateChange(e) {
             let val = e.detail.value
-            this.triggerEvent('bindDateChange', {
+            this.triggerEvent('DateChange', {
                 value: moment(val).format('YYYY年MM月DD日'),
+                date: val,
+            });
+        },
+        DeleteByDate(e) {
+            let val = e.currentTarget.dataset.date
+            this.triggerEvent('DeleteByDate', {
                 date: val,
             });
         },

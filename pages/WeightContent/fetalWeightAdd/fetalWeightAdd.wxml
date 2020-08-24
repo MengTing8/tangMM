@@ -2,18 +2,7 @@
 <view class="pageContainer">
     <view class="pageContent">
         <view class="topTips">记录体重前，请先完善您的相关信息</view>
-        <TimeRecord pickerObj="{{dateObj}}" bindbindDateChange='bindDateChange'></TimeRecord>
-        <!-- <view class="itemBox_time">
-            <text class="itemBox_title">选择时间</text>
-            <view class="itemBox_content">
-                <view class="itemBox_date">
-                    <picker mode="date" value="{{DateSelect}}" start="{{StartDt}}" end="{{EndDt}}" bindchange="bindDateChange">
-                        <view class="weui-input_10">{{DateSelect}}</view>
-                    </picker>
-                </view>
-                <text class="itemBox_rightArrow"></text>
-            </view>
-        </view> -->
+        <TimeRecord pickerObj="{{dateObj}}" bindDateChange='bindDateChange'  bindDeleteByDate='DeleteByDate'></TimeRecord>
         <view class="itemBox">
             <text class="itemBox_title">双顶径BPD</text>
             <view class="itemBox_content">

@@ -35,3 +35,15 @@
     color: rgba(153, 153, 153, 1);
     line-height: 40rpx;
 }
+
+.delBox {
+    position: absolute;
+    right: 0;
+    z-index: 99;
+}
+
+.img {
+    width: 30rpx;
+    height: 30rpx;
+    margin-right: 40rpx;
+}

@@ -28,6 +28,53 @@ Page({
         },
         dataTime: date[0].time
     },
+     DeleteByDate(e) {
+         let date = e.detail.date
+         let that = this
+         if (that.data.rowMd5 || that.data.BPD) {
+             wx.showModal({
+                 title: '提示',
+                 content: "确定删除当日数据？",
+                 success(res) {
+                     if (res.confirm) {
+                         promiseRequest({
+                             method: "POST",
+                             url: '/wxrequest',
+                             data: {
+                                 "token": wx.getStorageSync('token'),
+                                 "function": "deleteByDate",
+                                 "data": [{
+                                     "entity": "fetusWeight",
+                                     "date": date
+                                 }]
+                             }
+                         }).then((res) => {
+                             if (res.data.code === '0') {
+                                 wx.showToast({
+                                     title: res.data.message,
+                                     icon: 'none',
+                                     duration: 3000
+                                 })
+                                     that.getFetusWeight()
+                             } else {
+                                 wx.showToast({
+                                     title: res.data.message,
+                                     icon: 'none',
+                                     duration: 3000
+                                 })
+                             }
+                         })
+                     } else if (res.cancel) {}
+                 }
+             })
+         } else {
+             wx.showToast({
+                 title: '无数据可删！',
+                 icon: 'none',
+                 duration: 2000
+             })
+         }
+     },
     saveFetusWeight() {
         let self = this
         if (isNaN(parseFloat(self.data.BPD)) || self.data.BPD > 110 || self.data.BPD < 0) {

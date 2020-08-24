@@ -2,7 +2,8 @@ const {
     promiseRequest
 } = require("../../../utils/Requests")
 const {
-    getDates, sortFun
+    getDates,
+    sortFun
 } = require("../../../utils/util")
 const moment = require('../../../utils/moment.min.js');
 let date = getDates(1, new Date());
@@ -29,6 +30,59 @@ Page({
         dataTime: date[0].time,
         enteringArray: [],
         UploadShow: false,
+    },
+    DeleteByDate(e) {
+        let date = e.detail.date
+        let that = this
+        let isValue
+        that.data.enteringItems.forEach(item => {
+            if (item.id) {
+                isValue = true
+            }
+        })
+        if (isValue) {
+            wx.showModal({
+                title: '提示',
+                content: "确定删除当日数据？",
+                success(res) {
+                    if (res.confirm) {
+                        promiseRequest({
+                            method: "POST",
+                            url: '/wxrequest',
+                            data: {
+                                "token": wx.getStorageSync('token'),
+                                "function": "deleteByDate",
+                                "data": [{
+                                    "entity": "diet",
+                                    "date": date
+                                }]
+                            }
+                        }).then((res) => {
+                            if (res.data.code === '0') {
+                                wx.showToast({
+                                    title: res.data.message,
+                                    icon: 'none',
+                                    duration: 3000
+                                })
+                                that.getDiet()
+                            } else {
+                                wx.showToast({
+                                    title: res.data.message,
+                                    icon: 'none',
+                                    duration: 3000
+                                })
+                            }
+                        })
+                    } else if (res.cancel) {}
+                }
+            })
+        } else {
+            wx.showToast({
+                title: '无数据可删！',
+                icon: 'none',
+                duration: 2000
+            })
+        }
     },
     UploadCourseware(e) {
         var that = this
@@ -132,7 +186,7 @@ Page({
                         enteringArray: NewEnteringArray,
                     })
                 }
-                 ResData.items.sort(sortFun(`sequence`))
+                ResData.items.sort(sortFun(`sequence`))
                 self.setData({
                     enteringArray: NewEnteringArray,
                     categoryValues: ResData.categoryValues,
@@ -154,7 +208,8 @@ Page({
             index,
             id,
             rowmd5,
-            ins
+            ins,
+            periodcode
         } = e.currentTarget.dataset
         if (id && rowmd5) {
             let arrs = this.data.DeleteFoodList
@@ -168,6 +223,14 @@ Page({
             })
         }
         this.data.enteringItems[index].food.splice(ins, 1)
+        if (this.data.enteringItems[index].food.length == 0) {
+            this.data.enteringItems[index].food = null
+            let codeArr = []
+            this.data.enteringArray.forEach(item => {
+                codeArr.push(item.periodCode)
+            })
+            this.data.enteringArray[codeArr.indexOf(periodcode)].food = null
+        }
         this.setData({
             enteringItems: this.data.enteringItems
         })
@@ -195,18 +258,29 @@ Page({
         })
     },
     delPhoto(e) {
+        console.log(e);
         let {
             index,
             filename,
-            ins
+            ins,
+            periodcode
         } = e.currentTarget.dataset
         let self = this
         let NewList = self.data.DeletePhotoList
+
         NewList.push({
             category: "dietPhoto",
             fileName: filename
         })
         self.data.enteringItems[index].photo.splice(ins, 1)
+        if (self.data.enteringItems[index].photo.length == 0) {
+            self.data.enteringItems[index].photo = null
+            let codeArr = []
+            self.data.enteringArray.forEach(item => {
+                codeArr.push(item.periodCode)
+            })
+            self.data.enteringArray[codeArr.indexOf(periodcode)].photo = null
+        }
         self.setData({
             enteringItems: self.data.enteringItems,
             DeletePhotoList: NewList
@@ -289,8 +363,9 @@ Page({
                 periodCodeArr.push(periodcode)
             }
             wx.setStorageSync('FoodDataList', FoodData)
+        }else{
+            wx.setStorageSync('FoodDataList', null)
         }
-
         this.setData({
             foodIndex: index,
             UploadShow: false
@@ -317,43 +392,50 @@ Page({
         let params = this.data.enteringArray;
         let judgeArr = []
         for (const key in params) {
-            if (!params[key].time) {
-                judgeArr.push('time')
-            } else if (!params[key].categoryCode) {
-                judgeArr.push('categoryCode')
-            } else if (params[key].categoryCode && params[key].categoryCode && params[key].photo) {
-                if (!params[key].food) {
-                    judgeArr.push('food')
-                }
-            } else {}
+            if (!params[key].time && !params[key].categoryCode && !params[key].food && !params[key].photo) {
+                wx.showToast({
+                    title: '请输入数据',
+                    icon: 'none',
+                    duration: 3000
+                })
+                return false;
+            } else {
+                if (!params[key].time) {
+                    judgeArr.push('time')
+                } else if (!params[key].categoryCode) {
+                    judgeArr.push('categoryCode')
+                } else if (params[key].categoryCode && params[key].categoryCode && params[key].photo) {
+                    if (!params[key].food) {
+                        judgeArr.push('food')
+                    }
+                } else {}
 
+            }
+            if (judgeArr.includes('time')) {
+                wx.showToast({
+                    title: '请选择时间',
+                    icon: 'none',
+                    duration: 3000
+                })
+                return false;
+            } else if (judgeArr.includes('categoryCode')) {
+                wx.showToast({
+                    title: '请选择类型',
+                    icon: 'none',
+                    duration: 3000
+                })
+                return false;
+            } else if (judgeArr.includes('food')) {
+                wx.showToast({
+                    title: '请录入食物',
+                    icon: 'none',
+                    duration: 3000
+                })
+                return false;
+            } else {
+                self.saveDiet(params)
+            }
         }
-        if (judgeArr.includes('time')) {
-            wx.showToast({
-                title: '请选择时间',
-                icon: 'none',
-                duration: 3000
-            })
-            return false;
-        } else if (judgeArr.includes('categoryCode')) {
-            wx.showToast({
-                title: '请选择类型',
-                icon: 'none',
-                duration: 3000
-            })
-            return false;
-        } else if (judgeArr.includes('food')) {
-            wx.showToast({
-                title: '请录入食物',
-                icon: 'none',
-                duration: 3000
-            })
-            return false;
-        } else {
-            self.saveDiet(params)
-        }
-
-
     },
     saveDiet(params) {
         let self = this

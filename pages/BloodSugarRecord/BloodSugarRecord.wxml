@@ -1,4 +1,4 @@
-<TimeRecord pickerObj="{{dateObj}}" bindbindDateChange='bindDateChange'></TimeRecord>
+<TimeRecord pickerObj="{{dateObj}}" bindDateChange='bindDateChange' bindDeleteByDate='DeleteByDate'></TimeRecord>
 
 <view class="dataList" wx:for="{{BloodData}}" wx:key="index">
     <view class="delBox" bindtap="delRecordList" data-index="{{index}}" data-id="{{item.id}}" data-rowMd5="{{item.rowMd5}}">

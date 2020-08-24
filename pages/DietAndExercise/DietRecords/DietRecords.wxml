@@ -31,7 +31,7 @@
         </view>
     </view>
     <view class="DietRecordsListBox">
-        <TimeRecord pickerObj="{{dateObj}}" bindbindDateChange='bindDateChange'></TimeRecord>
+        <TimeRecord pickerObj="{{dateObj}}" bindDateChange='bindDateChange' bindDeleteByDate='DeleteByDate'></TimeRecord>
         <!-- 饮食录入列表 -->
         <view class="enteringList">
             <view class="enteringListView" wx:for="{{enteringItems}}" wx:key='index'>
@@ -72,7 +72,7 @@
                             <view class="foodTagItem" wx:for="{{item.food}}" wx:key='index' wx:for-item="F" wx:for-index="cd">
                                 <view>{{F.name}}</view>
                                 <view>{{F.value}}g</view>
-                                <view bind:tap="DelFoodTag"  data-index='{{index}}' data-rowMd5="{{F.rowMd5}}" data-ins="{{cd}}" data-id='{{F.id}}'>
+                                <view bind:tap="DelFoodTag"  data-index='{{index}}' data-rowMd5="{{F.rowMd5}}" data-ins="{{cd}}" data-id='{{F.id}}'  data-periodCode="{{item.periodCode}}">
                                     <image class="DelFoodTag" src="../../../img/delS.png" />
                                 </view>
                             </view>
@@ -85,7 +85,7 @@
                         </view>
                         <view class="PhotoShwoContent" wx:for="{{item.photo}}" wx:for-item="P" wx:for-index="D" wx:key="D" wx:if='{{P.url}}'>
                             <image class="uploaderPhoto" src="{{P.url}}" mode="widthFix"/>
-                            <view class="delPhoto" bind:tap="delPhoto" data-index='{{index}}' data-fileName="{{P.fileName}}" data-ins="{{D}}">
+                            <view class="delPhoto" bind:tap="delPhoto" data-index='{{index}}' data-fileName="{{P.fileName}}" data-ins="{{D}}" data-periodcode="{{item.periodCode}}">
                                 <van-icon name="close" size="40rpx" color="#FFF" wx:if='{{P.url}}'/>
                             </view>
                         </view>

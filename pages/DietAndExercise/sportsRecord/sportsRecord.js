@@ -28,7 +28,6 @@ Page({
         dateObj: {
             StartDt: newDate,
             EndDt: date[0].time,
-            EXDATE: newDate,
             DateSelect: newDate,
             title: "记录时间",
             value: date[0].time
@@ -36,6 +35,54 @@ Page({
         dataTime: date[0].time,
         ShowInfo: false,
         delList: []
+    },
+    DeleteByDate(e) {
+        let date = e.detail.date
+        let that = this
+        if (that.data.userData[0].periodValue || that.data.userData[0].id) {
+            wx.showModal({
+                title: '提示',
+                content: "确定删除当日数据？",
+                success(res) {
+                    if (res.confirm) {
+                        promiseRequest({
+                            method: "POST",
+                            url: '/wxrequest',
+                            data: {
+                                "token": wx.getStorageSync('token'),
+                                "function": "deleteByDate",
+                                "data": [{
+                                    "entity": "exercise",
+                                    "date": date
+                                }]
+                            }
+                        }).then((res) => {
+                            console.log(res, "删除");
+                            if (res.data.code === '0') {
+                                wx.showToast({
+                                    title: res.data.message,
+                                    icon: 'none',
+                                    duration: 3000
+                                })
+                                that.getExercise()
+                            } else {
+                                wx.showToast({
+                                    title: res.data.message,
+                                    icon: 'none',
+                                    duration: 3000
+                                })
+                            }
+                        })
+                    } else if (res.cancel) {}
+                }
+            })
+        } else {
+            wx.showToast({
+                title: '无数据可删！',
+                icon: 'none',
+                duration: 2000
+            })
+        }
     },
     saveExercise() {
         if (this.data.delList.length > 0) {

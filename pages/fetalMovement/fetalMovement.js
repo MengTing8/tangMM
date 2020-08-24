@@ -77,6 +77,7 @@
         getDates
     } = require("../../utils/util")
     var back = wx.getBackgroundAudioManager()
+    let date = getDates(1, new Date());
 
     Page({
 
@@ -84,6 +85,7 @@
          * 页面的初始数据
          */
         data: {
+            dateRecord: date[0].time,
             WeeksRecordList: [],
             FetalMovementList: [],
             refreshClock: false,
@@ -116,6 +118,58 @@
             ec: {},
             legendList: [],
         },
+         DeleteByDate(e) {
+             let {
+                 id,
+                 rowmd5
+             } = e.currentTarget.dataset
+             let that = this
+             if (that.data.FetalMovementList.length>0) {
+                 wx.showModal({
+                     title: '提示',
+                     content: "确定删除当日数据？",
+                     success(res) {
+                         if (res.confirm) {
+                             promiseRequest({
+                                 method: "POST",
+                                 url: '/wxrequest',
+                                 data: {
+                                     "token": wx.getStorageSync('token'),
+                                     "function": "delete",
+                                     "data": [{
+                                         "entity": "fetalMovement",
+                                          "id": id,
+                                          "rowMd5": rowmd5,
+                                     }]
+                                 }
+                             }).then((res) => {
+                                 if (res.data.code === '0') {
+                                     wx.showToast({
+                                         title: res.data.message,
+                                         icon: 'none',
+                                         duration: 3000
+                                     })
+                                     that.getFetalMovementList()
+                                 } else {
+                                     wx.showToast({
+                                         title: res.data.message,
+                                         icon: 'none',
+                                         duration: 3000
+                                     })
+                                 }
+                             })
+                         } else if (res.cancel) {}
+                     }
+                 })
+             } else {
+                 wx.showToast({
+                     title: '无数据可删！',
+                     icon: 'none',
+                     duration: 2000
+                 })
+             }
+
+         },
         bindEnd() {
             let that = this
             if (that.data.clock == "00:00") {
@@ -180,7 +234,7 @@
                 data: {
                     "token": wx.getStorageSync('token'),
                     "function": "getFetalMovementList",
-                    "data": []
+                    "data": [{}]
                 }
             }).then(res => {
                 if (res.data.code === '0') {
@@ -226,7 +280,6 @@
         //保存胎动监测
         SaveFetalMovement() {
             let self = this
-            let date = getDates(1, new Date());
             promiseRequest({
                 method: "POST",
                 url: '/wxrequest',
@@ -238,7 +291,7 @@
                         // "id": self.data.FetalMovementId,
                         // "rowMd5": self.data.FetalMovementRowMd5,
                         "patientId": self.data.patientId,
-                        "date": date[0].time,
+                        "date": self.data.dateRecord,
                         "timeStart": self.data.timeStart,
                         "timeEnd": self.data.timeEnd,
                         "quantity": self.data.quantity,
@@ -401,7 +454,7 @@
                 descriptionShow: (!that.data.descriptionShow)
             })
             if (that.data.descriptionShow) {
-            that.getNotice()
+                that.getNotice()
             }
 
         },
@@ -440,7 +493,9 @@
                 data: {
                     "token": wx.getStorageSync('token'),
                     "function": "getNotice",
-                    "data": [{"type":"1"}]
+                    "data": [{
+                        "type": "1"
+                    }]
                 }
             }).then(res => {
                 if (res.data.code === '0') {
@@ -487,9 +542,9 @@
             })
             if (index == 0) {
                 this.getFetalMovementList()
-            } else if(index == 1) {
+            } else if (index == 1) {
                 this.getFetalMovementListW()
-            }else {
+            } else {
                 this.getFetalMovementChart()
             }
         },
@@ -605,7 +660,7 @@
          * 生命周期函数--监听页面显示
          */
         onShow: function () {
-        
+
         },
 
         /**

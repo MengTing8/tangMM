@@ -48,6 +48,58 @@ Page({
         delList: [],
         GA: ''
     },
+     DeleteByDate(e) {
+         let date = e.detail.date
+         let that = this
+         if (that.data.userData[0].periodCode || that.data.MealArray.length>0|| that.data.dosageArray[0].id) {
+             wx.showModal({
+                 title: '提示',
+                 content: "确定删除当日数据？",
+                 success(res) {
+                     if (res.confirm) {
+                         promiseRequest({
+                             method: "POST",
+                             url: '/wxrequest',
+                             data: {
+                                 "token": wx.getStorageSync('token'),
+                                 "function": "deleteByDate",
+                                 "data": [{
+                                     "entity": "insulin",
+                                     "date": date
+                                 }]
+                             }
+                         }).then((res) => {
+                             if (res.data.code === '0') {
+                                 wx.showToast({
+                                     title: res.data.message,
+                                     icon: 'none',
+                                     duration: 3000
+                                 })
+                                 if (that.data.TabsIndex == 0) {
+                                     that.getInsulin()
+                                 } else {
+                                     that.getInsulinPump()
+
+                                 }
+                             } else {
+                                 wx.showToast({
+                                     title: res.data.message,
+                                     icon: 'none',
+                                     duration: 3000
+                                 })
+                             }
+                         })
+                     } else if (res.cancel) {}
+                 }
+             })
+         } else {
+             wx.showToast({
+                 title: '无数据可删！',
+                 icon: 'none',
+                 duration: 2000
+             })
+         }
+     },
     SaveInsulin() {
         if (this.data.delList.length > 0) {
             this.delInsulin();
@@ -176,7 +228,6 @@ Page({
                 }]
             }
         }).then(res => {
-            console.log(res, "普通");
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
                 if (date) {
@@ -305,7 +356,6 @@ Page({
     },
     getInsulinPump(date) {
         let self = this
-        // let InsulinData = self.data.InsulinData
         promiseRequest({
             method: "POST",
             url: '/wxrequest',
@@ -317,7 +367,6 @@ Page({
                 }]
             }
         }).then(res => {
-            console.log(res, "胰岛素泵");
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
                 let NewMealArray = self.data.MealArray
@@ -442,11 +491,13 @@ Page({
             dateObj: NewData,
             dataTime: dateSelect
         })
-        if (this.data.TabsIndex == 0) {
-            this.getInsulin()
-        } else if (this.data.TabsIndex == 1) {
-            this.getInsulinPump()
-        }
+        this.getInsulin()
+        this.getInsulinPump()
+        // if (this.data.TabsIndex == 0) {
+        //     this.getInsulin()
+        // } else if (this.data.TabsIndex == 1) {
+        //     this.getInsulinPump()
+        // }
     },
     bindValueInput(e) {
         let InsulinData = this.data.InsulinData
@@ -718,6 +769,6 @@ Page({
             GA: gestationalWeek
         })
         this.getInsulin()
-        // this.getInsulinPump()
+        this.getInsulinPump()
     },
 })

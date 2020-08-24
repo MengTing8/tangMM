@@ -6,7 +6,7 @@
         </view>
     </view>
     <view class="insulinRegiterMiddle">
-        <TimeRecord pickerObj="{{dateObj}}" bindbindDateChange='bindDateChange'></TimeRecord>
+        <TimeRecord pickerObj="{{dateObj}}" bindDateChange='bindDateChange' bindDeleteByDate='DeleteByDate'></TimeRecord>
         <view class="getBeforeData" bindtap="getPrevData">取前一天数据</view>
         <view class="insulinRegiter_tab">
             <view class="tabsBox">

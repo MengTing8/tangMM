@@ -120,6 +120,9 @@
                         <view>有效胎动{{item.validQuantity}}次</view>
                         <view>原始胎动{{item.quantity}}次</view>
                     </view>
+                    <view class="delBox" bindtap="DeleteByDate" data-id="{{item.id}}" data-rowMd5="{{item.rowMd5}}">
+                        <image src="../../img/del.png" class="img" />
+                    </view>
                 </view>
             </view>
             <!-- 无数据提示 -->
@@ -171,7 +174,7 @@
                 </view>
             </view>
         </view>
-        <view  hidden="{{TabsIndex !==2}}" style="position:relative">
+        <view hidden="{{TabsIndex !==2}}" style="position:relative">
             <view class="mychartContent">
                 <view class="container">
                     <ec-canvas id="mychart-dom-movementData" canvas-id="mychart-movementData" ec="{{ec}}"></ec-canvas>

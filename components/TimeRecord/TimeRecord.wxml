@@ -1,11 +1,13 @@
- <view class="itemBox_time">
-     <text class="itemBox_title">{{pickerObj.title}}</text>
-     <view class="itemBox_content">
-         <view class="itemBox_date">
-             <picker mode="date" value="{{pickerObj.value}}" start="{{pickerObj.StartDt}}" end="{{pickerObj.EndDt}}" bindchange="bindDateChange">
-                 <view class="weui-input_10">{{pickerObj.DateSelect}}</view>
-             </picker>
-         </view>
-         <text class="itemBox_rightArrow"></text>
-     </view>
- </view>
+<view class="itemBox_time">
+    <text class="itemBox_title">{{pickerObj.title}}</text>
+    <view class="itemBox_content">
+        <view class="itemBox_date">
+            <picker mode="date" value="{{pickerObj.value}}" start="{{pickerObj.StartDt}}" end="{{pickerObj.EndDt}}" bindchange="bindDateChange">
+                <view class="weui-input_10">{{pickerObj.DateSelect}}</view>
+            </picker>
+        </view>
+        <view class="delBox" bindtap="DeleteByDate" data-date="{{pickerObj.value}}">
+            <image src="../../img/del.png" class="img" />
+        </view>
+    </view>
+</view>

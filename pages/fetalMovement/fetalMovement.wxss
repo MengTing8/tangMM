@@ -235,6 +235,7 @@
 .RecordTodayContent {}
 
 .RecordTodayList {
+    position: relative;
     border-bottom: 2rpx solid #F3F3F3;
     padding: 34rpx 40rpx;
 }
@@ -417,4 +418,17 @@
     left: 0;
     display: flex;
     justify-content: center;
+}
+
+.delBox {
+    position: absolute;
+    right: 0;
+    top: 40%;
+    z-index: 99;
+}
+
+.img {
+    width: 30rpx;
+    height: 30rpx;
+    margin-right: 40rpx;
 }

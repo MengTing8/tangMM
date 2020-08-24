@@ -1,14 +1,7 @@
 <!-- pages/sportsRecord/sportsRecord.wxml -->
 <view class="pageContainer">
     <view class="sportsRecord">
-        <TimeRecord pickerObj="{{dateObj}}" bindbindDateChange='bindDateChange'></TimeRecord>
-        <!-- <view class="itemBox">
-            <text class="itemBox_title">记录时间</text>
-            <view class="itemBox_content">
-                <text class="itemBox_text">2019年12月4日</text>
-                <text class="itemBox_rightArrow"></text>
-            </view> -->
-        <!-- </view> -->
+        <TimeRecord pickerObj="{{dateObj}}" bindDateChange='bindDateChange'  bindDeleteByDate='DeleteByDate'></TimeRecord>
         <view class="dataRecord">
             <view class="dataArr">
                 <view class="dataHeader">
