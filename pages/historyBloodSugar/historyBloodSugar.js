@@ -131,7 +131,7 @@ Page({
             }
         }).then(res => {
 
-            if (res.data.code === '0') {
+            if (res.data.code === '0' && res.data.totalRecord !== '0') {
                 let color = JSON.parse(res.data.data[0].color);
                 let option = JSON.parse(res.data.data[0].option);
                 let yAxisLabelValues;
@@ -183,6 +183,14 @@ Page({
                     selectedTagList
                 })
                 this.init_echarts(option)
+            } else if (res.data.code === '0' && res.data.totalRecord === '0'){
+                this.init_echarts({});
+                this.setData({
+                    legendList1: [],
+                    legendList2: [],
+                    tagList: [],
+                    selectedTagList: []
+                })
             } else {
                 wx.showToast({
                     title: res.data.message,

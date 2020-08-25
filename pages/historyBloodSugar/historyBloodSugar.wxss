@@ -49,9 +49,9 @@
  
 .legendBox { 
     display: flex; 
+    font-size: 24rpx; 
     align-items: center; 
     padding: 12rpx 30rpx; 
-    font-size: 24rpx; 
 } 
  
 .legendIcon { 
