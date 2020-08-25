@@ -1,4 +1,5 @@
 import * as echarts from '../../components/ec-canvas/echarts';
+import * as base64 from '../../utils/base64';
 const {
     promiseRequest
 } = require("../../utils/Requests")
@@ -160,9 +161,24 @@ Page({
                         selectedTagList.push(element.code)
                     }
                 });
+
+                let legend1 = res.data.data[0].legend1;
+                for (let i = 0; i < legend1.length; i++) {
+                    let svg = '<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="' + legend1[i].symbol.substr(7) + '" fill="' + legend1[i].color + '"></path></svg>'
+                    svg = unescape(encodeURIComponent(svg));
+                    legend1[i].symbol = 'data:image/svg+xml;base64,' + base64.btoa(svg);
+                }
+
+                let legend2 = res.data.data[0].legend2;
+                for (let i = 0; i < legend2.length; i++) {
+                    let svg = '<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="' + legend2[i].symbol.substr(7) + '" fill="' + legend2[i].color + '"></path></svg>'
+                    svg = unescape(encodeURIComponent(svg));
+                    legend2[i].symbol = 'data:image/svg+xml;base64,' + base64.btoa(svg);
+                }
+
                 this.setData({
-                    legendList1: res.data.data[0].legend1,
-                    legendList2: res.data.data[0].legend2,
+                    legendList1: legend1,
+                    legendList2: legend2,
                     tagList,
                     selectedTagList
                 })

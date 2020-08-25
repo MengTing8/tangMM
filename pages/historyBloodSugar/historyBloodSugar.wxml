@@ -34,7 +34,8 @@
         <view class="titleContent">
             <view class="titleContentBox">
                 <view class="legendBox" wx:for="{{legendList1}}" wx:key="index">
-                    <view class="legendIcon {{item.symbol}}" style="background:{{item.color}};width:{{item.size.width}};height:{{item.size.height}}"></view>
+                    <image class="legendIcon" src="{{item.symbol}}" style="width:{{item.size.width}}px;height:{{item.size.height}}px"></image>
+                    <!-- <view class="legendIcon {{item.symbol}}" style="background:{{item.color}};width:{{item.size.width}};height:{{item.size.height}}"></view> -->
                     <view class="">{{item.value}}</view>
                 </view>
             </view>
@@ -42,7 +43,8 @@
         <view class="titleContent">
             <view class="titleContentBox">
                 <view class="legendBox" wx:for="{{legendList2}}" wx:key="index">
-                    <view class="legendIcon {{item.symbol}}" style="background:{{item.color}};width:{{item.size.width}};height:{{item.size.height}}"></view>
+                    <image class="legendIcon" src="{{item.symbol}}" style="width:{{item.size.width}}px;height:{{item.size.height}}px"></image>
+                    <!-- <view class="legendIcon {{item.symbol}}" style="background:{{item.color}};width:{{item.size.width}};height:{{item.size.height}}"></view> -->
                     <view class="">{{item.value}}</view>
                 </view>
             </view>
