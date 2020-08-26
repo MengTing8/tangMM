@@ -3,7 +3,6 @@
   * successCb 
   */
  function login(successCb) {
-     console.log(successCb);
      let code = ''
      wx.login({
          success: function (res) {
@@ -35,13 +34,14 @@
                                          wx.setStorageSync('token', DataArr.token)
                                          wx.setStorageSync('userType', userType)
                                          let promiseQueueItem = successCb;
+                                         if (successCb) {
                                          promiseQueueItem.data.token = DataArr.token
+                                         }
                                          if (promiseQueueItem) {
                                              app.globalData.exeQueue = true;
                                              promiseRequest(promiseQueueItem);
                                              app.globalData.promiseQueue = promiseQueue;
                                          }
-                                         // successCb && successCb()
                                      } else {
                                          wx.showModal({
                                              title: '提示',
@@ -55,7 +55,7 @@
                                  });
                              }
                          })
-                     }else{
+                     } else {
                          console.log("未授权");
                          wx.reLaunch({
                              url: '/pages/index/index'
@@ -93,16 +93,17 @@
      }
      let apiUrl = 'https://aaron.astraia.com.cn'
      return new Promise((resolve, reject) => {
-          if (!requestObj.data.token && requestObj.data.function !== 'mpLogin') {
-              login(requestObj)
-                return
-          }
+         if (!requestObj.data.token && requestObj.data.function !== 'mpLogin') {
+             login(requestObj)
+             return
+         }
          //网络请求
          wx.request({
              url: apiUrl + requestObj.url,
              method: requestObj.method,
              data: JSON.stringify(requestObj.data),
              success: function (res) {
+                 console.log(res);
                  let promiseQueue = app.globalData.promiseQueue;
                  if (res.data.code == '0') {
                      if (requestObj.resolve) { //如果是promise队列中的请求。
@@ -137,34 +138,32 @@
                      //防止重复调用login。
                      app.globalData.needBeginLogin = false;
                      login(requestObj)
-                 } else if (res.data.code == '-1' && res.data.message.indexOf("token") !== -1 || res.data.code == '-1' && res.data.message.indexOf("无效绑定") !== -1) {
-                     console.log("token");
-                     wx.clearStorageSync()
-                     requestObj.resolve = resolve;
-                     promiseQueue.push(requestObj);
-                     if (!app.globalData.needBeginLogin) {
-                         return;
+                 } else if (res.data.code == '-1') {
+                     if (res.data.message.indexOf("无效签名") !== -1 || res.data.message.indexOf("token") !== -1 || res.data.message.indexOf("无效绑定") !== -1) {
+                         console.log("token. 无效绑定");
+                         wx.clearStorageSync()
+                         requestObj.resolve = resolve;
+                         promiseQueue.push(requestObj);
+                         if (!app.globalData.needBeginLogin) {
+                             return;
+                         }
+                         app.globalData.needBeginLogin = false;
+                         login(requestObj)
+                     } else if (res.data.message.indexOf("无效授权") !== -1) {
+                         console.log('无效授权');
+                          wx.clearStorageSync()
+                           wx.reLaunch({
+                               url: '/pages/index/index'
+                           })
+                     } else {
+                         console.log(res.data);
+                         resolve(res);
+
                      }
-                     app.globalData.needBeginLogin = false;
-                     login(requestObj)
-                 } else if (res.data.code == '-1' && res.data.message.indexOf("无效绑定") !== -1) {
-                     console.log("token");
-                     wx.clearStorageSync()
-                     requestObj.resolve = resolve;
-                     promiseQueue.push(requestObj);
-                     if (!app.globalData.needBeginLogin) {
-                         return;
-                     }
-                     app.globalData.needBeginLogin = false;
-                     login(requestObj)
                  } else {
-                 console.log(res.data);
+                     console.log(res.data);
                      resolve(res);
-                    //  wx.showToast({
-                    //      title: res.data.message,
-                    //      icon: 'none',
-                    //      duration: 2000
-                    //  })
+
                  }
              },
              error: function (e) {

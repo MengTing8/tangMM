@@ -1,5 +1,5 @@
 const {
-    promiseRequest, login
+    promiseRequest,
 } = require("../../utils/Requests")
 Page({
 
@@ -128,38 +128,38 @@ Page({
             }).then(res => {
                 console.log(res);
                 if (res.data.code === '0') {
-                     let userType = res.data.data[0].userType
-                     wx.setStorageSync('userType', userType)
-                     if (userType == '-2') {
-                         // -2 ：未绑定手机用户
-                          setTimeout(() => {
-                              _that.setData({
-                                  currentTabsIndex: 0
-                              })
-                          }, 3000);
-                     } else if (userType == '-1') {
-                         // -1 = 未绑定诊疗卡用户
-                         setTimeout(() => {
-                             _that.setData({
-                                 currentTabsIndex: 1
-                             })
-                         }, 3000);
-                     } else if (userType == '2') {
-                         wx.reLaunch({
-                             url: '../MyRecord/MyRecord'
-                         })
-                     } else if (userType == '1') {
-                         wx.reLaunch({
-                             url: '../MedicalCare/index/index'
-                         })
-                     }
+                    let userType = res.data.data[0].userType
+                    wx.setStorageSync('userType', userType)
+                    if (userType == '-2') {
+                        // -2 ：未绑定手机用户
+                        setTimeout(() => {
+                            _that.setData({
+                                currentTabsIndex: 0
+                            })
+                        }, 3000);
+                    } else if (userType == '-1') {
+                        // -1 = 未绑定诊疗卡用户
+                        setTimeout(() => {
+                            _that.setData({
+                                currentTabsIndex: 1
+                            })
+                        }, 3000);
+                    } else if (userType == '2') {
+                        wx.reLaunch({
+                            url: '../MyRecord/MyRecord'
+                        })
+                    } else if (userType == '1') {
+                        wx.reLaunch({
+                            url: '../MedicalCare/index/index'
+                        })
+                    }
                     // 发送成功ses
                     wx.showToast({
                         title: '绑定成功',
                         icon: 'success',
                         duration: 3000
                     })
-                        
+
                 } else {
                     wx.showToast({
                         title: res.data.message,
@@ -224,6 +224,66 @@ Page({
             })
         }
     },
+    login() {
+        let code = ''
+        wx.login({
+            success: function (res) {
+                code = res.code;
+                wx.getSetting({
+                    success: res => {
+                        if (res.authSetting['scope.userInfo']) {
+                            wx.getUserInfo({
+                                success: res => {
+                                    promiseRequest({
+                                        method: "POST",
+                                        url: '/wxrequest',
+                                        data: {
+                                            'function': 'mpLogin',
+                                            'data': [{
+                                                'code': code,
+                                                'iv': res.iv,
+                                                'rawData': res.rawData,
+                                                'encryptedData': res.encryptedData,
+                                                'signature': res.signature,
+                                            }]
+                                        }
+                                    }).then((res) => {
+                                        if (res.data.code == "0") {
+                                            let userType = res.data.data[0].userType
+                                            let DataArr = res.data.data[0]
+                                            wx.setStorageSync('token', DataArr.token)
+                                            wx.setStorageSync('userType', userType)
+                                            if (userType == '2') {
+                                                wx.reLaunch({
+                                                    url: '../MyRecord/MyRecord'
+                                                })
+                                            } else if (userType == '1') {
+                                                wx.reLaunch({
+                                                    url: '../MedicalCare/index/index'
+                                                })
+                                            }
+                                        } else {
+                                            wx.showModal({
+                                                title: '提示',
+                                                content: res.data.errMsg,
+                                                showCancel: false
+                                            })
+                                        }
+
+                                    })
+                                }
+                            })
+                        } else {
+                            wx.reLaunch({
+                                url: '/pages/index/index'
+                            })
+                        }
+                    }
+                })
+
+            }
+        })
+    },
     /**
      * 生命周期函数--监听页面加载
      */
@@ -238,7 +298,7 @@ Page({
                 currentTabsIndex: 1
             })
         }
-        login()
+
     },
 
     /**
@@ -252,7 +312,11 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-       wx.hideHomeButton()
+        let that=this
+        setTimeout(() => {
+        that.login();
+        }, 0);
+        wx.hideHomeButton()
     },
 
     /**

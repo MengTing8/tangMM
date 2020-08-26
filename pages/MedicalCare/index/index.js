@@ -80,7 +80,6 @@ Page({
                 "data": []
             }
         }).then((res) => {
-            console.log(res, "getNurse");
             if (res.data.code === '0') {
                 that.setData({
                     NurseData: res.data.data[0],
@@ -114,7 +113,6 @@ Page({
             }
         };
         promiseRequest(requestObj).then((res) => {
-            console.log(res);
             if (res.data.code === '0') {
                 if (res.data.data.length > 0) {
                     this.setData({
