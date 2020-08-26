@@ -137,7 +137,17 @@
                      //防止重复调用login。
                      app.globalData.needBeginLogin = false;
                      login(requestObj)
-                 } else if (res.data.code == '-1' && res.data.message.indexOf("token")!==-1) {
+                 } else if (res.data.code == '-1' && res.data.message.indexOf("token") !== -1 || res.data.code == '-1' && res.data.message.indexOf("无效绑定") !== -1) {
+                     console.log("token");
+                     wx.clearStorageSync()
+                     requestObj.resolve = resolve;
+                     promiseQueue.push(requestObj);
+                     if (!app.globalData.needBeginLogin) {
+                         return;
+                     }
+                     app.globalData.needBeginLogin = false;
+                     login(requestObj)
+                 } else if (res.data.code == '-1' && res.data.message.indexOf("无效绑定") !== -1) {
                      console.log("token");
                      wx.clearStorageSync()
                      requestObj.resolve = resolve;

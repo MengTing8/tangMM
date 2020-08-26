@@ -130,7 +130,6 @@ Page({
                 }]
             }
         }).then(res => {
-
             if (res.data.code === '0' && res.data.totalRecord !== '0') {
                 let color = JSON.parse(res.data.data[0].color);
                 let option = JSON.parse(res.data.data[0].option);
@@ -183,6 +182,7 @@ Page({
                     selectedTagList
                 })
                 this.init_echarts(option)
+                // }
             } else if (res.data.code === '0' && res.data.totalRecord === '0'){
                 this.init_echarts({});
                 this.setData({
@@ -201,7 +201,7 @@ Page({
         })
     },
     init_echarts(option) {
-        this.echartsComponentGLU.init((canvas, width, height) => {
+      this.echartsComponentGLU.init((canvas, width, height) => {
             // 初始化图表
             const Chart = echarts.init(canvas, null, {
                 width: width,

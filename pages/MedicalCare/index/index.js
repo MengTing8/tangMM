@@ -166,14 +166,19 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-
+        
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        console.log('onShow--医务端');
+        console.log('医务端---');
+        //  wx.showToast({
+        //      title: '医务端---',
+        //      icon: 'none',
+        //      duration: 2000
+        //  })
         this.getNurse()
         this.getGravida()
         wx.hideHomeButton()
