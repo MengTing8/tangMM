@@ -129,8 +129,8 @@ Page({
                 }]
             }
         }).then(res => {
-
             if (res.data.code === '0') {
+                if (res.data.data.length>0) {
                 let color = JSON.parse(res.data.data[0].color);
                 let option = JSON.parse(res.data.data[0].option);
                 let yAxisLabelValues;
@@ -167,6 +167,7 @@ Page({
                     selectedTagList
                 })
                 this.init_echarts(option)
+                }
             } else {
                 wx.showToast({
                     title: res.data.message,

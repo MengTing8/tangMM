@@ -99,7 +99,6 @@
              this.getFetalMovementList()
          } else if (index == 1) {
              this.getFetalMovementListW()
-
          } else {
              this.getFetalMovementChart()
          }
