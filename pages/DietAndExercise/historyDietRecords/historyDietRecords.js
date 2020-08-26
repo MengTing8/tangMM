@@ -1,4 +1,5 @@
 import * as echarts from '../../../components/ec-canvas/echarts';
+import * as base64 from '../../../utils/base64.js';
 const {
     promiseRequest
 } = require("../../../utils/Requests")
@@ -188,9 +189,17 @@ Page({
                     return a.sequence - b.sequence
                 })
 
-
                 let option1 = this.getOption(dataList[0]);
                 let option2 = this.getOption(dataList[1]);
+
+                for(let data of dataList) {
+                    for (let i = 0; i < data.legend.length; i++) {
+                        let svg = '<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="' + data.legend[i].symbol.substr(7) + '" fill="' + data.legend[i].color + '"></path></svg>'
+                        svg = unescape(encodeURIComponent(svg));
+                        data.legend[i].symbol = 'data:image/svg+xml;base64,' + base64.btoa(svg);
+                    } 
+                }
+
                 this.setData({
                     TabsIndex: 0,
                     optionList: dataList,

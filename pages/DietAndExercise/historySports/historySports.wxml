@@ -24,7 +24,7 @@
                 <view class="titleContent">
                     <view class="titleContentBox">
                         <view class="legendBox" wx:for="{{legendList}}" wx:key="index">
-                            <view class="legendIcon {{item.symbol}}" style="background:{{item.color}};width:{{item.size.width}};height:{{item.size.height}}"></view>
+                            <image class="legendIcon" src="{{item.symbol}}" style="width:{{item.size.width}}rpx;height:{{item.size.height}}rpx"></image>
                             <view class="">{{item.value}}</view>
                         </view>
                     </view>
