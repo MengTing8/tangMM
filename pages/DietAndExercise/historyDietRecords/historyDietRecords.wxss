@@ -85,6 +85,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
 }
 
 .legendBox {
@@ -95,19 +96,13 @@
 }
 
 .legendIcon {
-    width: 26rpx;
-    height: 12rpx;
-    background: #296FD8;
     margin-right: 14rpx;
 }
 
-.legendIcon.circle {
-    border-radius: 50%;
+.titleContent {
+    position: relative;
 }
 
-.titleContent {
-    position: absolute;
-    right: 0;
-    bottom: -5%;
-    left: 0;
+.heatChartsContent {
+    position: relative;
 }

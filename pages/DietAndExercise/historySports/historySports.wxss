@@ -42,14 +42,7 @@
 }
 
 .legendIcon {
-    width: 26rpx;
-    height: 12rpx;
-    background: #296FD8;
     margin-right: 14rpx;
-}
-
-.legendIcon.circle {
-    border-radius: 50%;
 }
 
 .titleContent {
