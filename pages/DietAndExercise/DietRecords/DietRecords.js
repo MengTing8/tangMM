@@ -471,6 +471,7 @@ Page({
                 "data": params
             }
         }).then(res => {
+            console.log('saveDiet',res);
             if (res.data.code === '0') {
                 wx.showToast({
                     title: res.data.message,

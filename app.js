@@ -34,5 +34,6 @@ App({
         exeQueue: true,
         needBeginLogin: true,
         promiseQueue: [],
+        patientId:null
     }
 })

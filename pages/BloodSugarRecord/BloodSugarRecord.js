@@ -7,6 +7,7 @@ const {
 const moment = require('../../utils/moment.min.js');
 let date = getDates(1, new Date());
 let newDate = moment(date[0].time).format('YYYY年MM月DD日')
+let app = getApp()
 moment.locale();
 const tips = {
     periodCode: '请选择时间段类型',
@@ -123,7 +124,7 @@ Page({
             }
         })
     },
-    onSaveBtn(e) {
+    onSaveBtn() {
         let self = this
         let BloodData = self.data.BloodData
         if (this.data.delList.length > 0) {
@@ -151,7 +152,7 @@ Page({
 
         for (let i = 0; i < BloodData.length; i++) {
             BloodData[i].entity = 'bloodGlucose';
-            BloodData[i].patientId = wx.getStorageSync('patientId');
+            BloodData[i].patientId = app.globalData.patientId;
             BloodData[i].date = this.data.dataTime;
             BloodData[i].status = '1';
         }

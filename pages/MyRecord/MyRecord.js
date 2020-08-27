@@ -93,6 +93,7 @@ Page({
                         newStrs = newStr.substring(srtEndIndex);
                     }
                     wx.setStorageSync('patientId', res.data.data[0].id)
+                    app.globalData.patientId = res.data.data[0].id
                     self.setData({
                         MyRecordData: res.data.data[0],
                         CurrentWeek: date[0].week,

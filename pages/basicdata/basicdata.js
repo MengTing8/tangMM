@@ -61,7 +61,6 @@
                                       }]
                                   }
                               }).then((res) => {
-                                  console.log(res, "删除");
                                   if (res.data.code === '0') {
                                       wx.showToast({
                                           title: res.data.message,
@@ -193,7 +192,6 @@
               }
           };
           promiseRequest(requestObj).then((res) => {
-              console.log(res, "save");
               if (res.data.code === '0') {
                   wx.showToast({
                       title: res.data.message,
@@ -246,7 +244,6 @@
               }
           };
           promiseRequest(requestObj).then((res) => {
-              console.log(res);
               if (res.data.code === '0') {
                   let ResData = res.data.data[0]
                   let NewbaseData = self.data.baseData

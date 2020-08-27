@@ -103,17 +103,17 @@
              method: requestObj.method,
              data: JSON.stringify(requestObj.data),
              success: function (res) {
-                 console.log(res);
                  let promiseQueue = app.globalData.promiseQueue;
                  if (res.data.code == '0') {
-                     if (requestObj.resolve) { //如果是promise队列中的请求。
+                     if (requestObj.resolve) {
+                         //如果是promise队列中的请求。
                          requestObj.resolve(res);
                          let promiseQueueItem = promiseQueue.shift();
                          if (app.globalData.exeQueue) {
                              //如果队列可执行则循环队列，保持队列只被循环一次。
                              app.globalData.exeQueue = false; //防止被多次循环。
-                             while (promiseQueueItem) {
-                                 promiseRequest(promiseQueueItem);
+                             if (promiseQueueItem) {
+                                 //  promiseRequest(promiseQueueItem);
                                  promiseQueueItem = promiseQueue.shift();
                                  app.globalData.promiseQueue = promiseQueue;
                              }
@@ -126,13 +126,11 @@
                          resolve(res);
                      }
                  } else if (res.data.code == '-99') {
-                    //  取缓存中的授权，取新的token即可。
                      //token失效，重新调用login换取token
                      wx.clearStorageSync()
                      requestObj.resolve = resolve;
                      promiseQueue.push(requestObj);
                      //请求失败了，把该请求放到promise队列，等待更新token后重新调用。
-                     console.log(app.globalData);
                      if (!app.globalData.needBeginLogin) {
                          //如果不需要重新登录
                          return;
@@ -141,14 +139,12 @@
                      app.globalData.needBeginLogin = false;
                      login(requestObj)
                  } else if (res.data.code == '-97') {
-                    //  启动全新的登录授权流程。
                      wx.clearStorageSync()
                      wx.reLaunch({
                          url: '/pages/index/index'
                      })
                  } else if (res.data.code == '-1') {
                      if (res.data.message.indexOf("无效签名") !== -1 || res.data.message.indexOf("token") !== -1 || res.data.message.indexOf("无效绑定") !== -1) {
-                         console.log("token. 无效绑定");
                          wx.clearStorageSync()
                          requestObj.resolve = resolve;
                          promiseQueue.push(requestObj);
@@ -158,7 +154,6 @@
                          app.globalData.needBeginLogin = false;
                          login(requestObj)
                      } else if (res.data.message.indexOf("无效授权") !== -1) {
-                         console.log('无效授权');
                          wx.clearStorageSync()
                          wx.reLaunch({
                              url: '/pages/index/index'
