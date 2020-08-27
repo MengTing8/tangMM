@@ -28,6 +28,9 @@
                 </view>
             </view>
         </view>
+                <view style=" text-align: center;margin: 150rpx auto;" wx:if="{{!listData[0].time}}">
+            暂无记录
+        </view>
         <!-- 记录表格结束 -->
     </view>
     <view style="display:{{selectedIndex==0?'none':'block'}}">

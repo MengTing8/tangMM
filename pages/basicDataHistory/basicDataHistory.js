@@ -203,6 +203,11 @@ Page({
     onLoad: function (options) {
         this.echartsComponent = this.selectComponent('#mychart-dom-basicData');
         this.getBaseList()
+         if (wx.getStorageSync('userType') == '1') {
+             wx.setNavigationBarTitle({
+                 title: '基础数据'
+             })
+         }
     },
 
     /**

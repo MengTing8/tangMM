@@ -29,10 +29,7 @@
                     <view class="{{musicPlayKey==index?'muicFont':''}}" bind:tap="selectMusic" data-index="{{index}}">
                         {{item.name}}
                     </view>
-                    <!-- <view>曲目1</view>
-                    <view>曲目1</view>
-                    <view>曲目1</view>
-                    <view>曲目1</view> -->
+                    
                 </view>
             </view>
         </view>

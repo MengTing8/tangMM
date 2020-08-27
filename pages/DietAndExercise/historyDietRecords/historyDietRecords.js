@@ -279,5 +279,10 @@ Page({
         this.echartsComponentDiet = this.selectComponent('#mychartDiet');
         this.echartsComponentDietOther = this.selectComponent('#mychartTabs');
         this.getDietList()
+        if (wx.getStorageSync('userType') == '1') {
+            wx.setNavigationBarTitle({
+                title: '饮食记录'
+            })
+        }
     }
 })

@@ -8,14 +8,19 @@
                     <view class="ItemCard_Info  unifyFont" wx:for="{{item.children}}" wx:for-item="c" wx:for-index="d" wx:key="d">
                         <view>{{c.periodValue}}（{{c.time}}）{{c.value}}kcal</view>
                         <view class="foodBox">
-                            <view wx:for="{{c.food}}" wx:for-item="f" wx:for-index="i" wx:key="i">{{f.name}}{{f.value}}g、 </view>
+                            <view wx:for="{{c.food}}" wx:for-item="f" wx:for-index="i" wx:key="i">
+                                {{f.name}}{{f.value}}g、
+                            </view>
                         </view>
                         <view class="PhotoList">
                             <view class="PhotoShwoContent" wx:for="{{c.photo}}" wx:for-item="p" wx:for-index="h" wx:key="h" wx:if="{{p.url}}">
-                                <image class="uploaderPhoto" mode="widthFix" src="{{p.url}}" bind:tap="handlePreviewImage"data-pindex="{{h}}" data-ind="{{index}}" data-d="{{d}}"/>
+                                <image class="uploaderPhoto" mode="widthFix" src="{{p.url}}" bind:tap="handlePreviewImage" data-pindex="{{h}}" data-ind="{{index}}" data-d="{{d}}" />
                             </view>
                         </view>
                     </view>
+                </view>
+                <view style=" text-align: center;margin: 150rpx auto;" wx:if="{{!historyFootList[0].date}}">
+                    暂无记录
                 </view>
             </view>
         </view>

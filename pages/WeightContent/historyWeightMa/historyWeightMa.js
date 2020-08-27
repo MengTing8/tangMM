@@ -296,5 +296,10 @@ Page({
         this.echartsComponent = this.selectComponent('#mychart-dom-scatter')
         //this.getWeightListByWeek()
         this.getWeightList(1)
+          if (wx.getStorageSync('userType') == '1') {
+              wx.setNavigationBarTitle({
+                  title: '妈妈体重'
+              })
+          }
     }
 })

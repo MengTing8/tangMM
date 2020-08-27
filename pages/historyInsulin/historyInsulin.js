@@ -408,6 +408,11 @@ Page({
         })
         this.echartsComponent = this.selectComponent('#mychart-dom-scatter');
         this.getInsulinList()
+         if (wx.getStorageSync('userType') == '1') {
+             wx.setNavigationBarTitle({
+                 title: '胰岛素使用记录'
+             })
+         }
         // this.getInsulinPumpList()
         // this.getInsulinListByWeek()
     }

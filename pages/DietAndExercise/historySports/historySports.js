@@ -20,7 +20,7 @@ Page({
         ec: {},
         TimeObj: {
             StartDt: newDate,
-            EndDt:getDay(0),
+            EndDt: getDay(0),
             StarDATE,
             EndDATE,
             dateStart: getDay(-7),
@@ -175,7 +175,11 @@ Page({
     onLoad: function (options) {
         this.echartsComponent = this.selectComponent('#mychart-dom-exerciseData');
         this.getExerciseList()
-
+        if (wx.getStorageSync('userType') == '1') {
+            wx.setNavigationBarTitle({
+                title: '运动记录'
+            })
+        }
     },
 
     /**

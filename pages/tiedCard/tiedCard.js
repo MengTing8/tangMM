@@ -313,9 +313,12 @@ Page({
      */
     onShow: function () {
         let that=this
-        setTimeout(() => {
-        that.login();
-        }, 0);
+          if (wx.getStorageSync('userType') == '-1') {
+              setTimeout(() => {
+                  that.login();
+              }, 0);
+          }
+       
         wx.hideHomeButton()
     },
 
