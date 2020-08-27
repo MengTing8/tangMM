@@ -32,7 +32,6 @@
             </view>
             <view class="arrive_btn" bind:tap="bindMobile">
                 <view class="saveBtn">保存</view>
-                <!-- <button type="primary" class="btn">保存</button> -->
             </view>
         </view>
         <view class="" hidden="{{currentTabsIndex !==1}}">

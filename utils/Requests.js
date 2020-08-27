@@ -103,7 +103,7 @@
              method: requestObj.method,
              data: JSON.stringify(requestObj.data),
              success: function (res) {
-                 console.log(res);
+                //  console.log(res);
                  let promiseQueue = app.globalData.promiseQueue;
                  if (res.data.code == '0') {
                      if (requestObj.resolve) { //如果是promise队列中的请求。
