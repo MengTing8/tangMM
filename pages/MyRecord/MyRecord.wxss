@@ -97,3 +97,29 @@
     z-index: 999;
 }
 
+.none {
+    margin-top: 100rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 30rpx;
+    color: #CDCDCD;
+}
+
+.none image {
+    width: 188rpx;
+    height: 210rpx;
+    margin-bottom: 24rpx;
+}
+
+.none .btn {
+    width: 456rpx;
+    height: 84rpx;
+    line-height: 58rpx;
+    border-radius: 42rpx; 
+    color: #121212;
+    margin-top: 60rpx;
+    font-size: 30rpx;
+    background-color: #FEC81E; 
+}

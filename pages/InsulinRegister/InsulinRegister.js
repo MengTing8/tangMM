@@ -2,11 +2,12 @@ const {
     promiseRequest
 } = require("../../utils/Requests")
 const {
+    formatTime,
     getDates,
     getDay,
     sortFun,
     contrastTime,
-    isDatesBetween
+    isDatesBetween,
 } = require("../../utils/util")
 const moment = require('../../utils/moment.min.js');
 const tips = {
@@ -549,17 +550,41 @@ Page({
     },
     //添加记录列表
     addDosageList() {
-        let self = this
-        var arr = this.data.dosageArray
+        let arr = this.data.dosageArray
+        let flag = false;
+        const keys = ['timeStart', 'timeEnd', 'value']
+        for (const data of arr) {
+            for (const key of keys) {
+                const value = data[key]
+                if (value === undefined) {
+                    flag = true;
+                    break;
+                } else if (value.trim() === "") {
+                    flag = true;
+                    break
+                }
+            }
+        }
+        if (flag) {
+            wx.showToast({
+                icon: 'none',
+                title: '上一组数据各项不能为空',
+                duration: 2000
+            })
+            return
+        }
+        let timeStart = new Date(this.data.dataTime + " " + arr[arr.length - 1].timeEnd)
+        timeStart.setMinutes(timeStart.getMinutes() + 1);
+        timeStart = formatTime(timeStart).substr(0,5)
         arr.push({
             entity: "insulinPump",
             patientId: wx.getStorageSync('patientId'),
-            date: self.data.dataTime,
+            date: this.data.dataTime,
             type: 2,
             status: 1,
             id: '',
             rowMd5: '',
-            timeStart: '',
+            timeStart: timeStart,
             timeEnd: '',
             value: ''
         })

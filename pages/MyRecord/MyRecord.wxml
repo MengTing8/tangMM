@@ -42,5 +42,10 @@
                 <view class="notAchieve" wx:else>{{item.status}}</view>
             </view>
         </view> -->
+        <view class="none" wx:if="{{isNone}}">
+            <image src="../../img/noRecord.png"></image>
+            <view>请完善个人资料</view>
+            <button class="btn" bindtap="modifiedInfo">去完善</button>        
+        </view>
     </view>
 </view>

@@ -14,7 +14,8 @@ Page({
         CurrentDate: "",
         CurrentDay: "",
         patientId: '',
-        gestationalWeek: ""
+        gestationalWeek: "",
+        isNone: false
     },
     RecordInfo(e) {
         let code = e.detail.code
@@ -94,12 +95,17 @@ Page({
                     }
                     wx.setStorageSync('patientId', res.data.data[0].id)
                     app.globalData.patientId = res.data.data[0].id
+                    let isNone;
+                    if (res.data.data[0].items.length === 0) {
+                        isNone = true;
+                    }
                     self.setData({
                         MyRecordData: res.data.data[0],
                         CurrentWeek: date[0].week,
                         CurrentDate: newStrs,
                         CurrentDay: searchStr,
-                        patientId: res.data.data[0].id
+                        patientId: res.data.data[0].id,
+                        isNone
                     })
                 }
             } else {

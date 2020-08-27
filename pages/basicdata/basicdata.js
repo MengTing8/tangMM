@@ -349,18 +349,39 @@
       },
       //添加记录列表
       addRecordList() {
-          let self = this
-          var arr = self.data.dataArray
-          arr.push({
+          let NewData = this.data.dataArray
+          let flag = false;
+          const keys = ['time', 'heartRate', 'systolicPressure', 'diastolicPressure']
+          for (const data of NewData) {
+              for(const key of keys) {
+                  const value = data[key]
+                  if (value === undefined) {
+                      flag = true;
+                      break;
+                  }else if(value.trim() === "") {
+                      flag = true;
+                      break
+                  }
+              }
+          }
+          if(flag) {
+              wx.showToast({
+                  icon: 'none',
+                  title: '上一组数据各项不能为空',
+                  duration: 2000
+              })
+              return
+          }
+          NewData.push({
               patientId: wx.getStorageSync('patientId'),
               status: 1,
               entity: "baseDetail",
-              date: self.data.dateRecord,
+              date: this.data.dateRecord,
               id: '',
               rowMd5: '',
           })
           this.setData({
-              dataArray: arr,
+              dataArray: NewData,
           })
       },
       //选择记录时间
