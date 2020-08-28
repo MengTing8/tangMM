@@ -113,6 +113,10 @@ Page({
                 for (let key in ResData.items) {
                     ResData.items[key].date = moment(ResData.items[key].date).format('YYYY年MM月DD日')
                 }
+                ResData.items.sort(function (a, b) {
+                    return a.date < b.date ? 1 : -1;
+                });
+
                 self.setData({
                     RecordList: ResData.items,
                     bmi: ResData.bmi,
