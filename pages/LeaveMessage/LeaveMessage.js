@@ -17,7 +17,7 @@ Page({
         userInputConten: '',
         MessageList: [],
         scrollToView: '',
-        // patientId:
+        patientId: wx.getStorageSync('patientId')
 
     },
     getMessage() {

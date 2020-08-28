@@ -6,6 +6,7 @@
       getDay
   } = require("../../utils/util")
   const moment = require('../../utils/moment.min.js');
+ 
   Page({
       data: {
           EndDt: getDay(0),
@@ -347,10 +348,37 @@
               dataArray: this.data.dataArray
           })
       },
+      getDates(time) {
+          var s = 0
+          var hour = time.split(":")[0]
+          var min = time.split(":")[1]
+          s = Number(hour * 3600000) + Number(min * 60000)
+          return s
+      },
+
+      secTotime(s) {
+          var t
+          if (s > -1) {
+              s = s + 60000
+              var hour = Math.floor(s / 3600000)
+              var min = Math.floor(s / 60000) % 60
+              if (hour < 10) {
+                  t = '0' + hour + ":"
+              } else {
+                  t = hour + ":"
+              }
+              if (min < 10) {
+                  t += "0"
+              }
+              t += min
+          }
+          return t
+      },
       //添加记录列表
       addRecordList() {
           let NewData = this.data.dataArray
           let flag = false;
+          let times=''
           const keys = ['time', 'heartRate', 'systolicPressure', 'diastolicPressure']
           for (const data of NewData) {
               for(const key of keys) {
@@ -362,6 +390,7 @@
                       flag = true;
                       break
                   }
+                  times = data.time
               }
           }
           if(flag) {
@@ -372,6 +401,12 @@
               })
               return
           }
+
+        
+           let curTime = 0
+           let hour = times.split(":")[0]
+           let min = times.split(":")[1]
+           curTime = Number(hour * 3600000) + Number(min * 60000)
           NewData.push({
               patientId: wx.getStorageSync('patientId'),
               status: 1,
@@ -379,6 +414,7 @@
               date: this.data.dateRecord,
               id: '',
               rowMd5: '',
+              time: this.secTotime(curTime)
           })
           this.setData({
               dataArray: NewData,
@@ -477,7 +513,6 @@
        * 生命周期函数--监听页面显示
        */
       onShow: function () {
-
       },
 
       /**
