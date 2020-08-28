@@ -95,7 +95,7 @@ Page({
                     }
                     wx.setStorageSync('patientId', res.data.data[0].id)
                     app.globalData.patientId = res.data.data[0].id
-                    let isNone;
+                    let isNone = false;
                     if (res.data.data[0].items.length === 0) {
                         isNone = true;
                     }
