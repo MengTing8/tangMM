@@ -7,7 +7,6 @@ const {
     getDay,
     sortFun,
     contrastTime,
-    isDatesBetween,
 } = require("../../utils/util")
 const moment = require('../../utils/moment.min.js');
 const tips = {
@@ -49,58 +48,58 @@ Page({
         delList: [],
         GA: ''
     },
-     DeleteByDate(e) {
-         let date = e.detail.date
-         let that = this
-         if (that.data.userData[0].periodCode || that.data.MealArray.length>0|| that.data.dosageArray[0].id) {
-             wx.showModal({
-                 title: '提示',
-                 content: "确定删除当日数据？",
-                 success(res) {
-                     if (res.confirm) {
-                         promiseRequest({
-                             method: "POST",
-                             url: '/wxrequest',
-                             data: {
-                                 "token": wx.getStorageSync('token'),
-                                 "function": "deleteByDate",
-                                 "data": [{
-                                     "entity": "insulin",
-                                     "date": date
-                                 }]
-                             }
-                         }).then((res) => {
-                             if (res.data.code === '0') {
-                                 wx.showToast({
-                                     title: res.data.message,
-                                     icon: 'none',
-                                     duration: 3000
-                                 })
-                                 if (that.data.TabsIndex == 0) {
-                                     that.getInsulin()
-                                 } else {
-                                     that.getInsulinPump()
+    DeleteByDate(e) {
+        let date = e.detail.date
+        let that = this
+        if (that.data.userData[0].periodCode || that.data.MealArray.length > 0 || that.data.dosageArray[0].id) {
+            wx.showModal({
+                title: '提示',
+                content: "确定删除当日数据？",
+                success(res) {
+                    if (res.confirm) {
+                        promiseRequest({
+                            method: "POST",
+                            url: '/wxrequest',
+                            data: {
+                                "token": wx.getStorageSync('token'),
+                                "function": "deleteByDate",
+                                "data": [{
+                                    "entity": "insulin",
+                                    "date": date
+                                }]
+                            }
+                        }).then((res) => {
+                            if (res.data.code === '0') {
+                                wx.showToast({
+                                    title: res.data.message,
+                                    icon: 'none',
+                                    duration: 3000
+                                })
+                                if (that.data.TabsIndex == 0) {
+                                    that.getInsulin()
+                                } else {
+                                    that.getInsulinPump()
 
-                                 }
-                             } else {
-                                 wx.showToast({
-                                     title: res.data.message,
-                                     icon: 'none',
-                                     duration: 3000
-                                 })
-                             }
-                         })
-                     } else if (res.cancel) {}
-                 }
-             })
-         } else {
-             wx.showToast({
-                 title: '无数据可删！',
-                 icon: 'none',
-                 duration: 2000
-             })
-         }
-     },
+                                }
+                            } else {
+                                wx.showToast({
+                                    title: res.data.message,
+                                    icon: 'none',
+                                    duration: 3000
+                                })
+                            }
+                        })
+                    } else if (res.cancel) {}
+                }
+            })
+        } else {
+            wx.showToast({
+                title: '无数据可删！',
+                icon: 'none',
+                duration: 2000
+            })
+        }
+    },
     SaveInsulin() {
         if (this.data.delList.length > 0) {
             this.delInsulin();
@@ -552,6 +551,7 @@ Page({
     addDosageList() {
         let arr = this.data.dosageArray
         let flag = false;
+        let times = ''
         const keys = ['timeStart', 'timeEnd', 'value']
         for (const data of arr) {
             for (const key of keys) {
@@ -563,6 +563,7 @@ Page({
                     flag = true;
                     break
                 }
+                times = data.timeEnd
             }
         }
         if (flag) {
@@ -573,9 +574,15 @@ Page({
             })
             return
         }
-        let timeStart = new Date(this.data.dataTime + " " + arr[arr.length - 1].timeEnd)
-        timeStart.setMinutes(timeStart.getMinutes() + 1);
-        timeStart = formatTime(timeStart).substr(0,5)
+        let curTime = 0
+        let hour = times.split(":")[0]
+        let min = times.split(":")[1]
+        curTime = Number(hour * 3600000) + Number(min * 60000)
+        // let timeStart = new Date(this.data.dataTime + " " + arr[arr.length - 1].timeEnd)
+        // timeStart.setMinutes(timeStart.getMinutes() + 1);
+        // timeStart = formatTime(timeStart).substr(0, 5)
+      let timeStart = this.secTotime(curTime)
+
         arr.push({
             entity: "insulinPump",
             patientId: wx.getStorageSync('patientId'),
@@ -591,6 +598,25 @@ Page({
         this.setData({
             dosageArray: arr,
         })
+    },
+    secTotime(s) {
+        var t
+        if (s > -1) {
+            s = s + 60000
+            var hour = Math.floor(s / 3600000)
+            var min = Math.floor(s / 60000) % 60
+            var sec = s % 6000
+            if (hour < 10) {
+                t = '0' + hour + ":"
+            } else {
+                t = hour + ":"
+            }
+            if (min < 10) {
+                t += "0"
+            }
+            t += min
+        }
+        return t
     },
     bindMealValueInput(e) {
         let self = this
@@ -750,6 +776,28 @@ Page({
     },
     addRecordList: function () {
         let userData = this.data.userData;
+        let flag = false;
+        const keys = ['periodValue', 'categoryValue', 'value']
+        for (const data of userData) {
+            for (const key of keys) {
+                const value = data[key]
+                if (value === undefined) {
+                    flag = true;
+                    break;
+                } else if (value.trim() === "") {
+                    flag = true;
+                    break
+                }
+            }
+        }
+        if (flag) {
+            wx.showToast({
+                icon: 'none',
+                title: '上一组数据各项不能为空',
+                duration: 2000
+            })
+            return
+        }
         userData.push({
             periodCode: '',
             periodOtherValue: '',

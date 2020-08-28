@@ -282,7 +282,7 @@ Page({
                 codeArr.push(item.periodCode)
             })
             self.data.enteringArray[codeArr.indexOf(periodcode)].photo = null
-            if (!self.data.enteringItems[index].time &&self.data.enteringItems[index].categoryCode =='0'&& !self.data.enteringItems[index].food) {
+            if (!self.data.enteringItems[index].time && self.data.enteringItems[index].categoryCode == '0' && !self.data.enteringItems[index].food) {
                 self.data.enteringArray.splice(codeArr.indexOf(periodcode), 1)
             }
         }
@@ -368,7 +368,7 @@ Page({
                 periodCodeArr.push(periodcode)
             }
             wx.setStorageSync('FoodDataList', FoodData)
-        }else{
+        } else {
             wx.setStorageSync('FoodDataList', null)
         }
         this.setData({
@@ -407,39 +407,39 @@ Page({
             } else {
                 if (!params[key].time) {
                     judgeArr.push('time')
-                } else if (!params[key].categoryCode) {
+                } else if (!params[key].categoryCode || params[key].categoryCode=='0') {
                     judgeArr.push('categoryCode')
                 } else if (params[key].categoryCode && params[key].categoryCode && params[key].photo) {
                     if (!params[key].food) {
                         judgeArr.push('food')
                     }
-                } else {}
-
+                }
             }
-            if (judgeArr.includes('time')) {
-                wx.showToast({
-                    title: '请选择时间',
-                    icon: 'none',
-                    duration: 3000
-                })
-                return false;
-            } else if (judgeArr.includes('categoryCode')) {
-                wx.showToast({
-                    title: '请选择类型',
-                    icon: 'none',
-                    duration: 3000
-                })
-                return false;
-            } else if (judgeArr.includes('food')) {
-                wx.showToast({
-                    title: '请录入食物',
-                    icon: 'none',
-                    duration: 3000
-                })
-                return false;
-            } else {
-                self.saveDiet(params)
-            }
+        }
+        if (judgeArr.includes('time')) {
+            wx.showToast({
+                title: '请选择时间',
+                icon: 'none',
+                duration: 3000
+            })
+            return false;
+        } else if (judgeArr.includes('categoryCode')) {
+            wx.showToast({
+                title: '请选择类型',
+                icon: 'none',
+                duration: 3000
+            })
+            return false;
+        } else if (judgeArr.includes('food')) {
+            wx.showToast({
+                title: '请录入食物',
+                icon: 'none',
+                duration: 3000
+            })
+            return false;
+        } else {
+            self.saveDiet(params)
+            return;
         }
     },
     saveDiet(params) {
@@ -461,7 +461,6 @@ Page({
                 delete photoItem[photo].url
             }
         }
-
         promiseRequest({
             method: "POST",
             url: '/wxrequest',
@@ -471,7 +470,6 @@ Page({
                 "data": params
             }
         }).then(res => {
-            console.log('saveDiet',res);
             if (res.data.code === '0') {
                 wx.showToast({
                     title: res.data.message,
