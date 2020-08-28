@@ -335,8 +335,7 @@
                     timeStart,
                     refreshClock: false
                 })
-                // EndTime = new Date(new Date().getTime() + 1 * 60 * 60 * 1000).getTime() || [];
-                EndTime = new Date(new Date().getTime() + 1 * 5 * 60 * 1000).getTime() || [];
+                EndTime = new Date(new Date().getTime() + 1 * 60 * 60 * 1000).getTime() || [];
                 countdown(that);
             } else {
                 if (this.data.total_econd == '' && that.data.validQuantity == 0) {
