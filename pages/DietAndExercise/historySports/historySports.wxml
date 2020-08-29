@@ -9,6 +9,7 @@
                         <view>时段：{{item.periodValue}}</view>
                         <view>方式：{{item.wayValue}}</view>
                         <view>强度：{{item.levelValue}}</view>
+                        <view>时长：{{item.duration}}</view>
                     </view>
                 </view>
             </view>

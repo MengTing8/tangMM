@@ -239,8 +239,13 @@
                 }
             }).then(res => {
                 if (res.data.code === '0') {
+                    var ResData = res.data.data
+                    ResData.sort(function (a, b) {
+                        return a.time < b.time ? 1 : -1;
+                    });
                     self.setData({
-                        FetalMovementList: res.data.data
+                         //FetalMovementList: res.data.data
+                         FetalMovementList: ResData
                     })
                 } else {
                     wx.showToast({
