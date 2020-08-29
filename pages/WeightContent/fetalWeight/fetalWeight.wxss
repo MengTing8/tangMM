@@ -1,7 +1,10 @@
 /* pages/fetalWeight/fetalWeight.wxss */
 .pageContainer{
-  padding: 40rpx 42rpx;
+  padding: 0rpx;
   border-top: 2rpx solid #F1F1F1;
+}
+.item{
+  padding: 40rpx 42rpx;
 }
 .listItem{
   background:rgba(255,255,255,1);

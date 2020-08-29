@@ -1,7 +1,7 @@
 <!-- pages/fetalWeight/fetalWeight.wxml -->
 <Tabs bindtitleChange="handleTitleChange">
     <view class="pageContainer">
-        <view hidden="{{selectedIndex==1}}">
+        <view class="item" hidden="{{selectedIndex==1}}">
             <view class="listItem" wx:for="{{FetusWeightList}}" wx:key="index">
                 <view class="item_content">
                     <view class="content_duration">
