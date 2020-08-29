@@ -44,6 +44,9 @@ Page({
         }).then(res => {
             if (res.data.code === '0') {
                 var ResData = res.data.data
+                ResData.sort(function (a, b) {
+                    return a.time < b.time ? 1 : -1;
+                });
                 self.setData({
                     ExerciseList: ResData
                 })
