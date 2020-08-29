@@ -107,9 +107,9 @@
 
 }
 .mychartContent{
-     height: 1000rpx;
-     /* margin-bottom: 250rpx; */
-     position: relative;
+    height: 1000rpx;
+    margin-top: 50rpx;
+    position: relative;
     margin-bottom: 50rpx;
 }
 
