@@ -107,18 +107,24 @@ Page({
     handleTitleChange(e) {
         let index = e.detail.index
         if (index === 1) {
-            this.getGLUChart()
+            let isFirstTime = true;
+            this.getGLUChart(isFirstTime)
         }
         this.setData({
             selectedIndex: index
         })
     },
-    getGLUChart() {
+    getGLUChart(isFirstTime) {
         let tags = [];
-        for (const item of this.data.selectedTagList) {
-            tags.push({
-                code: item
-            })
+        if(isFirstTime){
+            //首次进入，后台将默认选择全部。
+            tags = [{"code":"0"}]
+        }else{
+            for (const item of this.data.selectedTagList) {
+                tags.push({
+                    code: item
+                })
+            }
         }
         promiseRequest({
             method: "POST",
