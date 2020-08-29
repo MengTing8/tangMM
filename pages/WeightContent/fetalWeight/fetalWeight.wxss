@@ -67,7 +67,7 @@
     margin: 0 auto;
     width: 100%;
     height: 900rpx;
-    /* margin-bottom: 50rpx; */
+    margin-top: 50rpx; 
     position: relative;
     /* padding: 40rpx 100px !important; */
 }
