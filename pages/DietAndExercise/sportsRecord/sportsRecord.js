@@ -15,8 +15,8 @@ let date = getDates(1, new Date());
 let newDate = moment(date[0].time).format('YYYY年MM月DD日')
 Page({
     data: {
-        texts: "<p>&ensp;&ensp;运动疗法可降低妊娠期基础胰岛素抵抗,是妊娠合并糖尿病的综合治疗措施之一,每餐30分钟后进行中等强度的运动对母儿无不良影响。</p>运动治疗的方法:选择一种低至中等强度的有氧运动(又称耐力运动),主要指由机体大肌肉群参加的持续性运动。步行是常用的简单有氧运动。",
-        suggestion: "<p>&ensp;&ensp;每天坚持餐后运动 30 分钟，以中等强度的有氧运动为主，如散步。若您情况不适宜散步可选择上肢运动，如举水瓶。</p>强度以微微出汗为宜，忌过量运动，一般若运动完大汗淋漓或休息 10 分钟仍不能恢复运 动前的心跳则为运动过量。",
+        texts: "",
+        suggestion: "",
         note: "",
         levelList: [],
         wayList: [],
