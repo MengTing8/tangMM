@@ -18,17 +18,6 @@ Page({
      */
     data: {
         userInputConten: '',
-        talkContent: [{
-            text: '护长，请问资料这样录入有问题吗？',
-            isMine: true,
-            satrtTime: '2020-02-10  20:20:51',
-            headImg: '../../../img/user.png'
-        }, {
-            text: '护长，请问资料这样录入有问题吗？',
-            isMine: true,
-            satrtTime: '2020-02-10  20:20:51',
-            headImg: '../../../img/user.png'
-        }],
         tabs: [{
                 "code": "1",
                 "value": "项目",
@@ -54,7 +43,7 @@ Page({
         userInputConten: '',
         MessageList: [],
         scrollToView: '',
-        NurseId:'',
+        NurseId: '',
         patientId: '',
         userType: wx.getStorageSync('userType')
     },
@@ -76,16 +65,14 @@ Page({
                 let ResData = res.data.data[0]
                 for (const key in ResData) {
                     if (ResData[key].createdDateTime) {
-                    ResData[key].createdDateTime = ResData[key].createdDateTime.substring(0, 19)
+                        ResData[key].createdDateTime = ResData[key].createdDateTime.substring(0, 19)
                     }
                 }
-                if (ResData.length>0) {
+                if (ResData.length > 0) {
                     ResData.sort(function (a, b) {
                         return a.createdDateTime > b.createdDateTime ? 1 : -1;
                     });
                 }
-                 
-
                 self.setData({
                     MessageList: ResData,
                 })
@@ -160,16 +147,16 @@ Page({
     },
     getPatient4Nurse() {
         promiseRequest({
-                method: "POST",
-                url: '/wxrequest',
-                data: {
-                    "token": wx.getStorageSync('token'),
-                    "function": "getPatient4Nurse",
-                    "data": [{
-                        "patientId": this.data.patientId
-                    }]
-                }
-            }).then((res) => {
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "getPatient4Nurse",
+                "data": [{
+                    "patientId": this.data.patientId
+                }]
+            }
+        }).then((res) => {
             console.log(res);
             if (res.data.code === '0') {
                 let Data = res.data.data[0]
@@ -210,16 +197,16 @@ Page({
     },
     getMyRecord4Nurse() {
         promiseRequest({
-                method: "POST",
-                url: '/wxrequest',
-                data: {
-                    "token": wx.getStorageSync('token'),
-                    "function": "getMyRecord4Nurse",
-                    "data": [{
-                        "patientId": this.data.patientId
-                    }]
-                }
-            }).then((res) => {
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "getMyRecord4Nurse",
+                "data": [{
+                    "patientId": this.data.patientId
+                }]
+            }
+        }).then((res) => {
             console.log(res);
             if (res.data.code === '0') {
                 this.setData({
@@ -233,7 +220,7 @@ Page({
                 })
             }
         }).catch((errMsg) => {
-            console.log(errMsg); 
+            console.log(errMsg);
         });
     },
     TabsChange(e) {
@@ -247,43 +234,43 @@ Page({
         })
         if (index == 2) {
             this.getPatient4Nurse()
-        }else if (index==1) {
+        } else if (index == 1) {
             this.getMessage()
         }
     },
-      RecordInfo(e) {
-          let code = e.detail.code
-          let gestationalWeek = this.data.ProjectsData.gestationalWeek
-          let URL = ''
-          if (code == '1') {
-              // 胎动监测
-              URL = `../FetalMRecord/FetalMRecord?GA=${gestationalWeek}`
-          } else if (code == '2') {
-              // 基础数据
-              URL = '../../basicDataHistory/basicDataHistory'
-          } else if (code == '3') {
-              // 妈妈空腹体重
-              URL = `../../WeightContent/historyWeightMa/historyWeightMa?GA=${gestationalWeek}`
-          } else if (code =='4') {
-              // 胎儿体重
-              URL = '../../WeightContent/fetalWeight/fetalWeight'
-          } else if (code =='5') {
-              // 饮食记录
-              URL = '../../DietAndExercise/historyDietRecords/historyDietRecords'
-          } else if (code == '6') {
-              // 运动记录
-              URL = '../../DietAndExercise/historySports/historySports'
-          } else if (code == '7') {
-              // 血糖
-              URL = '../../historyBloodSugar/historyBloodSugar'
-          } else if (code == '8') {
-              // 胰岛素
-              URL =`../../historyInsulin/historyInsulin?GA=${gestationalWeek}`
-          }
-          wx.navigateTo({
-              url: URL
-          })
-      },
+    RecordInfo(e) {
+        let code = e.detail.code
+        let gestationalWeek = this.data.ProjectsData.gestationalWeek
+        let URL = ''
+        if (code == '1') {
+            // 胎动监测
+            URL = `../FetalMRecord/FetalMRecord?GA=${gestationalWeek}`
+        } else if (code == '2') {
+            // 基础数据
+            URL = '../../basicDataHistory/basicDataHistory'
+        } else if (code == '3') {
+            // 妈妈空腹体重
+            URL = `../../WeightContent/historyWeightMa/historyWeightMa?GA=${gestationalWeek}`
+        } else if (code == '4') {
+            // 胎儿体重
+            URL = '../../WeightContent/fetalWeight/fetalWeight'
+        } else if (code == '5') {
+            // 饮食记录
+            URL = '../../DietAndExercise/historyDietRecords/historyDietRecords'
+        } else if (code == '6') {
+            // 运动记录
+            URL = '../../DietAndExercise/historySports/historySports'
+        } else if (code == '7') {
+            // 血糖
+            URL = '../../historyBloodSugar/historyBloodSugar'
+        } else if (code == '8') {
+            // 胰岛素
+            URL = `../../historyInsulin/historyInsulin?GA=${gestationalWeek}`
+        }
+        wx.navigateTo({
+            url: URL
+        })
+    },
     /**
      * 生命周期函数--监听页面加载
      */
@@ -292,7 +279,7 @@ Page({
             patientId: options.patientId,
             NurseId: options.NurseId
         })
-         wx.setStorageSync('PatientId', options.patientId)
+        wx.setStorageSync('PatientId', options.patientId)
         this.getMyRecord4Nurse()
     },
 
@@ -307,7 +294,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        this.getMyRecord4Nurse()
     },
 
     /**

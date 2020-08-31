@@ -5,7 +5,7 @@
             <view class="historyList">
                 <view class="ItemCard" wx:for="{{ExerciseList}}" wx:key="index" wx:if="{{item.date}}">
                     <view class="ItemCard_Time">{{item.date}}</view>
-                    <view wx:for="{{item.children}}" wx:for-item="i" wx:for-index="d" class="ItemCardBox">
+                    <view wx:for="{{item.children}}" wx:for-item="i" wx:for-index="d" class="ItemCardBox" wx:key="d">
                         <view class="ItemCard_Info">
                             <view>时段：{{i.periodValue}}</view>
                             <view>方式：{{i.wayValue}}</view>
