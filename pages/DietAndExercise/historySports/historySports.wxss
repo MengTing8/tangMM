@@ -1,6 +1,10 @@
 .historyList {
     padding: 40rpx;
 }
+.ItemCardBox{
+    padding-top: 30rpx;
+    margin-bottom: 10rpx;
+}
 .ItemCard {
     padding: 40rpx;
     background: #FFFFFF;
@@ -12,7 +16,7 @@
     color: #0F1C36;
     font-size: 34rpx;
     font-weight: normal;
-    margin-bottom: 30rpx;
+    /* margin-bottom: 30rpx; */
 }
 .ItemCard_Info {
     display: flex;

@@ -13,6 +13,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+        fetusWeightList:[],
         numberOfFetus:"1",//胎数
         fetus: '1', // '0'单胎，'1'双胎
         rowMd5: "",
@@ -35,6 +36,7 @@ Page({
         this.setData({
             fetus: fetus
         })
+        this.getFetusWeight()
     },
     DeleteByDate(e) {
         let date = e.detail.date

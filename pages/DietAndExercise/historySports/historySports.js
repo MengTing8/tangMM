@@ -47,10 +47,22 @@ Page({
                 ResData.sort(function (a, b) {
                     return a.date < b.date ? 1 : -1;
                 });
+                console.log(ResData);
+                 var afterData = []
+                 ResData.forEach(item => {
+                     let flag = afterData.find(item1 => item1.date === item.date)
+                     if (!flag) {
+                         afterData.push({
+                             date: item.date,
+                             children: [item]
+                         })
+                     } else {
+                         flag.children.push(item)
+                     }
+                 })
                 self.setData({
-                    ExerciseList: ResData
+                    ExerciseList: afterData
                 })
-
 
             } else {
                 wx.showToast({

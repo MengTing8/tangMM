@@ -5,13 +5,15 @@
             <view class="historyList">
                 <view class="ItemCard" wx:for="{{ExerciseList}}" wx:key="index" wx:if="{{item.date}}">
                     <view class="ItemCard_Time">{{item.date}}</view>
-                    <view class="ItemCard_Info">
-                        <view>时段：{{item.periodValue}}</view>
-                        <view>方式：{{item.wayValue}}</view>
-                    </view>
-                    <view class="ItemCard_Info">
-                        <view>强度：{{item.levelValue}}</view>
-                        <view>时长：{{item.duration}}</view>
+                    <view wx:for="{{item.children}}" wx:for-item="i" wx:for-index="d" class="ItemCardBox">
+                        <view class="ItemCard_Info">
+                            <view>时段：{{i.periodValue}}</view>
+                            <view>方式：{{i.wayValue}}</view>
+                        </view>
+                        <view class="ItemCard_Info">
+                            <view>强度：{{i.levelValue}}</view>
+                            <view>时长：{{i.duration}}</view>
+                        </view>
                     </view>
                 </view>
             </view>
