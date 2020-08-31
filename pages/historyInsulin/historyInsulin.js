@@ -26,6 +26,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+        multiIndex: [0],
         ec: {},
         TimeObj: {
             StartDt: newDate,
@@ -404,7 +405,8 @@ Page({
     },
     onLoad: function (options) {
         this.setData({
-            GA: options.GA
+            GA: options.GA,
+             multiIndex: [+options.GA]
         })
         this.echartsComponent = this.selectComponent('#mychart-dom-scatter');
         this.getInsulinList()

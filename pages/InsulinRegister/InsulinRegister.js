@@ -839,7 +839,7 @@ Page({
             gestationalWeek
         } = options
         this.setData({
-            GA: gestationalWeek
+            GA: gestationalWeek,
         })
         this.getInsulin()
         this.getInsulinPump()

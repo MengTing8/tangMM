@@ -33,8 +33,8 @@ Page({
         time: '12:00',
         dateTimeArray: null,
         dateTime: null,
-        startYear: 1900,
-        endYear: 2050,
+        startYear:1990,
+        endYear: 2020,
         StartDt: '2018年01月01日',
         EndDt: '2029年01月01',
         EXDATE: '2018年01月01日',
@@ -405,7 +405,7 @@ Page({
     bindNumberOfFetusChange(e) {
         let PatientData = this.data.PatientData
         var val = e.detail.value
-        PatientData.numberOfFetus = +val + 1
+        PatientData.numberOfFetus =+val + 1
         this.setData({
             PatientData,
         });
@@ -456,11 +456,13 @@ Page({
 
     },
     changeDateTime(e) {
+        console.log(e);
         this.setData({
             dateTime: e.detail.value
         });
     },
     changeDateTimeColumn(e) {
+        console.log(e);
         let PatientData = this.data.PatientData
         var arr = this.data.dateTime,
             dateArr = this.data.dateTimeArray;
@@ -483,6 +485,7 @@ Page({
         this.getPatient()
         // this.getOccupation()
         var obj = dateTimePicker.dateTimePicker(this.data.startYear, this.data.endYear);
+        console.log(obj);
         this.setData({
             dateTime: obj.dateTime,
             dateTimeArray: obj.dateTimeArray,

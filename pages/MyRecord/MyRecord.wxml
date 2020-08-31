@@ -20,32 +20,20 @@
         </view>
         <view class="MyRecordDateInfo">
             <view class="MyRecordDateInfo_content">
-                <view class="MyRecordDateInfo_date" >
-                   <text class="day">{{CurrentDay}}</text>{{CurrentDate}} {{CurrentWeek}}
+                <view class="MyRecordDateInfo_date">
+                    <text class="day">{{CurrentDay}}</text>
+                    {{CurrentDate}} {{CurrentWeek}}
                 </view>
                 <view class="MyRecordDateInfo_progress">今日完成：{{MyRecordData.taskProgress}}</view>
             </view>
         </view>
     </view>
     <view class="MyRecordFoot">
-                <RecordInfo  Records="{{MyRecordData.items}}"  bindRecordInfo="RecordInfo"></RecordInfo>
-        <!-- <view class="MyRecordList" wx:for="{{MyRecordData.items}}" wx:key="index" bind:tap="goRecordInfo" data-index='{{index}}'>
-            <view class="LogoBox">
-                <image class="RecordLogo" src="{{item.iconUrl}}" />
-            </view>
-            <view class="RecordTitle">
-                <view class="RecordName">{{item.name}}</view>
-                <view>{{item.description}}</view>
-            </view>
-            <view class="RecordStatus">
-                <view class="onAchieve" wx:if="{{item.status=='已完成'}}">{{item.status}}</view>
-                <view class="notAchieve" wx:else>{{item.status}}</view>
-            </view>
-        </view> -->
+        <RecordInfo Records="{{MyRecordData.items}}" bindRecordInfo="RecordInfo"></RecordInfo>
         <view class="none" wx:if="{{isNone}}">
             <image src="../../img/noRecord.png"></image>
             <view>请完善个人资料</view>
-            <button class="btn" bindtap="modifiedInfo">去完善</button>        
+            <button class="btn" bindtap="modifiedInfo">去完善</button>
         </view>
     </view>
 </view>

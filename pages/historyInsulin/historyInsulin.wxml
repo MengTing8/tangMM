@@ -78,7 +78,7 @@
             <image src="../../img/unchecked.png" class="checkedImg" wx:else />
             <text>按孕周查看</text>
             <view class="check-sel">
-                <picker class="com-picker" mode="multiSelector" catchtap="tapHandle" value="" bindchange="bindChange" range="{{predays}}">
+                <picker class="com-picker" mode="multiSelector" catchtap="tapHandle" value="{{multiIndex}}" bindchange="bindChange" range="{{predays}}">
                     <view class="com-cell__bd-picker" wx:if="{{GA!==''}}">{{GA}}周</view>
                     <view class="com-cell__bd-picker" wx:else>请选择孕周</view>
                 </picker>

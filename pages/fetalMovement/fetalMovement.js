@@ -109,7 +109,7 @@
             TabsIndex: 0,
             State: false,
             SwitchMusic: false,
-            multiIndex: [0, 0],
+            multiIndex: [0],
             gas,
             days,
             predays: [gas],
@@ -635,7 +635,8 @@
                 avatarUrl,
                 name,
                 descriptionUser: description,
-                GA: gestationalWeek
+                GA: gestationalWeek,
+                multiIndex: [+gestationalWeek]
             })
             this.getFetalMovement()
             this.getFetalMovementList()

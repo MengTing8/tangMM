@@ -37,7 +37,7 @@ Page({
         ec: {},
         TabsIndex: 0,
         predays: [gas],
-        multiIndex: [0, 0],
+        multiIndex: [0],
         gas,
         days,
         GA: '',
@@ -295,7 +295,8 @@ Page({
             GA
         } = options
         this.setData({
-            GA
+            GA,
+            multiIndex: [+GA]
         })
         this.echartsComponent = this.selectComponent('#mychart-dom-scatter')
         //this.getWeightListByWeek()
