@@ -170,7 +170,9 @@ Page({
                     }
                 });
 
-                let legend1 = res.data.data[0].legend1;
+                let legend1 = res.data.data[0].legend1.sort(function (a, b) {
+                    return a.sequence - b.sequence;
+                });
                 for (let i = 0; i < legend1.length; i++) {
                     let svg = '<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="' + legend1[i].symbol.substr(7) + '" fill="' + legend1[i].color + '"></path></svg>'
                     svg = unescape(encodeURIComponent(svg));
