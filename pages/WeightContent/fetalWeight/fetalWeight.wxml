@@ -1,5 +1,6 @@
 <!-- pages/fetalWeight/fetalWeight.wxml -->
 <Tabs bindtitleChange="handleTitleChange">
+         <togglefun fetus="{{fetus}}" numberOfFetus="{{numberOfFetus}}" bindradioChange="radioChange" wx:if="{{numberOfFetus!=='1'}}"></togglefun>
     <view class="pageContainer">
         <view class="item" hidden="{{selectedIndex==1}}">
             <view class="listItem" wx:for="{{FetusWeightList}}" wx:key="index">

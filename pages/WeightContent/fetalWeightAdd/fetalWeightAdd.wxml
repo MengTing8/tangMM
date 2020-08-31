@@ -2,7 +2,8 @@
 <view class="pageContainer">
     <view class="pageContent">
         <view class="topTips">记录体重前，请先完善您的相关信息</view>
-        <TimeRecord pickerObj="{{dateObj}}" bindDateChange='bindDateChange'  bindDeleteByDate='DeleteByDate'></TimeRecord>
+        <TimeRecord pickerObj="{{dateObj}}" bindDateChange='bindDateChange' bindDeleteByDate='DeleteByDate'></TimeRecord>
+        <togglefun  fetus="{{fetus}}"  numberOfFetus="{{numberOfFetus}}" bindradioChange="radioChange" wx:if="{{numberOfFetus!=='1'}}"></togglefun>
         <view class="itemBox">
             <text class="itemBox_title">双顶径BPD</text>
             <view class="itemBox_content">

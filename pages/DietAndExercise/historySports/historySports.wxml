@@ -1,20 +1,22 @@
 <view class="historySportsContent">
     <Tabs bindtitleChange="handleTitleChange">
-    <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
+        <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
         <view hidden="{{selectedIndex==1}}">
             <view class="historyList">
                 <view class="ItemCard" wx:for="{{ExerciseList}}" wx:key="index" wx:if="{{item.date}}">
                     <view class="ItemCard_Time">{{item.date}}</view>
-                    <view class="ItemCard_Info  unifyFont">
+                    <view class="ItemCard_Info">
                         <view>时段：{{item.periodValue}}</view>
                         <view>方式：{{item.wayValue}}</view>
+                    </view>
+                    <view class="ItemCard_Info">
                         <view>强度：{{item.levelValue}}</view>
                         <view>时长：{{item.duration}}</view>
                     </view>
                 </view>
             </view>
             <view style=" text-align: center;margin: 150rpx auto;" wx:if="{{!ExerciseList[0].date}}">
-            暂无记录
+                暂无记录
             </view>
         </view>
         <view hidden="{{selectedIndex==0}}">

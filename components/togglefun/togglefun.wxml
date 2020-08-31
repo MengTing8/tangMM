@@ -1,0 +1,15 @@
+<!-- components/togglefun/index.wxml -->
+<view class="cal-ways" bindtap="radioChange">
+    <view class="{{fetus==='1'? 'ways-active': ''}}" data-value="1" hidden="{{numberOfFetus == '1'&&fetus=='1' }}">
+        胎儿1
+        <text hidden="{{fetus !== '1' }}" class="itemBox_Arrow"></text>
+    </view>
+    <view class="{{fetus==='2'? 'ways-active': ''}}" data-value="2" hidden="{{numberOfFetus == '1'&&fetus!=='2' }}">
+        胎儿2
+        <text hidden="{{fetus !== '2'}}" class="itemBox_Arrow"></text>
+    </view>
+    <view class="{{fetus==='3'? 'ways-active': ''}}" data-value="3" hidden="{{numberOfFetus == '2'||numberOfFetus == '1'&&fetus!=='3' }}">
+        胎儿3
+        <text hidden="{{fetus !== '3'}}" class="itemBox_Arrow"></text>
+    </view>
+</view>

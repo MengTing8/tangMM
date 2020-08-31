@@ -9,20 +9,35 @@ Page({
      * 页面的初始数据
      */
     data: {
+        fetus: '1',
+        numberOfFetus: '1',
         FetusWeightList: [],
         selectedIndex: 0,
         ec: {},
         legendList: [],
     },
+    radioChange: function (e) {
+        let fetus = e.detail.value || this.data.fetus
+        this.setData({
+            fetus: fetus
+        })
+         if (this.data.selectedIndex == 1) {
+             this.getFetusWeightChart()
+         } else {
+             this.getFetusWeightList()
+         }
+    },
     getFetusWeightList() {
-        let self = this 
+        let self = this
         promiseRequest({
             method: "POST",
             url: '/wxrequest',
             data: {
                 "token": wx.getStorageSync('token'),
                 "function": "getFetusWeightList",
-                "data": [{}]
+                "data": [{
+                    "fetus": self.data.fetus
+                }]
             }
         }).then(res => {
             console.log(res, "列表");
@@ -53,16 +68,18 @@ Page({
         }
     },
     getFetusWeightChart() {
-        let requestObj = {
-            method: "POST",
-            url: '/wxrequest',
-            data: {
-                "token": wx.getStorageSync('token'),
-                "function": "getFetusWeightChart",
-                "data": [{}]
-            }
-        };
-        promiseRequest(requestObj).then((res) => {
+        promiseRequest({
+                method: "POST",
+                url: '/wxrequest',
+                data: {
+                    "token": wx.getStorageSync('token'),
+                    "function": "getFetusWeightChart",
+                    "data": [{
+                        "fetus": this.data.fetus
+                    }]
+                }
+            }).then((res) => {
+            console.log(res);
             if (res.data.code === '0') {
                 let color = JSON.parse(res.data.data[0].color);
                 let option = JSON.parse(res.data.data[0].option);
@@ -117,6 +134,9 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        this.setData({
+            numberOfFetus: options.numberOfFetus
+        })
         this.echartsComponent = this.selectComponent('#mychart-dom-weightData');
         this.getFetusWeightList()
     },

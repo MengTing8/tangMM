@@ -1,4 +1,9 @@
-/* pages/fetalWeightAdd/fetalWeightAdd.wxss */
+.FetusTabs{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 30rpx;
+}
 .pageContainer{
   border-top: 2rpx solid #F1F1F1;
 }

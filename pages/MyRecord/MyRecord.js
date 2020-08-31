@@ -24,7 +24,8 @@ Page({
             name,
             description,
             id,
-            gestationalWeek
+            gestationalWeek,
+            numberOfFetus
         } = this.data.MyRecordData
         let URL = ''
         if (code == '1') {
@@ -39,7 +40,7 @@ Page({
             URL = '../WeightContent/weightMa/weightMa?gestationalWeek=' + gestationalWeek
         } else if (code == '4') {
             // 胎儿体重
-            URL = '../WeightContent/fetalWeightAdd/fetalWeightAdd'
+            URL = '../WeightContent/fetalWeightAdd/fetalWeightAdd?numberOfFetus=' + numberOfFetus
         } else if (code == '5') {
             // 饮食记录
             URL = '../DietAndExercise/DietRecords/DietRecords'

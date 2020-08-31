@@ -13,6 +13,8 @@ Page({
      * 页面的初始数据
      */
     data: {
+        numberOfFetus:"1",//胎数
+        fetus: '1', // '0'单胎，'1'双胎
         rowMd5: "",
         id: "",
         BPD: '',
@@ -24,57 +26,63 @@ Page({
             EndDt: date[0].time,
             DateSelect: newDate,
             title: "选择时间",
-            value:date[0].time
+            value: date[0].time
         },
         dataTime: date[0].time
     },
-     DeleteByDate(e) {
-         let date = e.detail.date
-         let that = this
-         if (that.data.rowMd5 || that.data.BPD) {
-             wx.showModal({
-                 title: '提示',
-                 content: "确定删除当日数据？",
-                 success(res) {
-                     if (res.confirm) {
-                         promiseRequest({
-                             method: "POST",
-                             url: '/wxrequest',
-                             data: {
-                                 "token": wx.getStorageSync('token'),
-                                 "function": "deleteByDate",
-                                 "data": [{
-                                     "entity": "fetusWeight",
-                                     "date": date
-                                 }]
-                             }
-                         }).then((res) => {
-                             if (res.data.code === '0') {
-                                 wx.showToast({
-                                     title: res.data.message,
-                                     icon: 'none',
-                                     duration: 3000
-                                 })
-                                     that.getFetusWeight()
-                             } else {
-                                 wx.showToast({
-                                     title: res.data.message,
-                                     icon: 'none',
-                                     duration: 3000
-                                 })
-                             }
-                         })
-                     } else if (res.cancel) {}
-                 }
-             })
-         } else {
-             wx.showToast({
-                 title: '无数据可删！',
-                 icon: 'none',
-                 duration: 2000
-             })
-         }
-     },
+    radioChange: function (e) {
+        let fetus = e.detail.value || this.data.fetus
+        this.setData({
+            fetus: fetus
+        })
+    },
+    DeleteByDate(e) {
+        let date = e.detail.date
+        let that = this
+        if (that.data.rowMd5 || that.data.BPD) {
+            wx.showModal({
+                title: '提示',
+                content: "确定删除当日数据？",
+                success(res) {
+                    if (res.confirm) {
+                        promiseRequest({
+                            method: "POST",
+                            url: '/wxrequest',
+                            data: {
+                                "token": wx.getStorageSync('token'),
+                                "function": "deleteByDate",
+                                "data": [{
+                                    "entity": "fetusWeight",
+                                    "date": date
+                                }]
+                            }
+                        }).then((res) => {
+                            if (res.data.code === '0') {
+                                wx.showToast({
+                                    title: res.data.message,
+                                    icon: 'none',
+                                    duration: 3000
+                                })
+                                that.getFetusWeight()
+                            } else {
+                                wx.showToast({
+                                    title: res.data.message,
+                                    icon: 'none',
+                                    duration: 3000
+                                })
+                            }
+                        })
+                    } else if (res.cancel) {}
+                }
+            })
+        } else {
+            wx.showToast({
+                title: '无数据可删！',
+                icon: 'none',
+                duration: 2000
+            })
+        }
+    },
     saveFetusWeight() {
         let self = this
         if (isNaN(parseFloat(self.data.BPD)) || self.data.BPD > 110 || self.data.BPD < 0) {
@@ -121,7 +129,7 @@ Page({
                     "patientId": wx.getStorageSync('patientId'),
                     "date": self.data.dataTime,
                     "gestationalWeek": '53',
-                    "fetus": "1",
+                    "fetus": self.data.fetus,
                     "id": self.data.id,
                     "rowMd5": self.data.rowMd5,
                     "biparietalDiameter": self.data.BPD,
@@ -164,7 +172,7 @@ Page({
                 "function": "getFetusWeight",
                 "data": [{
                     "date": self.data.dataTime,
-                    "fetus": 1
+                    "fetus": self.data.fetus
                 }]
             }
         }).then(res => {
@@ -186,9 +194,9 @@ Page({
                 } else {
                     self.setData({
                         // dateObj: newObj,
-                        rowMd5:'',
+                        rowMd5: '',
                         id: '',
-                        BPD:'',
+                        BPD: '',
                         HC: '',
                         AC: '',
                         FL: '',
@@ -242,13 +250,17 @@ Page({
     },
     historyRecord() {
         wx.navigateTo({
-            url: '../fetalWeight/fetalWeight'
+            url: '../fetalWeight/fetalWeight?numberOfFetus=' + this.data.numberOfFetus
         })
     },
-        /**
+    /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        console.log(options.numberOfFetus);
+        this.setData({
+            numberOfFetus: options.numberOfFetus
+        })
         this.getFetusWeight()
     },
 
