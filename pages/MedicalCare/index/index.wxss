@@ -3,13 +3,11 @@
     padding: 0 20rpx 0 50rpx;
     position: relative;
 }
-
 .userInfoBox {
     display: flex;
     padding-bottom: 20rpx;
     justify-content: space-between;
 }
-
 .pagesHeader .userInfo {
     font-size: 24rpx;
     color: #9B884F;

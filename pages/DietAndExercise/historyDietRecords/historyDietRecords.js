@@ -105,32 +105,6 @@ Page({
             console.log(errMsg); //错误提示信息
         });
     },
-    bindStartTimeChart(e) {
-        var NewData = this.data.TimeObjChart;
-        let val = e.detail.value
-        let date = e.detail.date
-        if (checkTime(date, NewData.dateEnd)) {
-            NewData.StarDATE = val;
-            NewData.dateStart = date;
-            this.setData({
-                TimeObjChart: NewData
-            })
-            this.getDietChart()
-        }
-    },
-    bindEndTimeChart(e) {
-        var NewData = this.data.TimeObjChart;
-        let val = e.detail.value
-        let date = e.detail.date
-        if (checkTime(NewData.dateStart, date)) {
-            NewData.EndDATE = val;
-            NewData.dateEnd = date;
-            this.setData({
-                TimeObjChart: NewData
-            })
-            this.getDietChart()
-        }
-    },
     bindStartTimeChange(e) {
         var NewData = this.data.TimeObj;
         let val = e.detail.value
@@ -141,7 +115,11 @@ Page({
             this.setData({
                 TimeObj: NewData
             })
-            this.getDietList()
+              if (this.data.selectedIndex == 0) {
+                  this.getDietList()
+              } else {
+                  this.getDietChart()
+              }
         }
     },
     bindEndTimeChange(e) {
@@ -154,7 +132,11 @@ Page({
             this.setData({
                 TimeObj: NewData
             })
-            this.getDietList()
+           if (this.data.selectedIndex == 0) {
+               this.getDietList()
+           } else {
+               this.getDietChart()
+           }
         }
     },
     handleTitleChange(e) {
@@ -166,6 +148,8 @@ Page({
         })
         if (index == 1) {
             this.getDietChart()
+        }else{
+            this.getDietList()
         }
     },
     getDietChart() {
@@ -177,8 +161,8 @@ Page({
                 "token": wx.getStorageSync('token'),
                 "function": "getDietChart",
                 "data": [{
-                    "dateStart": self.data.TimeObjChart.dateStart,
-                    "dateEnd": self.data.TimeObjChart.dateEnd
+                    "dateStart": self.data.TimeObj.dateStart,
+                    "dateEnd": self.data.TimeObj.dateEnd
                 }]
             }
         }).then(res => {

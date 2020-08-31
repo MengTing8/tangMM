@@ -1,7 +1,7 @@
 <view class="historyDietRecordContent">
     <Tabs bindtitleChange="handleTitleChange">
+        <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
         <view style="display:{{selectedIndex==1?'none':'block'}}">
-            <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
             <view class="historyList">
                 <view class="ItemCard" wx:for="{{historyFootList}}" wx:key="index">
                     <view class="ItemCard_Time">{{item.date}}</view>
@@ -25,9 +25,9 @@
             </view>
         </view>
         <view style="display:{{selectedIndex==0?'none':'block'}}">
-            <view class="TimeContent">
+            <!-- <view class="TimeContent">
                 <StartAndEndTimes TimeObj="{{TimeObjChart}}" bindStartTimeChange='bindStartTimeChart' bindEndTimeChange='bindEndTimeChart'></StartAndEndTimes>
-            </view>
+            </view> -->
             <view class="heatChartsContent">
                 <view class="mychartContent">
                     <view class="container">
