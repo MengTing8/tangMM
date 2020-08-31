@@ -1,42 +1,36 @@
 <!-- pages/sportsRecord/sportsRecord.wxml -->
 <view class="pageContainer">
     <view class="sportsRecord">
-        <TimeRecord pickerObj="{{dateObj}}" bindDateChange='bindDateChange'  bindDeleteByDate='DeleteByDate'></TimeRecord>
+        <TimeRecord pickerObj="{{dateObj}}" bindDateChange='bindDateChange' bindDeleteByDate='DeleteByDate'></TimeRecord>
         <view class="dataRecord">
             <view class="dataArr">
                 <view class="dataHeader">
-                    <view class="dataHeader_title">
-                        时段
-                    </view>
-                    <view class="dataHeader_title">
-                        方式
-                    </view>
+                    <view class="dataHeader_title">时段</view>
+                    <view class="dataHeader_title">方式</view>
                     <view class="dataHeader_title" bindtap="strengthInfo">
                         <text>强度</text>
                         <image class="queryIMg" src="../../../img/query.png" mode="widthFix" />
                     </view>
-                    <view class="dataHeader_title">
-                        时长(分钟)
-                    </view>
+                    <view class="dataHeader_title">时长(分钟)</view>
                 </view>
-                <view class="dataInfoList" wx:for="{{userData}}"  wx:key="index">
+                <view class="dataInfoList" wx:for="{{userData}}" wx:key="index">
                     <view class="dataInfoItem">
-                      <picker mode="selector" value="" range="{{periodList}}" data-index="{{index}}" range-key="{{'value'}}" bindchange="bindPeriodChange">
-                        <view class="weui-input_10">{{item.periodValue||'请选择'}}</view>
-                      </picker>
+                        <picker mode="selector" value="" range="{{periodList}}" data-index="{{index}}" range-key="{{'value'}}" bindchange="bindPeriodChange">
+                            <view class="weui-input_10">{{item.periodValue||'请选择'}}</view>
+                        </picker>
                     </view>
                     <view class="dataInfoItem">
-                      <picker mode="selector" value="" range="{{wayList}}" data-index="{{index}}" range-key="{{'value'}}" bindchange="bindWayChange">
-                          <view class="weui-input_10">{{item.wayValue||'请选择'}}</view>
-                      </picker>
+                        <picker mode="selector" value="" range="{{wayList}}" data-index="{{index}}" range-key="{{'value'}}" bindchange="bindWayChange">
+                            <view class="weui-input_10">{{item.wayValue||'请选择'}}</view>
+                        </picker>
                     </view>
                     <view class="dataInfoItem">
-                      <picker mode="selector" value="" range="{{levelList}}" data-index="{{index}}" range-key="{{'value'}}" bindchange="bindLevelChange">
-                          <view class="weui-input_10">{{item.levelValue||'请选择'}}</view>
-                      </picker>
+                        <picker mode="selector" value="" range="{{levelList}}" data-index="{{index}}" range-key="{{'value'}}" bindchange="bindLevelChange">
+                            <view class="weui-input_10">{{item.levelValue||'请选择'}}</view>
+                        </picker>
                     </view>
                     <view class="dataInfoItem">
-                      <input class="itemBox_inp" type="digit" placeholder="请输入" placeholder-class="itemBox_inpholder" value="{{item.duration}}"  bindinput="bindDurationInput" data-index="{{index}}"></input>
+                        <input class="itemBox_inp" type="digit" placeholder="请输入" placeholder-class="itemBox_inpholder" value="{{item.duration}}" bindinput="bindDurationInput" data-index="{{index}}"></input>
                     </view>
                     <view class="delBox" bindtap="delRecordList" data-index="{{index}}" data-id="{{item.id}}" data-rowMd5="{{item.rowMd5}}">
                         <image src="../../../img/del.png" class="img" />
@@ -46,22 +40,25 @@
             <view class="addRecordBtn" bind:tap="addRecordList">添加一组记录</view>
         </view>
     </view>
-        <BtnComponents bindonSaveBtn="saveExercise" bindhistoryRecordBtn="tapHistory"></BtnComponents>
+    <BtnComponents bindonSaveBtn="saveExercise" bindhistoryRecordBtn="tapHistory"></BtnComponents>
     <view class="description">
-        <text decode="{{true}}">&ensp;&ensp;运动疗法可降低妊娠期基础胰岛素抵抗,是妊娠合并糖尿病的综合治疗措施之一,每餐30分钟后进行中等强度的运动对母儿无不良影响。\n&ensp;&ensp;运动治疗的方法:选择一种低至中等强度的有氧运动(又称耐力运动),主要指由机体大肌肉群参加的持续性运动。步行是常用的简单有氧运动。
-        </text>
+        <rich-text nodes="{{texts}}"></rich-text>
+        <!-- <text decode="{{true}}">&ensp;&ensp;运动疗法可降低妊娠期基础胰岛素抵抗,是妊娠合并糖尿病的综合治疗措施之一,每餐30分钟后进行中等强度的运动对母儿无不良影响。\n&ensp;&ensp;运动治疗的方法:选择一种低至中等强度的有氧运动(又称耐力运动),主要指由机体大肌肉群参加的持续性运动。步行是常用的简单有氧运动。
+        </text> -->
         <view class="suggest">
             <text class="suggest_icon">!</text>
             <text>建议</text>
         </view>
-        <text decode="{{true}}">&ensp;&ensp;每天坚持餐后运动 30 分钟，以中等强度的有氧运动为主，如散步。若您情况不适宜散步可选择上肢运动，如举水瓶。\n&ensp;&ensp;强度以微微出汗为宜，忌过量运动，一般若运动完大汗淋漓或休息 10 分钟仍不能恢复运 动前的心跳则为运动过量。
-        </text>
+        <rich-text nodes="{{suggestion}}"></rich-text>
+        <!-- <text decode="{{true}}">
+            &ensp;&ensp;每天坚持餐后运动 30 分钟，以中等强度的有氧运动为主，如散步。若您情况不适宜散步可选择上肢运动，如举水瓶。\n&ensp;&ensp;强度以微微出汗为宜，忌过量运动，一般若运动完大汗淋漓或休息 10 分钟仍不能恢复运 动前的心跳则为运动过量。
+        </text> -->
     </view>
     <view class="strengthInfoContent" wx:if="{{ShowInfo}}">
         <view class="InfoBox">
             <view class="InfoTitle">强度</view>
             <view class="unifyFont">
-            <rich-text nodes="{{note}}"></rich-text>
+                <rich-text nodes="{{note}}"></rich-text>
             </view>
             <image class="DelIMg  queryIMg" src="../../../img/delS.png" mode="widthFix" bind:tap="HiedeInfo" />
         </view>

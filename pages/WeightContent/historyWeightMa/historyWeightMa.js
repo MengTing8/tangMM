@@ -217,7 +217,7 @@ Page({
             this.getWeightChart()
         }else{
             //this.getWeightListByWeek()
-            this.getWeightList(1)
+            // this.getWeightList(1)
         }
         this.setData({
             TabsIndex: index

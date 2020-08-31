@@ -29,12 +29,13 @@
                     <view class="{{musicPlayKey==index?'muicFont':''}}" bind:tap="selectMusic" data-index="{{index}}">
                         {{item.name}}
                     </view>
-                    
                 </view>
             </view>
         </view>
         <view class="musicList" wx:if="{{descriptionShow}}" bindtap="onChangeShowState">
-            <view class="descriptionContent">{{description}}</view>
+            <view class="descriptionContent">
+                <rich-text nodes="{{description}}"></rich-text>
+            </view>
         </view>
         <!-- 计数胎动盒子 -->
         <view class="movemrnt_Box">
