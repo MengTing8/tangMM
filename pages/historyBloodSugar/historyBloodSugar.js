@@ -174,9 +174,10 @@ Page({
                     return a.sequence - b.sequence;
                 });
                 for (let i = 0; i < legend1.length; i++) {
-                    let svg = '<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="' + legend1[i].symbol.substr(7) + '" fill="' + legend1[i].color + '"></path></svg>'
-                    svg = unescape(encodeURIComponent(svg));
-                    legend1[i].symbol = 'data:image/svg+xml;base64,' + base64.btoa(svg);
+                    // let svg = '<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="' + legend1[i].symbol.substr(7) + '" fill="' + legend1[i].color + '"></path></svg>'
+                    // svg = unescape(encodeURIComponent(svg));
+                    // legend1[i].symbol = 'data:image/svg+xml;base64,' + base64.btoa(svg);
+                    legend1[i].symbol = legend1[i].symbol.substr(8)
                 }
 
                 let legend2 = res.data.data[0].legend2;

@@ -316,9 +316,10 @@ Page({
                 });
                 let legend = res.data.data[0].legend;
                 for (let i = 0; i < legend.length; i++) {
-                    let svg = '<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="' + legend[i].symbol.substr(7) + '" fill="' + legend[i].color + '"></path></svg>'
-                    svg = unescape(encodeURIComponent(svg));
-                    legend[i].symbol = 'data:image/svg+xml;base64,' + base64.btoa(svg);
+                    // let svg = '<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="' + legend[i].symbol.substr(7) + '" fill="' + legend[i].color + '"></path></svg>'
+                    // svg = unescape(encodeURIComponent(svg));
+                    // legend[i].symbol = 'data:image/svg+xml;base64,' + base64.btoa(svg);
+                    legend[i].symbol = legend[i].symbol.substr(8)
                 }
                 this.setData({
                     legendList: legend,
