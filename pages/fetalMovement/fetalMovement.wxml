@@ -37,7 +37,6 @@
                 <rich-text nodes="{{description}}"></rich-text>
             </view>
         </view>
-        <!-- 计数胎动盒子 -->
         <view class="movemrnt_Box">
             <view class="movemrnt_Valid_box">
                 <view>

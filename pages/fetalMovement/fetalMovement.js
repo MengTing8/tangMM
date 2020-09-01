@@ -504,7 +504,6 @@
                     }]
                 }
             }).then(res => {
-                console.log(res);
                 if (res.data.code === '0') {
                     self.setData({
                         description: res.data.data[0].text
@@ -649,26 +648,19 @@
         onReady: function () {
             var that = this
             back.onNext(function () {
-                console.log('onNext')
                 that.playNext();
             });
             back.onPrev(function () {
-                console.log('onPrev')
                 that.playPrev();
             });
             back.onCanplay(() => {
-                console.log("可以播放,,,,...,,.");
-
             });
             back.onStop(() => {
-                console.log("停止");
                 that.setData({
                     onMusic: false
                 })
             });
             back.onError((res) => {
-                console.log("错误,,,,...,,.");
-
             });
         },
 
