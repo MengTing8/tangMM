@@ -459,7 +459,7 @@
             that.setData({
                 descriptionShow: (!that.data.descriptionShow)
             })
-            if (that.data.descriptionShow) {
+            if (that.data.descriptionShow && !this.data.description) {
                 that.getNotice()
             }
 

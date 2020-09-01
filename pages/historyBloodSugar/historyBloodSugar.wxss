@@ -26,6 +26,7 @@
      display: flex;
      justify-content: space-between;
      flex-wrap: wrap; 
+     margin-bottom: 15rpx
 }
 
 .listCard_bottom_content view {
