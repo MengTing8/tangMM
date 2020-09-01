@@ -10,7 +10,7 @@
                 <view class="tr tableFont">
                     <view class="th">热量</view>
                     <view class="th">蛋白质</view>
-                     <view class="th">碳水化合物</view>
+                    <view class="th">碳水化合物</view>
                     <view class="th">脂肪</view>
                 </view>
                 <block>
@@ -42,8 +42,10 @@
                                 <view class="food_name">{{item.periodValue}}</view>
                                 <view class="food_weight" bind:tap="tapFoodAdd" data-index="{{index}}" data-periodCode="{{item.periodCode}}" data-food="{{item.food}}">
                                     <view class="food_weight_content">
-                                        <view style="text-align: center; margin-left:30rpx;">{{item.value||'请输入'}}</view>
-                                        <text>kcal</text>
+                                        <view style="text-align: center; margin-left:30rpx;">
+                                            {{!item.food?'选择食物':item.value}}
+                                        </view>
+                                        <text wx:if="{{item.food}}">kcal</text>
                                     </view>
                                 </view>
                             </view>
@@ -58,7 +60,7 @@
                         </view>
                         <view class="pickerContent">
                             <view class="pickerBox">
-                                <picker mode="selector"value="" range="{{categoryValues}}" range-key="{{'value'}}" bindchange="bindCategoryChange" data-index="{{index}}" data-periodCode="{{item.periodCode}}" data-categoryCode="{{item.categoryCode}}">
+                                <picker mode="selector" value="" range="{{categoryValues}}" range-key="{{'value'}}" bindchange="bindCategoryChange" data-index="{{index}}" data-periodCode="{{item.periodCode}}" data-categoryCode="{{item.categoryCode}}">
                                     <view class="picker">{{item.categoryValue || '请选择'}}</view>
                                 </picker>
                             </view>
@@ -72,21 +74,21 @@
                             <view class="foodTagItem" wx:for="{{item.food}}" wx:key='index' wx:for-item="F" wx:for-index="cd">
                                 <view>{{F.name}}</view>
                                 <view>{{F.value}}g</view>
-                                <view bind:tap="DelFoodTag"  data-index='{{index}}' data-rowMd5="{{F.rowMd5}}" data-ins="{{cd}}" data-id='{{F.id}}'  data-periodCode="{{item.periodCode}}">
+                                <view bind:tap="DelFoodTag" data-index='{{index}}' data-rowMd5="{{F.rowMd5}}" data-ins="{{cd}}" data-id='{{F.id}}' data-periodCode="{{item.periodCode}}">
                                     <image class="DelFoodTag" src="../../../img/delS.png" />
                                 </view>
                             </view>
                         </view>
                     </view>
                     <view class="uploaderListContent">
-                        <view class="uploaderImgBox"  data-index="{{index}}" data-periodCode="{{item.periodCode}}" bind:tap="UploadCourseware">
+                        <view class="uploaderImgBox" data-index="{{index}}" data-periodCode="{{item.periodCode}}" bind:tap="UploadCourseware">
                             <van-icon name="photograph" color="#CDCDCD" size="48rpx" />
                             <view class="unifyFont">上传照片</view>
                         </view>
                         <view class="PhotoShwoContent" wx:for="{{item.photo}}" wx:for-item="P" wx:for-index="D" wx:key="D" wx:if='{{P.url}}'>
-                            <image class="uploaderPhoto" src="{{P.url}}" mode="widthFix"/>
+                            <image class="uploaderPhoto" src="{{P.url}}" mode="widthFix" />
                             <view class="delPhoto" bind:tap="delPhoto" data-index='{{index}}' data-fileName="{{P.fileName}}" data-ins="{{D}}" data-periodcode="{{item.periodCode}}">
-                                <van-icon name="close" size="40rpx" color="#FFF" wx:if='{{P.url}}'/>
+                                <van-icon name="close" size="40rpx" color="#FFF" wx:if='{{P.url}}' />
                             </view>
                         </view>
                     </view>
