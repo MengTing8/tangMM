@@ -335,12 +335,11 @@ Page({
         let enteringItems = this.data.enteringItems
         let timeData = e.detail.value;
         enteringItems[index].time = timeData
-        if (enteringItems[index].categoryCode == '0') {
-            enteringItems[index].categoryCode ='1'
-            enteringItems[index].categoryValue = self.data.categoryValues[0].value
-        }
+        // if (enteringItems[index].categoryCode == '0') {
+        //     enteringItems[index].categoryCode ='1'
+        //     enteringItems[index].categoryValue = self.data.categoryValues[0].value
+        // }
         
-        console.log(enteringItems[index].categoryCode);
         self.getenteringArray(periodcode, enteringItems[index].photo, timeData, enteringItems[index].categoryCode, enteringItems[index].food)
         this.setData({
             enteringItems,
