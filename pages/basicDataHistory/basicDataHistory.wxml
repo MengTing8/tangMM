@@ -1,7 +1,7 @@
 <Tabs bindtitleChange="handleTitleChange">
- <!-- 日期筛选开始 -->
- <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
- <!-- 日期筛选结束 -->
+    <!-- 日期筛选开始 -->
+    <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
+    <!-- 日期筛选结束 -->
     <view style="display:{{selectedIndex==1?'none':'block'}}">
         <!-- 记录表格开始 -->
         <view class="recordList">
@@ -28,7 +28,7 @@
                 </view>
             </view>
         </view>
-                <view style=" text-align: center;margin: 150rpx auto;" wx:if="{{!listData[0].time}}">
+        <view style=" text-align: center;margin: 150rpx auto;" wx:if="{{!listData[0].time}}">
             暂无记录
         </view>
         <!-- 记录表格结束 -->

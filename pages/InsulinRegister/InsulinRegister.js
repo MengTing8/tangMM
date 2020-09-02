@@ -374,7 +374,16 @@ Page({
                 if (ResData.items1[0].id) {
                     NewMealArray = []
                     for (const key in ResData.items1) {
+                        
                         if (ResData.items1[key].id && ResData.items1[key].rowMd5) {
+                             if (date) {
+                                 if (ResData.items1[key].rowMd5) {
+                                     delete ResData.items1[key].rowMd5
+                                 }
+                                 if (ResData.items1[key].id) {
+                                     delete ResData.items1[key].id
+                                 }
+                             }
                             if (!NewMealArray[key]) {
                                 NewMealArray.push({
                                     entity: "insulin",
@@ -382,8 +391,8 @@ Page({
                                     date: self.data.dataTime,
                                     type: 2,
                                     status: 1,
-                                    id: ResData.items1[key].id,
-                                    rowMd5: ResData.items1[key].rowMd5,
+                                    id:'',
+                                    rowMd5: '',
                                     periodCode: ResData.items1[key].periodCode,
                                     value: ResData.items1[key].value
                                 })
@@ -392,6 +401,7 @@ Page({
                             NewMealArray[key].value = ResData.items1[key].value
                             NewMealArray[key].rowMd5 = ResData.items1[key].rowMd5
                             NewMealArray[key].id = ResData.items1[key].id
+                            
                         }
                     }
                 } else {
@@ -405,6 +415,14 @@ Page({
                     NewDosageArray = []
                     for (const key in ResData.items2) {
                         if (ResData.items2[key].id && ResData.items2[key].rowMd5) {
+                            if (date) {
+                                if (ResData.items2[key].rowMd5) {
+                                    delete ResData.items2[key].rowMd5
+                                }
+                                if (ResData.items2[key].id) {
+                                    delete ResData.items2[key].id
+                                }
+                            }
                             if (!NewDosageArray[key]) {
                                 NewDosageArray.push({
                                     entity: "insulinPump",

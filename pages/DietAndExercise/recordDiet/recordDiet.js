@@ -26,10 +26,13 @@ Page({
         windowWidth: 0,
         periodCode: '',
         FoodDataList: [],
+        SearchShow: true
     },
     Tabchange(event) {
         var singleNavWidth = this.data.windowWidth / 5;
-        let {index} = event.currentTarget.dataset
+        let {
+            index
+        } = event.currentTarget.dataset
         let TabList = this.data.TabList
         this.setData({
             navScrollLeft: (index - 2) * singleNavWidth
@@ -38,15 +41,20 @@ Page({
             return false;
         } else {
             this.setData({
-                btnnum: index
+                btnnum: index,
             })
         }
-        if (this.data.btnnum == this.data.SearchIndex) {
-            TabList[this.data.SearchIndex].foodValues = this.data.SearchItem
-            this.setData({
-                TabList
-            })
+        if (this.data.SearchShow) {
+            if (this.data.btnnum !== this.data.SearchIndex && this.data.SearchIndex) {
+                TabList[this.data.SearchIndex].foodValues = this.data.SearchItem
+                this.setData({
+                    TabList,
+                    SearchShow: false,
+
+                })
+            }
         }
+
     },
     bindSearchFood(e) {
         let that = this
@@ -64,7 +72,6 @@ Page({
             }
         }
         let Arrs = deepCopy(newTabList[index].foodValues)
-
         newTabList[index].foodValues = [item]
         newTabList[index].groupValue = groupvalue
         newTabList[index].groupCode = groupcode
@@ -74,23 +81,13 @@ Page({
                 navScrollLeft: (index - 2) * singleNavWidth,
                 btnnum: Number(index),
                 ShowTab: true,
+                SearchShow: true,
                 SearchValue: "",
                 TabList: newTabList,
                 SearchIndex: index,
                 SearchItem: Arrs
             })
         }
-        // let query = wx.createSelectorQuery()
-        // query.select('#point' + (id)).boundingClientRect()
-        // query.selectViewport().scrollOffset()
-        // query.exec(function (res) {
-        //     if (res[0] && res[1]) {
-        //         wx.pageScrollTo({
-        //             scrollTop: res[0].top + res[1].scrollTop,
-        //             duration: 300
-        //         })
-        //     }
-        // })
     },
     getFood() {
         let self = this
@@ -99,14 +96,14 @@ Page({
             url: '/wxrequest',
             data: {
                 "token": wx.getStorageSync('token'),
-                "function": "getFood",
+                "function": "getDefaultFood",
                 "data": []
             }
         }).then(res => {
             if (res.data.code === '0') {
+                console.log(res);
                 var ResData = res.data.data[0]
                 let foodArr = []
-
                 let FoodData = self.data.FoodDataList
                 let codeArr = []
                 FoodData.forEach(item => {
@@ -115,7 +112,7 @@ Page({
                 if (codeArr.includes(self.data.periodCode)) {
                     FoodData[codeArr.indexOf(self.data.periodCode)].periodCode = self.data.periodCode
                     foodArr = FoodData[codeArr.indexOf(self.data.periodCode)].foodArr
-                } else {}
+                } 
                 for (const key in ResData) {
                     let items = ResData[key]
                     for (const Index in items.foodValues) {
@@ -125,8 +122,22 @@ Page({
                                 arr.value = foodArr[i].value
                             }
                         }
+
                     }
                 }
+                // for (const i in foodArr) {
+                //     for (const v in ResData[0].foodValues) {
+
+                //         console.log(ResData[0].foodValues[v].code, foodArr[i].code);
+                //         console.log(ResData[0].foodValues[v].code == foodArr[i].code);
+
+                //         if (ResData[0].foodValues[v].code == foodArr[i].code) {
+                //             ResData[0].foodValues[v].value = foodArr[i].value
+                //         }
+
+                //     }
+
+                // }
                 self.setData({
                     TabList: ResData,
                 })
@@ -153,6 +164,16 @@ Page({
         let tabArr = that.data.TabList
         tabArr[index1].foodValues[index].value = dataObj
         let newFoodDataList = that.data.FoodDataList
+        if (that.data.SearchItem.length > 0) {
+            that.data.SearchItem.forEach(s => {
+                if (s.code == tabArr[index1].foodValues[index].code) {
+                    s.value = dataObj
+                }
+            });
+            that.setData({
+                SearchItem: that.data.SearchItem
+            })
+        }
         if (newArr.length !== 0) {
             for (let i = 0; i < newArr.length; i++) {
                 if (codeArr.indexOf(code) !== -1) {

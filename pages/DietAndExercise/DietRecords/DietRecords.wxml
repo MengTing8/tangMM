@@ -41,11 +41,16 @@
                             <view class="food_content">
                                 <view class="food_name">{{item.periodValue}}</view>
                                 <view class="food_weight" bind:tap="tapFoodAdd" data-index="{{index}}" data-periodCode="{{item.periodCode}}" data-food="{{item.food}}">
-                                    <view class="food_weight_content">
+                                    <view class="food_weight_content" wx:if="{{item.food}}">
                                         <view style="text-align: center; margin-left:30rpx;">
-                                            {{item.value||'请输入'}}
+                                            {{item.value}}
                                         </view>
                                         <text>kcal</text>
+                                    </view>
+                                    <view class="food_weight_content" wx:else>
+                                        <view style="text-align: center; margin-left:30rpx;">
+                                           选择食物
+                                        </view>
                                     </view>
                                 </view>
                             </view>

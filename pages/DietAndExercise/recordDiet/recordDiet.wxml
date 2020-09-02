@@ -1,7 +1,7 @@
 <view class="vanSearchBox" bind:tap="">
     <van-search value="{{SearchValue}}" placeholder="搜索关键字" shape="round" field-class="fieldClass" bind:change="bindSearch" />
 </view>
-<view class="courseware_content"  wx:if="{{ShowTab}}">
+<view class="courseware_content" wx:if="{{ShowTab}}">
     <scroll-view class="'scrollContainer' " scroll-left="{{navScrollLeft}}" scroll-x="{{true}}" scroll-with-animation="{{true}}">
         <view class="itemBg">
             <view class="end-cont-title">
@@ -11,7 +11,7 @@
             </view>
         </view>
     </scroll-view>
-     <view class="expense_content">
+    <view class="expense_content">
         <view class="expense_info">
             <view class="info_content">
                 <view class="expense_info_name" wx:for="{{TabList[btnnum].foodValues}}" wx:for-item="f" wx:for-index="d" wx:key="d">
@@ -28,9 +28,9 @@
             </view>
         </view>
     </view>
-         <view class="arrive_btn" wx:if="{{TabList[btnnum].foodValues.length>0}}">
-         <view class="saveBtn" bind:tap="saveFood">保存</view>
-     </view>
+    <view class="arrive_btn" wx:if="{{TabList[btnnum].foodValues.length>0}}">
+        <view class="saveBtn" bind:tap="saveFood">保存</view>
+    </view>
 </view>
 <!-- 搜索模块 -->
 <view class="content" wx:if="{{!ShowTab}}">
@@ -41,6 +41,9 @@
                 <view class="footName">{{s.name}}</view>
                 <view class="rightArrow"></view>
             </view>
+        </view>
+        <view style=" text-align: center;margin: 150rpx auto;" wx:if="{{!SearchFoodList[0].groupValue}}">
+            没找到您的食物
         </view>
     </view>
 </view>
