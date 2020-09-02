@@ -2,7 +2,21 @@
     color: #121212;
     font-size: 30rpx;
 }
-
+.noSearch{
+    text-align: center;
+    margin: 150rpx auto;
+}
+.noSearch image{
+    width: 40%;
+    height: 50%;
+}
+.message_btn{
+width: 228px;
+background: #FEC81E;
+border-radius: 21px;
+margin: 20rpx auto;
+line-height:80rpx;
+}
 .expense_content .expense_info .info_content {
     display: flex;
     flex-wrap: wrap;

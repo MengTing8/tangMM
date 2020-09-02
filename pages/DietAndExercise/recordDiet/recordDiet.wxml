@@ -42,8 +42,11 @@
                 <view class="rightArrow"></view>
             </view>
         </view>
-        <view style=" text-align: center;margin: 150rpx auto;" wx:if="{{!SearchFoodList[0].groupValue}}">
-            没找到您的食物
+        <view class="noSearch" wx:if="{{!SearchFoodList[0].groupValue}}">
+            <image src="../../../img/noRecord.png" mode="widthFix"/>
+            <view  style="color:#CDCDCD;font-size:30rpx">没有找到您的食物</view>
+            <view class="message_btn">希望添加，留言给孕务人员</view>
+            <view style="color:#FE9800">孕期饮食建议</view>
         </view>
     </view>
 </view>

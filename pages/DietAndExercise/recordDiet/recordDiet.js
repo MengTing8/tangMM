@@ -64,17 +64,18 @@ Page({
             item
         } = e.currentTarget.dataset
         let newTabList = that.data.TabList
+        console.log(newTabList);
         let index = ''
         for (const key in newTabList) {
             let items = newTabList[key]
-            if (items.groupCode.indexOf(groupcode) !== -1) {
+            if (items.groupCode.indexOf('99') !== -1) {
                 index = key
             }
         }
         let Arrs = deepCopy(newTabList[index].foodValues)
         newTabList[index].foodValues = [item]
-        newTabList[index].groupValue = groupvalue
-        newTabList[index].groupCode = groupcode
+        // newTabList[index].groupValue = groupvalue
+        // newTabList[index].groupCode = groupcode
         if (index !== '') {
             var singleNavWidth = that.data.windowWidth / 5;
             that.setData({
@@ -112,7 +113,7 @@ Page({
                 if (codeArr.includes(self.data.periodCode)) {
                     FoodData[codeArr.indexOf(self.data.periodCode)].periodCode = self.data.periodCode
                     foodArr = FoodData[codeArr.indexOf(self.data.periodCode)].foodArr
-                } 
+                }
                 for (const key in ResData) {
                     let items = ResData[key]
                     for (const Index in items.foodValues) {
@@ -242,52 +243,107 @@ Page({
         }, 1000)
     },
     bindSearch(e) {
-        let that = this
-        that.setData({
-            SearchValue: e.detail
-        })
-        let item = that.data.TabList
-        let NewList = []
-        for (const key in item) {
-            let items = item[key]
-            for (const Index in items.foodValues) {
-                let foodArr = items.foodValues[Index]
-                if (foodArr.name.indexOf(that.data.SearchValue) !== -1) {
-                    let obj = {}
-                    obj.foodChildren = [foodArr]
-                    obj.groupValue = items.groupValue
-                    obj.groupCode = items.groupCode
-
-                    NewList.push(obj)
-                }
-            }
-        }
-        let foodTypeArr = []
-        let arr = []
-        NewList.forEach(val => {
-            let obj = {}
-            if (foodTypeArr.indexOf(val.groupValue) !== -1) {
-                arr[foodTypeArr.indexOf(val.groupValue)].foodValues = arr[foodTypeArr.indexOf(val.groupValue)].foodValues.concat(val.foodChildren)
-            } else {
-                foodTypeArr.push(val.groupValue)
-                obj.groupValue = val.groupValue
-                obj.groupCode = val.groupCode
-                obj.foodValues = val.foodChildren
-                arr.push(obj)
-            }
-
-        });
-        that.setData({
-            ShowTab: false,
-            SearchFoodList: arr
-        })
-        if (that.data.SearchValue == '') {
-            that.setData({
+        let self = this
+        if (e.detail == '') {
+            self.setData({
                 ShowTab: true,
-                //  SearchFoodList: arr
+                SearchFoodList: []
+            })
+        } else {
+            promiseRequest({
+                method: "POST",
+                url: '/wxrequest',
+                data: {
+                    "token": wx.getStorageSync('token'),
+                    "function": "getFood",
+                    "data": [{
+                        "searchValue": e.detail
+                    }]
+                }
+            }).then(res => {
+                console.log(res);
+                if (res.data.code === '0') {
+                    var ResData = res.data.data[0]
+                    var afterData = []
+                    if (ResData) {
+                        ResData.forEach(item => {
+                            let flag = afterData.find(item1 => item1.groupValue === item.groupValue)
+                            if (!flag) {
+                                afterData.push({
+                                    groupValue: item.groupValue,
+                                    foodValues: [item]
+                                })
+                            } else {
+                                flag.foodValues.push(item)
+                            }
+                        })
+                        self.setData({
+                            ShowTab: false,
+                            SearchFoodList: afterData
+                        })
+                    }else{
+                       self.setData({
+                           ShowTab: false,
+                           SearchFoodList: []
+                       })
+                    }
+                } else {
+                    wx.showToast({
+                        title: res.data.message,
+                        icon: 'none',
+                        duration: 2000
+                    })
+                }
             })
         }
     },
+    // bindSearch(e) {
+    //     let that = this
+    //     that.setData({
+    //         SearchValue: e.detail
+    //     })
+    //     let item = that.data.TabList
+    //     let NewList = []
+    //     for (const key in item) {
+    //         let items = item[key]
+    //         for (const Index in items.foodValues) {
+    //             let foodArr = items.foodValues[Index]
+    //             if (foodArr.name.indexOf(that.data.SearchValue) !== -1) {
+    //                 let obj = {}
+    //                 obj.foodChildren = [foodArr]
+    //                 obj.groupValue = items.groupValue
+    //                 obj.groupCode = items.groupCode
+
+    //                 NewList.push(obj)
+    //             }
+    //         }
+    //     }
+    //     let foodTypeArr = []
+    //     let arr = []
+    //     NewList.forEach(val => {
+    //         let obj = {}
+    //         if (foodTypeArr.indexOf(val.groupValue) !== -1) {
+    //             arr[foodTypeArr.indexOf(val.groupValue)].foodValues = arr[foodTypeArr.indexOf(val.groupValue)].foodValues.concat(val.foodChildren)
+    //         } else {
+    //             foodTypeArr.push(val.groupValue)
+    //             obj.groupValue = val.groupValue
+    //             obj.groupCode = val.groupCode
+    //             obj.foodValues = val.foodChildren
+    //             arr.push(obj)
+    //         }
+
+    //     });
+    //     that.setData({
+    //         ShowTab: false,
+    //         SearchFoodList: arr
+    //     })
+    //     if (that.data.SearchValue == '') {
+    //         that.setData({
+    //             ShowTab: true,
+    //             //  SearchFoodList: arr
+    //         })
+    //     }
+    // },
     TapSearch() {
         var model = JSON.stringify(this.data.TabList);
         wx.navigateTo({
