@@ -4,34 +4,36 @@
         <view class="topTips">记录体重前，请先完善您的相关信息</view>
         <TimeRecord pickerObj="{{dateObj}}" bindDateChange='bindDateChange' bindDeleteByDate='DeleteByDate'></TimeRecord>
         <togglefun fetus="{{fetus}}" numberOfFetus="{{numberOfFetus}}" bindradioChange="radioChange" wx:if="{{numberOfFetus!=='1'}}"></togglefun>
+        <view wx:for="{{dataArr}}" wx:key="index" wx:for-item="i" wx:if="{{fetus==index+1}}">
             <view class="itemBox">
                 <text class="itemBox_title">双顶径BPD</text>
                 <view class="itemBox_content">
-                    <input value="{{BPD}}" class="itemBox_inp" type="digit" placeholder-class="itemBox_inpholder" placeholder="请输入" bindinput="bindBPDInput"></input>
+                    <input value="{{i.biparietalDiameter}}" class="itemBox_inp" type="digit" placeholder-class="itemBox_inpholder" placeholder="请输入" bindinput="bindBPDInput" data-index='{{index}}'></input>
                     <text class="itemBox_unit">mm</text>
                 </view>
             </view>
             <view class="itemBox">
                 <text class="itemBox_title">头围HC</text>
                 <view class="itemBox_content">
-                    <input value="{{HC}}" class="itemBox_inp" type="digit" placeholder-class="itemBox_inpholder" placeholder="请输入" bindinput="bindHCInput"></input>
+                    <input value="{{i.headCircumference}}" class="itemBox_inp" type="digit" placeholder-class="itemBox_inpholder" placeholder="请输入" bindinput="bindHCInput"  data-index='{{index}}'></input>
                     <text class="itemBox_unit">mm</text>
                 </view>
             </view>
             <view class="itemBox">
                 <text class="itemBox_title">腹围AC</text>
                 <view class="itemBox_content">
-                    <input class="itemBox_inp" type="digit" placeholder-class="itemBox_inpholder" value="{{AC}}" placeholder="请输入" bindinput="bindACInput"></input>
+                    <input class="itemBox_inp" type="digit" placeholder-class="itemBox_inpholder" value="{{i.abdorminalCircumference}}" placeholder="请输入" bindinput="bindACInput"data-index='{{index}}'></input>
                     <text class="itemBox_unit">mm</text>
                 </view>
             </view>
             <view class="itemBox">
                 <text class="itemBox_title">股骨长FL</text>
                 <view class="itemBox_content">
-                    <input value="{{FL}}" class="itemBox_inp" type="digit" placeholder-class="itemBox_inpholder" placeholder="请输入" bindinput="bindFLInput"></input>
+                    <input value="{{i.femurLength}}" class="itemBox_inp" type="digit" placeholder-class="itemBox_inpholder" placeholder="请输入" bindinput="bindFLInput" data-index='{{index}}'></input>
                     <text class="itemBox_unit">mm</text>
                 </view>
             </view>
+        </view>
     </view>
     <BtnComponents bindonSaveBtn="saveFetusWeight" bindhistoryRecordBtn="historyRecord"></BtnComponents>
 </view>

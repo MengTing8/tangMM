@@ -79,6 +79,7 @@
     } = require("../../utils/util")
     var back = wx.getBackgroundAudioManager()
     let date = getDates(1, new Date());
+    var app=getApp()
 
     Page({
 

@@ -40,7 +40,7 @@ Page({
             URL = '../WeightContent/weightMa/weightMa?gestationalWeek=' + gestationalWeek
         } else if (code == '4') {
             // 胎儿体重
-            URL = '../WeightContent/fetalWeightAdd/fetalWeightAdd?numberOfFetus=' + numberOfFetus
+            URL = `../WeightContent/fetalWeightAdd/fetalWeightAdd?numberOfFetus=${numberOfFetus}&gestationalWeek=${gestationalWeek}`
         } else if (code == '5') {
             // 饮食记录
             URL = '../DietAndExercise/DietRecords/DietRecords'

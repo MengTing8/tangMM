@@ -25,8 +25,8 @@ App({
             }, 0);
         }
     },
-    onShow: function () {
-    },
+    onShow: function () {},
+
 
     globalData: {
         // userInfo: null,
@@ -34,6 +34,13 @@ App({
         exeQueue: true,
         needBeginLogin: true,
         promiseQueue: [],
-        patientId:null
+        patientId: null,
+        // ---
+        refreshClock: false,
+        timeStart: '',
+        clock: "00:00",
+        total_econd: "",
+        quantity: 10, //原始胎动次数
+        validQuantity: 0, //有效胎动次数
     }
 })

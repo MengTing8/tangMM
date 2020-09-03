@@ -41,12 +41,11 @@
         "sportsRecord/sportsRecord",
         "recordDiet/recordDiet",
         "historyDietRecords/historyDietRecords",
-        "DietRecords/DietRecords",
-        "DietSuggestion/DietSuggestion"
+        "DietRecords/DietRecords"
       ]
     }
   ],
-  "preloadRule": {
+  "preloadRule": { 
     "pages/MyRecord/MyRecord": {
       "network": "all",
       "packages": [
