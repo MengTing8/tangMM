@@ -33,7 +33,7 @@
     </view>
 </view>
 <!-- 搜索模块 -->
-<view class="content" wx:if="{{!ShowTab}}">
+<view class="content" hidden="{{ShowTab}}">
     <view class="footContent">
         <view class="footList" wx:for="{{SearchFoodList}}" wx:for-item="C" wx:key="c">
             <view class="classNameFoot unifyFont">{{C.groupValue}}</view>
@@ -43,10 +43,10 @@
             </view>
         </view>
         <view class="noSearch" wx:if="{{!SearchFoodList[0].groupValue}}">
-            <image src="../../../img/noRecord.png" mode="widthFix"/>
-            <view  style="color:#CDCDCD;font-size:30rpx">没有找到您的食物</view>
-            <view class="message_btn">希望添加，留言给孕务人员</view>
-            <view style="color:#FE9800">孕期饮食建议</view>
+            <image src="../../../img/noRecord.png" mode="widthFix" />
+            <view style="color:#CDCDCD;font-size:30rpx">没有找到您的食物</view>
+            <view class="message_btn" bind:tap="sendMessage">希望添加，留言给孕务人员</view>
+            <view style="color:#FE9800" bind:tap="getDietSuggestion">孕期饮食建议</view>
         </view>
     </view>
 </view>

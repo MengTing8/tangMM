@@ -2,25 +2,31 @@
     color: #121212;
     font-size: 30rpx;
 }
-.noSearch{
+
+
+.noSearch {
     text-align: center;
     margin: 150rpx auto;
 }
-.noSearch image{
+
+.noSearch image {
     width: 40%;
     height: 50%;
 }
-.message_btn{
-width: 228px;
-background: #FEC81E;
-border-radius: 21px;
-margin: 20rpx auto;
-line-height:80rpx;
+
+.message_btn {
+    width: 228px;
+    background: #FEC81E;
+    border-radius: 21px;
+    margin: 20rpx auto;
+    line-height: 80rpx;
 }
+
 .expense_content .expense_info .info_content {
     display: flex;
     flex-wrap: wrap;
 }
+
 .expense_content .info_content .expense_info_name {
     display: flex;
     align-items: center;
@@ -28,15 +34,17 @@ line-height:80rpx;
     border-bottom: 1px solid #EFF0F5;
     text-align: center;
     width: 49%;
-     line-height:36rpx;
+    line-height: 36rpx;
 }
+
 .expense_content .info_content :last-child.expense_info_name {
     border-right: 1px solid #EFF0F5;
 
 }
+
 .expense_content .expense_info .expense_info_name .food_content {
     display: flex;
-    padding:36rpx 0;
+    padding: 36rpx 0;
 }
 
 .expense_content .info_content .food_content .food_name {
@@ -44,8 +52,8 @@ line-height:80rpx;
     text-align: left;
     margin-left: 28rpx;
     /* line-height: 88rpx; */
-    
-} 
+
+}
 
 .expense_content .info_content .food_weight {
     flex: 1;
@@ -96,12 +104,15 @@ line-height:80rpx;
 .van-ellipsis {
     font-size: 32rpx;
 }
+
 .fieldClass {
     padding: 6rpx 0rpx !important;
 }
-.vanSearchBox{
+
+.vanSearchBox {
     padding: 20rpx 0 30rpx 0;
 }
+
 /* ---------------搜索 */
 .fieldClass {
     padding: 6rpx 0rpx !important;
@@ -133,6 +144,7 @@ line-height:80rpx;
     line-height: 88rpx;
     padding: 0 40rpx;
 }
+
 .saveBtn {
     width: 456rpx;
     height: 84rpx;
@@ -147,18 +159,19 @@ line-height:80rpx;
 }
 
 
-  .curriculumTime {
-      color: #40474E;
-      text-align: center;
-  }
+.curriculumTime {
+    color: #40474E;
+    text-align: center;
+}
 
-  .curriculumContent {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 30rpx;
-      padding: 20rpx 80rpx;
-  }
+.curriculumContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 30rpx;
+    padding: 20rpx 80rpx;
+}
+
 .curriculumList {
     padding: 20rpx 0;
 }
@@ -172,7 +185,7 @@ line-height:80rpx;
     color: #121212;
     text-align: center;
     padding: 28rpx 30rpx 20rpx 30rpx;
-    font-size:32rpx;
+    font-size: 32rpx;
 }
 
 .itemBg {
@@ -198,11 +211,11 @@ line-height:80rpx;
     display: block;
 }
 
-.arrive_btn{
+.arrive_btn {
     /* z-index: 999;
     width: 100%;
 position: fixed;
 bottom: 0; */
-background-color: #ffff;
-padding-bottom: 40rpx;
+    background-color: #ffff;
+    padding-bottom: 40rpx;
 }

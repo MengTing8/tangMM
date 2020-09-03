@@ -41,7 +41,8 @@
         "sportsRecord/sportsRecord",
         "recordDiet/recordDiet",
         "historyDietRecords/historyDietRecords",
-        "DietRecords/DietRecords"
+        "DietRecords/DietRecords",
+        "DietSuggestion/DietSuggestion"
       ]
     }
   ],

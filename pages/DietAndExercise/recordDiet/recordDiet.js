@@ -26,7 +26,7 @@ Page({
         windowWidth: 0,
         periodCode: '',
         FoodDataList: [],
-        SearchShow: true
+        SearchShow: true,
     },
     Tabchange(event) {
         var singleNavWidth = this.data.windowWidth / 5;
@@ -244,6 +244,9 @@ Page({
     },
     bindSearch(e) {
         let self = this
+        self.setData({
+            SearchValue: e.detail
+        })
         if (e.detail == '') {
             self.setData({
                 ShowTab: true,
@@ -281,11 +284,11 @@ Page({
                             ShowTab: false,
                             SearchFoodList: afterData
                         })
-                    }else{
-                       self.setData({
-                           ShowTab: false,
-                           SearchFoodList: []
-                       })
+                    } else {
+                        self.setData({
+                            ShowTab: false,
+                            SearchFoodList: []
+                        })
                     }
                 } else {
                     wx.showToast({
@@ -297,6 +300,86 @@ Page({
             })
         }
     },
+    sendMessage() {
+        var that = this
+        promiseRequest({
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "sendMessage",
+                "data": [{
+                    "type": "1",
+                    "patientId": wx.getStorageSync('patientId'),
+                    "message": that.data.SearchValue
+                }]
+            }
+        }).then(res => {
+            console.log(res);
+            if (res.data.code === '0') {
+                var ResData = res.data.data[0]
+                wx.showToast({
+                    title: '留言成功',
+                    icon: 'none',
+                    duration: 2000
+                })
+                setTimeout(() => {
+                    that.setData({
+                       SearchValue:'',
+                       ShowTab:true
+                    })
+                }, 2000);
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                    icon: 'none',
+                    duration: 2000
+                })
+            }
+        })
+    },
+     getDietSuggestion() {
+         var that = this
+         promiseRequest({
+             method: "POST",
+             url: '/wxrequest',
+             data: {
+                 "token": wx.getStorageSync('token'),
+                 "function": "getDietSuggestion",
+                 "data": [{
+                     "patientId": wx.getStorageSync('patientId'),
+                 }]
+             }
+         }).then(res => {
+             if (res.data.code === '0') {
+                 var ResData = res.data.data[0]
+                 wx.downloadFile({
+                     url: ResData.url,
+                     success: function (res) {
+                         const filePath = res.tempFilePath
+                         wx.openDocument({
+                             filePath: filePath,
+                             success: function (res) {
+                                 //成功
+                                 setTimeout(() => {
+                                     that.setData({
+                                         SearchValue: '',
+                                         ShowTab: true
+                                     })
+                                 }, 2500);
+                             }
+                         })
+                     }
+                 })
+             } else {
+                 wx.showToast({
+                     title: res.data.message,
+                     icon: 'none',
+                     duration: 2000
+                 })
+             }
+         })
+     },
     // bindSearch(e) {
     //     let that = this
     //     that.setData({
