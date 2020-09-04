@@ -8,7 +8,8 @@ for (let i = 0; i <= 40; i++) {
 }
 const {
     getDay,
-    checkTime
+    checkTime,
+    sortFun
 } = require("../../utils/util")
 const moment = require('../../utils/moment.min.js');
 let newDate = moment(getDay(0)).format('YYYY年MM月DD日')
@@ -30,7 +31,7 @@ Page({
         ec: {},
         TimeObj: {
             StartDt: newDate,
-            EndDt:getDay(0),
+            EndDt: getDay(0),
             StarDATE,
             EndDATE,
             dateStart: getDay(-7),
@@ -65,8 +66,18 @@ Page({
         }).then(res => {
             console.log(res, "胰岛素泵");
             if (res.data.code === '0') {
+                var ResData = res.data.data
+                ResData.sort(function (a, b) {
+                    return a.date < b.date ? 1 : -1;
+                });
+                for (const key in ResData) {
+                    const element = ResData[key];
+                    if (element.items1) {
+                        element.items1.sort(sortFun(`sequence`))
+                    }
+                }
                 self.setData({
-                    InsulinPumpList: res.data.data,
+                    InsulinPumpList: ResData,
                 })
             } else {
                 wx.showToast({
@@ -90,8 +101,18 @@ Page({
         }).then(res => {
             console.log(res, "常规列表");
             if (res.data.code === '0') {
+                var ResData = res.data.data
+                ResData.sort(function (a, b) {
+                    return a.date < b.date ? 1 : -1;
+                });
+                for (const key in ResData) {
+                    const element = ResData[key];
+                    if (element.items) {
+                        element.items.sort(sortFun(`sequence`))
+                    }
+                }
                 self.setData({
-                    InsulinList: res.data.data,
+                    InsulinList: ResData,
                 })
             } else {
                 wx.showToast({
@@ -405,18 +426,44 @@ Page({
         return false
     },
     onLoad: function (options) {
+        let that = this
         this.setData({
             GA: options.GA,
-             multiIndex: [+options.GA]
+            multiIndex: [+options.GA]
         })
         this.echartsComponent = this.selectComponent('#mychart-dom-scatter');
+        if (wx.getStorageSync('userType') == '1') {
+            wx.setNavigationBarTitle({
+                title: '胰岛素使用记录'
+            })
+        }
         this.getInsulinList()
-         if (wx.getStorageSync('userType') == '1') {
-             wx.setNavigationBarTitle({
-                 title: '胰岛素使用记录'
-             })
-         }
-        // this.getInsulinPumpList()
+        this.getInsulinPumpList()
+        setTimeout(() => {
+            if (!that.data.InsulinList[0].date && that.data.InsulinPumpList[0].date) {
+                that.setData({
+                    InsulinPump: true,
+                    convention: false,
+                    index: '2',
+                })
+
+            } else if (that.data.InsulinList[0].date && !that.data.InsulinPumpList[0].date) {
+                that.setData({
+                    convention: true,
+                    InsulinPump: false,
+                    index: '1',
+                })
+            }else{
+                  that.setData({
+                      convention: true,
+                      InsulinPump: false,
+                      index: '1',
+                  })
+            }
+        }, 1000);
         // this.getInsulinListByWeek()
+    },
+    onShow() {
+
     }
 })

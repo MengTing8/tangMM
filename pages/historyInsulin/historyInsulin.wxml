@@ -61,7 +61,7 @@
             </view>
         </view>
         <!-- 按孕周显示内容 -->
-        <view class="TableContent" wx:if="{{GaShow}}">
+        <!-- <view class="TableContent" wx:if="{{GaShow}}">
             <view class="InsulinListByWeek" wx:for="{{InsulinListByWeek}}" wx:key="index">
                 <view class="columns" wx:for="{{item.columns}}" wx:for-item="s" wx:for-index="d" wx:key="d">
                     <view class="valuew">{{s.value}}</view>
@@ -70,7 +70,7 @@
             <view style=" text-align: center;margin: 150rpx auto;" wx:if="{{!InsulinListByWeek[0].columns[0].value}}">
                 暂无记录
             </view>
-        </view>
+        </view> -->
     </view>
     <view style="display:{{selectedIndex==0?'none':'block'}}">
         <view class="selectedList" bind:tap="bindCurrentShowGA">

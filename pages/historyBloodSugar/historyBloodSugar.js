@@ -4,7 +4,7 @@ const {
     promiseRequest
 } = require("../../utils/Requests")
 const {
-    getDates,
+    sortFun,
     checkTime,
     getDay
 } = require("../../utils/util")
@@ -56,6 +56,9 @@ Page({
                 ResData.sort(function (a, b) {
                     return a.date < b.date ? 1 : -1;
                 });
+                  for (const key in ResData) {
+                      ResData[key].items.sort(sortFun(`sequence`))
+                  }
                 self.setData({
                     BloodGlucoseList: ResData
                 })
