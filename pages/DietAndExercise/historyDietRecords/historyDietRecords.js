@@ -5,6 +5,7 @@ const {
 } = require("../../../utils/Requests")
 const {
     getDay,
+    sortFun,
     checkTime
 } = require("../../../utils/util")
 const moment = require('../../../utils/moment.min.js');
@@ -70,6 +71,7 @@ Page({
                 }]
             }
         }).then((res) => {
+            console.log(res);
             if (res.data.code === '0') {
                 let ResData = res.data.data
                 let newData = []
@@ -89,6 +91,12 @@ Page({
                             }
                         })
                     })
+                     newData.sort(function (a, b) {
+                         return a.date < b.date ? 1 : -1;
+                     });
+                     for (const key in newData) {
+                         newData[key].children.sort(sortFun(`sequence`))
+                     }
                     _that.setData({
                         historyFootList: newData,
                     })

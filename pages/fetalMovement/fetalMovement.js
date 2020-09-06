@@ -12,8 +12,8 @@
     // 倒计时
     var EndTime = new Date(new Date().getTime() + 1 * 60 * 60 * 1000).getTime() || [];
 
-    function countdown(that) {
-        if (that.data.refreshClock) {
+    function countdown() {
+        if (getApp().globalData._this.data.refreshClock) {
             return;
         }
         var NowTime = new Date().getTime();
@@ -26,26 +26,30 @@
         }
         if (total_micro_second <= 0) {
             var timeEnd = formatTime(new Date())
-            that.setData({
+            app.globalData.clock = "00:00"
+            app.globalData.timeEnd = timeEnd
+            getApp().globalData._this.setData({
                 clock: "00:00",
                 timeEnd
             });
             back.stop()
-            that.SaveFetalMovement()
+            getApp().globalData._this.SaveFetalMovement()
             total_micro_second = ''
             EndTime = new Date(new Date().getTime() + 0.3 * 60 * 60 * 1000).getTime() || [];
             return;
         } else {
+            app.globalData.clock = dateformat(total_micro_second)
             // 渲染倒计时时钟  
-            that.setData({
+            getApp().globalData._this.setData({
                 clock: dateformat(total_micro_second)
-                //若已结束，此处输出'0天0小时0分钟0秒' 
+                // 若已结束，此处输出'0天0小时0分钟0秒' 
             });
-        }
 
+
+        }
         setTimeout(function () {
             total_micro_second -= 1000;
-            countdown(that);
+            countdown(getApp().globalData._this);
 
         }, 1000)
 
@@ -79,7 +83,7 @@
     } = require("../../utils/util")
     var back = wx.getBackgroundAudioManager()
     let date = getDates(1, new Date());
-    var app=getApp()
+    var app = getApp()
 
     Page({
 
@@ -98,9 +102,9 @@
             intervalTime: 0,
             timeStart: '',
             timeEnd: '',
+            clock: "00:00",
             quantity: 0, //原始胎动次数
             validQuantity: 0, //有效胎动次数
-            clock: "00:00",
             avatarUrl: "",
             name: '',
             descriptionUser: '',
@@ -119,59 +123,60 @@
             descriptionShow: false,
             ec: {},
             legendList: [],
-        },
-         DeleteByDate(e) {
-             let {
-                 id,
-                 rowmd5
-             } = e.currentTarget.dataset
-             let that = this
-             if (that.data.FetalMovementList.length>0) {
-                 wx.showModal({
-                     title: '提示',
-                     content: "确定删除当日数据？",
-                     success(res) {
-                         if (res.confirm) {
-                             promiseRequest({
-                                 method: "POST",
-                                 url: '/wxrequest',
-                                 data: {
-                                     "token": wx.getStorageSync('token'),
-                                     "function": "delete",
-                                     "data": [{
-                                         "entity": "fetalMovement",
-                                          "id": id,
-                                          "rowMd5": rowmd5,
-                                     }]
-                                 }
-                             }).then((res) => {
-                                 if (res.data.code === '0') {
-                                     wx.showToast({
-                                         title: res.data.message,
-                                         icon: 'none',
-                                         duration: 3000
-                                     })
-                                     that.getFetalMovementList()
-                                 } else {
-                                     wx.showToast({
-                                         title: res.data.message,
-                                         icon: 'none',
-                                         duration: 3000
-                                     })
-                                 }
-                             })
-                         } else if (res.cancel) {}
-                     }
-                 })
-             } else {
-                 wx.showToast({
-                     title: '无数据可删！',
-                     icon: 'none',
-                     duration: 2000
-                 })
-             }
 
-         },
+        },
+        DeleteByDate(e) {
+            let {
+                id,
+                rowmd5
+            } = e.currentTarget.dataset
+            let that = this
+            if (that.data.FetalMovementList.length > 0) {
+                wx.showModal({
+                    title: '提示',
+                    content: "确定删除当日数据？",
+                    success(res) {
+                        if (res.confirm) {
+                            promiseRequest({
+                                method: "POST",
+                                url: '/wxrequest',
+                                data: {
+                                    "token": wx.getStorageSync('token'),
+                                    "function": "delete",
+                                    "data": [{
+                                        "entity": "fetalMovement",
+                                        "id": id,
+                                        "rowMd5": rowmd5,
+                                    }]
+                                }
+                            }).then((res) => {
+                                if (res.data.code === '0') {
+                                    wx.showToast({
+                                        title: res.data.message,
+                                        icon: 'none',
+                                        duration: 3000
+                                    })
+                                    that.getFetalMovementList()
+                                } else {
+                                    wx.showToast({
+                                        title: res.data.message,
+                                        icon: 'none',
+                                        duration: 3000
+                                    })
+                                }
+                            })
+                        } else if (res.cancel) {}
+                    }
+                })
+            } else {
+                wx.showToast({
+                    title: '无数据可删！',
+                    icon: 'none',
+                    duration: 2000
+                })
+            }
+
+        },
         bindEnd() {
             let that = this
             if (that.data.clock == "00:00") {
@@ -188,6 +193,7 @@
                     success(res) {
                         if (res.confirm) {
                             var timeEnd = formatTime(new Date())
+                            app.globalData.timeEnd = timeEnd
                             that.setData({
                                 timeEnd,
                             });
@@ -214,10 +220,14 @@
                     content: "确定要重置监测吗？",
                     success(res) {
                         if (res.confirm) {
+                            app.globalData.clock = "00:00"
+                            app.globalData.refreshClock = true
+                            app.globalData.quantity = 0
+                            app.globalData.validQuantity = 0
                             that.setData({
                                 quantity: 0, //原始胎动次数
                                 validQuantity: 0, //有效胎动次数
-                                clock: "00:00",
+                                clock: app.globalData.clock,
                                 refreshClock: true,
                             })
                             back.stop()
@@ -245,8 +255,8 @@
                         return a.time < b.time ? 1 : -1;
                     });
                     self.setData({
-                         //FetalMovementList: res.data.data
-                         FetalMovementList: ResData
+                        //FetalMovementList: res.data.data
+                        FetalMovementList: ResData
                     })
                 } else {
                     wx.showToast({
@@ -297,17 +307,22 @@
                         "entity": "fetalMovement",
                         // "id": self.data.FetalMovementId,
                         // "rowMd5": self.data.FetalMovementRowMd5,
-                        "patientId": self.data.patientId,
-                        "date": self.data.dateRecord,
-                        "timeStart": self.data.timeStart,
-                        "timeEnd": self.data.timeEnd,
-                        "quantity": self.data.quantity,
-                        "validQuantity": self.data.validQuantity,
+                        "patientId": wx.getStorageSync('patientId'),
+                        "date": app.globalData.dateRecord,
+                        "timeStart": app.globalData.timeStart,
+                        "timeEnd": app.globalData.timeEnd,
+                        "quantity": app.globalData.quantity,
+                        "validQuantity": app.globalData.validQuantity,
                         "status": 1
                     }]
                 }
             }).then(res => {
                 if (res.data.code === '0') {
+                    app.globalData.clock = "00:00"
+                    app.globalData.refreshClock = true
+                    app.globalData.quantity = 0
+                    app.globalData.validQuantity = 0
+                    app.globalData.total_econd = ""
                     self.setData({
                         quantity: 0, //原始胎动次数
                         validQuantity: 0, //有效胎动次数
@@ -316,10 +331,10 @@
                         total_econd: ""
                     });
                     self.getFetalMovementList()
-                    self.getFetalMovementListW()
+                    // self.getFetalMovementListW()
                     wx.showToast({
                         title: res.data.message,
-                        duration: 2000
+                        duration: 3000
                     })
                 } else {
                     wx.showToast({
@@ -337,6 +352,8 @@
                 that.backmusic();
                 var d = new Date()
                 var timeStart = formatTime(d)
+                app.globalData.refreshClock = false
+                app.globalData.timeStart = timeStart
                 that.setData({
                     timeStart,
                     refreshClock: false
@@ -345,6 +362,7 @@
                 countdown(that);
             } else {
                 if (this.data.total_econd == '' && that.data.validQuantity == 0) {
+                    app.globalData.validQuantity = that.data.validQuantity + 1
                     that.setData({
                         validQuantity: that.data.validQuantity + 1,
                     })
@@ -352,16 +370,20 @@
                 if (this.data.total_econd == '') {
                     // var strTime = new Date(new Date().getTime() + 1 * 5 * 60 * 1000).getTime(); //五分钟
                     var newTime = new Date().getTime();
+                    app.globalData.total_econd = newTime
                     that.setData({
                         total_econd: newTime,
                     })
                 }
                 if (new Date().getTime() - this.data.total_econd >= 300000) {
+                    app.globalData.validQuantity = that.data.validQuantity + 1
+                    app.globalData.total_econd = ""
                     that.setData({
                         validQuantity: that.data.validQuantity + 1,
                         total_econd: ""
                     })
                 }
+                app.globalData.quantity = that.data.quantity + 1
                 that.setData({
                     quantity: that.data.quantity + 1,
                 })
@@ -654,22 +676,29 @@
             back.onPrev(function () {
                 that.playPrev();
             });
-            back.onCanplay(() => {
-            });
+            back.onCanplay(() => {});
             back.onStop(() => {
                 that.setData({
                     onMusic: false
                 })
             });
-            back.onError((res) => {
-            });
+            back.onError((res) => {});
         },
 
         /**
          * 生命周期函数--监听页面显示
          */
         onShow: function () {
-
+            getApp().globalData._this = this
+            app.globalData.dateRecord = date[0].time
+            getApp().globalData._this.setData({
+                clock: app.globalData.clock,
+                refreshClock: app.globalData.refreshClock,
+                timeStart: app.globalData.timeStart,
+                total_econd: app.globalData.total_econd,
+                quantity: app.globalData.quantity,
+                validQuantity: app.globalData.validQuantity
+            })
         },
 
         /**

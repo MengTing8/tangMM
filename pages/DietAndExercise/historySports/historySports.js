@@ -5,7 +5,8 @@ const {
 } = require("../../../utils/Requests")
 const {
     checkTime,
-    getDay
+    getDay,
+    sortFun
 } = require("../../../utils/util")
 const moment = require('../../../utils/moment.min.js');
 let newDate = moment(getDay(0)).format('YYYY年MM月DD日')
@@ -47,7 +48,7 @@ Page({
                 ResData.sort(function (a, b) {
                     return a.date < b.date ? 1 : -1;
                 });
-                console.log(ResData);
+                console.log(res);
                  var afterData = []
                  ResData.forEach(item => {
                      let flag = afterData.find(item1 => item1.date === item.date)
@@ -60,6 +61,9 @@ Page({
                          flag.children.push(item)
                      }
                  })
+                  for (const key in afterData) {
+                      afterData[key].children.sort(sortFun(`sequence`))
+                  }
                 self.setData({
                     ExerciseList: afterData
                 })

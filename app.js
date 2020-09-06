@@ -38,9 +38,11 @@ App({
         // ---
         refreshClock: false,
         timeStart: '',
+        timeEnd:'',
         clock: "00:00",
         total_econd: "",
-        quantity: 10, //原始胎动次数
-        validQuantity: 0, //有效胎动次数
+        quantity: 0, 
+        validQuantity: 0, 
+        dateRecord:'',
     }
 })
