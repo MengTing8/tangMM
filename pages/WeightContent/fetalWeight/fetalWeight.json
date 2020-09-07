@@ -1,7 +1,7 @@
 {
   "usingComponents": {
-      "Tabs": "../../components/Tabs/Tabs",
-      "ec-canvas": "../../../components/ec-canvas/ec-canvas",
+      "Tabs": "/components/Tabs/Tabs",
+      "ec-canvas": "/components/ec-canvas/ec-canvas",
       "togglefun": "/components/togglefun/togglefun"
   },
   "navigationBarTitleText": "胎儿体重"
