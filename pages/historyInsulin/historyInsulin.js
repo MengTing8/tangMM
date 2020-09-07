@@ -153,7 +153,8 @@ Page({
         this.setData({
             GA: val[0],
         })
-        this.getInsulinChartByWeek();
+        //this.getInsulinChartByWeek();
+        this.getInsulinChart(1);
     },
     toggleType(e) {
         this.setData({
@@ -187,7 +188,8 @@ Page({
             index
         } = e.detail;
         if (index === 1) {
-            this.getInsulinChartByWeek()
+            //this.getInsulinChartByWeek()
+            this.getInsulinChart(1);
         } else {
             // if (this.data.index == '1') {
             //     this.getInsulinList()
@@ -206,14 +208,94 @@ Page({
         this.setData({
             selectedByGA: true,
         })
-        this.getInsulinChartByWeek()
+        //this.getInsulinChartByWeek()
+        this.getInsulinChart(1);
     },
     bindCurrentShowDate() {
         this.setData({
             selectedByGA: false,
         })
-        this.getInsulinChartByDate()
+        // this.getInsulinChartByDate()
+        this.getInsulinChart(2);
     },
+
+    getInsulinChart(type) {
+        let tags = [];
+        for (const item of this.data.selectedTagList) {
+            tags.push({
+                code: item
+            })
+        }
+        promiseRequest({
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "getInsulinChart",
+                "data": [{
+                    "type": type,
+                    "gestationalWeek": this.data.GA,
+                    "dateStart": this.data.TimeObj.dateStart,
+                    "dateEnd": this.data.TimeObj.dateEnd,
+                    "tags": tags
+                }]
+            }
+        }).then(res => {
+            if (res.data.code === '0') {
+                let color = JSON.parse(res.data.data[0].color);
+                let option = JSON.parse(res.data.data[0].option);
+                let yAxisLabelValues;
+                if (res.data.data[0].yAxisLabelValues !== undefined) {
+                    yAxisLabelValues = JSON.parse(res.data.data[0].yAxisLabelValues);
+                }
+                for (var i = 0; i < color.length; i++) {
+                    if (color[i].length > 1) {
+                        option.series[i].itemStyle.color = (o) => {
+                            return color[o.seriesIndex][o.dataIndex];
+                        };
+                    }
+                }
+                if (yAxisLabelValues !== undefined && yAxisLabelValues.length > 0) {
+                    option.yAxis.axisLabel = {
+                        formatter: function (v, i) {
+                            return yAxisLabelValues[i];
+                        }
+                    }
+                }
+
+                let tagList = res.data.data[0].tags.sort((a, b) => {
+                    return a.sequence - b.sequence
+                })
+                let selectedTagList = []
+                tagList.forEach(element => {
+                    if (element.isSelected == '1') {
+                        selectedTagList.push(element.code)
+                    }
+                });
+                let legend = res.data.data[0].legend;
+                for (let i = 0; i < legend.length; i++) {
+                    // let svg = '<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="' + legend[i].symbol.substr(7) + '" fill="' + legend[i].color + '"></path></svg>'
+                    // svg = unescape(encodeURIComponent(svg));
+                    // legend[i].symbol = 'data:image/svg+xml;base64,' + base64.btoa(svg);
+                    legend[i].symbol = legend[i].symbol.substr(8)
+                }
+                this.setData({
+                    legendList: legend,
+                    tagList,
+                    selectedTagList
+                })
+                this.init_echarts(option)
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                    icon: 'none',
+                    duration: 2000
+                })
+            }
+        })
+    },
+
+    /*
     getInsulinChartByWeek() {
         let tags = [];
         for (const item of this.data.selectedTagList) {
@@ -357,6 +439,7 @@ Page({
             }
         })
     },
+    */
     init_echarts(option) {
         this.echartsComponent.init((canvas, width, height) => {
             // 初始化图表
@@ -383,9 +466,11 @@ Page({
         }
 
         if (this.data.selectedByGA) {
-            this.getInsulinChartByWeek()
+            //this.getInsulinChartByWeek()
+            this.getInsulinChart(1);
         } else {
-            this.getInsulinChartByDate()
+            //this.getInsulinChartByDate()
+            this.getInsulinChart(2);
         }
     },
     bindStartTimeChange(e) {
@@ -400,7 +485,8 @@ Page({
                 CurrentShowDate: false,
                 selectedByGA: false
             })
-            this.getInsulinChartByDate()
+            //this.getInsulinChartByDate()
+            this.getInsulinChart(2);
         }
     },
     bindEndTimeChange(e) {
@@ -415,7 +501,8 @@ Page({
                 CurrentShowDate: false,
                 selectedByGA: false
             })
-            this.getInsulinChartByDate()
+            //this.getInsulinChartByDate()
+            this.getInsulinChart(2);
         }
 
     },
