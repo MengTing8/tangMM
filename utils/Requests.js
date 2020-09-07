@@ -91,7 +91,8 @@
              delete DataArr[key].id
          }
      }
-     let apiUrl = 'https://aaron.astraia.com.cn'
+     let apiUrl = 'https://gy3y.astraia.com.cn'
+    //  let apiUrl = 'https://aaron.astraia.com.cn'
      return new Promise((resolve, reject) => {
          if (!requestObj.data.token && requestObj.data.function !== 'mpLogin') {
              login(requestObj)
@@ -103,6 +104,7 @@
              method: requestObj.method,
              data: JSON.stringify(requestObj.data),
              success: function (res) {
+                 console.log(res);
                  let promiseQueue = app.globalData.promiseQueue;
                  if (res.data.code == '0') {
                      if (requestObj.resolve) {
