@@ -231,6 +231,7 @@ Page({
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
                 if (date) {
+                    console.log(self.data.userData);
                     for (const key in ResData.items) {
                         if (ResData.items[key].rowMd5) {
                             delete ResData.items[key].rowMd5

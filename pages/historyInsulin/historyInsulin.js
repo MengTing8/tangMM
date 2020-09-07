@@ -440,7 +440,7 @@ Page({
         this.getInsulinList()
         this.getInsulinPumpList()
         setTimeout(() => {
-            if (!that.data.InsulinList[0].date && that.data.InsulinPumpList[0].date) {
+            if (!that.data.InsulinList[0].date && that.data.InsulinPumpList[0].total) {
                 that.setData({
                     InsulinPump: true,
                     convention: false,

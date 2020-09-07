@@ -1,7 +1,7 @@
 {
   "usingComponents": {
-      "BtnComponents": "../../components/BtnComponents/BtnComponents",
-      "TimeRecord": "../../components/TimeRecord/TimeRecord"
+      "BtnComponents": "/components/BtnComponents/BtnComponents",
+      "TimeRecord": "/components/TimeRecord/TimeRecord"
   },
     "navigationBarTitleText": "血糖记录"
 }

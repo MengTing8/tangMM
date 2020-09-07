@@ -416,6 +416,7 @@
             function player() {
                 back.title = object[that.data.musicPlayKey].name;
                 back.src = object[that.data.musicPlayKey].url;
+                console.log(object[that.data.musicPlayKey].url);
                 back.play() // 开始播放
                 back.onEnded(() => {
                     if (that.data.musicPlayKey < object.length - 1) {
@@ -676,7 +677,9 @@
             back.onPrev(function () {
                 that.playPrev();
             });
-            back.onCanplay(() => {});
+            back.onCanplay(() => {
+                console.log('可以播放');
+            });
             back.onStop(() => {
                 that.setData({
                     onMusic: false

@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-      "RecordInfo": "../../components/RecordInfo/RecordInfo"
+      "RecordInfo": "/components/RecordInfo/RecordInfo"
   },
   "navigationBarTitleText": "我的记录"
 }
