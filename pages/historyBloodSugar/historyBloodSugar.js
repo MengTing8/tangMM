@@ -112,6 +112,8 @@ Page({
         if (index === 1) {
             let isFirstTime = true;
             this.getGLUChart(isFirstTime)
+        }else{
+            this.getBloodGlucoseList()
         }
         this.setData({
             selectedIndex: index

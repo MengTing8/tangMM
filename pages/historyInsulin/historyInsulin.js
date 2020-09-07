@@ -547,7 +547,7 @@ Page({
                       index: '1',
                   })
             }
-        }, 1000);
+        }, 100);
         // this.getInsulinListByWeek()
     },
     onShow() {
