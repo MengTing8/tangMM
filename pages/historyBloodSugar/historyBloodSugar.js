@@ -57,7 +57,9 @@ Page({
                     return a.date < b.date ? 1 : -1;
                 });
                   for (const key in ResData) {
+                      if (ResData[key].items) {
                       ResData[key].items.sort(sortFun(`sequence`))
+                      }
                   }
                 self.setData({
                     BloodGlucoseList: ResData
