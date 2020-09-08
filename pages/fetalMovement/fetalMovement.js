@@ -676,7 +676,12 @@
             back.onPrev(function () {
                 that.playPrev();
             });
-            back.onCanplay(() => {});
+            back.onCanplay(() => {
+                 that.setData({
+                     onMusic: true
+                 })
+                console.log('可以播放');
+            });
             back.onStop(() => {
                 that.setData({
                     onMusic: false

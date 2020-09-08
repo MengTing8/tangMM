@@ -1,7 +1,7 @@
 {
   "usingComponents": {
-      "patientTabs": "../../components/patientTabs/patientTabs",
-        "RecordInfo": "../../components/RecordInfo/RecordInfo"
+      "patientTabs": "/components/patientTabs/patientTabs",
+        "RecordInfo": "/components/RecordInfo/RecordInfo"
   },
   "navigationBarTitleText": "患者详情"
 }
