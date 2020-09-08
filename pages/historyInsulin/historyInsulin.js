@@ -512,6 +512,32 @@ Page({
         })
         return false
     },
+    TimeOut() {
+        let that = this
+        setTimeout(() => {
+            console.log('llll');
+            if (that.data.InsulinList.length == 0 && that.data.InsulinPumpList.length > 0) {
+                that.setData({
+                    InsulinPump: true,
+                    convention: false,
+                    index: '2',
+                })
+
+            } else if (that.data.InsulinList.length > 0 && that.data.InsulinPumpList.length == 0) {
+                that.setData({
+                    convention: true,
+                    InsulinPump: false,
+                    index: '1',
+                })
+            } else {
+                that.setData({
+                    convention: true,
+                    InsulinPump: false,
+                    index: '1',
+                })
+            }
+        }, 500);
+    },
     onLoad: function (options) {
         let that = this
         this.setData({
@@ -524,33 +550,17 @@ Page({
                 title: '胰岛素使用记录'
             })
         }
-        this.getInsulinList()
-        this.getInsulinPumpList()
-        setTimeout(() => {
-            if (!that.data.InsulinList[0].date && that.data.InsulinPumpList[0].total) {
-                that.setData({
-                    InsulinPump: true,
-                    convention: false,
-                    index: '2',
-                })
-
-            } else if (that.data.InsulinList[0].date && !that.data.InsulinPumpList[0].date) {
-                that.setData({
-                    convention: true,
-                    InsulinPump: false,
-                    index: '1',
-                })
-            }else{
-                  that.setData({
-                      convention: true,
-                      InsulinPump: false,
-                      index: '1',
-                  })
-            }
-        }, 100);
+        that.getInsulinList()
+        that.getInsulinPumpList()
+        this.TimeOut()
         // this.getInsulinListByWeek()
     },
-    onShow() {
+    onShow: async function () {
+        // let that = this
+        // await this.getInsulinList()
+        // await this.getInsulinPumpList()
+        // await this.TimeOut()
+
 
     }
 })

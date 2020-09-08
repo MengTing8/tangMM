@@ -75,7 +75,7 @@ Page({
                     "token": wx.getStorageSync('token'),
                     "function": "getFetusWeightChart",
                     "data": [{
-                        "fetus": this.data.fetus
+                        // "fetus": this.data.fetus
                     }]
                 }
             }).then((res) => {
