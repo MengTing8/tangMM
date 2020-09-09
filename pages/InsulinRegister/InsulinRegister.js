@@ -277,18 +277,18 @@ Page({
         })
     },
     compareDate(begin, over) {
-        begin = begin.sort();
-        over = over.sort();
-        for (var i = 0; i < begin.length; i++) {
-            if (begin[i] <= over[i - 1]) {
-                wx.showToast({
-                    title: "时间段重复!",
-                    icon: 'none',
-                    duration: 2000
-                })
-                return false;
-            }
-        }
+        // begin = begin.sort();
+        // over = over.sort();
+        // for (var i = 0; i < begin.length; i++) {
+        //     if (begin[i] <= over[i - 1]) {
+        //         wx.showToast({
+        //             title: "时间段重复!",
+        //             icon: 'none',
+        //             duration: 2000
+        //         })
+        //         return false;
+        //     }
+        // }
         return true;
     },
     SaveInsulinPump() {
@@ -601,14 +601,16 @@ Page({
             })
             return
         }
-        let curTime = 0
-        let hour = times.split(":")[0]
-        let min = times.split(":")[1]
-        curTime = Number(hour * 3600000) + Number(min * 60000)
+        // let curTime = 0
+        // let hour = times.split(":")[0]
+        // let min = times.split(":")[1]
+        // curTime = Number(hour * 3600000) + Number(min * 60000)
         // let timeStart = new Date(this.data.dataTime + " " + arr[arr.length - 1].timeEnd)
         // timeStart.setMinutes(timeStart.getMinutes() + 1);
         // timeStart = formatTime(timeStart).substr(0, 5)
-        let timeStart = this.secTotime(curTime)
+        // let timeStart = this.secTotime(curTime)
+
+        let timeStart = times;
 
         arr.push({
             entity: "insulinPump",
