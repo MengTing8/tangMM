@@ -1,5 +1,6 @@
 import * as echarts from '../../components/ec-canvas/echarts';
 import * as base64 from '../../utils/base64';
+import regeneratorRuntime from '../../lib/runtime/runtime';
 const app = getApp();
 const gas = []
 const days = []
@@ -55,73 +56,80 @@ Page({
     },
     getInsulinPumpList() {
         let self = this
-        promiseRequest({
-            method: "POST",
-            url: '/wxrequest',
-            data: {
-                "token": wx.getStorageSync('token'),
-                "function": "getInsulinPumpList",
-                "data": [{}]
-            }
-        }).then(res => {
-            console.log(res, "胰岛素泵");
-            if (res.data.code === '0') {
-                var ResData = res.data.data
-                ResData.sort(function (a, b) {
-                    return a.date < b.date ? 1 : -1;
-                });
-                for (const key in ResData) {
-                    const element = ResData[key];
-                    if (element.items1) {
-                        element.items1.sort(sortFun(`sequence`))
-                    }
+        return new Promise((resolve, reject) => {
+            promiseRequest({
+                method: "POST",
+                url: '/wxrequest',
+                data: {
+                    "token": wx.getStorageSync('token'),
+                    "function": "getInsulinPumpList",
+                    "data": [{}]
                 }
-                self.setData({
-                    InsulinPumpList: ResData,
-                })
-            } else {
-                wx.showToast({
-                    title: res.data.message,
-                    icon: 'none',
-                    duration: 2000
-                })
-            }
+            }).then(res => {
+                console.log(res, "胰岛素泵");
+                if (res.data.code === '0') {
+                    var ResData = res.data.data
+                    ResData.sort(function (a, b) {
+                        return a.date < b.date ? 1 : -1;
+                    });
+                    for (const key in ResData) {
+                        const element = ResData[key];
+                        if (element.items1) {
+                            element.items1.sort(sortFun(`sequence`))
+                        }
+                    }
+                    self.setData({
+                        InsulinPumpList: ResData,
+                    })
+                    resolve(ResData)
+                } else {
+                    wx.showToast({
+                        title: res.data.message,
+                        icon: 'none',
+                        duration: 2000
+                    })
+                }
+            })
         })
     },
     getInsulinList() {
         let self = this
-        promiseRequest({
-            method: "POST",
-            url: '/wxrequest',
-            data: {
-                "token": wx.getStorageSync('token'),
-                "function": "getInsulinList",
-                "data": [{}]
-            }
-        }).then(res => {
-            console.log(res, "常规列表");
-            if (res.data.code === '0') {
-                var ResData = res.data.data
-                ResData.sort(function (a, b) {
-                    return a.date < b.date ? 1 : -1;
-                });
-                for (const key in ResData) {
-                    const element = ResData[key];
-                    if (element.items) {
-                        element.items.sort(sortFun(`sequence`))
-                    }
+        return new Promise((resolve, reject) => {
+            promiseRequest({
+                method: "POST",
+                url: '/wxrequest',
+                data: {
+                    "token": wx.getStorageSync('token'),
+                    "function": "getInsulinList",
+                    "data": [{}]
                 }
-                self.setData({
-                    InsulinList: ResData,
-                })
-            } else {
-                wx.showToast({
-                    title: res.data.message,
-                    icon: 'none',
-                    duration: 2000
-                })
-            }
+            }).then(res => {
+                console.log(res, "常规列表");
+                if (res.data.code === '0') {
+                    var ResData = res.data.data
+                    ResData.sort(function (a, b) {
+                        return a.date < b.date ? 1 : -1;
+                    });
+                    for (const key in ResData) {
+                        const element = ResData[key];
+                        if (element.items) {
+                            element.items.sort(sortFun(`sequence`))
+                        }
+                    }
+                    self.setData({
+                        InsulinList: ResData,
+                    })
+                    resolve(ResData)
+                } else {
+                    wx.showToast({
+                        title: res.data.message,
+                        icon: 'none',
+                        duration: 2000
+                    })
+                }
+            })
         })
+
     },
     getInsulinListByWeek() {
         let self = this
@@ -512,32 +520,6 @@ Page({
         })
         return false
     },
-    TimeOut() {
-        let that = this
-        setTimeout(() => {
-            console.log('llll');
-            if (that.data.InsulinList.length == 0 && that.data.InsulinPumpList.length > 0) {
-                that.setData({
-                    InsulinPump: true,
-                    convention: false,
-                    index: '2',
-                })
-
-            } else if (that.data.InsulinList.length > 0 && that.data.InsulinPumpList.length == 0) {
-                that.setData({
-                    convention: true,
-                    InsulinPump: false,
-                    index: '1',
-                })
-            } else {
-                that.setData({
-                    convention: true,
-                    InsulinPump: false,
-                    index: '1',
-                })
-            }
-        }, 500);
-    },
     onLoad: function (options) {
         let that = this
         this.setData({
@@ -550,17 +532,31 @@ Page({
                 title: '胰岛素使用记录'
             })
         }
-        that.getInsulinList()
-        that.getInsulinPumpList()
-        this.TimeOut()
-        // this.getInsulinListByWeek()
     },
     onShow: async function () {
-        // let that = this
-        // await this.getInsulinList()
-        // await this.getInsulinPumpList()
-        // await this.TimeOut()
+        let that = this
+        let InsulinList = await this.getInsulinList()
+        let InsulinPumpList = await this.getInsulinPumpList()
+        if (InsulinList.length == 0 && InsulinPumpList.length > 0) {
+            that.setData({
+                InsulinPump: true,
+                convention: false,
+                index: '2',
+            })
 
+        } else if (InsulinList.length > 0 && InsulinPumpList.length == 0) {
+            that.setData({
+                convention: true,
+                InsulinPump: false,
+                index: '1',
+            })
+        } else {
+            that.setData({
+                convention: true,
+                InsulinPump: false,
+                index: '1',
+            })
+        }
 
     }
 })

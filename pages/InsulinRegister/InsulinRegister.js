@@ -52,54 +52,54 @@ Page({
     DeleteByDate(e) {
         let date = e.detail.date
         let that = this
-        if (that.data.userData[0].periodCode || that.data.MealArray.length > 0 || that.data.dosageArray[0].id) {
-            wx.showModal({
-                title: '提示',
-                content: "确定删除当日数据？",
-                success(res) {
-                    if (res.confirm) {
-                        promiseRequest({
-                            method: "POST",
-                            url: '/wxrequest',
-                            data: {
-                                "token": wx.getStorageSync('token'),
-                                "function": "deleteByDate",
-                                "data": [{
-                                    "entity": "insulin",
-                                    "date": date
-                                }]
-                            }
-                        }).then((res) => {
-                            if (res.data.code === '0') {
-                                wx.showToast({
-                                    title: res.data.message,
-                                    icon: 'none',
-                                    duration: 3000
-                                })
-                                if (that.data.TabsIndex == 0) {
-                                    that.getInsulin()
-                                } else {
-                                    that.getInsulinPump()
-
-                                }
+        // if (that.data.userData[0].periodCode || that.data.MealArray.length > 0 || that.data.dosageArray[0].id) {
+        wx.showModal({
+            title: '提示',
+            content: "确定删除当日数据？",
+            success(res) {
+                if (res.confirm) {
+                    promiseRequest({
+                        method: "POST",
+                        url: '/wxrequest',
+                        data: {
+                            "token": wx.getStorageSync('token'),
+                            "function": "deleteByDate",
+                            "data": [{
+                                "entity": "insulin",
+                                "date": date
+                            }]
+                        }
+                    }).then((res) => {
+                        if (res.data.code === '0') {
+                            wx.showToast({
+                                title: res.data.message,
+                                icon: 'none',
+                                duration: 3000
+                            })
+                            if (that.data.TabsIndex == 0) {
+                                that.getInsulin()
                             } else {
-                                wx.showToast({
-                                    title: res.data.message,
-                                    icon: 'none',
-                                    duration: 3000
-                                })
+                                that.getInsulinPump()
+
                             }
-                        })
-                    } else if (res.cancel) {}
-                }
-            })
-        } else {
-            wx.showToast({
-                title: '无数据可删！',
-                icon: 'none',
-                duration: 2000
-            })
-        }
+                        } else {
+                            wx.showToast({
+                                title: res.data.message,
+                                icon: 'none',
+                                duration: 3000
+                            })
+                        }
+                    })
+                } else if (res.cancel) {}
+            }
+        })
+        // } else {
+        //     wx.showToast({
+        //         title: '无数据可删！',
+        //         icon: 'none',
+        //         duration: 2000
+        //     })
+        // }
     },
     SaveInsulin() {
         if (this.data.delList.length > 0) {
@@ -293,17 +293,38 @@ Page({
     },
     SaveInsulinPump() {
         let self = this
+        let dosage = deepCopy(self.data.dosageArray)
+        let paramsMeal = deepCopy(self.data.MealArray)
+        for (let i = 0; i < dosage.length; i++) {
+            dosage[i].entity = 'insulinPump';
+            dosage[i].patientId = wx.getStorageSync('patientId');
+            dosage[i].date = self.data.dataTime;
+            dosage[i].type = '2';
+            dosage[i].status = '1';
+        }
+        for (let i = 0; i < paramsMeal.length; i++) {
+            if (!paramsMeal[i].value) {
+                paramsMeal.splice(i, 1)
+                i = i - 1
+            } else {
+                paramsMeal[i].entity = 'insulin';
+                paramsMeal[i].patientId = wx.getStorageSync('patientId');
+                paramsMeal[i].date = self.data.dataTime;
+                paramsMeal[i].type = '2';
+                paramsMeal[i].status = '1';
+            }
+        }
         if (self.data.DeleteList.length > 0) {
             self.DeleteInsulinPump()
         }
         var begin = [];
         var over = [];
         let params = []
-        for (const t of self.data.dosageArray) {
+        for (const t of dosage) {
             begin.push(t.timeStart)
             over.push(t.timeEnd)
             if (!t.timeStart && !t.timeEnd && !t.value) {
-                params = self.data.MealArray
+                params = paramsMeal
             } else {
                 if (!t.timeStart) {
                     wx.showToast({
@@ -327,10 +348,11 @@ Page({
                     })
                     return false;
                 }
-                params = self.data.MealArray.concat(self.data.dosageArray);
+                params = paramsMeal.concat(dosage);
 
             }
         }
+        // return
         if (self.compareDate(begin, over)) {
             if (params.length == 0) {
                 wx.showToast({
@@ -383,6 +405,7 @@ Page({
                 }]
             }
         }).then(res => {
+            console.log(res);
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
                 let NewMeal = self.data.MealArray
@@ -412,76 +435,30 @@ Page({
                 } else {
                     DelList = []
                 }
-                if (ResData.items1[0].id) {
-                    NewMeal = []
-                    for (const key in ResData.items1) {
-                        if (ResData.items1[key].id && ResData.items1[key].rowMd5) {
-                            if (date) {
+                for (const key in ResData.items1) {
+                    if (date) {
 
-                                if (ResData.items1[key].rowMd5) {
-                                    delete ResData.items1[key].rowMd5
-                                }
-                                if (ResData.items1[key].id) {
-                                    delete ResData.items1[key].id
-                                }
-                            }
-                            if (!NewMeal[key]) {
-                                NewMeal.push({
-                                    entity: "insulin",
-                                    patientId: wx.getStorageSync('patientId'),
-                                    date: self.data.dataTime,
-                                    type: 2,
-                                    status: 1,
-                                    id: null,
-                                    rowMd5: null,
-                                    periodCode: ResData.items1[key].periodCode,
-                                    value: ResData.items1[key].value
-                                })
-                            }
-                            NewMeal[key].periodCode = ResData.items1[key].periodCode
-                            NewMeal[key].value = ResData.items1[key].value
-                            NewMeal[key].rowMd5 = ResData.items1[key].rowMd5
-                            NewMeal[key].id = ResData.items1[key].id
-
+                        if (ResData.items1[key].rowMd5) {
+                            delete ResData.items1[key].rowMd5
+                        }
+                        if (ResData.items1[key].id) {
+                            delete ResData.items1[key].id
                         }
                     }
-                } else {
-                    NewMeal = []
                 }
                 ResData.items1.sort(sortFun(`periodCode`))
                 if (ResData.items2.length > 0) {
-                    NewDosage = []
                     for (const key in ResData.items2) {
-                        if (ResData.items2[key].id && ResData.items2[key].rowMd5) {
-                            if (date) {
-                                if (ResData.items2[key].rowMd5) {
-                                    delete ResData.items2[key].rowMd5
-                                }
-                                if (ResData.items2[key].id) {
-                                    delete ResData.items2[key].id
-                                }
+                        if (date) {
+                            if (ResData.items2[key].rowMd5) {
+                                delete ResData.items2[key].rowMd5
                             }
-                            if (!NewDosage[key]) {
-                                NewDosage.push({
-                                    entity: "insulinPump",
-                                    patientId: wx.getStorageSync('patientId'),
-                                    date: self.data.dataTime,
-                                    type: 2,
-                                    status: 1,
-                                    timeStart: ResData.items2[key].timeStart,
-                                    timeEnd: ResData.items2[key].timeEnd,
-                                    id: ResData.items2[key].id,
-                                    rowMd5: ResData.items2[key].rowMd5,
-                                    value: ResData.items2[key].value
-                                })
+                            if (ResData.items2[key].id) {
+                                delete ResData.items2[key].id
                             }
-                            NewDosage[key].timeStart = ResData.items2[key].timeStart
-                            NewDosage[key].timeEnd = ResData.items2[key].timeEnd
-                            NewDosage[key].value = ResData.items2[key].value
-                            NewDosage[key].rowMd5 = ResData.items2[key].rowMd5
-                            NewDosage[key].id = ResData.items2[key].id
                         }
                     }
+                    NewDosage = ResData.items2
                 } else {
                     NewDosage = [{
                         entity: "insulinPump",
@@ -497,7 +474,7 @@ Page({
                     }]
                 }
                 self.setData({
-                    MealArray: NewMeal,
+                    MealArray: ResData.items1,
                     dosageArray: NewDosage,
                     DeleteList: DelList,
                     mealItem: ResData.items1,
