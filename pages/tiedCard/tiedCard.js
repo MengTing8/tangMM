@@ -215,6 +215,7 @@ Page({
                     }, 3000);
 
                 } else {
+                    console.log(res.data);
                     wx.showToast({
                         title: res.data.message,
                         icon: 'none',
@@ -318,8 +319,9 @@ Page({
                   that.login();
               }, 0);
           }
-       
-        wx.hideHomeButton()
+       if (wx.canIUse('hideHomeButton')) {
+           wx.hideHomeButton()
+       }
     },
 
     /**

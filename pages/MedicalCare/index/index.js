@@ -172,14 +172,11 @@ Page({
      */
     onShow: function () {
         console.log('医务端---');
-        //  wx.showToast({
-        //      title: '医务端---',
-        //      icon: 'none',
-        //      duration: 2000
-        //  })
         this.getNurse()
         this.getGravida()
-        wx.hideHomeButton()
+      if (wx.canIUse('hideHomeButton')) {
+          wx.hideHomeButton()
+      }
     },
 
     /**

@@ -21,11 +21,7 @@ Page({
         this.setData({
             fetus: fetus
         })
-         if (this.data.selectedIndex == 1) {
-             this.getFetusWeightChart()
-         } else {
              this.getFetusWeightList()
-         }
     },
     getFetusWeightList() {
         let self = this
