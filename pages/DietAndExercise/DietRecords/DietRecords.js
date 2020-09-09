@@ -101,8 +101,8 @@ Page({
             success: function (res) {
                 var tempFilePaths = res.tempFilePaths;
                 wx.uploadFile({
-                    url: 'https://aaron.astraia.com.cn//wxupload',
-                    //url: 'https://gy3y.astraia.com.cn//wxupload',
+                    // url: 'https://aaron.astraia.com.cn//wxupload',
+                    url: 'https://gy3y.astraia.com.cn//wxupload',
                     filePath: tempFilePaths[0],
                     name: 'upload',
                     formData: {
@@ -110,8 +110,8 @@ Page({
                         "category": "dietPhoto"
                     },
                     success(res) {
-                        const data = res.data
-                        let ResData = JSON.parse(data)
+                        let ResData = JSON.parse(res.data)
+                        console.log(ResData);
                         if (ResData.code == '0') {
                             wx.showToast({
                                 title: '上传成功',
@@ -126,6 +126,8 @@ Page({
                             that.setData({
                                 enteringItems,
                             })
+                        }else{
+                            console.log(ResData.message);
                         }
                     }
                 })
