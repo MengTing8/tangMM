@@ -57,7 +57,7 @@
                         </view>
                         <view class="pickerContent">
                             <view class="pickerBox">
-                                <picker mode="time" value="{{item.time}}" start="00:00" end="23:59" bindchange="bindTimeChange" data-index="{{index}}" data-periodCode="{{item.periodCode}}">
+                                <picker mode="time" value="{{item.time}}" start="00:00" end="23:59" bindchange="bindTimeChange" data-index="{{index}}">
                                     <view class="picker">{{item.time || '用餐时间'}}</view>
                                 </picker>
                             </view>
@@ -65,7 +65,7 @@
                         </view>
                         <view class="pickerContent">
                             <view class="pickerBox">
-                                <picker mode="selector" value="" range="{{categoryValues}}" range-key="{{'value'}}" bindchange="bindCategoryChange" data-index="{{index}}" data-periodCode="{{item.periodCode}}" data-categoryCode="{{item.categoryCode}}">
+                                <picker mode="selector" value="" range="{{categoryValues}}" range-key="{{'value'}}" bindchange="bindCategoryChange" data-index="{{index}}">
                                     <view class="picker">{{item.categoryValue || '请选择'}}</view>
                                 </picker>
                             </view>
@@ -79,20 +79,20 @@
                             <view class="foodTagItem" wx:for="{{item.food}}" wx:key='index' wx:for-item="F" wx:for-index="cd">
                                 <view>{{F.name}}</view>
                                 <view>{{F.value}}g</view>
-                                <view bind:tap="DelFoodTag" data-index='{{index}}' data-rowMd5="{{F.rowMd5}}" data-ins="{{cd}}" data-id='{{F.id}}' data-periodCode="{{item.periodCode}}">
+                                <view bind:tap="DelFoodTag" data-index='{{index}}' data-rowMd5="{{F.rowMd5}}" data-ins="{{cd}}" data-id='{{F.id}}'>
                                     <image class="DelFoodTag" src="../../../img/delS.png" />
                                 </view>
                             </view>
                         </view>
                     </view>
                     <view class="uploaderListContent">
-                        <view class="uploaderImgBox" data-index="{{index}}" data-periodCode="{{item.periodCode}}" bind:tap="UploadCourseware">
+                        <view class="uploaderImgBox" data-index="{{index}}" bind:tap="UploadCourseware">
                             <van-icon name="photograph" color="#CDCDCD" size="48rpx" />
                             <view class="unifyFont">上传照片</view>
                         </view>
                         <view class="PhotoShwoContent" wx:for="{{item.photo}}" wx:for-item="P" wx:for-index="D" wx:key="D" wx:if='{{P.url}}'>
                             <image class="uploaderPhoto" src="{{P.url}}" mode="widthFix" />
-                            <view class="delPhoto" bind:tap="delPhoto" data-index='{{index}}' data-fileName="{{P.fileName}}" data-ins="{{D}}" data-periodcode="{{item.periodCode}}">
+                            <view class="delPhoto" bind:tap="delPhoto" data-index='{{index}}' data-fileName="{{P.fileName}}" data-ins="{{D}}">
                                 <van-icon name="close" size="40rpx" color="#FFF" wx:if='{{P.url}}' />
                             </view>
                         </view>
