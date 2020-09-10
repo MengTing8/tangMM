@@ -30,6 +30,7 @@ Page({
         SearchShow: true,
     },
     Tabchange(event) {
+        let that = this
         var singleNavWidth = this.data.windowWidth / 5;
         let {
             index
@@ -41,9 +42,12 @@ Page({
         if (this.data.btnnum == index) {
             return false;
         } else {
-            this.setData({
-                btnnum: index,
-            })
+            setTimeout(() => {
+                that.setData({
+                    btnnum: index,
+                })
+            }, 3000);
+
         }
         if (this.data.SearchShow) {
             if (this.data.btnnum !== this.data.SearchIndex) {

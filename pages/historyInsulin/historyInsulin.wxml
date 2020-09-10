@@ -43,17 +43,25 @@
                         <text class="content_date">{{item.date}}</text>
                     </view>
                     <view class="content_fetalWeight">
-                        <text class="thisFetalWeight">{{item.total}}U</text>
-                        <text class="content_recording">总量</text>
+                        <view>
+                            <text class="thisFetalWeight">{{item.total}}U</text>
+                            <text class="content_recording">总量</text>
+                        </view>
+                        <view class="">
+                            <text class="thisFetalWeight">{{item.baseTotal}}U</text>
+                            <text class="content_recording">基础总量</text>
+                        </view>
                     </view>
                 </view>
                 <view class="item_partLength">
-                    <view wx:for="{{item.items1}}" wx:for-item="period" wx:for-index="periodCode" wx:key="periodCode">
+                    <view wx:for="{{item.items1}}" wx:for-item="period" wx:for-index="periodCode" wx:key="periodCode" class="item_partLengthView">
                         {{period.periodValue}}：{{period.value}}U
                     </view>
-                    <view wx:for="{{item.items2}}" wx:for-item="Time" wx:for-index="S" wx:key="S" style='display: flex;'>
-                        <view style='font-family: Consolas,Monaco,monospace;'>{{Time.timeStart}}~{{Time.timeEnd}}</view>
-                        <view>：{{Time.value}}，{{Time.value2}}U</view>
+                    <view style="display: flex;" wx:for="{{item.items2}}" wx:for-item="Time" wx:for-index="S" wx:key="S" class="item_partLengthView">
+                        <view style="font-family: Consolas,Monaco,monospace;">
+                            {{Time.timeStart}}~{{Time.timeEnd}}
+                        </view>
+                        ：{{Time.value}},{{Time.value2}}U
                     </view>
                 </view>
             </view>
