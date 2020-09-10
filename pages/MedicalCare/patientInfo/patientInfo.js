@@ -236,6 +236,8 @@ Page({
             this.getPatient4Nurse()
         } else if (index == 1) {
             this.getMessage()
+        }else{
+            this.getMyRecord4Nurse()
         }
     },
     RecordInfo(e) {
