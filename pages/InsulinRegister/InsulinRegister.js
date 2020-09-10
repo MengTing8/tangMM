@@ -465,6 +465,7 @@ Page({
                     }
                 }
                 ResData.items1.sort(sortFun(`periodCode`))
+                ResData.items2.sort(sortFun(`timeStart`))
                 if (ResData.items2.length > 0) {
                     for (const key in ResData.items2) {
                         if (date) {

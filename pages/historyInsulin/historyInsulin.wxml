@@ -61,7 +61,7 @@
                         <view style="font-family: Consolas,Monaco,monospace;">
                             {{Time.timeStart}}~{{Time.timeEnd}}
                         </view>
-                        ：{{Time.value}},{{Time.value2}}U
+                        :{{Time.value}},{{Time.value2}}U
                     </view>
                 </view>
             </view>
