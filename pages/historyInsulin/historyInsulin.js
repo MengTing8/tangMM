@@ -72,10 +72,14 @@ Page({
                     ResData.sort(function (a, b) {
                         return a.date < b.date ? 1 : -1;
                     });
+                    
                     for (const key in ResData) {
                         const element = ResData[key];
                         if (element.items1) {
                             element.items1.sort(sortFun(`sequence`))
+                        }
+                        if (element.items2) {
+                            element.items2.sort(sortFun(`timeStart`))
                         }
                     }
                     self.setData({

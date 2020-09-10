@@ -4,13 +4,14 @@ const {
 const {
     deepCopy
 } = require("../../../utils/util")
+import regeneratorRuntime from '../../../lib/runtime/runtime';
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        btnnum: 1,
+        btnnum: 0,
         ShowTab: true,
         SearchFoodList: [],
         SearchIndex: '',
@@ -126,19 +127,6 @@ Page({
 
                     }
                 }
-                // for (const i in foodArr) {
-                //     for (const v in ResData[0].foodValues) {
-
-                //         console.log(ResData[0].foodValues[v].code, foodArr[i].code);
-                //         console.log(ResData[0].foodValues[v].code == foodArr[i].code);
-
-                //         if (ResData[0].foodValues[v].code == foodArr[i].code) {
-                //             ResData[0].foodValues[v].value = foodArr[i].value
-                //         }
-
-                //     }
-
-                // }
                 self.setData({
                     TabList: ResData,
                 })
@@ -325,8 +313,8 @@ Page({
                 })
                 setTimeout(() => {
                     that.setData({
-                       SearchValue:'',
-                       ShowTab:true
+                        SearchValue: '',
+                        ShowTab: true
                     })
                 }, 2000);
             } else {
@@ -338,48 +326,48 @@ Page({
             }
         })
     },
-     getDietSuggestion() {
-         var that = this
-         promiseRequest({
-             method: "POST",
-             url: '/wxrequest',
-             data: {
-                 "token": wx.getStorageSync('token'),
-                 "function": "getDietSuggestion",
-                 "data": [{
-                     "patientId": wx.getStorageSync('patientId'),
-                 }]
-             }
-         }).then(res => {
-             if (res.data.code === '0') {
-                 var ResData = res.data.data[0]
-                 wx.downloadFile({
-                     url: ResData.url,
-                     success: function (res) {
-                         const filePath = res.tempFilePath
-                         wx.openDocument({
-                             filePath: filePath,
-                             success: function (res) {
-                                 //成功
-                                 setTimeout(() => {
-                                     that.setData({
-                                         SearchValue: '',
-                                         ShowTab: true
-                                     })
-                                 }, 2500);
-                             }
-                         })
-                     }
-                 })
-             } else {
-                 wx.showToast({
-                     title: res.data.message,
-                     icon: 'none',
-                     duration: 2000
-                 })
-             }
-         })
-     },
+    getDietSuggestion() {
+        var that = this
+        promiseRequest({
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "getDietSuggestion",
+                "data": [{
+                    "patientId": wx.getStorageSync('patientId'),
+                }]
+            }
+        }).then(res => {
+            if (res.data.code === '0') {
+                var ResData = res.data.data[0]
+                wx.downloadFile({
+                    url: ResData.url,
+                    success: function (res) {
+                        const filePath = res.tempFilePath
+                        wx.openDocument({
+                            filePath: filePath,
+                            success: function (res) {
+                                //成功
+                                setTimeout(() => {
+                                    that.setData({
+                                        SearchValue: '',
+                                        ShowTab: true
+                                    })
+                                }, 2500);
+                            }
+                        })
+                    }
+                })
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                    icon: 'none',
+                    duration: 2000
+                })
+            }
+        })
+    },
     // bindSearch(e) {
     //     let that = this
     //     that.setData({
@@ -435,29 +423,32 @@ Page({
     },
     getFoodDataList() {
         var that = this
-        let newFoodDataList = that.data.FoodDataList
-        let newFood = that.data.foodArr
-        let newCode = that.data.codeArr
-        let codeList = []
-        if (newFoodDataList.length !== 0) {
-            newFoodDataList.forEach(item => {
-                codeList.push(item.periodCode)
+        return new Promise((resolve, reject) => {
+            let newFoodDataList = that.data.FoodDataList
+            let newFood = that.data.foodArr
+            let newCode = that.data.codeArr
+            let codeList = []
+            if (newFoodDataList.length !== 0) {
+                newFoodDataList.forEach(item => {
+                    codeList.push(item.periodCode)
+                })
+            }
+            if (codeList.includes(that.data.periodCode)) {
+                newFoodDataList[codeList.indexOf(that.data.periodCode)].periodCode = that.data.periodCode
+                newFood = newFoodDataList[codeList.indexOf(that.data.periodCode)].foodArr
+                newCode = newFoodDataList[codeList.indexOf(that.data.periodCode)].codeArr
+            } else {
+                newFoodDataList.push({
+                    periodCode: that.data.periodCode,
+                })
+                codeList.push(that.data.periodCode)
+            }
+            that.setData({
+                FoodDataList: newFoodDataList,
+                codeArr: newCode,
+                foodArr: newFood,
             })
-        }
-        if (codeList.includes(that.data.periodCode)) {
-            newFoodDataList[codeList.indexOf(that.data.periodCode)].periodCode = that.data.periodCode
-            newFood = newFoodDataList[codeList.indexOf(that.data.periodCode)].foodArr
-            newCode = newFoodDataList[codeList.indexOf(that.data.periodCode)].codeArr
-        } else {
-            newFoodDataList.push({
-                periodCode: that.data.periodCode,
-            })
-            codeList.push(that.data.periodCode)
-        }
-        that.setData({
-            FoodDataList: newFoodDataList,
-            codeArr: newCode,
-            foodArr: newFood,
+            resolve(newCode)
         })
     },
     /**
@@ -468,7 +459,7 @@ Page({
             periodCode
         } = options
         var that = this
-        that.getFood()
+        // that.getFood()
         wx.getSystemInfo({
             success: (res) => {
                 that.setData({
@@ -492,11 +483,13 @@ Page({
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function () {
+    onShow: async function () {
+        var that = this
         this.setData({
             FoodDataList: wx.getStorageSync('FoodDataList') || [],
         })
-        this.getFoodDataList()
+        let res = await that.getFoodDataList()
+        that.getFood()
     },
 
     /**

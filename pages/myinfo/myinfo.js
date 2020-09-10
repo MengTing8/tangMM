@@ -3,10 +3,15 @@ const {
 } = require("../../utils/Requests")
 const {
     getPickerValue,
+    getNowFormatDate,
     getAge
 } = require('../../utils/util')
 const moment = require('../../utils/moment.min.js');
 var dateTimePicker = require('../../utils/dateTimePicker.js');
+var startYear = 2000,
+    endYear = 2020;
+var obj = dateTimePicker.dateTimePicker(startYear, endYear);
+console.log(obj.dateTime);
 const date = new Date();
 const years = [];
 //获取年
@@ -31,10 +36,8 @@ Page({
         dateBirth: '', //出生日期
         date: '2018-10-01',
         time: '12:00',
-        dateTimeArray: null,
-        dateTime: null,
-        startYear:1990,
-        endYear: 2020,
+        dateTimeArray: obj.dateTimeArray,
+        dateTime: obj.dateTime,
         StartDt: '2018年01月01日',
         EndDt: '2029年01月01',
         EXDATE: '2018年01月01日',
@@ -96,8 +99,12 @@ Page({
             Name: '三胎',
         }],
         professionList: [],
-        dateList: years
+        dateList: years,
+        dateArr:[],
+        timeVal:''
     },
+
+
     //保存个人信息
     saveMyinfo() {
         let self = this
@@ -331,11 +338,14 @@ Page({
                 let arr = self.data.dateTimeArray
                 let time = Data.deliveryLastTime
                 if (time) {
-                    indexs.push(getPickerValue(arr[0], time.substring(0, 4)))
-                    indexs.push(getPickerValue(arr[1], time.substring(5, 7)))
-                    indexs.push(getPickerValue(arr[2], time.substring(8, 10)))
-                    indexs.push(getPickerValue(arr[3], time.substring(11, 13)))
-                    indexs.push(getPickerValue(arr[4], time.substring(14, 17)))
+                    let y = getPickerValue(arr[0], time.substring(0, 4))
+                    let m = getPickerValue(arr[1], time.substring(5, 7))
+                    let d = getPickerValue(arr[2], time.substring(8, 10))
+                    let h = getPickerValue(arr[3], time.substring(11, 13))
+                    let s = getPickerValue(arr[4], time.substring(14, 17))
+                    indexs = [y, m, d, h, s]
+                } else {
+                    indexs = obj.dateTime
                 }
                 self.setData({
                     dateTime: indexs,
@@ -405,7 +415,7 @@ Page({
     bindNumberOfFetusChange(e) {
         let PatientData = this.data.PatientData
         var val = e.detail.value
-        PatientData.numberOfFetus =+val + 1
+        PatientData.numberOfFetus = +val + 1
         this.setData({
             PatientData,
         });
@@ -456,24 +466,23 @@ Page({
 
     },
     changeDateTime(e) {
-        console.log(e);
+        let arr =this.data.dateArr
+        let PatientData = this.data.PatientData
+        PatientData.deliveryLastTime = this.data.timeVal 
         this.setData({
-            dateTime: e.detail.value
+            PatientData,
+            dateTime: e.detail.value,
+            dateTimeArray: arr
         });
     },
     changeDateTimeColumn(e) {
-        console.log(e);
-        let PatientData = this.data.PatientData
-        var arr = this.data.dateTime,
-            dateArr = this.data.dateTimeArray;
+        var arr = this.data.dateTime;
+        var dateArr = this.data.dateTimeArray;
         arr[e.detail.column] = e.detail.value;
         dateArr[2] = dateTimePicker.getMonthDay(dateArr[0][arr[0]], dateArr[1][arr[1]]);
-
         let times = dateArr[0][arr[0]] + '-' + dateArr[1][arr[1]] + '-' + dateArr[2][arr[2]] + " " + dateArr[3][arr[3]] + ":" + dateArr[4][arr[4]]
-        PatientData.deliveryLastTime = times
         this.setData({
-            PatientData,
-            dateTimeArray: dateArr,
+            timeVal: times,
             dateTime: arr
         });
     },
@@ -484,12 +493,8 @@ Page({
     onLoad() {
         this.getPatient()
         // this.getOccupation()
-        var obj = dateTimePicker.dateTimePicker(this.data.startYear, this.data.endYear);
-        console.log(obj);
-        this.setData({
-            dateTime: obj.dateTime,
-            dateTimeArray: obj.dateTimeArray,
-        });
+
+
     },
     /**
      * 生命周期函数--监听页面初次渲染完成
