@@ -35,5 +35,5 @@
             </view>
         </view>
     </view>
-    <BtnComponents bindonSaveBtn="saveFetusWeight" bindhistoryRecordBtn="historyRecord"></BtnComponents>
+    <BtnComponents bindonSaveBtn="saveFetusWeight" bindhistoryRecordBtn="historyRecord" apiClicked='{{apiClicked}}'></BtnComponents>
 </view>

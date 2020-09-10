@@ -47,7 +47,8 @@ Page({
             value: ''
         }],
         delList: [],
-        GA: ''
+        GA: '',
+        apiClicked: false
     },
     DeleteByDate(e) {
         let date = e.detail.date
@@ -102,71 +103,80 @@ Page({
         // }
     },
     SaveInsulin() {
+        var self = this
+
         if (this.data.delList.length > 0) {
             this.delInsulin();
         }
-
         if (this.data.userData.length === 0) {
             return;
-        }
-
-        let userData = this.data.userData
-
-        for (let i = 0; i < userData.length; i++) {
-            for (const key in userData[i]) {
-                const item = userData[i][key]
-                if (key === 'periodOtherValue' && userData[i].periodCode !== "99") {
-                    continue;
+        } else {
+            this.setData({
+                apiClicked: true
+            })
+            let userData = this.data.userData
+            for (let i = 0; i < userData.length; i++) {
+                for (const key in userData[i]) {
+                    const item = userData[i][key]
+                    if (key === 'periodOtherValue' && userData[i].periodCode !== "99") {
+                        continue;
+                    }
+                    if (!item || item.replace(/\s+/g, '').length === 0) {
+                        wx.showToast({
+                            title: tips[key],
+                            icon: 'none',
+                            duration: 2000
+                        })
+                        return false;
+                    }
                 }
-                if (!item || item.replace(/\s+/g, '').length === 0) {
+            }
+
+            for (let i = 0; i < userData.length; i++) {
+                userData[i].entity = 'insulin';
+                userData[i].patientId = wx.getStorageSync('patientId');
+                userData[i].date = this.data.dataTime;
+                userData[i].type = '1';
+                userData[i].status = '1';
+            }
+
+            promiseRequest({
+                method: "POST",
+                url: '/wxrequest',
+                data: {
+                    "token": wx.getStorageSync('token'),
+                    "function": "save",
+                    "data": userData
+                }
+            }).then(res => {
+                console.log(res, "保存");
+                if (res.data.code === '0') {
+                    var ResData = res.data.data[0]
+                    this.setData({
+                        categoryValues: ResData.categoryValues,
+                        periodValues: ResData.periodValues
+                    })
                     wx.showToast({
-                        title: tips[key],
+                        title: res.data.message,
                         icon: 'none',
                         duration: 2000
                     })
-                    return false;
+                    this.getInsulin()
+                    setTimeout(() => {
+                        self.setData({
+                            apiClicked: false
+                        })
+                    }, 3000);
+                } else {
+                    wx.showToast({
+                        title: res.data.message,
+                        icon: 'none',
+                        duration: 2000
+                    })
                 }
-            }
+            })
         }
 
-        for (let i = 0; i < userData.length; i++) {
-            userData[i].entity = 'insulin';
-            userData[i].patientId = wx.getStorageSync('patientId');
-            userData[i].date = this.data.dataTime;
-            userData[i].type = '1';
-            userData[i].status = '1';
-        }
-
-        promiseRequest({
-            method: "POST",
-            url: '/wxrequest',
-            data: {
-                "token": wx.getStorageSync('token'),
-                "function": "save",
-                "data": userData
-            }
-        }).then(res => {
-            console.log(res, "保存");
-            if (res.data.code === '0') {
-                var ResData = res.data.data[0]
-                this.setData({
-                    categoryValues: ResData.categoryValues,
-                    periodValues: ResData.periodValues
-                })
-                wx.showToast({
-                    title: res.data.message,
-                    icon: 'none',
-                    duration: 2000
-                })
-                this.getInsulin()
-            } else {
-                wx.showToast({
-                    title: res.data.message,
-                    icon: 'none',
-                    duration: 2000
-                })
-            }
-        })
     },
     delInsulin() {
         promiseRequest({
@@ -362,6 +372,9 @@ Page({
                 })
                 return false;
             } else {
+                self.setData({
+                    apiClicked: true
+                })
                 promiseRequest({
                     method: "POST",
                     url: '/wxrequest',
@@ -386,6 +399,11 @@ Page({
                             duration: 2000
                         })
                     }
+                    setTimeout(() => {
+                        self.setData({
+                            apiClicked: false
+                        })
+                    }, 3000);
                 })
             }
         }

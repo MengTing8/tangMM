@@ -59,4 +59,4 @@
     </view>
 </view>
 <view class="addRecordBtn" bind:tap="addRecordList">添加一组记录</view>
-<BtnComponents bindonSaveBtn="onSaveBtn" bindhistoryRecordBtn="historyRecordBtn"></BtnComponents>
+<BtnComponents bindonSaveBtn="onSaveBtn" bindhistoryRecordBtn="historyRecordBtn"  apiClicked='{{apiClicked}}'></BtnComponents>

@@ -101,5 +101,5 @@
             </view>
         </view>
     </view>
-    <BtnComponents bindonSaveBtn="onSaveBtn" bindhistoryRecordBtn="historyRecordBtn"></BtnComponents>
+    <BtnComponents bindonSaveBtn="onSaveBtn" bindhistoryRecordBtn="historyRecordBtn" apiClicked='{{apiClicked}}'></BtnComponents>
 </view>

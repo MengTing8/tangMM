@@ -31,6 +31,7 @@ Page({
         dataTime: date[0].time,
         enteringArray: [],
         UploadShow: false,
+        apiClicked: false,
     },
     DeleteByDate(e) {
         let date = e.detail.date
@@ -358,14 +359,6 @@ Page({
                 i = i - 1
             }
         }
-        if (params.length == 0) {
-            wx.showToast({
-                title: '请输入数据',
-                icon: 'none',
-                duration: 3000
-            })
-            return false;
-        }
         for (const key in params) {
             if (!params[key].time) {
                 judgeArr.push('time')
@@ -405,6 +398,17 @@ Page({
     },
     saveDiet(params) {
         let self = this
+        if (params.length == 0) {
+            wx.showToast({
+                title: '请输入数据',
+                icon: 'none',
+                duration: 3000
+            })
+            return false;
+        }else{
+            self.setData({
+                apiClicked: true
+            })
         if (self.data.DeleteFoodList.length > 0) {
             self.DelFoodList()
         }
@@ -422,8 +426,6 @@ Page({
                 delete photoItem[photo].url
             }
         }
-        console.log(params);
-        // return
         promiseRequest({
             method: "POST",
             url: '/wxrequest',
@@ -447,7 +449,12 @@ Page({
                     duration: 2000
                 })
             }
-        })
+            setTimeout(() => {
+                self.setData({
+                    apiClicked: false
+                })
+            }, 3000);
+        })}
     },
     historyRecordBtn(e) {
         wx.navigateTo({

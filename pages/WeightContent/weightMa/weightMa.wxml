@@ -14,5 +14,5 @@
             <image class="textArrow" src="../../../img/list_arrow.png" alt="" srcset="" />
         </view>
     </view>
-    <BtnComponents bindonSaveBtn="SaveWeight" bindhistoryRecordBtn="HistoryWeightMa"></BtnComponents>
+    <BtnComponents bindonSaveBtn="SaveWeight" bindhistoryRecordBtn="HistoryWeightMa" apiClicked='{{apiClicked}}'></BtnComponents>
 </view>

@@ -1,6 +1,8 @@
 const {
     promiseRequest
 } = require("../../utils/Requests")
+let app = getApp()
+
 let windowHeight = ''
 wx.getSystemInfo({
     success: function (res) {
@@ -17,7 +19,7 @@ Page({
         userInputConten: '',
         MessageList: [],
         scrollToView: '',
-        patientId: wx.getStorageSync('patientId')
+        patientId: ''
 
     },
     getMessage() {
@@ -29,17 +31,18 @@ Page({
                 "token": wx.getStorageSync('token'),
                 "function": "getMessage",
                 "data": [{
-                    patientId: wx.getStorageSync('patientId')
-            }]}
+                    patientId: self.data.patientId
+                }]
+            }
         }).then(res => {
             if (res.data.code === '0') {
                 let ResData = res.data.data[0]
                 for (const key in ResData) {
                     if (ResData[key].createdDateTime) {
-                    ResData[key].createdDateTime = ResData[key].createdDateTime.substring(0, 19)
+                        ResData[key].createdDateTime = ResData[key].createdDateTime.substring(0, 19)
                     }
                 }
-                if (ResData.length>0) {
+                if (ResData.length > 0) {
                     ResData.sort(function (a, b) {
                         return a.createdDateTime > b.createdDateTime ? 1 : -1;
                     });
@@ -83,9 +86,9 @@ Page({
                     "function": "save",
                     "data": [{
                         "entity": "message",
-                        "patientId": wx.getStorageSync('patientId'),
+                        "patientId": self.data.patientId,
                         "text": self.data.userInputConten,
-                        "writtenBy": wx.getStorageSync('patientId'),
+                        "writtenBy": self.data.patientId,
                         "status": "1"
                     }]
                 }
@@ -118,7 +121,11 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        this.setData({
+            patientId: options.patientId || wx.getStorageSync('patientId')
+        })
         this.getMessage()
+
     },
 
     /**

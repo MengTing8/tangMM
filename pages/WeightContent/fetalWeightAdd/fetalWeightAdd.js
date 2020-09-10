@@ -14,6 +14,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+            apiClicked: false,
         gestationalWeek: '',
         fetusWeightList: [],
         numberOfFetus: "1", //胎数
@@ -27,7 +28,6 @@ Page({
         },
         dataTime: date[0].time,
         dataArr: [],
-        isClicked: true
     },
     radioChange: function (e) {
         let fetus = e.detail.value || this.data.fetus
@@ -134,10 +134,9 @@ Page({
                 i = i - 1
             }
         }
-        if (self.data.isClicked) {
             if (params.length > 0) {
                 self.setData({
-                    isClicked: false
+                    apiClicked: true
                 })
                 promiseRequest({
                     method: "POST",
@@ -157,7 +156,7 @@ Page({
                         self.getFetusWeight()
                         setTimeout(() => {
                             self.setData({
-                                isClicked: true
+                                apiClicked: false
                             })
                         }, 3000);
                     } else {
@@ -176,8 +175,6 @@ Page({
                 })
                 return false;
             }
-        }
-
     },
     getFetusWeight() {
         let self = this

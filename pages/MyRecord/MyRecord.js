@@ -64,8 +64,9 @@ Page({
         })
     },
     getMessage() {
+        var that=this
         wx.navigateTo({
-            url: '../LeaveMessage/LeaveMessage'
+            url: '../LeaveMessage/LeaveMessage?patientId=' + that.data.patientId
         })
     },
     //获取我的记录

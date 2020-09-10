@@ -97,5 +97,5 @@
             </view>
         </view>
     </view>
-    <BtnComponents bindonSaveBtn="SaveBasicdata" bindhistoryRecordBtn="tapHistory"></BtnComponents>
+    <BtnComponents bindonSaveBtn="SaveBasicdata" bindhistoryRecordBtn="tapHistory"  apiClicked='{{apiClicked}}'></BtnComponents>
 </view>

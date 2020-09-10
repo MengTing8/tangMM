@@ -19,7 +19,7 @@
                         <view class="food_name">{{f.name}}</view>
                         <view class="food_weight">
                             <view class="food_weight_content">
-                                <input class="weui-input" type="digit" value="{{f.value}}" data-index="{{d}}" data-index1='{{btnnum}}' data-code="{{f.code}}" data-name="{{f.name}}" bindinput="bindFoodValueInput" placeholder="请输入" placeholder-class="placeholder_class" />
+                                <input class="weui-input" type="digit" value="{{f.value}}" data-index2="{{d}}" data-index1='{{btnnum}}' data-code="{{f.code}}" data-name="{{f.name}}" bindinput="bindFoodValueInput" placeholder="请输入" placeholder-class="placeholder_class" />
                                 <text>g</text>
                             </view>
                         </view>

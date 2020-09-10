@@ -36,7 +36,8 @@ Page({
         },
         dataTime: date[0].time,
         ShowInfo: false,
-        delList: []
+        delList: [],
+        apiClicked: false,
     },
     DeleteByDate(e) {
         let date = e.detail.date
@@ -87,12 +88,11 @@ Page({
         }
     },
     saveExercise() {
+        let that = this
         if (this.data.delList.length > 0) {
             this.delExercise();
         }
-        if (this.data.userData.length === 0) {
-            return;
-        }
+
         let userData = this.data.userData;
         for (let i = 0; i < userData.length; i++) {
             for (const key in userData[i]) {
@@ -114,31 +114,43 @@ Page({
             userData[i].date = this.data.dataTime;
             userData[i].status = '1';
         }
-        promiseRequest({
-            method: "POST",
-            url: '/wxrequest',
-            data: {
-                "token": wx.getStorageSync('token'),
-                "function": "save",
-                "data": userData
-            }
-        }).then(res => {
-            if (res.data.code === '0') {
-                var ResData = res.data.data[0]
-                wx.showToast({
-                    title: res.data.message,
-                    icon: 'none',
-                    duration: 2000
-                })
-                this.getExercise()
-            } else {
-                wx.showToast({
-                    title: res.data.message,
-                    icon: 'none',
-                    duration: 2000
-                })
-            }
-        })
+        if (this.data.userData.length === 0) {
+            return;
+        } else {
+            that.setData({
+                apiClicked: true
+            })
+            promiseRequest({
+                method: "POST",
+                url: '/wxrequest',
+                data: {
+                    "token": wx.getStorageSync('token'),
+                    "function": "save",
+                    "data": userData
+                }
+            }).then(res => {
+                if (res.data.code === '0') {
+                    var ResData = res.data.data[0]
+                    wx.showToast({
+                        title: res.data.message,
+                        icon: 'none',
+                        duration: 2000
+                    })
+                    this.getExercise()
+                } else {
+                    wx.showToast({
+                        title: res.data.message,
+                        icon: 'none',
+                        duration: 2000
+                    })
+                }
+                setTimeout(() => {
+                    that.setData({
+                        apiClicked: false
+                    })
+                }, 3000);
+            })
+        }
     },
     delExercise() {
         promiseRequest({

@@ -18,6 +18,7 @@ const tips = {
 };
 Page({
     data: {
+            apiClicked: false,
         BloodData: [{
             periodCode: '',
             periodSubcode: '',
@@ -130,9 +131,6 @@ Page({
         if (this.data.delList.length > 0) {
             this.delBloodGlucose();
         }
-        if (BloodData.length === 0) {
-            return;
-        }
         for (let i = 0; i < BloodData.length; i++) {
             for (const key in BloodData[i]) {
                 const item = BloodData[i][key]
@@ -156,6 +154,17 @@ Page({
             BloodData[i].date = this.data.dataTime;
             BloodData[i].status = '1';
         }
+        if (BloodData.length === 0) {
+             wx.showToast({
+                 title: '请输入数据',
+                 icon: 'none',
+                 duration: 3000
+             })
+             return false;
+        } else {
+            self.setData({
+                apiClicked: true
+            })
         promiseRequest({
                 method: "POST",
                 url: '/wxrequest',
@@ -184,7 +193,13 @@ Page({
                     duration: 2000
                 })
             }
+            setTimeout(() => {
+                self.setData({
+                    apiClicked: false
+                })
+            }, 3000);
         })
+        }
     },
     delBloodGlucose() {
         promiseRequest({

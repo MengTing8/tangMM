@@ -3,7 +3,6 @@ const {
 } = require("../../utils/Requests")
 const {
     getPickerValue,
-    getNowFormatDate,
     getAge
 } = require('../../utils/util')
 const moment = require('../../utils/moment.min.js');
@@ -11,7 +10,6 @@ var dateTimePicker = require('../../utils/dateTimePicker.js');
 var startYear = 2000,
     endYear = 2020;
 var obj = dateTimePicker.dateTimePicker(startYear, endYear);
-console.log(obj.dateTime);
 const date = new Date();
 const years = [];
 //获取年

@@ -1,4 +1,4 @@
 <view class="arrive_btn">
-    <view class="saveBtn" bindtap="onSaveBtn">保存</view>
+    <view class="saveBtn" bindtap="{{!apiClicked?'onSaveBtn':''}}">保存</view>
     <view class="historyRecordBtn" bindtap="historyRecordBtn">历史记录</view>
 </view>

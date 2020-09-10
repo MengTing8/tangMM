@@ -40,7 +40,7 @@
             <view class="addRecordBtn" bind:tap="addRecordList">添加一组记录</view>
         </view>
     </view>
-    <BtnComponents bindonSaveBtn="saveExercise" bindhistoryRecordBtn="tapHistory"></BtnComponents>
+    <BtnComponents bindonSaveBtn="saveExercise" bindhistoryRecordBtn="tapHistory" apiClicked='{{apiClicked}}'></BtnComponents>
     <view class="description">
         <rich-text nodes="{{texts}}"></rich-text>
         <view class="suggest">

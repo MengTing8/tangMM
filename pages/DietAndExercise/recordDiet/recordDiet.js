@@ -46,15 +46,19 @@ Page({
             })
         }
         if (this.data.SearchShow) {
-            if (this.data.btnnum !== this.data.SearchIndex && this.data.SearchIndex) {
-                TabList[this.data.SearchIndex].foodValues = this.data.SearchItem
-                this.setData({
-                    TabList,
-                    SearchShow: false,
+            if (this.data.btnnum !== this.data.SearchIndex) {
+                if (this.data.SearchIndex) {
+                    TabList[this.data.SearchIndex].foodValues = this.data.SearchItem
+                    this.setData({
+                        TabList,
+                        SearchShow: false,
 
-                })
+                    })
+                }
+
             }
         }
+        console.log(TabList);
 
     },
     bindSearchFood(e) {
@@ -65,7 +69,6 @@ Page({
             item
         } = e.currentTarget.dataset
         let newTabList = that.data.TabList
-        console.log(newTabList);
         let index = ''
         for (const key in newTabList) {
             let items = newTabList[key]
@@ -144,18 +147,19 @@ Page({
             code,
             name,
             index1,
-            index
+            index2
         } = e.target.dataset
         let that = this
         var newArr = that.data.foodArr
         var dataObj = e.detail.value;
         let codeArr = that.data.codeArr
         let tabArr = that.data.TabList
-        tabArr[index1].foodValues[index].value = dataObj
+        tabArr[index1].foodValues[index2].value = dataObj
         let newFoodDataList = that.data.FoodDataList
+
         if (that.data.SearchItem.length > 0) {
             that.data.SearchItem.forEach(s => {
-                if (s.code == tabArr[index1].foodValues[index].code) {
+                if (s.code == tabArr[index1].foodValues[index2].code) {
                     s.value = dataObj
                 }
             });
@@ -163,7 +167,7 @@ Page({
                 SearchItem: that.data.SearchItem
             })
         }
-        if (newArr.length !== 0) {
+        if (newArr.length > 0) {
             for (let i = 0; i < newArr.length; i++) {
                 if (codeArr.indexOf(code) !== -1) {
                     newArr[codeArr.indexOf(code)].value = dataObj

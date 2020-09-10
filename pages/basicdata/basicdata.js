@@ -39,6 +39,7 @@
               rowMd5: '',
           }],
           DeleteList: [],
+          apiClicked:false,
       },
       //删除当日数据
       DeleteCurrentData(e) {
@@ -183,6 +184,9 @@
       },
       requestSave(params) {
           let that = this
+          that.setData({
+              apiClicked:true
+          })
           let requestObj = {
               method: "POST",
               url: '/wxrequest',
@@ -193,6 +197,7 @@
               }
           };
           promiseRequest(requestObj).then((res) => {
+              
               if (res.data.code === '0') {
                   wx.showToast({
                       title: res.data.message,
@@ -207,6 +212,11 @@
                       duration: 2000
                   })
               }
+              setTimeout(() => {
+                  that.setData({
+                      apiClicked: false
+                  })
+              }, 3000);
           })
       },
       DeleteDaseDetail() {

@@ -55,7 +55,7 @@
                     </view>
                 </view>
                 <view class="addRecordBtn" bind:tap="addRecordList">添加一组记录</view>
-        <BtnComponents bindonSaveBtn="SaveInsulin" bindhistoryRecordBtn="historyRecordBtn"></BtnComponents>
+        <BtnComponents bindonSaveBtn="SaveInsulin" bindhistoryRecordBtn="historyRecordBtn" apiClicked='{{apiClicked}}'></BtnComponents>
 
             </view>
             <view class="insulinPump" hidden="{{TabsIndex !==1}}">
@@ -117,7 +117,7 @@
                         </view>
                     </view>
                 </view>
-        <BtnComponents bindonSaveBtn="SaveInsulinPump" bindhistoryRecordBtn="historyRecordBtn"></BtnComponents>
+        <BtnComponents bindonSaveBtn="SaveInsulinPump" bindhistoryRecordBtn="historyRecordBtn"  apiClicked='{{apiClicked}}'></BtnComponents>
             </view>
         </view>
     </view>
