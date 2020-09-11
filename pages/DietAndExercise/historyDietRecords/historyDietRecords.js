@@ -21,7 +21,7 @@ Page({
         ec: {},
         TimeObjChart: {
             StartDt: newDate,
-            EndDt:getDay(0),
+            EndDt: getDay(0),
             StarDATE,
             EndDATE,
             dateStart: getDay(-7),
@@ -29,7 +29,7 @@ Page({
         },
         TimeObj: {
             StartDt: newDate,
-            EndDt:getDay(0),
+            EndDt: getDay(0),
             StarDATE,
             EndDATE,
             dateStart: getDay(-7),
@@ -48,7 +48,9 @@ Page({
     },
     handlePreviewImage(e) {
         const {
-            pindex, ind,d
+            pindex,
+            ind,
+            d
         } = e.currentTarget.dataset;
         const urls = this.data.historyFootList[ind].children[d].photo.map(v => v.url);
         const current = urls[pindex];
@@ -78,27 +80,29 @@ Page({
                 let flag
                 let arr = Object.keys(ResData[0]);
                 if (arr.length !== 0) {
-                    ResData.forEach((item) => {
-                        item.forEach(i => {
-                            flag = newData.find(item1 => item1.date === i.date)
-                            if (!flag) {
-                                newData.push({
-                                    date: i.date,
-                                    children: [i]
-                                })
-                            } else {
-                                flag.children.push(i)
-                            }
-                        })
-                    })
-                     newData.sort(function (a, b) {
-                         return a.date < b.date ? 1 : -1;
-                     });
-                     for (const key in newData) {
-                         newData[key].children.sort(sortFun(`sequence`))
-                     }
+                    // ResData.forEach((item) => {
+                    //     console.log(item);
+                    //     item.items.forEach(i => {
+                    //         flag = newData.find(item1 => item1.date === i.date)
+                    //         if (!flag) {
+                    //             newData.push({
+                    //                 date: i.date,
+                    //                 children: [i]
+                    //             })
+                    //         } else {
+                    //             flag.children.push(i)
+                    //         }
+                    //     })
+
+                    // })
+                    ResData.sort(function (a, b) {
+                        return a.date < b.date ? 1 : -1;
+                    });
+                    for (const key in ResData) {
+                        ResData[key].items.sort(sortFun(`sequence`))
+                    }
                     _that.setData({
-                        historyFootList: newData,
+                        historyFootList: ResData,
                     })
                 }
 
@@ -123,11 +127,11 @@ Page({
             this.setData({
                 TimeObj: NewData
             })
-              if (this.data.selectedIndex == 0) {
-                  this.getDietList()
-              } else {
-                  this.getDietChart()
-              }
+            if (this.data.selectedIndex == 0) {
+                this.getDietList()
+            } else {
+                this.getDietChart()
+            }
         }
     },
     bindEndTimeChange(e) {
@@ -140,11 +144,11 @@ Page({
             this.setData({
                 TimeObj: NewData
             })
-           if (this.data.selectedIndex == 0) {
-               this.getDietList()
-           } else {
-               this.getDietChart()
-           }
+            if (this.data.selectedIndex == 0) {
+                this.getDietList()
+            } else {
+                this.getDietChart()
+            }
         }
     },
     handleTitleChange(e) {
@@ -156,7 +160,7 @@ Page({
         })
         if (index == 1) {
             this.getDietChart()
-        }else{
+        } else {
             this.getDietList()
         }
     },
@@ -184,12 +188,12 @@ Page({
                 let option1 = this.getOption(dataList[0]);
                 let option2 = this.getOption(dataList[1]);
 
-                for(let data of dataList) {
+                for (let data of dataList) {
                     for (let i = 0; i < data.legend.length; i++) {
                         let svg = '<svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="' + data.legend[i].symbol.substr(7) + '" fill="' + data.legend[i].color + '"></path></svg>'
                         svg = unescape(encodeURIComponent(svg));
                         data.legend[i].symbol = 'data:image/svg+xml;base64,' + base64.btoa(svg);
-                    } 
+                    }
                 }
 
                 this.setData({

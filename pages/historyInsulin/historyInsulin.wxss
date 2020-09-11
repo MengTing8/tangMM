@@ -10,7 +10,7 @@
     background: rgba(255, 255, 255, 1);
     box-shadow: 0rpx 4rpx 16rpx 0rpx rgba(202, 225, 226, 0.38);
     border-radius: 12rpx;
-    padding: 40rpx 40rpx 0;
+    padding: 40rpx 1rpx 0rpx 20rpx;
     margin-bottom: 40rpx;
 }
 
@@ -33,6 +33,9 @@
     font-size: 32rpx;
     color: rgba(15, 28, 54, 1);
     line-height: 44rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .duration_date {

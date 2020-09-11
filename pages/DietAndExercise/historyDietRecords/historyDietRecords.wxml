@@ -5,16 +5,46 @@
             <view class="historyList">
                 <view class="ItemCard" wx:for="{{historyFootList}}" wx:key="index">
                     <view class="ItemCard_Time">{{item.date}}</view>
-                    <view class="ItemCard_Info  unifyFont" wx:for="{{item.children}}" wx:for-item="c" wx:for-index="d" wx:key="d">
-                        <view>{{c.periodValue}}（{{c.time}}）{{c.value}}kcal</view>
-                        <view class="foodBox">
-                            <view wx:for="{{c.food}}" wx:for-item="f" wx:for-index="i" wx:key="i">
-                                {{f.name}}{{f.value}}g、
-                            </view>
+                    <view class="tableList">
+                        <view class="tableTitle tableFont">
+                            <view>建议</view>
+                            <view>实际</view>
                         </view>
-                        <view class="PhotoList">
-                            <view class="PhotoShwoContent" wx:for="{{c.photo}}" wx:for-item="p" wx:for-index="h" wx:key="h" wx:if="{{p.url}}">
-                                <image class="uploaderPhoto" mode="widthFix" src="{{p.url}}" bind:tap="handlePreviewImage" data-pindex="{{h}}" data-ind="{{index}}" data-d="{{d}}" />
+                        <view class="table">
+                            <view class="tr tableFont">
+                                <view class="th">热量</view>
+                                <view class="th">蛋白质</view>
+                                <view class="th">碳水化合物</view>
+                                <view class="th">脂肪</view>
+                            </view>
+                            <block>
+                                <view class="tr bg-g">
+                                    <view class="td">{{item.suggestion.heat}}</view>
+                                    <view class="td">{{item.suggestion.protein}}</view>
+                                    <view class="td">{{item.suggestion.carbo}}</view>
+                                    <view class="td">{{item.suggestion.fat}}</view>
+                                </view>
+                                <view class="tr">
+                                    <view class="td">{{item.actual.heat}}</view>
+                                    <view class="td">{{item.actual.protein}}</view>
+                                    <view class="td">{{item.actual.carbo}}</view>
+                                    <view class="td">{{item.actual.fat}}</view>
+                                </view>
+                            </block>
+                        </view>
+                    </view>
+                    <view style="padding-bottom: 40rpx;">
+                        <view class="ItemCard_Info  unifyFont" wx:for="{{item.items}}" wx:for-item="c" wx:for-index="d" wx:key="d">
+                            <view>{{c.periodValue}}（{{c.time}}）{{c.value}}kcal</view>
+                            <view class="foodBox">
+                                <view wx:for="{{c.food}}" wx:for-item="f" wx:for-index="i" wx:key="i">
+                                    {{f.name}}{{f.value}}g、
+                                </view>
+                            </view>
+                            <view class="PhotoList">
+                                <view class="PhotoShwoContent" wx:for="{{c.photo}}" wx:for-item="p" wx:for-index="h" wx:key="h" wx:if="{{p.url}}">
+                                    <image class="uploaderPhoto" mode="widthFix" src="{{p.url}}" bind:tap="handlePreviewImage" data-pindex="{{h}}" data-ind="{{index}}" data-d="{{d}}" />
+                                </view>
                             </view>
                         </view>
                     </view>

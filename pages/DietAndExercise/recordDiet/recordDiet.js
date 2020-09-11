@@ -12,6 +12,7 @@ Page({
      */
     data: {
         btnnum: 0,
+            TabIndex: 0,
         ShowTab: true,
         SearchFoodList: [],
         SearchIndex: '',
@@ -27,7 +28,7 @@ Page({
         windowWidth: 0,
         periodCode: '',
         FoodDataList: [],
-        SearchShow: true,
+        SearchShow: true
     },
     Tabchange(event) {
         let that = this
@@ -42,11 +43,14 @@ Page({
         if (this.data.btnnum == index) {
             return false;
         } else {
+            that.setData({
+                TabIndex: index,
+            })
             setTimeout(() => {
                 that.setData({
                     btnnum: index,
                 })
-            }, 3000);
+            }, 300);
 
         }
         if (this.data.SearchShow) {
@@ -62,8 +66,6 @@ Page({
 
             }
         }
-        console.log(TabList);
-
     },
     bindSearchFood(e) {
         let that = this
@@ -89,6 +91,7 @@ Page({
             that.setData({
                 navScrollLeft: (index - 2) * singleNavWidth,
                 btnnum: Number(index),
+                    TabIndex: Number(index),
                 ShowTab: true,
                 SearchShow: true,
                 SearchValue: "",
@@ -135,7 +138,7 @@ Page({
                     }
                 }
                 self.setData({
-                    TabList: ResData,
+                    TabList: ResData
                 })
             } else {
                 wx.showToast({
@@ -158,9 +161,10 @@ Page({
         var dataObj = e.detail.value;
         let codeArr = that.data.codeArr
         let tabArr = that.data.TabList
-        tabArr[index1].foodValues[index2].value = dataObj
-        let newFoodDataList = that.data.FoodDataList
 
+        tabArr[index1].foodValues[index2].value = dataObj
+
+        let newFoodDataList = that.data.FoodDataList
         if (that.data.SearchItem.length > 0) {
             that.data.SearchItem.forEach(s => {
                 if (s.code == tabArr[index1].foodValues[index2].code) {
@@ -224,6 +228,7 @@ Page({
             TabList: tabArr,
             FoodDataList: newFoodDataList
         })
+
         wx.setStorageSync('FoodDataList', newFoodDataList)
     },
     saveFood() {
