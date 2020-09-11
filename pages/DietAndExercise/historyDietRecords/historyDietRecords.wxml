@@ -55,9 +55,6 @@
             </view>
         </view>
         <view style="display:{{selectedIndex==0?'none':'block'}}">
-            <!-- <view class="TimeContent">
-                <StartAndEndTimes TimeObj="{{TimeObjChart}}" bindStartTimeChange='bindStartTimeChart' bindEndTimeChange='bindEndTimeChart'></StartAndEndTimes>
-            </view> -->
             <view class="heatChartsContent">
                 <view class="mychartContent">
                     <view class="container">
