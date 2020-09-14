@@ -5,8 +5,8 @@
             <view class="listCard" wx:for="{{BloodGlucoseList}}" wx:key="index" wx:if="{{item.date}}">
                 <view class="listCard_top">{{item.date}}</view>
                 <view class="listCard_bottom">
-                    <view wx:for="{{item.items}}" wx:for-item="items" wx:for-index="Id" wx:key="Id" class="listCard_bottom_content  unifyFont">
-                        <view>{{items.periodSubvalue}}{{items.periodExtraValue}}：{{items.categoryValue}} {{items.value}}</view>
+                    <view class="listCard_bottom_content  unifyFont">
+                        <view  wx:for="{{item.items}}" wx:for-item="items" wx:for-index="Id" wx:key="Id">{{items.periodSubvalue}}{{items.periodExtraValue}}：{{items.categoryValue}} {{items.value}}</view>
                         <!-- <view>{{items.periodSubvalue}}：{{items.value}}</view>
                         <view>血糖类型：{{items.categoryValue}}</view> -->
                     </view>

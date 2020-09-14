@@ -18,9 +18,19 @@ const tips = {
 };
 Page({
     data: {
-            apiClicked: false,
+        periodCode: '1',
+        resBloodData: [],
+        TabsIndex: 0,
+        tabs: ["常规时间段", "特殊时间段"],
+        apiClicked: false,
         BloodData: [{
-            periodCode: '',
+            periodCode: '1',
+            periodSubcode: '',
+            periodExtraValue: '',
+            categoryCode: '',
+            value: ''
+        }, {
+            periodCode: '2',
             periodSubcode: '',
             periodExtraValue: '',
             categoryCode: '',
@@ -39,82 +49,97 @@ Page({
         dataTime: date[0].time,
         delList: [],
     },
-     DeleteByDate(e) {
-         let date = e.detail.date
-         let that = this
-         if (that.data.BloodData[0].id || that.data.BloodData[0].value) {
-             wx.showModal({
-                 title: '提示',
-                 content: "确定删除当日数据？",
-                 success(res) {
-                     if (res.confirm) {
-                         promiseRequest({
-                             method: "POST",
-                             url: '/wxrequest',
-                             data: {
-                                 "token": wx.getStorageSync('token'),
-                                 "function": "deleteByDate",
-                                 "data": [{
-                                     "entity": "bloodGlucose",
-                                     "date": date
-                                 }]
-                             }
-                         }).then((res) => {
-                             if (res.data.code === '0') {
-                                 wx.showToast({
-                                     title: res.data.message,
-                                     icon: 'none',
-                                     duration: 3000
-                                 })
-                                 that.getBloodGlucose()
-                             } else {
-                                 wx.showToast({
-                                     title: res.data.message,
-                                     icon: 'none',
-                                     duration: 3000
-                                 })
-                             }
-                         })
-                     } else if (res.cancel) {}
-                 }
-             })
-         } else {
-             wx.showToast({
-                 title: '无数据可删！',
-                 icon: 'none',
-                 duration: 2000
-             })
-         }
-     },
+    handleBloodTabs(e) {
+        const {
+            index,
+            code
+        } = e.currentTarget.dataset;
+        this.setData({
+            TabsIndex: index,
+            periodCode: code
+        })
+    },
+    DeleteByDate(e) {
+        let date = e.detail.date
+        let that = this
+        if (that.data.BloodData[0].id || that.data.BloodData[0].value) {
+            wx.showModal({
+                title: '提示',
+                content: "确定删除当日数据？",
+                success(res) {
+                    if (res.confirm) {
+                        promiseRequest({
+                            method: "POST",
+                            url: '/wxrequest',
+                            data: {
+                                "token": wx.getStorageSync('token'),
+                                "function": "deleteByDate",
+                                "data": [{
+                                    "entity": "bloodGlucose",
+                                    "date": date
+                                }]
+                            }
+                        }).then((res) => {
+                            if (res.data.code === '0') {
+                                wx.showToast({
+                                    title: res.data.message,
+                                    icon: 'none',
+                                    duration: 3000
+                                })
+                                that.getBloodGlucose()
+                            } else {
+                                wx.showToast({
+                                    title: res.data.message,
+                                    icon: 'none',
+                                    duration: 3000
+                                })
+                            }
+                        })
+                    } else if (res.cancel) {}
+                }
+            })
+        } else {
+            wx.showToast({
+                title: '无数据可删！',
+                icon: 'none',
+                duration: 2000
+            })
+        }
+    },
     getBloodGlucose() {
         let self = this
         let BloodData = self.data.BloodData
         promiseRequest({
-                method: "POST",
-                url: '/wxrequest',
-                data: {
-                    "token": wx.getStorageSync('token'),
-                    "function": "getBloodGlucose",
-                    "data": [{
-                        "date": self.data.dataTime,
-                        "periodCode": BloodData.periodCode || "",
-                        "periodSubcode": BloodData.periodSubcode || "",
-                        "categoryCode": BloodData.categoryCode || "1"
-                    }]
-                }
-            }).then((res) => {
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "getBloodGlucose",
+                "data": [{
+                    "date": self.data.dataTime,
+                    // "periodCode": BloodData.periodCode || "",
+                    // "periodSubcode": BloodData.periodSubcode || "",
+                    // "categoryCode": BloodData.categoryCode || "1"
+                }]
+            }
+        }).then((res) => {
             if (res.data.code === '0') {
-                var ResData = res.data.data[0]
+                console.log(res);
+                var ResData = res.data.data
+                let arr = []
+                ResData.forEach(i => {
+                    if (i.items) {
+                        for (const key in i.items) {
+                            arr.push(i.items[key])
+                        }
+                    }
+                });
                 self.setData({
-                    BloodData: ResData.items ? ResData.items : [{
-                        periodCode: '',
-                        periodSubcode: '',
-                        periodExtraValue: '',
-                        categoryCode: '',
-                        value: ''
-                    }], 
-                    categoryValues: ResData.categoryValues,
-                    periodValues: ResData.periodValues
+                    resBloodData: res.data.data,
+                    BloodData: arr,
+                    // periodCode: arr[0].periodCode
+                    // categoryValues: ResData.categoryValues,
+                    // periodValues: ResData.periodValues
                 })
             } else {
                 wx.showToast({
@@ -155,17 +180,17 @@ Page({
             BloodData[i].status = '1';
         }
         if (BloodData.length === 0) {
-             wx.showToast({
-                 title: '请输入数据',
-                 icon: 'none',
-                 duration: 3000
-             })
-             return false;
+            wx.showToast({
+                title: '请输入数据',
+                icon: 'none',
+                duration: 3000
+            })
+            return false;
         } else {
             self.setData({
                 apiClicked: true
             })
-        promiseRequest({
+            promiseRequest({
                 method: "POST",
                 url: '/wxrequest',
                 data: {
@@ -174,31 +199,31 @@ Page({
                     "data": BloodData
                 }
             }).then((res) => {
-              if (res.data.code === '0') {
-                  var ResData = res.data.data[0]
-                  self.setData({
-                      categoryValues: ResData.categoryValues,
-                      periodValues: ResData.periodValues
-                  })
-                  wx.showToast({
-                      title: res.data.message,
-                      icon: 'none',
-                      duration: 2000
-                  })
-                  this.getBloodGlucose()
-              } else {
-                wx.showToast({
-                    title: res.data.message,
-                    icon: 'none',
-                    duration: 2000
-                })
-            }
-            setTimeout(() => {
-                self.setData({
-                    apiClicked: false
-                })
-            }, 3000);
-        })
+                if (res.data.code === '0') {
+                    var ResData = res.data.data[0]
+                    self.setData({
+                        categoryValues: ResData.categoryValues,
+                        periodValues: ResData.periodValues
+                    })
+                    wx.showToast({
+                        title: res.data.message,
+                        icon: 'none',
+                        duration: 2000
+                    })
+                    this.getBloodGlucose()
+                } else {
+                    wx.showToast({
+                        title: res.data.message,
+                        icon: 'none',
+                        duration: 2000
+                    })
+                }
+                setTimeout(() => {
+                    self.setData({
+                        apiClicked: false
+                    })
+                }, 3000);
+            })
         }
     },
     delBloodGlucose() {
@@ -243,6 +268,7 @@ Page({
             BloodData
         })
     },
+
     bindExtraValueInput: function (e) {
         const index = e.currentTarget.dataset.index
         let BloodData = this.data.BloodData
@@ -266,14 +292,11 @@ Page({
     bindPeriodChange(e) {
         const index = e.currentTarget.dataset.index
         let BloodData = this.data.BloodData
+        let TabsIndex = this.data.TabsIndex
         let val = e.detail.value
-        let periodSubvalue;
-        BloodData[index].periodValue = this.data.periodValues[val].value,
-            BloodData[index].periodCode = this.data.periodValues[val].code
-        if (this.data.periodIndex !== val) {
-            BloodData[index].periodSubcode = ''
-            BloodData[index].periodSubvalue = ''
-        }
+        BloodData[index].periodCode = this.data.periodCode
+        BloodData[index].periodSubvalue = this.data.resBloodData[TabsIndex].periodSubcodeValues[val].value
+        BloodData[index].periodSubcode = this.data.resBloodData[TabsIndex].periodSubcodeValues[val].code
         this.setData({
             periodIndex: val,
             BloodData
@@ -292,17 +315,28 @@ Page({
     bindCategoryChange(e) {
         const index = e.currentTarget.dataset.index
         let BloodData = this.data.BloodData
+        let TabsIndex = this.data.TabsIndex
         let val = e.detail.value
-        BloodData[index].categoryValue = this.data.categoryValues[val].value
-        BloodData[index].categoryCode = this.data.categoryValues[val].code
+        BloodData[index].categoryValue = this.data.resBloodData[TabsIndex].categoryValues[val].value
+        BloodData[index].categoryCode = this.data.resBloodData[TabsIndex].categoryValues[val].code
         this.setData({
             BloodData
         })
     },
+    // bindCategoryChangeB(e) {
+    //     const index = e.currentTarget.dataset.index
+    //     let Data = this.data.BloodDataB
+    //     let val = e.detail.value
+    //     Data[index].categoryValue = this.data.resBloodData[1].categoryValues[val].value
+    //     Data[index].categoryCode = this.data.resBloodData[1].categoryValues[val].code
+    //     this.setData({
+    //         BloodDataB: Data
+    //     })
+    // },
     addRecordList() {
         let BloodData = this.data.BloodData
         BloodData.push({
-            periodCode: '',
+            periodCode: this.data.periodCode,
             periodSubcode: '',
             periodExtraValue: '',
             categoryCode: '',

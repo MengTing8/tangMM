@@ -79,14 +79,9 @@
     border-bottom: none
 }
 
-/* .historyInfo .cell:nth-last-child(1) {
-    border-bottom: none
-} */
-
 .basicInfo {
     border-bottom: 24rpx solid #F5F5F5;
 }
-
 .headerTitle {
     margin-left: 30rpx;
     height: 120rpx;

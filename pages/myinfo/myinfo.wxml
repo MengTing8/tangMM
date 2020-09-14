@@ -4,98 +4,11 @@
     请认真核对信息，以免影响您孕期信息的准确性
 </view>
 <view class="pageContainer">
-    <view class="basicInfo">  
+    <view class="basicInfo">
         <view class="headerTitle">
             <text>阶段</text>
             <view class="stageBox">
                 <text class="type">糖尿病类型：{{PatientData.gdmType||''}}</text>
-            </view>
-        </view>
-        <view class="cell">
-            <view class="cell_title">
-                <text>现处阶段</text>
-            </view>
-            <view class="textBox">
-                <picker mode="selector" value="{{[PatientData.stageCode-1]}}" range="{{TermList}}" range-key="{{'value'}}" bindchange="bindStageChange">
-                    <view class="">
-                        {{TermList[PatientData.stageCode-1].value||'请选择'}}
-                    </view>
-                </picker>
-            </view>
-            <view class="imgBox">
-                <image class="textArrow" src="../../img/list_arrow.png" alt="" srcset="" />
-            </view>
-        </view>
-    </view>
-    <view class="basicInfo">
-        <view class="headerTitle">
-            <text>基本信息</text>
-        </view>
-        <view class="cell">
-            <view class="cell_title">
-                <text>姓名</text>
-            </view>
-            <view class="textBox">
-                <text>{{PatientData.name}}</text>
-            </view>
-            <view class="imgBox">
-                <image class="textArrow" src="../../img/list_arrow.png" alt="" srcset="" />
-            </view>
-        </view>
-        <view class="cell">
-            <view class="cell_title">
-                <text>出生日期</text>
-            </view>
-            <view class="textBox">
-                <picker mode="date" value="{{PatientData.birthday}}" start="{{StartDt}}" end="{{EndDt}}" bindchange="bindAgeChange">
-                    <!-- <view>{{LMP}}</view> -->
-                    <view>{{dateBirth||'请选择'}}</view>
-                </picker>
-                <!-- <input type="text" value="{{PatientData.age}}" class="textColor" placeholder-class="textColor" /> -->
-                <!-- <view>25</view> -->
-                <view wx:if="{{PatientAge>=35}}">高龄</view>
-            </view>
-            <view class="imgBox">
-                <image class="textArrow" src="../../img/list_arrow.png" alt="" srcset="" />
-            </view>
-        </view>
-        <view class="cell">
-            <view class="cell_title">
-                <text>身高</text>
-            </view>
-            <view class="textBox">
-                <view class="inpText">
-                    <input type="text" value="{{PatientHeight=='0'?'':PatientHeight}}" class="textColor" placeholder-class="textColor" bindinput="bindHeightInput" placeholder="请输入"/>
-                    <text>cm</text>
-                </view>
-            </view>
-            <view class="imgBox">
-                <image class="textArrow" src="../../img/list_arrow.png" alt="" srcset="" />
-            </view>
-        </view>
-        <view class="cell">
-            <view class="cell_title">
-                <text>孕前体重</text>
-            </view>
-            <view class="textBoxView">
-                <view class="inpText">
-                    <input type="text" value="{{PatientWeight=='0'||PatientWeight=='0.00'?'':PatientWeight}}" class="textColor" placeholder-class="textColor" bindinput="bindWeightInput"  placeholder="请输入"/>
-                    <text>kg</text>
-                </view>
-                <view style="font-size: 22rpx;" wx:if="{{BMI>0}}">
-                    <text style="padding-right:12rpx">BMI：{{BMI}}</text>
-                    |
-                    <text style="padding:0 12rpx">{{suggestion}}</text>
-                    |
-                    <!-- <text>增重目标：{{PatientData.gainWeight=='0'?'':PatientData.gainWeight}}</text> -->
-                    <text wx:if="{{BMI<18.5&&BMI>0}}">增重目标：15.25kg</text>
-                    <text wx:elif="{{BMI<24.9&&BMI>18.5}}">增重目标：13.75kg</text>
-                    <text wx:elif="{{BMI<29.9&&BMI>24.9}}">增重目标：9.25kg</text>
-                    <text wx:else>增重目标：7kg</text>
-                </view>
-            </view>
-            <view class="imgBox">
-                <image class="textArrow" src="../../img/list_arrow.png" alt="" srcset="" />
             </view>
         </view>
         <view class="cell">
@@ -105,9 +18,7 @@
             <view class="textBox">
                 <picker mode="selector" value="{{[PatientData.gravidity]}}" range="{{gravidityList}}" range-key="{{'Name'}}" bindchange="bindGravidityChange">
                     <view class="weui-input_10">{{PatientData.gravidity||'请选择'}}</view>
-                    <!-- <view class="weui-input_10">{{TermList[0].Name}}</view> -->
                 </picker>
-                <!-- <input type="text" value="{{PatientData.gravidity}}" class="textColor" placeholder-class="textColor" /> -->
             </view>
             <view class="imgBox">
                 <image class="textArrow" src="../../img/list_arrow.png" alt="" srcset="" />
@@ -115,14 +26,13 @@
         </view>
         <view class="cell">
             <view class="cell_title">
-                <text>产次</text>
+                <text style="color:red" wx:if="{{PatientData.stageCode>1}}">*</text>
+                <text>末次月经</text>
             </view>
             <view class="textBox">
-                <picker mode="selector" value="{{[PatientData.parity]}}" range="{{parityList}}" range-key="{{'Name'}}" bindchange="bindParityChange">
-                    <view class="weui-input_10">{{PatientData.parity||'请选择'}}</view>
-                    <!-- <view class="weui-input_10">{{TermList[0].Name}}</view> -->
+                <picker mode="date" value="{{PatientData.lmp}}" start="{{StartDt}}" end="{{EndDt}}" bindchange="bindLMPChange">
+                    <view>{{LMP||'请选择'}}</view>
                 </picker>
-                <!-- <input type="text" value="{{PatientData.parity}}" class="textColor" placeholder-class="textColor" /> -->
             </view>
             <view class="imgBox">
                 <image class="textArrow" src="../../img/list_arrow.png" alt="" srcset="" />
@@ -130,6 +40,25 @@
         </view>
         <view class="cell">
             <view class="cell_title">
+                <text>现处阶段</text>
+            </view>
+            <view class="textBox">
+                <picker mode="selector" value="{{[PatientData.stageCode-1]}}" range="{{TermList}}" range-key="{{'value'}}" bindchange="bindStageChange">
+                    <view class="">{{TermList[PatientData.stageCode-1].value||'请选择'}}</view>
+                </picker>
+            </view>
+            <view class="imgBox">
+                <image class="textArrow" src="../../img/list_arrow.png" alt="" srcset="" />
+            </view>
+        </view>
+    </view>
+    <view class="basicInfo">
+        <view class="headerTitle">
+            <text>孕次信息</text>
+        </view>
+        <view class="cell">
+            <view class="cell_title">
+                <text style="color:red" wx:if="{{PatientData.stageCode>1}}">*</text>
                 <text>胎数</text>
             </view>
             <view class="textBox">
@@ -145,12 +74,24 @@
         </view>
         <view class="cell">
             <view class="cell_title">
-                <text>末次分娩时间</text>
+                <text style="color:red" wx:if="{{PatientData.stageCode>1}}">*</text>
+                <text>孕前体重</text>
             </view>
-            <view class="textBox">
-                <picker mode="multiSelector" value="{{dateTime}}" bindchange="changeDateTime" bindcolumnchange="changeDateTimeColumn" range="{{dateTimeArray}}">
-                    <view>{{PatientData.deliveryLastTime||'请选择'}}</view>
-                </picker>
+            <view class="textBoxView">
+                <view class="inpText">
+                    <input type="text" value="{{PatientWeight=='0'||PatientWeight=='0.00'?'':PatientWeight}}" class="textColor" placeholder-class="textColor" bindinput="bindWeightInput" placeholder="请输入" />
+                    <text>kg</text>
+                </view>
+                <view style="font-size: 22rpx;display: flex" wx:if="{{BMI>0}}">
+                    <view style="padding-right:12rpx">BMI：{{BMI}}</view>
+                    |
+                    <view style="padding:0 12rpx">{{suggestion}}</view>
+                    |
+                    <view wx:if="{{BMI<18.5&&BMI>0}}">增重目标：15.25kg</view>
+                    <view wx:elif="{{BMI<24.9&&BMI>18.5}}">增重目标：13.75kg</view>
+                    <view wx:elif="{{BMI<29.9&&BMI>24.9}}">增重目标：9.25kg</view>
+                    <view wx:else>增重目标：7kg</view>
+                </view>
             </view>
             <view class="imgBox">
                 <image class="textArrow" src="../../img/list_arrow.png" alt="" srcset="" />
@@ -158,13 +99,7 @@
         </view>
         <view class="cell">
             <view class="cell_title">
-                <text>手机号码</text>
-            </view>
-            <view class="textBox">{{PatientData.mobile}}</view>
-            <view class="imgBox"></view>
-        </view>
-        <view class="cell">
-            <view class="cell_title">
+                <text style="color:red" wx:if="{{PatientData.stageCode>1}}">*</text>
                 <text>职业</text>
             </view>
             <view class="textBox">
@@ -233,30 +168,6 @@
                 <image class="textArrow" src="../../img/list_arrow.png" alt="" srcset="" />
             </view>
         </view>
-    </view>
-    <view class="historyInfo">
-        <view class="headerTitle">
-            <text>就诊信息</text>
-        </view>
-        <view class="cell">
-            <view class="cell_title">
-                <text>就诊卡号</text>
-            </view>
-            <view class="textBox">
-                <text>{{PatientData.cardNumber}}</text>
-            </view>
-        </view>
-        <view class="cell">
-            <view class="cell_title">
-                <text>末次月经</text>
-            </view>
-            <view class="textBox">
-                <picker mode="date" value="{{PatientData.lmp}}" start="{{StartDt}}" end="{{EndDt}}" bindchange="bindLMPChange">
-                    <view>{{LMP||'请选择'}}</view>
-                    <!-- <view>{{PatientData.lmp||'请选择'}}</view> -->
-                </picker>
-            </view>
-        </view>
         <view class="cell">
             <view class="cell_title">
                 <view class="cell_title_name">
@@ -264,8 +175,10 @@
                 </view>
             </view>
             <view class="textBox">
-                <view class="btnS {{PatientData.diabetesB4Gestation==1?'isSelect':''}}" bind:tap="tapDiabetes" data-code='{{1}}'>是</view>
-                <view class="btnS  {{PatientData.diabetesB4Gestation==0?'isSelect':''}}"  bind:tap="tapDiabetes"  data-code='{{0}}'>
+                <view class="btnS {{PatientData.diabetesB4Gestation==1?'isSelect':''}}" bind:tap="tapDiabetes" data-code='{{1}}'>
+                    是
+                </view>
+                <view class="btnS  {{PatientData.diabetesB4Gestation==0?'isSelect':''}}" bind:tap="tapDiabetes" data-code='{{0}}'>
                     否
                 </view>
             </view>
@@ -273,7 +186,9 @@
         <view class="cell" wx:if="{{PatientData.diabetesB4Gestation==1}}">
             <view class="pickerBox">
                 <picker value="{{pickerIndex}}" range="{{years}}" bindchange="bindDiabetesYearChange">
-                    <view class="textColor" wx:if="{{PatientData.diabetesYearB4Gestation==0}}">{{dateList[12]}}年</view>
+                    <view class="textColor" wx:if="{{PatientData.diabetesYearB4Gestation==0}}">
+                        {{dateList[12]}}年
+                    </view>
                     <view class="textColor" wx:else>{{PatientData.diabetesYearB4Gestation}}年</view>
                 </picker>
             </view>
@@ -281,7 +196,7 @@
                 <image class="textArrow" src="../../img/list_arrow.png" alt="" srcset="" />
             </view>
         </view>
-        <view class="cell"  wx:if="{{PatientData.diabetesB4Gestation==1}}">
+        <view class="cell" wx:if="{{PatientData.diabetesB4Gestation==1}}">
             <view class="textBox">
                 <view class="typeBtn {{PatientData.diabetesTypeB4GestationCode==item.code?'isSelect':''}}" wx:for="{{PatientData.diabetesTypeB4GestationValues}}" wx:key="index" bind:tap="bindDiabetesTypeChange" data-code='{{item.code}}'>
                     {{item.value}}
@@ -297,14 +212,20 @@
                 </view>
             </view>
             <view class="textBox">
-                <view class="btnS  {{PatientData.gdm==1?'isSelect':''}}"  bind:tap="bindGdmChange"  data-code='{{1}}'>是</view>
-                <view class="btnS  {{PatientData.gdm==0?'isSelect':''}}"  bind:tap="bindGdmChange"  data-code='{{0}}'>否</view>
+                <view class="btnS  {{PatientData.gdm==1?'isSelect':''}}" bind:tap="bindGdmChange" data-code='{{1}}'>
+                    是
+                </view>
+                <view class="btnS  {{PatientData.gdm==0?'isSelect':''}}" bind:tap="bindGdmChange" data-code='{{0}}'>
+                    否
+                </view>
             </view>
         </view>
         <view class="cell" wx:if="{{PatientData.gdm==1}}">
             <view class="pickerBox">
                 <picker mode="selector" value="" range="{{dateList}}" bindchange="bindGdmYearChange">
-                    <view class="textColor" wx:if="{{PatientData.gdmYear==0}}">{{dateList[12]}}年</view>
+                    <view class="textColor" wx:if="{{PatientData.gdmYear==0}}">
+                        {{dateList[12]}}年
+                    </view>
                     <view class="textColor" wx:else>{{PatientData.gdmYear}}年</view>
                 </picker>
             </view>
@@ -319,16 +240,109 @@
                 </view>
             </view>
             <view class="textBox">
-                <view class="btnS {{PatientData.diabeticFamilyHistory==1?'isSelect':''}}"  bind:tap="bindFamilyChange"  data-code='{{1}}'>
+                <view class="btnS {{PatientData.diabeticFamilyHistory==1?'isSelect':''}}" bind:tap="bindFamilyChange" data-code='{{1}}'>
                     是
                 </view>
-                <view class="btnS  {{PatientData.diabeticFamilyHistory==0?'isSelect':''}}"  bind:tap="bindFamilyChange"  data-code='{{0}}'>
+                <view class="btnS  {{PatientData.diabeticFamilyHistory==0?'isSelect':''}}" bind:tap="bindFamilyChange" data-code='{{0}}'>
                     否
                 </view>
             </view>
         </view>
     </view>
+    <view class="">
+        <view class="headerTitle">
+            <text>基本信息</text>
+        </view>
+        <view class="cell">
+            <view class="cell_title">
+                <text>姓名</text>
+            </view>
+            <view class="textBox">
+                <text>{{PatientData.name}}</text>
+            </view>
+            <view class="imgBox">
+                <image class="textArrow" src="../../img/list_arrow.png" alt="" srcset="" />
+            </view>
+        </view>
+        <view class="cell">
+            <view class="cell_title">
+                <text>出生日期</text>
+            </view>
+            <view class="textBox">
+                <picker mode="date" value="{{PatientData.birthday}}" start="1970-01-01" end="{{EndDt}}" bindchange="bindAgeChange">
+                    <view>{{dateBirth||'请选择'}}</view>
+                </picker>
+                <view wx:if="{{PatientAge>=35}}">高龄</view>
+            </view>
+            <view class="imgBox">
+                <image class="textArrow" src="../../img/list_arrow.png" alt="" srcset="" />
+            </view>
+        </view>
+        <view class="cell">
+            <view class="cell_title">
+                <text style="color:red">*</text>
+                <text>身高</text>
+            </view>
+            <view class="textBox">
+                <view class="inpText">
+                    <input type="text" value="{{PatientHeight=='0'?'':PatientHeight}}" class="textColor" placeholder-class="textColor" bindinput="bindHeightInput" placeholder="请输入" />
+                    <text>cm</text>
+                </view>
+            </view>
+            <view class="imgBox">
+                <image class="textArrow" src="../../img/list_arrow.png" alt="" srcset="" />
+            </view>
+        </view>
+        <view class="cell">
+            <view class="cell_title">
+                <text>产次</text>
+            </view>
+            <view class="textBox">
+                <picker mode="selector" value="{{[PatientData.parity]}}" range="{{parityList}}" range-key="{{'Name'}}" bindchange="bindParityChange">
+                    <view class="weui-input_10">{{PatientData.parity||'请选择'}}</view>
+                    <!-- <view class="weui-input_10">{{TermList[0].Name}}</view> -->
+                </picker>
+                <!-- <input type="text" value="{{PatientData.parity}}" class="textColor" placeholder-class="textColor" /> -->
+            </view>
+            <view class="imgBox">
+                <image class="textArrow" src="../../img/list_arrow.png" alt="" srcset="" />
+            </view>
+        </view>
+        <view class="cell">
+            <view class="cell_title">
+                <text>末次分娩时间</text>
+            </view>
+            <view class="textBox">
+                <picker mode="multiSelector" value="{{dateTime}}" bindchange="changeDateTime" bindcolumnchange="changeDateTimeColumn" range="{{dateTimeArray}}">
+                    <view>{{PatientData.deliveryLastTime||'请选择'}}</view>
+                </picker>
+            </view>
+            <view class="imgBox">
+                <image class="textArrow" src="../../img/list_arrow.png" alt="" srcset="" />
+            </view>
+        </view>
+        <view class="cell">
+            <view class="cell_title">
+                <text>手机号码</text>
+            </view>
+            <view class="textBox">{{PatientData.mobile}}</view>
+            <view class="imgBox"></view>
+        </view>
+        <view class="cell">
+            <view class="cell_title">
+                <text>就诊卡号</text>
+            </view>
+            <view class="textBox">
+                <text>{{PatientData.cardNumber}}</text>
+            </view>
+        </view>
+    </view>
+    <!-- <view class="historyInfo">
+        <view class="headerTitle">
+            <text>就诊信息</text>
+        </view>
+    </view> -->
     <view class="arrive_btn">
-         <view class="saveBtn" bindtap="saveMyinfo">保存</view>
+        <view class="saveBtn" bindtap="saveMyinfo">保存</view>
     </view>
 </view>

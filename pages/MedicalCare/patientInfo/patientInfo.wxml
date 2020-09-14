@@ -68,6 +68,20 @@
                         </view>
                         <view class="cell">
                             <view class="cell_title">
+                                <text>孕次</text>
+                            </view>
+                            <view class="textBox">{{PatientInfo.gravidity}}</view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>末次月经</text>
+                            </view>
+                            <view class="textBox">
+                                <view>{{PatientInfo.lmp||''}}</view>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
                                 <text>现处阶段</text>
                             </view>
                             <view class="textBox">
@@ -79,34 +93,16 @@
                     </view>
                     <view class="basicInfo">
                         <view class="headerTitle">
-                            <text>基本信息</text>
+                            <text>孕次信息</text>
                         </view>
                         <view class="cell">
                             <view class="cell_title">
-                                <text>姓名</text>
+                                <text>胎数</text>
                             </view>
                             <view class="textBox">
-                                <text>{{PatientInfo.name}}</text>
-                            </view>
-                        </view>
-                        <view class="cell">
-                            <view class="cell_title">
-                                <text>出生日期</text>
-                            </view>
-                            <view class="textBox">
-                                <view>{{PatientInfo.birthday||''}}</view>
-                                <view wx:if="{{PatientAge>=35}}">高龄</view>
-                            </view>
-                        </view>
-                        <view class="cell">
-                            <view class="cell_title">
-                                <text>身高</text>
-                            </view>
-                            <view class="textBox">
-                                <view class="inpText">
-                                    {{PatientInfo.tall}}
-                                    <text>cm</text>
-                                </view>
+                                <view wx:if="{{PatientInfo.numberOfFetus=='1'}}">单胎</view>
+                                <view wx:if="{{PatientInfo.numberOfFetus=='2'}}">双胎</view>
+                                <view wx:if="{{PatientInfo.numberOfFetus=='3'}}">三胎</view>
                             </view>
                         </view>
                         <view class="cell">
@@ -137,44 +133,6 @@
                                     <view wx:else>增重目标：7kg</view>
                                 </view>
                             </view>
-                        </view>
-                        <view class="cell">
-                            <view class="cell_title">
-                                <text>孕次</text>
-                            </view>
-                            <view class="textBox">{{PatientInfo.gravidity}}</view>
-                        </view>
-                        <view class="cell">
-                            <view class="cell_title">
-                                <text>产次</text>
-                            </view>
-                            <view class="textBox">{{PatientInfo.parity}}</view>
-                        </view>
-                        <view class="cell">
-                            <view class="cell_title">
-                                <text>胎数</text>
-                            </view>
-                            <view class="textBox">
-                                <view wx:if="{{PatientInfo.numberOfFetus=='1'}}">单胎</view>
-                                <view wx:if="{{PatientInfo.numberOfFetus=='2'}}">双胎</view>
-                                <view wx:if="{{PatientInfo.numberOfFetus=='3'}}">三胎</view>
-                            </view>
-                        </view>
-                        <view class="cell">
-                            <view class="cell_title">
-                                <text>末次分娩时间</text>
-                            </view>
-                            <view class="textBox">
-                                <view class="tui-picker-detail">
-                                    {{PatientInfo.deliveryLastTime||''}}
-                                </view>
-                            </view>
-                        </view>
-                        <view class="cell">
-                            <view class="cell_title">
-                                <text>手机号码</text>
-                            </view>
-                            <view class="textBox">{{PatientInfo.mobile}}</view>
                         </view>
                         <view class="cell">
                             <view class="cell_title">
@@ -228,27 +186,6 @@
                                 <text>%</text>
                             </view>
                         </view>
-                    </view>
-                    <view class="historyInfo">
-                        <view class="headerTitle">
-                            <text>就诊信息</text>
-                        </view>
-                        <view class="cell">
-                            <view class="cell_title">
-                                <text>就诊卡号</text>
-                            </view>
-                            <view class="textBox">
-                                <text>{{PatientInfo.cardNumber}}</text>
-                            </view>
-                        </view>
-                        <view class="cell">
-                            <view class="cell_title">
-                                <text>末次月经</text>
-                            </view>
-                            <view class="textBox">
-                                <view>{{PatientInfo.lmp||''}}</view>
-                            </view>
-                        </view>
                         <view class="cell">
                             <view class="cell_title">
                                 <view class="cell_title_name">
@@ -268,9 +205,7 @@
                         <view class="cell" wx:if="{{PatientInfo.diabetesB4Gestation==1}}">
                             <view class="cell_title"></view>
                             <view class="textBox">
-                                <view class="">
-                                    {{PatientInfo.diabetesTypeB4GestationValue}}
-                                </view>
+                                <view class="">{{PatientInfo.diabetesTypeB4GestationValue}}</view>
                             </view>
                         </view>
                         <view class="cell">
@@ -297,6 +232,69 @@
                             </view>
                             <view class="textBox">
                                 <view>{{PatientInfo.diabeticFamilyHistory=='1'?'是':'否'}}</view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="">
+                        <view class="headerTitle">
+                            <text>基本信息</text>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>姓名</text>
+                            </view>
+                            <view class="textBox">
+                                <text>{{PatientInfo.name}}</text>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>出生日期</text>
+                            </view>
+                            <view class="textBox">
+                                <view>{{PatientInfo.birthday||''}}</view>
+                                <view wx:if="{{PatientAge>=35}}">高龄</view>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>身高</text>
+                            </view>
+                            <view class="textBox">
+                                <view class="inpText">
+                                    {{PatientInfo.tall}}
+                                    <text>cm</text>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>产次</text>
+                            </view>
+                            <view class="textBox">{{PatientInfo.parity}}</view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>末次分娩时间</text>
+                            </view>
+                            <view class="textBox">
+                                <view class="tui-picker-detail">
+                                    {{PatientInfo.deliveryLastTime||''}}
+                                </view>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>手机号码</text>
+                            </view>
+                            <view class="textBox">{{PatientInfo.mobile}}</view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>就诊卡号</text>
+                            </view>
+                            <view class="textBox">
+                                <text>{{PatientInfo.cardNumber}}</text>
                             </view>
                         </view>
                     </view>

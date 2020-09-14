@@ -98,8 +98,8 @@ Page({
         }],
         professionList: [],
         dateList: years,
-        dateArr:[],
-        timeVal:''
+        dateArr: [],
+        timeVal: ''
     },
 
 
@@ -113,6 +113,45 @@ Page({
 
         } else if (PatientData.gdm == 0) {
             PatientData.gdmYear = ''
+        }
+        if (!self.data.PatientHeight) {
+            wx.showToast({
+                title: '请输入身高',
+                icon: 'none',
+                duration: 3000
+            })
+            return false
+        }
+        if (PatientData.stageCode > 1) {
+            if (!self.data.PatientWeight) {
+                wx.showToast({
+                    title: '请输入孕前体重',
+                    icon: 'none',
+                    duration: 3000
+                })
+                return false
+            } else if (!PatientData.numberOfFetus) {
+                wx.showToast({
+                    title: '请选择胎数',
+                    icon: 'none',
+                    duration: 3000
+                })
+                return false
+            } else if (!PatientData.occupationCode) {
+                wx.showToast({
+                    title: '请选择职业',
+                    icon: 'none',
+                    duration: 3000
+                })
+                return false
+            } else if (!PatientData.lmp) {
+                wx.showToast({
+                    title: '请输入末次月经',
+                    icon: 'none',
+                    duration: 3000
+                })
+                return false
+            }
         }
         promiseRequest({
             method: "POST",
@@ -464,13 +503,12 @@ Page({
 
     },
     changeDateTime(e) {
-        let arr =this.data.dateArr
+        let arr = this.data.dateArr
         let PatientData = this.data.PatientData
-        PatientData.deliveryLastTime = this.data.timeVal 
+        PatientData.deliveryLastTime = this.data.timeVal
         this.setData({
             PatientData,
             dateTime: e.detail.value,
-            dateTimeArray: arr
         });
     },
     changeDateTimeColumn(e) {

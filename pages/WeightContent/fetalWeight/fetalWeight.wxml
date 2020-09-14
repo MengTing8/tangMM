@@ -14,11 +14,11 @@
                     <view wx:for="{{item.items}}" wx:for-item="D" wx:for-index="K" wx:key="K">
                         <view class="content_fetalWeight">
                             <text class="thisFetalWeight">{{D.weight}}g</text>
-                            <text class="lastFetalWeight">{{D.increasement}}g</text>
+                            <!-- <text class="lastFetalWeight">{{D.increasement}}g</text> -->
                         </view>
                         <view class="content_recording">
                             <text>本次记录</text>
-                            <text>环比上次记录</text>
+                            <!-- <text>环比上次记录</text> -->
                         </view>
                         <view class="item_partLength">
                             <view>

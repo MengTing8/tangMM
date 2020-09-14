@@ -193,7 +193,8 @@ Page({
                     svg = unescape(encodeURIComponent(svg));
                     legend2[i].symbol = 'data:image/svg+xml;base64,' + base64.btoa(svg);
                 }
-
+// console.log(option);
+// console.log(legend1);
                 this.setData({
                     legendList1: legend1,
                     legendList2: legend2,
