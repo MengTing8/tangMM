@@ -21,7 +21,6 @@ Component({
      */
     methods: {
         onSaveBtn(e) {
-            console.log(e);
             this.triggerEvent('onSaveBtn', {});
         },
         historyRecordBtn(e) {

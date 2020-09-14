@@ -63,7 +63,7 @@
                         <view class="headerTitle">
                             <text>阶段</text>
                             <view class="stageBox">
-                                <text class="type">糖尿病类型：{{PatientInfo.gdmType}}1型</text>
+                                <text class="type">糖尿病类型：{{PatientInfo.gdmType}}</text>
                             </view>
                         </view>
                         <view class="cell">

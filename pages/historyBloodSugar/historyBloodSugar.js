@@ -146,6 +146,7 @@ Page({
                 }]
             }
         }).then(res => {
+            console.log(res);
             if (res.data.code === '0' && res.data.totalRecord !== '0') {
                 let color = JSON.parse(res.data.data[0].color);
                 let option = JSON.parse(res.data.data[0].option);

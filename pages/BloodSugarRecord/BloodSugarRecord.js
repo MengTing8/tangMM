@@ -10,7 +10,9 @@ let newDate = moment(date[0].time).format('YYYY年MM月DD日')
 let app = getApp()
 moment.locale();
 const tips = {
+    periodSubvalue: '请选择时间段',
     periodCode: '请选择时间段类型',
+    categoryValue: "请选择测量值类型",
     periodSubcode: '请选择具体时间段',
     periodExtraValue: '请输入具体时间段',
     categoryCode: '请选择测量值类型',
@@ -158,11 +160,17 @@ Page({
         }
         for (let i = 0; i < BloodData.length; i++) {
             for (const key in BloodData[i]) {
+                if (BloodData[i].value == '0' && !BloodData[i].categoryValue && !BloodData[i].periodSubvalue) {
+                    BloodData.splice(i,1)
+                }
                 const item = BloodData[i][key]
                 if (key === 'periodExtraValue' && BloodData[i].periodSubcode !== "99") {
                     continue;
                 }
-                if (!item || item.replace(/\s+/g, '').length === 0) {
+                if (key === 'rowMd5' || key === 'id') {
+                    continue;
+                }
+                if (!item || item == '0' || item.replace(/\s+/g, '').length === 0) {
                     wx.showToast({
                         title: tips[key],
                         icon: 'none',
@@ -202,8 +210,8 @@ Page({
                 if (res.data.code === '0') {
                     var ResData = res.data.data[0]
                     self.setData({
-                        categoryValues: ResData.categoryValues,
-                        periodValues: ResData.periodValues
+                        // categoryValues: ResData.categoryValues,
+                        // periodValues: ResData.periodValues
                     })
                     wx.showToast({
                         title: res.data.message,

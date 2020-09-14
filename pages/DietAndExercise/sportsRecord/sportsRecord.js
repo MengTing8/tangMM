@@ -96,6 +96,8 @@ Page({
         let userData = this.data.userData;
         for (let i = 0; i < userData.length; i++) {
             for (const key in userData[i]) {
+                console.log(tips[key]);
+                console.log(key);
                 const item = userData[i][key]
                 if (!item || item.replace(/\s+/g, '').length === 0) {
                     wx.showToast({
