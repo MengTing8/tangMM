@@ -2,7 +2,8 @@ const {
     promiseRequest
 } = require("../../utils/Requests")
 const {
-    getDates, sortFun
+    getDates,
+    sortFun
 } = require("../../utils/util")
 const moment = require('../../utils/moment.min.js');
 let date = getDates(1, new Date());
@@ -347,7 +348,44 @@ Page({
     //     })
     // },
     addRecordList() {
+        let _this = this
         let BloodData = this.data.BloodData
+        let flag = false;
+        const keys = ['periodSubvalue', 'periodCode', 'categoryValue', 'periodSubcode', 'periodExtraValue', 'categoryCode', 'value']
+        for (const i in BloodData) {
+            for (const key of keys) {
+                const value = BloodData[i][key]
+                if (BloodData[i].periodCode !== _this.data.periodCode) {
+                    continue;
+                }
+                if (key === 'periodExtraValue' && BloodData[i].periodSubcode !== "99") {
+                    continue;
+                }
+                if (key === 'rowMd5' || key === 'id' || key == 'sequence') {
+                    continue;
+                }
+                if (value === undefined || value === null) {
+                    flag = true;
+                    break;
+                } else if (value.trim() === "") {
+                    flag = true;
+                    break
+                } else if (value === '0') {
+                    flag = true;
+                    break
+                }
+            }
+        }
+        if (flag) {
+            wx.showToast({
+                icon: 'none',
+                title: '上一组数据各项不能为空',
+                duration: 2000
+            })
+            return
+        }
+
+
         BloodData.push({
             periodCode: this.data.periodCode,
             periodSubcode: '',
