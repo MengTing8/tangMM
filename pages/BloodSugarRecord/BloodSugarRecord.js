@@ -305,7 +305,6 @@ Page({
     bindPeriodChange(e) {
         const index = e.currentTarget.dataset.index
         let BloodData = this.data.BloodData
-        console.log(BloodData);
         let TabsIndex = this.data.TabsIndex
         let val = e.detail.value
         // BloodData[index].periodCode = this.data.periodCode
