@@ -18,32 +18,26 @@
             </view>
         </view>
         <view class="movemrntRecord_content_List">
-                            <!-- 普通 -->
+            <!-- 普通 -->
             <view class="" hidden="{{TabsIndex !==0}}">
                 <view class="ordinary">
                     <view class="header">
-                        <view class="item">
-                            使用时间
-                        </view>
-                        <view class="item">
-                            胰岛素类型
-                        </view>
-                        <view class="item">
-                            使用量(U)
-                        </view>
+                        <view class="item">使用时间</view>
+                        <view class="item">胰岛素类型</view>
+                        <view class="item">使用量(U)</view>
                     </view>
                     <view class="dataList" wx:for="{{userData}}" wx:key="index">
                         <view class="item">
                             <picker mode="selector" value="" range="{{periodValues}}" range-key="{{'value'}}" data-index="{{index}}" bindchange="bindPeriodChange">
-                              <view class="weui-input_10">{{item.periodValue||'请选择'}}</view>
+                                <view class="weui-input_10">{{item.periodValue||'请选择'}}</view>
                             </picker>
                             <view style="display:{{item.periodCode == 99?'block':'none'}}">
-                                <input type="text" placeholder="请输入" data-index="{{index}}" bindinput="bindValueInput" data-type="other" placeholder-class="inputholder" value="{{item.periodOtherValue}}"></input> 
+                                <input type="text" placeholder="请输入" data-index="{{index}}" bindinput="bindValueInput" data-type="other" placeholder-class="inputholder" value="{{item.periodOtherValue}}"></input>
                             </view>
                         </view>
                         <view class="item">
                             <picker mode="selector" value="" range="{{categoryValues}}" range-key="{{'value'}}" data-index="{{index}}" bindchange="bindCategoryChange">
-                              <view class="weui-input_10">{{item.categoryValue||'请选择'}}</view>
+                                <view class="weui-input_10">{{item.categoryValue||'请选择'}}</view>
                             </picker>
                         </view>
                         <view class="item">
@@ -55,8 +49,7 @@
                     </view>
                 </view>
                 <view class="addRecordBtn" bind:tap="addRecordList">添加一组记录</view>
-        <BtnComponents bindonSaveBtn="SaveInsulin" bindhistoryRecordBtn="historyRecordBtn" apiClicked='{{apiClicked}}'></BtnComponents>
-
+                <BtnComponents bindonSaveBtn="SaveInsulin" bindhistoryRecordBtn="historyRecordBtn" apiClicked='{{apiClicked}}'></BtnComponents>
             </view>
             <view class="insulinPump" hidden="{{TabsIndex !==1}}">
                 <view class="mealList">
@@ -69,7 +62,7 @@
                                         <view class="food_name">{{item.periodValue}}</view>
                                         <view class="food_weight">
                                             <view class="food_weight_content">
-                                                <input class="weui-input" type="digit" value="{{item.value}}"  data-index="{{index}}" data-code="{{item.periodCode}}" data-id="{{item.id}}"  data-rowMd5="{{item.rowMd5}}" bindinput="bindMealValueInput" placeholder="请输入" placeholder-class="placeholder_class" />
+                                                <input class="weui-input" type="digit" value="{{item.value}}" data-index="{{index}}" data-code="{{item.periodCode}}" data-id="{{item.id}}" data-rowMd5="{{item.rowMd5}}" bindinput="bindMealValueInput" placeholder="请输入" placeholder-class="placeholder_class" />
                                                 <text>U</text>
                                             </view>
                                         </view>
@@ -82,22 +75,19 @@
                 <view class="mealList">
                     <view class="listTitle_header">
                         <view class="listTitle">基础</view>
-                        <view class="AddListBth  themeTextSize" bind:tap="addDosageList">
-                            添加一条数据
-                        </view>
                     </view>
                     <view class="basicsListContent">
                         <view class="basicsList_Item" wx:for="{{dosageArray}}" wx:key="index">
                             <view class="ItemPickerContent">
                                 <view class="themeTextSize">从</view>
                                 <view class="pickerBox">
-                                    <picker mode="time" value="{{item.timeStart}}" start="00:0" end="23:59" bindchange="bindStartTimeChange" data-index="{{index}}">
+                                    <picker mode="time" value="{{item.timeStart}}" start="00:0" end="" bindchange="bindStartTimeChange" data-index="{{index}}">
                                         <view class="picker">{{item.timeStart || '请选择'}}</view>
                                     </picker>
                                 </view>
                                 <view class="themeTextSize">到</view>
                                 <view class="pickerBox">
-                                    <picker mode="time" value="{{item.timeEnd}}" start="00:00" end="23:59" bindchange="bindEndTimeChange" data-index="{{index}}">
+                                    <picker mode="time" value="{{item.timeEnd}}" start="00:00" end="" bindchange="bindEndTimeChange" data-index="{{index}}">
                                         <view class="picker">{{item.timeEnd || '请选择'}}</view>
                                     </picker>
                                 </view>
@@ -108,16 +98,22 @@
                                     <view class="food_weight_content">
                                         <input class="weui-input" type="digit" value="{{item.value}}" bindinput="bindDosageInput" data-index="{{index}}" placeholder="请输入" placeholder-class="placeholder_class" />
                                         <text>U/h</text>
-                                        <view class="delImgBox" bind:tap="delDosage" data-index="{{index}}" data-id="{{item.id}}"  data-rowMd5="{{item.rowMd5}}">
+                                        <view class="delImgBox" bind:tap="delDosage" data-index="{{index}}" data-id="{{item.id}}" data-rowMd5="{{item.rowMd5}}">
                                             <image src="../../img/del.png" mode="widthFix" />
                                         </view>
                                     </view>
                                 </view>
                             </view>
                         </view>
+                        <view style="display: flex;justify-content: flex-end; margin-top: 30rpx;">
+                            <view class="AddListBth  themeTextSize" bind:tap="addDosageList">
+                                添加一条数据
+                            </view>
+
+                        </view>
                     </view>
                 </view>
-        <BtnComponents bindonSaveBtn="SaveInsulinPump" bindhistoryRecordBtn="historyRecordBtn"  apiClicked='{{apiClicked}}'></BtnComponents>
+                <BtnComponents bindonSaveBtn="SaveInsulinPump" bindhistoryRecordBtn="historyRecordBtn" apiClicked='{{apiClicked}}'></BtnComponents>
             </view>
         </view>
     </view>

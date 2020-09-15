@@ -72,6 +72,8 @@
     font-size: 34rpx;
     font-weight: normal;
     padding: 30rpx;
+    display: flex;
+    justify-content: space-between;
 }
 
 .ItemCard_Info {

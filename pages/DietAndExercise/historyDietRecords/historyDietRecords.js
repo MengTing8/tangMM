@@ -6,12 +6,14 @@ const {
 const {
     getDay,
     sortFun,
-    checkTime
+    checkTime, getPreMonth
 } = require("../../../utils/util")
 const moment = require('../../../utils/moment.min.js');
 let newDate = moment(getDay(0)).format('YYYY年MM月DD日')
-var StarDATE = moment(getDay(-7)).format('YYYY年MM月DD日');
 var EndDATE = newDate
+var dateStart = getPreMonth(getDay(0))
+var StarDATE = moment(dateStart).format('YYYY年MM月DD日');
+
 Page({
 
     /**
@@ -20,19 +22,17 @@ Page({
     data: {
         ec: {},
         TimeObjChart: {
-            StartDt: newDate,
             EndDt: getDay(0),
             StarDATE,
             EndDATE,
-            dateStart: getDay(-7),
+            dateStart,
             dateEnd: getDay(0),
         },
         TimeObj: {
-            StartDt: newDate,
             EndDt: getDay(0),
             StarDATE,
             EndDATE,
-            dateStart: getDay(-7),
+            dateStart,
             dateEnd: getDay(0),
         },
         historyFootList: [],

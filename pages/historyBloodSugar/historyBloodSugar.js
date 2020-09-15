@@ -6,25 +6,23 @@ const {
 const {
     sortFun,
     checkTime,
-    getDay
+    getDay, getPreMonth
 } = require("../../utils/util")
 const moment = require('../../utils/moment.min.js');
 let newDate = moment(getDay(0)).format('YYYY年MM月DD日')
-var StarDATE = moment(getDay(-7)).format('YYYY年MM月DD日');
+var dateStart = getPreMonth(getDay(0))
+var StarDATE = moment(dateStart).format('YYYY年MM月DD日');
 var EndDATE = newDate
 Page({
     /**
      * 页面的初始数据
      */
     data: {
-        // dateStart: getDay(-7),
-        // dateEnd: getDay(0),
         TimeObj: {
-            StartDt: newDate,
             EndDt:getDay(0),
             StarDATE,
             EndDATE,
-            dateStart: getDay(-7),
+            dateStart,
             dateEnd: getDay(0),
         },
         selectedIndex: 0,
@@ -194,8 +192,6 @@ Page({
                     svg = unescape(encodeURIComponent(svg));
                     legend2[i].symbol = 'data:image/svg+xml;base64,' + base64.btoa(svg);
                 }
-// console.log(option);
-// console.log(legend1);
                 this.setData({
                     legendList1: legend1,
                     legendList2: legend2,

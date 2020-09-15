@@ -473,21 +473,21 @@ Page({
         this.calculateBMI()
     },
     bindWeightInput: function (e) {
-        if (this.data.PatientHeight == '' || this.data.PatientHeight == '0' || this.data.PatientHeight == null) {
-            wx.showToast({
-                title: '请输入身高',
-                icon: 'none',
-                duration: 2000
-            })
-            this.setData({
-                PatientWeight: e.detail.value
-            })
-        } else {
+        // if (this.data.PatientHeight == '' || this.data.PatientHeight == '0' || this.data.PatientHeight == null) {
+        //     wx.showToast({
+        //         title: '请输入身高',
+        //         icon: 'none',
+        //         duration: 2000
+        //     })
+        //     this.setData({
+        //         PatientWeight: e.detail.value
+        //     })
+        // } else {
             this.setData({
                 PatientWeight: e.detail.value
             })
             this.calculateBMI()
-        }
+        // }
 
     },
     bindAgeChange(e) {

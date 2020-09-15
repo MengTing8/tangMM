@@ -106,7 +106,6 @@ Page({
                     }]
                 }
             }).then(res => {
-                console.log(res, "保存");
                 if (res.data.code === '0') {
                     var ResData = res.data.data[0]
                     self.setData({
@@ -154,7 +153,6 @@ Page({
                 }]
             }
         }).then(res => {
-            console.log(res, "获取宝妈空腹体重");
             if (res.data.code === '0') {
                 // var ResData = res.data.data
                 if (res.data.data.length > 0) {

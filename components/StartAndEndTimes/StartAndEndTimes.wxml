@@ -13,7 +13,7 @@
     <view class="timeColor">至</view>
     <view class="endTime">
         <view class="">
-            <picker mode="date" value="{{TimeObj.dateEnd}}" start="{{TimeObj.StartDt}}" end="{{TimeObj.EndDt}}" bindchange="bindEndTimeChange">
+            <picker mode="date" value="{{TimeObj.dateEnd}}" start="2018-01-01" end="{{TimeObj.EndDt}}" bindchange="bindEndTimeChange">
                 <view class="timeColor">结束日期</view>
                 <view class="">{{TimeObj.EndDATE}}</view>
             </picker>

@@ -14,7 +14,6 @@
                 <view class="delBox" bindtap="DeleteCurrentData" data-date="{{dateRecord}}">
                     <image src="../../img/del.png" class="img" />
                 </view>
-                <!-- <van-icon name="arrow" size="34rpx" /> -->
             </view>
         </view>
         <view class="dataRecord">
@@ -39,7 +38,7 @@
                 </view>
                 <view class="dataInfoList" wx:for="{{dataArray}}" wx:key="index">
                     <view class="dataInfoItem">
-                        <picker mode="time" value="{{item.time}}" start="00:00" end="23:59" bindchange="bindTimeChange" data-index="{{index}}">
+                        <picker mode="time" value="{{item.time}}" start="00:00" end="" bindchange="bindTimeChange" data-index="{{index}}">
                             <view class="picker">{{item.time || '请选择'}}</view>
                         </picker>
                     </view>
@@ -52,7 +51,6 @@
                     <view class="dataInfoItem">
                         <input type="digit" placeholder="请输入" class="{{item.diastolicPressure>=60&&item.diastolicPressure<90?'':'phClassRed'}}" placeholder-class="phClass" value="{{item.diastolicPressure}}" data-index="{{index}}" bindinput="bindDiastolicPreInput" />
                     </view>
-                    <!-- wx:if="{{index>=1}}" -->
                     <view class="delBox" bindtap="delRecord" data-index="{{index}}" data-id="{{item.id}}" data-rowMd5="{{item.rowMd5}}">
                         <image src="../../img/del.png" class="img" />
                     </view>
@@ -60,7 +58,7 @@
             </view>
             <view class="addRecordBtn" bind:tap="addRecordList">添加一组记录</view>
         </view>
-        <view class="cell">
+        <view class="cell" style="align-items: center;">
             <view class="cell_title">
                 <text>宫高</text>
             </view>
@@ -69,10 +67,10 @@
             </view>
             <view class="cell_arrow">
                 <text>cm</text>
-                <van-icon name="arrow" size="34rpx" />
             </view>
+            <text class="RightArrow"></text>
         </view>
-        <view class="cell">
+        <view class="cell" style="align-items: center;">
             <view class="cell_title">
                 <text>腹围</text>
             </view>
@@ -81,10 +79,10 @@
             </view>
             <view class="cell_arrow">
                 <text>cm</text>
-                <van-icon name="arrow" size="34rpx" />
             </view>
+            <text class="RightArrow"></text>
         </view>
-        <view class="cell">
+        <view class="cell" style="align-items: center;">
             <view class="cell_title">
                 <text>糖化血红蛋白</text>
             </view>
@@ -93,9 +91,9 @@
             </view>
             <view class="cell_arrow">
                 <text>%</text>
-                <van-icon name="arrow" size="34rpx" />
             </view>
+            <text class="RightArrow"></text>
         </view>
     </view>
-    <BtnComponents bindonSaveBtn="SaveBasicdata" bindhistoryRecordBtn="tapHistory"  apiClicked='{{apiClicked}}'></BtnComponents>
+    <BtnComponents bindonSaveBtn="SaveBasicdata" bindhistoryRecordBtn="tapHistory" apiClicked='{{apiClicked}}'></BtnComponents>
 </view>

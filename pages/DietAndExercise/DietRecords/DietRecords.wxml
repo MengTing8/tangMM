@@ -57,11 +57,11 @@
                         </view>
                         <view class="pickerContent">
                             <view class="pickerBox">
-                                <picker mode="time" value="{{item.time}}" start="00:00" end="23:59" bindchange="bindTimeChange" data-index="{{index}}">
+                                <picker mode="time" value="{{item.time}}" start="00:00" end="" bindchange="bindTimeChange" data-index="{{index}}">
                                     <view class="picker">{{item.time || '用餐时间'}}</view>
                                 </picker>
                             </view>
-                            <view class="itemBox_rightArrow"></view>
+                            <view class="food_rightArrow"></view>
                         </view>
                         <view class="pickerContent">
                             <view class="pickerBox">
@@ -69,7 +69,7 @@
                                     <view class="picker">{{item.categoryValue || '请选择'}}</view>
                                 </picker>
                             </view>
-                            <view class="itemBox_rightArrow"></view>
+                            <view class="food_rightArrow"></view>
                         </view>
                     </view>
                 </view>
@@ -87,7 +87,7 @@
                     </view>
                     <view class="uploaderListContent">
                         <view class="uploaderImgBox" data-index="{{index}}" bind:tap="UploadCourseware">
-                            <van-icon name="photograph" color="#CDCDCD" size="48rpx" />
+                            <van-icon name="photograph" color="#CDCDCD" size="48rpx" wx:if="{{item}}"/>
                             <view class="unifyFont">上传照片</view>
                         </view>
                         <view class="PhotoShwoContent" wx:for="{{item.photo}}" wx:for-item="P" wx:for-index="D" wx:key="D" wx:if='{{P.url}}'>

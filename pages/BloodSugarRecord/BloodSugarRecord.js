@@ -2,7 +2,7 @@ const {
     promiseRequest
 } = require("../../utils/Requests")
 const {
-    getDates
+    getDates, sortFun
 } = require("../../utils/util")
 const moment = require('../../utils/moment.min.js');
 let date = getDates(1, new Date());
@@ -136,6 +136,7 @@ Page({
                         }
                     }
                 });
+                arr.sort(sortFun(`sequence`))
                 self.setData({
                     resBloodData: res.data.data,
                     BloodData: arr,
@@ -161,14 +162,17 @@ Page({
         for (let i = 0; i < BloodData.length; i++) {
             for (const key in BloodData[i]) {
                 if (BloodData[i].value == '0' && !BloodData[i].categoryValue && !BloodData[i].periodSubvalue) {
-                    BloodData.splice(i,1)
+                    BloodData.splice(i, 1)
                 }
-                const item = BloodData[i][key]
                 if (key === 'periodExtraValue' && BloodData[i].periodSubcode !== "99") {
                     continue;
                 }
-                if (key === 'rowMd5' || key === 'id') {
+                if (key === 'rowMd5' || key === 'id' || key == 'sequence') {
                     continue;
+                }
+                let item = ''
+                if (BloodData[i]) {
+                    item = BloodData[i][key]
                 }
                 if (!item || item == '0' || item.replace(/\s+/g, '').length === 0) {
                     wx.showToast({
@@ -300,9 +304,10 @@ Page({
     bindPeriodChange(e) {
         const index = e.currentTarget.dataset.index
         let BloodData = this.data.BloodData
+        console.log(BloodData);
         let TabsIndex = this.data.TabsIndex
         let val = e.detail.value
-        BloodData[index].periodCode = this.data.periodCode
+        // BloodData[index].periodCode = this.data.periodCode
         BloodData[index].periodSubvalue = this.data.resBloodData[TabsIndex].periodSubcodeValues[val].value
         BloodData[index].periodSubcode = this.data.resBloodData[TabsIndex].periodSubcodeValues[val].code
         this.setData({

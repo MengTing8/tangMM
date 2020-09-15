@@ -6,32 +6,26 @@ const {
 } = require("../../../utils/Requests")
 const {
     getDay,
-    checkTime
+    checkTime, getPreMonth
 } = require("../../../utils/util")
 const moment = require('../../../utils/moment.min.js');
 let newDate = moment(getDay(0)).format('YYYY年MM月DD日')
-var StarDATE = moment(getDay(-7)).format('YYYY年MM月DD日');
 var EndDATE = newDate
+var dateStart = getPreMonth(getDay(0))
+var StarDATE = moment(dateStart).format('YYYY年MM月DD日');
 const gas = []
 const days = []
 for (let i = 0; i <= 40; i++) {
     gas.push(i + '周')
 }
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
-
         CurrentShowDate: true,
-        // CurrentShowWeek: false,
         TimeObj: {
-            StartDt: newDate,
             EndDt:getDay(0),
             StarDATE,
             EndDATE,
-            dateStart: getDay(-7),
+            dateStart,
             dateEnd: getDay(0),
         },
         ec: {},
@@ -99,7 +93,8 @@ Page({
             url: '/wxrequest',
             data: {
                 "token": wx.getStorageSync('token'),
-                "function": "getWeightList",
+                // "function": "getWeightListNew",
+                    "function": "getWeightList", 
                 "data": [{
                     "type":type,
                     "gestationalWeek": self.data.GA,
@@ -111,10 +106,12 @@ Page({
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
                 for (let key in ResData.items) {
-                    ResData.items[key].date = moment(ResData.items[key].date).format('YYYY年MM月DD日')
+                    ResData.items[key].list.sort(function (a, b) {
+                        return a.date < b.date ? 1 : -1;
+                    });
                 }
                 ResData.items.sort(function (a, b) {
-                    return a.date < b.date ? 1 : -1;
+                    return a.sequence < b.sequence ? 1 : -1;
                 });
 
                 self.setData({

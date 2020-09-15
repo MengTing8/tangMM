@@ -112,13 +112,6 @@
 
 }
 
-.itemBox_rightArrow {
-    width: 12rpx;
-    height: 12rpx;
-    border-top: 2rpx solid #B1B1B1;
-    border-right: 2rpx solid #B1B1B1;
-    transform: rotate(45deg);
-}
 .msgBox {
     padding: 50rpx 0 100rpx 0;
 }

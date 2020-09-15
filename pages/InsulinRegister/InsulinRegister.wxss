@@ -43,16 +43,6 @@ padding: 60rpx;
     color: rgba(18, 18, 18, 1);
     line-height: 42rpx;
 }
-
-
-.itemBox_rightArrow {
-    width: 12rpx;
-    height: 12rpx;
-    border-top: 2rpx solid #B1B1B1;
-    border-right: 2rpx solid #B1B1B1;
-    transform: rotate(45deg);
-}
-
 .itemBox_title {
     width: 230rpx;
     margin-left: 20rpx;
@@ -60,9 +50,7 @@ padding: 60rpx;
     color: rgba(153, 153, 153, 1);
     line-height: 40rpx;
 }
-.insulinRegiterMiddle{
-    /* padding: ; */
-}
+
 .getBeforeData{
     text-align: center;
     color:#FE9800;
@@ -217,10 +205,11 @@ margin-left: 20rpx;
 .AddListBth{
     border-radius:15px;
     border:1px solid rgba(242, 242, 242, 1);
-    font-size: 24rpx;
-    padding: 8rpx 20rpx;
+    font-size: 26rpx;
+    padding: 12rpx 20rpx;
     text-align: center;
-    margin-right: 30rpx;
+    margin-right: 20rpx;
+    width: 200rpx;
 }
 
 /* 修改 */

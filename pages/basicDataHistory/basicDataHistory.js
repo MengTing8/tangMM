@@ -5,12 +5,15 @@ const {
 } = require("../../utils/Requests")
 const {
     checkTime,
-    getDay
+    getDay,
+    getPreMonth
 } = require("../../utils/util")
 const moment = require('../../utils/moment.min.js');
 let newDate = moment(getDay(0)).format('YYYY年MM月DD日')
-var StarDATE = moment(getDay(-7)).format('YYYY年MM月DD日');
 var EndDATE = newDate
+var dateStart = getPreMonth(getDay(0))
+var StarDATE = moment(dateStart).format('YYYY年MM月DD日');
+
 Page({
 
     /**
@@ -22,10 +25,10 @@ Page({
             EndDt: getDay(0),
             StarDATE,
             EndDATE,
-            dateStart: getDay(-7),
+            dateStart,
             dateEnd: getDay(0),
         },
-        dateStart: getDay(-7),
+        dateStart,
         dateEnd: getDay(0),
         selectedIndex: 0,
         listData: [],
@@ -203,11 +206,11 @@ Page({
     onLoad: function (options) {
         this.echartsComponent = this.selectComponent('#mychart-dom-basicData');
         this.getBaseList()
-         if (wx.getStorageSync('userType') == '1') {
-             wx.setNavigationBarTitle({
-                 title: '基础数据'
-             })
-         }
+        if (wx.getStorageSync('userType') == '1') {
+            wx.setNavigationBarTitle({
+                title: '基础数据'
+            })
+        }
     },
 
     /**

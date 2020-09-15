@@ -10,12 +10,13 @@ for (let i = 0; i <= 40; i++) {
 const {
     getDay,
     checkTime,
-    sortFun
+    sortFun, getPreMonth
 } = require("../../utils/util")
 const moment = require('../../utils/moment.min.js');
 let newDate = moment(getDay(0)).format('YYYY年MM月DD日')
-var StarDATE = moment(getDay(-7)).format('YYYY年MM月DD日');
 var EndDATE = newDate
+var dateStart = getPreMonth(getDay(0))
+var StarDATE = moment(dateStart).format('YYYY年MM月DD日');
 for (let i = 0; i <= 6; i++) {
     days.push(i + '天')
 }
@@ -35,7 +36,7 @@ Page({
             EndDt: getDay(0),
             StarDATE,
             EndDATE,
-            dateStart: getDay(-7),
+            dateStart,
             dateEnd: getDay(0),
         },
         selectedIndex: 0,

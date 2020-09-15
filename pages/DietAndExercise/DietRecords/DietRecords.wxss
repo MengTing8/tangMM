@@ -213,7 +213,7 @@
     margin-left: 14rpx;
 }
 
-.itemBox_rightArrow {
+.food_rightArrow {
     width: 12rpx;
     height: 12rpx;
     border-top: 2rpx solid #B1B1B1;

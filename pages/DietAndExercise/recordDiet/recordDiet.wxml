@@ -1,7 +1,7 @@
 <view class="vanSearchBox" bind:tap="">
     <van-search value="{{SearchValue}}" placeholder="搜索关键字" shape="round" field-class="fieldClass" bind:change="bindSearch" />
 </view>
-<view class="courseware_content" wx:if="{{ShowTab}}">
+<view class="courseware_content"  hidden="{{!ShowTab}}">
     <scroll-view class="'scrollContainer' " scroll-left="{{navScrollLeft}}" scroll-x="{{true}}" scroll-with-animation="{{true}}">
         <view class="itemBg">
             <view class="end-cont-title">
