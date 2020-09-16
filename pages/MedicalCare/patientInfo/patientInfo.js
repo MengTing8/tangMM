@@ -282,7 +282,7 @@ Page({
             NurseId: options.NurseId
         })
         wx.setStorageSync('PatientId', options.patientId)
-        this.getMyRecord4Nurse()
+        // this.getMyRecord4Nurse()
     },
 
     /**
