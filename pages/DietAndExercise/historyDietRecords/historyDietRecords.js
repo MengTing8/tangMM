@@ -78,8 +78,9 @@ Page({
                 let ResData = res.data.data
                 let newData = []
                 let flag
-                let arr = Object.keys(ResData[0]);
-                if (arr.length !== 0) {
+                // let arr = Object.keys(ResData[0]);
+                // console.log(arr);
+                // if (ResData.length !== 0) {
                     // ResData.forEach((item) => {
                     //     console.log(item);
                     //     item.items.forEach(i => {
@@ -99,12 +100,16 @@ Page({
                         return a.date < b.date ? 1 : -1;
                     });
                     for (const key in ResData) {
+                        if (ResData[key].items) {
                         ResData[key].items.sort(sortFun(`sequence`))
+                        }
                     }
                     _that.setData({
                         historyFootList: ResData,
                     })
-                }
+                // }else{
+                //    
+                // }
 
             } else {
                 wx.showToast({
