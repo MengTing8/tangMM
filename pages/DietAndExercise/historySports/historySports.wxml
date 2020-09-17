@@ -4,7 +4,12 @@
         <view hidden="{{selectedIndex==1}}">
             <view class="historyList">
                 <view class="ItemCard" wx:for="{{ExerciseList}}" wx:key="index" wx:if="{{item.date}}">
-                    <view class="ItemCard_Time">{{item.date}}</view>
+                    <view class="ItemCard_Time">
+                        <view>{{item.date}}</view>
+                        <view style="color: #999999;font-size: 28rpx;margin-right: 30rpx;">
+                            {{item.week}}
+                        </view>
+                    </view>
                     <view wx:for="{{item.children}}" wx:for-item="i" wx:for-index="d" class="ItemCardBox" wx:key="d">
                         <view class="ItemCard_Info">
                             <view>时段：{{i.periodValue}}</view>

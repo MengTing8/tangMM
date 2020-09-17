@@ -17,6 +17,8 @@
     font-size: 34rpx;
     font-weight: normal;
     /* margin-bottom: 30rpx; */
+    display: flex;
+    justify-content: space-between;
 }
 .ItemCard_Info {
     display: flex;

@@ -55,6 +55,7 @@ Page({
                      if (!flag) {
                          afterData.push({
                              date: item.date,
+                             week:item.week,
                              children: [item]
                          })
                      } else {

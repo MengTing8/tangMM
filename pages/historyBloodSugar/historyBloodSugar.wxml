@@ -3,10 +3,21 @@
     <view style="display:{{selectedIndex==1?'none':'block'}}">
         <view class="bloodSugarInfoLIst">
             <view class="listCard" wx:for="{{BloodGlucoseList}}" wx:key="index" wx:if="{{item.date}}">
-                <view class="listCard_top">{{item.date}}</view>
+                <view class="listCard_top">
+                    <view>{{item.date}}</view>
+                    <view style="color: #999999;font-size: 28rpx;margin-right: 30rpx;">
+                        {{item.week}}
+                    </view>
+                </view>
                 <view class="listCard_bottom">
                     <view class="listCard_bottom_content  unifyFont">
-                        <view  wx:for="{{item.items}}" wx:for-item="items" wx:for-index="Id" wx:key="Id">{{items.periodSubvalue}}<text wx:if="{{items.periodExtraValue}}">{{items.periodExtraValue}}</text>：{{items.categoryValue}} {{items.value}}</view>
+                        <view wx:for="{{item.items}}" wx:for-item="items" wx:for-index="Id" wx:key="Id">
+                            {{items.periodSubvalue}}
+                            <text wx:if="{{items.periodExtraValue}}">
+                                {{items.periodExtraValue}}
+                            </text>
+                            ：{{items.categoryValue}} {{items.value}}
+                        </view>
                         <!-- <view>{{items.periodSubvalue}}：{{items.value}}</view>
                         <view>血糖类型：{{items.categoryValue}}</view> -->
                     </view>

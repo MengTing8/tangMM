@@ -122,6 +122,14 @@ Page({
             })
             return false
         }
+        if (!PatientData.gravidity) {
+              wx.showToast({
+                  title: '请输入孕次',
+                  icon: 'none',
+                  duration: 3000
+              })
+              return false
+        }
         if (PatientData.stageCode > 1) {
             if (!self.data.PatientWeight) {
                 wx.showToast({

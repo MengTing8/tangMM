@@ -13,6 +13,7 @@
         </view>
         <view class="cell">
             <view class="cell_title">
+                <text style="color:red">*</text>
                 <text>孕次</text>
             </view>
             <view class="textBox">
@@ -79,10 +80,10 @@
             </view>
             <view class="textBoxView">
                 <view class="inpText">
-                    <input type="text" value="{{PatientWeight=='0'||PatientWeight=='0.00'?'':PatientWeight}}" class="textColor" placeholder-class="textColor" bindinput="bindWeightInput" placeholder="请输入" />
+                    <input type="text" value="{{PatientWeight}}" class="textColor" placeholder-class="textColor" bindinput="bindWeightInput" placeholder="请输入" />
                     <text>kg</text>
                 </view>
-                <view style="font-size: 22rpx;display: flex" wx:if="{{BMI>0}}">
+                <view style="font-size: 22rpx;display: flex" wx:if="{{BMI>0&&BMI!=='Infinity'}}">
                     <view style="padding-right:12rpx">BMI：{{BMI}}</view>
                     |
                     <view style="padding:0 12rpx">{{suggestion}}</view>
@@ -125,7 +126,7 @@
                 <text>空腹</text>
             </view>
             <view class="clPadding_textBox">
-                <input type="digit" value="{{PatientData.ogtt_0=='0'||PatientData.ogtt_0=='0.00'?'':PatientData.ogtt_0}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindOgtt_0Input" />
+                <input type="digit" value="{{PatientData.ogtt_0}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindOgtt_0Input" />
             </view>
             <view class="clPadding_imgBox">
                 <text class="unitsBox">mmol/L</text>
@@ -137,7 +138,7 @@
                 <text>1小时</text>
             </view>
             <view class="clPadding_textBox">
-                <input type="digit" value="{{PatientData.ogtt_1=='0'||PatientData.ogtt_1=='0.00'?'':PatientData.ogtt_1}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindOgtt_1Input" />
+                <input type="digit" value="{{PatientData.ogtt_1}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindOgtt_1Input" />
             </view>
             <view class="clPadding_imgBox">
                 <text class="unitsBox">mmol/L</text>
@@ -149,7 +150,7 @@
                 <text>2小时</text>
             </view>
             <view class="clPadding_textBox">
-                <input type="digit" value="{{PatientData.ogtt_2=='0'||PatientData.ogtt_2=='0.00'?'':PatientData.ogtt_2}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindOgtt_2Input" />
+                <input type="digit" value="{{PatientData.ogtt_2}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindOgtt_2Input" />
             </view>
             <view class="clPadding_imgBox">
                 <text class="unitsBox">mmol/L</text>
@@ -161,7 +162,7 @@
                 <text>糖化血红蛋白</text>
             </view>
             <view class="clPadding_textBox">
-                <input type="digit" value="{{PatientData.hba1c=='0'||PatientData.hba1c=='0.00'?'':PatientData.hba1c}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindHba1cInput" />
+                <input type="digit" value="{{PatientData.hba1c}}" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="bindHba1cInput" />
             </view>
             <view class="clPadding_imgBox">
                 <text class="unitsBox">%</text>
@@ -285,7 +286,7 @@
             </view>
             <view class="textBox">
                 <view class="inpText">
-                    <input type="text" value="{{PatientHeight=='0'?'':PatientHeight}}" class="textColor" placeholder-class="textColor" bindinput="bindHeightInput" placeholder="请输入" />
+                    <input type="text" value="{{PatientHeight}}" class="textColor" placeholder-class="textColor" bindinput="bindHeightInput" placeholder="请输入" />
                     <text>cm</text>
                 </view>
             </view>
