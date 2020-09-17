@@ -8,7 +8,7 @@
                 <view>
                     <view class="userName">{{ProjectsData.name}}</view>
                     <view>{{ProjectsData.description}}</view>
-                    <view>糖尿病{{ProjectsData.gdmType}}</view>
+                    <view>糖尿病:{{ProjectsData.gdmType}}</view>
                 </view>
             </view>
             <view class="pagesHeader_ImgBox">
