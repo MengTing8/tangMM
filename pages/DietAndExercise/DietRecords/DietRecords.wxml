@@ -8,23 +8,23 @@
             </view>
             <view class="table">
                 <view class="tr tableFont">
-                    <view class="th">热量</view>
+                    <view class="tha">热量</view>
                     <view class="th">蛋白质</view>
                     <view class="th">碳水化合物</view>
-                    <view class="th">脂肪</view>
+                    <view class="ths">脂肪</view>
                 </view>
                 <block>
-                    <view class="tr bg-g">
-                        <view class="td">{{rniList.heat.suggestion}}</view>
-                        <view class="td">{{rniList.protein.suggestion}}</view>
-                        <view class="td">{{rniList.carbo.suggestion}}</view>
-                        <view class="td">{{rniList.fat.suggestion}}</view>
+                    <view class="tr">
+                        <view class="td tha">{{rniList.heat.suggestion}}</view>
+                        <view class="td th">{{rniList.protein.suggestion}}</view>
+                        <view class="td th">{{rniList.carbo.suggestion}}</view>
+                        <view class="td th">{{rniList.fat.suggestion}}</view>
                     </view>
                     <view class="tr">
-                        <view class="td">{{rniList.heat.actual}}</view>
-                        <view class="td">{{rniList.protein.actual}}</view>
-                        <view class="td">{{rniList.carbo.actual}}</view>
-                        <view class="td">{{rniList.fat.actual}}</view>
+                        <view class="td tha">{{rniList.heat.actual}}</view>
+                        <view class="td th">{{rniList.protein.actual}}</view>
+                        <view class="td th">{{rniList.carbo.actual}}</view>
+                        <view class="td th">{{rniList.fat.actual}}</view>
                     </view>
                 </block>
             </view>

@@ -30,15 +30,31 @@
 }
 
 .td {
-    flex: 1;
-    justify-content: left;
-    /* text-align: center; */
     color: #999999;
     font-size: 24rpx;
-    /* padding-right: 6rpx; */
+}
+
+.tha {
+    flex: 3;
+    justify-content: left;
+    display: flex;
+    line-height: 58rpx;
+    align-items: center;
 }
 
 .th {
+    flex: 2;
+    justify-content: left;
+    display: flex;
+    line-height: 58rpx;
+    align-items: center;
+}
+
+.ths {
+    flex: 2;
+    text-align: center;
+}
+/* .th {
     flex: 1;
     justify-content: left;
     display: flex;
@@ -46,7 +62,7 @@
     align-items: center;
     padding-right: 6rpx;
 
-}
+} */
 
 .tableFont {
     /* color: #9B884F;

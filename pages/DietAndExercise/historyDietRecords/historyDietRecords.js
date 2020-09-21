@@ -52,7 +52,7 @@ Page({
             ind,
             d
         } = e.currentTarget.dataset;
-        const urls = this.data.historyFootList[ind].children[d].photo.map(v => v.url);
+        const urls = this.data.historyFootList[ind].items[d].photo.map(v => v.url);
         const current = urls[pindex];
         wx.previewImage({
             current,

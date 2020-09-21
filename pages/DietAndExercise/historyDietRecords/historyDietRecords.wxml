@@ -15,23 +15,23 @@
                         </view>
                         <view class="table">
                             <view class="tr tableFont" wx:if="{{item.suggestion||item.actual}}">
-                                <view class="th">热量</view>
+                                <view class="tha">热量</view>
                                 <view class="th">蛋白质</view>
                                 <view class="th">碳水化合物</view>
-                                <view class="th">脂肪</view>
+                                <view class="ths">脂肪</view>
                             </view>
                             <block>
-                                <view class="tr bg-g" wx:if="{{item.suggestion.heat}}">
-                                    <view class="td">{{item.suggestion.heat}}</view>
-                                    <view class="td">{{item.suggestion.protein}}</view>
-                                    <view class="td">{{item.suggestion.carbo}}</view>
-                                    <view class="td">{{item.suggestion.fat}}</view>
+                                <view class="tr" wx:if="{{item.suggestion.heat}}">
+                                    <view class="td tha">{{item.suggestion.heat}}</view>
+                                    <view class="td th">{{item.suggestion.protein}}</view>
+                                    <view class="td th">{{item.suggestion.carbo}}</view>
+                                    <view class="td th">{{item.suggestion.fat}}</view>
                                 </view>
                                 <view class="tr" wx:if="{{item.actual}}">
-                                    <view class="td">{{item.actual.heat}}</view>
-                                    <view class="td">{{item.actual.protein}}</view>
-                                    <view class="td">{{item.actual.carbo}}</view>
-                                    <view class="td">{{item.actual.fat}}</view>
+                                    <view class="td tha">{{item.actual.heat}}</view>
+                                    <view class="td th">{{item.actual.protein}}</view>
+                                    <view class="td th">{{item.actual.carbo}}</view>
+                                    <view class="td th">{{item.actual.fat}}</view>
                                 </view>
                             </block>
                         </view>

@@ -101,8 +101,6 @@ Page({
         dateArr: [],
         timeVal: ''
     },
-
-
     //保存个人信息
     saveMyinfo() {
         let self = this

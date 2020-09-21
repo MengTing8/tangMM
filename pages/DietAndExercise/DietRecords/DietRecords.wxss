@@ -39,37 +39,32 @@
 }
 
 .td {
-    flex: 1;
-    justify-content: left;
-    /* text-align: center; */
     color: #D07C00;
     font-size: 28rpx;
-    padding-right: 6rpx;
+}
+.tha {
+  flex: 3;
+  justify-content: left;
+  display: flex;
+  line-height: 58rpx;
+  align-items: center;
 }
 
 .th {
-    flex: 1;
+     flex: 2;
     justify-content: left;
     display: flex;
     line-height: 58rpx;
     align-items: center;
-    padding-right: 6rpx;
-
 }
-
+.ths{
+     flex: 2;
+    text-align: center;
+}
 .tableFont {
     color: #9B884F;
     font-size: 28rpx;
 }
-
-.DietRecordsListBox {}
-
-.enteringList {}
-
-.inputList {
-    /* display: flex; */
-}
-
 .inputList text {
     color: #CDCDCD;
 }
