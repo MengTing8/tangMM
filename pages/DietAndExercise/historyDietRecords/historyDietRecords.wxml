@@ -23,15 +23,15 @@
                             <block>
                                 <view class="tr" wx:if="{{item.suggestion.heat}}">
                                     <view class="td tha">{{item.suggestion.heat}}</view>
-                                    <view class="td th">{{item.suggestion.protein}}</view>
-                                    <view class="td th">{{item.suggestion.carbo}}</view>
-                                    <view class="td th">{{item.suggestion.fat}}</view>
+                                    <view class="td th textRight">{{item.suggestion.protein}}</view>
+                                    <view class="td th textRight">{{item.suggestion.carbo}}</view>
+                                    <view class="td th textRight">{{item.suggestion.fat}}</view>
                                 </view>
                                 <view class="tr" wx:if="{{item.actual}}">
                                     <view class="td tha">{{item.actual.heat}}</view>
-                                    <view class="td th">{{item.actual.protein}}</view>
-                                    <view class="td th">{{item.actual.carbo}}</view>
-                                    <view class="td th">{{item.actual.fat}}</view>
+                                    <view class="td th textRight">{{item.actual.protein}}</view>
+                                    <view class="td th textRight">{{item.actual.carbo}}</view>
+                                    <view class="td th textRight">{{item.actual.fat}}</view>
                                 </view>
                             </block>
                         </view>

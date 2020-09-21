@@ -16,15 +16,15 @@
                 <block>
                     <view class="tr">
                         <view class="td tha">{{rniList.heat.suggestion}}</view>
-                        <view class="td th">{{rniList.protein.suggestion}}</view>
-                        <view class="td th">{{rniList.carbo.suggestion}}</view>
-                        <view class="td th">{{rniList.fat.suggestion}}</view>
+                        <view class="td th textRight">{{rniList.protein.suggestion}}</view>
+                        <view class="td th textRight">{{rniList.carbo.suggestion}}</view>
+                        <view class="td th textRight">{{rniList.fat.suggestion}}</view>
                     </view>
                     <view class="tr">
                         <view class="td tha">{{rniList.heat.actual}}</view>
-                        <view class="td th">{{rniList.protein.actual}}</view>
-                        <view class="td th">{{rniList.carbo.actual}}</view>
-                        <view class="td th">{{rniList.fat.actual}}</view>
+                        <view class="td th textRight">{{rniList.protein.actual}}</view>
+                        <view class="td th textRight">{{rniList.carbo.actual}}</view>
+                        <view class="td th textRight">{{rniList.fat.actual}}</view>
                     </view>
                 </block>
             </view>

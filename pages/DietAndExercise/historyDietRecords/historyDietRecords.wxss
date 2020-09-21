@@ -11,6 +11,8 @@
 
 .table {
     flex: 2;
+    margin-right: 10rpx;
+
 }
 
 .tableTitle {
@@ -23,7 +25,7 @@
 .tr {
     display: flex;
     width: 100%;
-    justify-content: left;
+    /* justify-content: right; */
     line-height: 58rpx;
     align-items: center;
 
@@ -36,7 +38,7 @@
 
 .tha {
     flex: 3;
-    justify-content: left;
+    /* justify-content: right; */
     display: flex;
     line-height: 58rpx;
     align-items: center;
@@ -44,10 +46,10 @@
 
 .th {
     flex: 2;
-    justify-content: left;
-    display: flex;
+    /* justify-content: right; */
+    /* display: flex; */
     line-height: 58rpx;
-    align-items: center;
+    /* align-items: center; */
 }
 
 .ths {

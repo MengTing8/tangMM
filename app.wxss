@@ -1,6 +1,10 @@
 .TimeContent {
     margin-bottom: 30rpx;
 }
+.textRight {
+    text-align: right;
+
+}
 .unifyFont {
     color: #999999;
     font-size: 24rpx;
