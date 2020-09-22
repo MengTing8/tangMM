@@ -162,8 +162,9 @@ Page({
         }
         for (let i = 0; i < BloodData.length; i++) {
             for (const key in BloodData[i]) {
-                if (BloodData[i].value == '0' && !BloodData[i].categoryValue && !BloodData[i].periodSubvalue) {
+                if (!BloodData[i].value&& !BloodData[i].categoryValue && !BloodData[i].periodSubvalue) {
                     BloodData.splice(i, 1)
+                    i=i-1
                 }
                 if (key === 'periodExtraValue' && BloodData[i].periodSubcode !== "99") {
                     continue;
@@ -185,7 +186,6 @@ Page({
                 }
             }
         }
-
         for (let i = 0; i < BloodData.length; i++) {
             BloodData[i].entity = 'bloodGlucose';
             BloodData[i].patientId = app.globalData.patientId;

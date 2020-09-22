@@ -53,7 +53,8 @@ Page({
         legendList: [],
         tagList: [],
         selectedTagList: [],
-        InsulinListByWeek: []
+        InsulinListByWeek: [],
+        CurrentPage:0
     },
     getInsulinPumpList() {
         let self = this
@@ -64,7 +65,9 @@ Page({
                 data: {
                     "token": wx.getStorageSync('token'),
                     "function": "getInsulinPumpList",
-                    "data": [{}]
+                    "data": [{
+                        "start": self.data.CurrentPage
+                    }]
                 }
             }).then(res => {
                 console.log(res, "胰岛素泵");
@@ -106,7 +109,9 @@ Page({
                 data: {
                     "token": wx.getStorageSync('token'),
                     "function": "getInsulinList",
-                    "data": [{}]
+                    "data": [{
+                         "start": "1"
+                    }]
                 }
             }).then(res => {
                 console.log(res, "常规列表");
@@ -204,13 +209,13 @@ Page({
             //this.getInsulinChartByWeek()
             this.getInsulinChart(1);
         } else {
-            // if (this.data.index == '1') {
-            //     this.getInsulinList()
-            // } else if (this.data.index == '2') {
-            //     this.getInsulinPumpList()
-            // } else {
-            //     this.getInsulinListByWeek()
-            // }
+            if (this.data.index == '1') {
+                this.getInsulinList()
+            } else if (this.data.index == '2') {
+                this.getInsulinPumpList()
+            } else {
+                // this.getInsulinListByWeek()
+            }
         }
         this.setData({
             selectedIndex: index,
@@ -525,6 +530,41 @@ Page({
         })
         return false
     },
+    // onPullDownRefresh: function () {
+    //         console.log('eeee')
+    //         this.data.CurrentPage = 1;
+    //         // this.GetMessageLogList();
+    //         this.getInsulinPumpList()
+    //     },
+    //     onReachBottom() {
+    //         var _self = this
+
+    //         if (_self.data.selectedIndex === 1) {
+    //             //this.getInsulinChartByWeek()
+    //             _self.getInsulinChart(1);
+    //         } else {
+    //             if (_self.data.index == '1') {
+    //                 _self.getInsulinList()
+    //             } else if (_self.data.index == '2') {
+    //             this.data.CurrentPage = this.data.CurrentPage + 20;
+
+    //                 _self.getInsulinPumpList()
+    //             }
+    //         }
+    //         // console.log('222');
+    //         // if (this.$data.CurrentPage < this.$data.TotalPages) {
+    //             // this.getInsulinPumpList()
+
+
+    //         // } else {
+    //         //     uni.showToast({
+    //         //         title: '无数据',
+    //         //         icon: 'none'
+    //         //     });
+
+    //         // }
+
+    //     },
     onLoad: function (options) {
         let that = this
         this.setData({

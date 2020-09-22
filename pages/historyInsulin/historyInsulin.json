@@ -4,5 +4,6 @@
         "ec-canvas": "/components/ec-canvas/ec-canvas",
         "StartAndEndTimes": "/components/StartAndEndTimes/StartAndEndTimes"
    },
-  "navigationBarTitleText": "历史记录"
+  "navigationBarTitleText": "历史记录",
+  "enablePullDownRefresh":true
 }

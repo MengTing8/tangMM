@@ -37,7 +37,7 @@
 }
 
 .tha {
-    flex: 3;
+    flex: 2.5;
     /* justify-content: right; */
     display: flex;
     line-height: 58rpx;
@@ -46,11 +46,7 @@
 
 .th {
     flex: 2;
-    /* text-align: center; */
-    /* justify-content: right; */
-    /* display: flex; */
     line-height: 58rpx;
-    /* align-items: center; */
 }
 
 .ths {

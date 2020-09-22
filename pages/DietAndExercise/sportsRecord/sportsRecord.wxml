@@ -9,7 +9,7 @@
                     <view class="dataHeader_title">方式</view>
                     <view class="dataHeader_title" bindtap="strengthInfo">
                         <text>强度</text>
-                        <image class="queryIMg" src="../../../img/query.png" mode="widthFix" />
+                        <image class="queryIMg" src="../../../img/query.png" mode="widthFix"/>
                     </view>
                     <view class="dataHeader_title">时长(分钟)</view>
                 </view>
