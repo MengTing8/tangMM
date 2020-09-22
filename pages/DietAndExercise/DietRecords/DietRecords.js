@@ -103,8 +103,8 @@ Page({
                 var tempFilePaths = res.tempFilePaths;
                 console.log(tempFilePaths);
                 wx.uploadFile({
-                    // url: 'https://aaron.astraia.com.cn//wxupload',
-                    url: 'https://gy3y.astraia.com.cn//wxupload',
+                    url: 'https://aaron.astraia.com.cn//wxupload',
+                    // url: 'https://gy3y.astraia.com.cn//wxupload',
                     filePath: tempFilePaths[0],
                     name: 'upload',
                     formData: {

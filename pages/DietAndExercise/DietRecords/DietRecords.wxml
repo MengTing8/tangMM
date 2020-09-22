@@ -9,8 +9,8 @@
             <view class="table">
                 <view class="tr tableFont">
                     <view class="tha">热量</view>
-                    <view class="th">蛋白质</view>
-                    <view class="th">碳水化合物</view>
+                    <view class="ths">蛋白质</view>
+                    <view class="ths">碳水化合物</view>
                     <view class="ths">脂肪</view>
                 </view>
                 <block>

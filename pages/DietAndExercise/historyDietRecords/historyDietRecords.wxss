@@ -46,6 +46,7 @@
 
 .th {
     flex: 2;
+    /* text-align: center; */
     /* justify-content: right; */
     /* display: flex; */
     line-height: 58rpx;
