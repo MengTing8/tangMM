@@ -1,7 +1,7 @@
 <view class="selectedTime">
     <view class="startTime">
         <view class="">
-            <picker mode="date" value="{{TimeObj.dateStart}}" start="2018-01-01" end="{{TimeObj.EndDt}}" bindchange="bindStartTimeChange">
+            <picker mode="date" value="{{TimeObj.dateStart}}" start="2000-01-01" end="{{TimeObj.EndDt}}" bindchange="bindStartTimeChange">
                 <view class="timeColor">开始日期</view>
                 <view class="">{{TimeObj.StarDATE}}</view>
             </picker>
