@@ -18,6 +18,7 @@ const tips = {
 };
 let date = getDates(1, new Date());
 let newDate = moment(date[0].time).format('YYYY年MM月DD日')
+let app=getApp()
 moment.locale();
 
 Page({
@@ -302,7 +303,7 @@ Page({
         let paramsMeal = deepCopy(self.data.MealArray)
         for (let i = 0; i < dosage.length; i++) {
             dosage[i].entity = 'insulinPump';
-            dosage[i].patientId = wx.getStorageSync('patientId');
+            dosage[i].patientId = wx.getStorageSync('patientId') || app.globalData.patientId;
             dosage[i].date = self.data.dataTime;
             dosage[i].type = '2';
             dosage[i].status = '1';
@@ -313,7 +314,7 @@ Page({
                 i = i - 1
             } else {
                 paramsMeal[i].entity = 'insulin';
-                paramsMeal[i].patientId = wx.getStorageSync('patientId');
+                paramsMeal[i].patientId = wx.getStorageSync('patientId') || app.globalData.patientId;
                 paramsMeal[i].date = self.data.dataTime;
                 paramsMeal[i].type = '2';
                 paramsMeal[i].status = '1';

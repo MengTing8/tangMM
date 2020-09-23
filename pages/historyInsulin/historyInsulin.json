@@ -5,5 +5,7 @@
         "StartAndEndTimes": "/components/StartAndEndTimes/StartAndEndTimes"
    },
   "navigationBarTitleText": "历史记录",
-  "enablePullDownRefresh":true
+  "enablePullDownRefresh":true,
+  "backgroundTextStyle": "dark",
+  "onReachBottomDistance":1
 }
