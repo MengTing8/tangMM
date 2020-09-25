@@ -40,6 +40,14 @@ Page({
             dateStart,
             dateEnd: getDay(0),
         },
+        TimeObjItem: {
+            StartDt: newDate,
+            EndDt: getDay(0),
+            StarDATE,
+            EndDATE,
+            dateStart,
+            dateEnd: getDay(0),
+        },
         selectedIndex: 0,
         convention: true,
         GaShow: false,
@@ -72,7 +80,9 @@ Page({
                     "token": wx.getStorageSync('token'),
                     "function": "getInsulinPumpList",
                     "data": [{
-                        "start": self.data.CurrentPage
+                        "start": self.data.CurrentPage,
+                        "dateStart": self.data.TimeObjItem.dateStart,
+                        "dateEnd": self.data.TimeObjItem.dateEnd,
                     }]
                 }
             }).then(res => {
@@ -136,7 +146,9 @@ Page({
                     "token": wx.getStorageSync('token'),
                     "function": "getInsulinList",
                     "data": [{
-                        "start": self.data.InsulinStart
+                        "start": self.data.InsulinStart,
+                        "dateStart": this.data.TimeObjItem.dateStart,
+                        "dateEnd": this.data.TimeObjItem.dateEnd,
                     }]
                 }
             }).then(res => {
@@ -540,6 +552,49 @@ Page({
             this.getInsulinChart(2);
         }
     },
+    bindStartTime(e) {
+        var NewData = this.data.TimeObjItem;
+        let val = e.detail.value
+        let date = e.detail.date
+        if (checkTime(date, NewData.dateEnd)) {
+            NewData.StarDATE = val;
+            NewData.dateStart = date;
+            this.setData({
+                TimeObjItem: NewData,
+            })
+            if (this.data.selectedIndex === 0) {
+                if (this.data.index == '1') {
+                    this.data.InsulinStart = 0;
+                    this.getInsulinList()
+                } else if (this.data.index == '2') {
+                    this.data.CurrentPage = 0;
+                    this.getInsulinPumpList()
+                }
+            }
+        }
+    },
+    bindEndTime(e) {
+        var NewData = this.data.TimeObjItem;
+        let val = e.detail.value
+        let date = e.detail.date
+        if (checkTime(NewData.dateStart, date)) {
+            NewData.EndDATE = val;
+            NewData.dateEnd = date;
+            this.setData({
+                TimeObjItem: NewData,
+            })
+            if (this.data.selectedIndex === 0) {
+                if (this.data.index == '1') {
+                    this.data.InsulinStart = 0;
+                    this.getInsulinList()
+                } else if (this.data.index == '2') {
+                    this.data.CurrentPage = 0;
+                    this.getInsulinPumpList()
+                }
+            }
+        }
+
+    },
     bindEndTimeChange(e) {
         var NewData = this.data.TimeObj;
         let val = e.detail.value
@@ -589,10 +644,13 @@ Page({
                 _self.getInsulinPumpList()
             }
         } else {
-            wx.showToast({
-                title: '没有下一页数据了',
-                icon: 'none'
-            });
+            if (_self.data.selectedIndex === 0 && _self.data.index == '2') {
+                wx.showToast({
+                    title: '没有下一页数据了',
+                    icon: 'none'
+                });
+            }
+
         }
     },
     onLoad: function (options) {

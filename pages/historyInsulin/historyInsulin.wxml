@@ -1,5 +1,6 @@
 <Tabs bindtitleChange="handleTitleChange">
     <view style="display:{{selectedIndex==1?'none':'block'}}">
+        <StartAndEndTimes TimeObj="{{TimeObjItem}}" bindStartTimeChange='bindStartTime' bindEndTimeChange='bindEndTime'></StartAndEndTimes>
         <view class="typeBtnContent">
             <view class="typeItemList">
                 <view class="typeItem  {{ convention &&index==1? 'selectedItem' : ''}}" bind:tap="toggleType" data-index='1'>
