@@ -290,7 +290,7 @@ Page({
         //         wx.showToast({
         //             title: "时间段重复!",
         //             icon: 'none',
-        //             duration: 2000
+        //             duration: 2000 
         //         })
         //         return false;
         //     }

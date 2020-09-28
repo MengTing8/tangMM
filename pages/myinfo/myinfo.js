@@ -381,12 +381,13 @@ Page({
                 let arr = self.data.dateTimeArray
                 let time = Data.deliveryLastTime
                 if (time) {
-                    let y = getPickerValue(arr[0], time.substring(0, 4))
-                    let m = getPickerValue(arr[1], time.substring(5, 7))
-                    let d = getPickerValue(arr[2], time.substring(8, 10))
-                    let h = getPickerValue(arr[3], time.substring(11, 13))
-                    let s = getPickerValue(arr[4], time.substring(14, 17))
-                    indexs = [y, m, d, h, s]
+                    let year = getPickerValue(arr[0], time.substring(0, 4))
+                    let month = getPickerValue(arr[1], time.substring(5, 7))
+                    let day = getPickerValue(arr[2], time.substring(8, 10))
+                    let hour = getPickerValue(arr[3], time.substring(11, 13))
+                    let minute = getPickerValue(arr[4], time.substring(14, 16))
+                    let second = getPickerValue(arr[5], time.substring(17, 19))
+                    indexs = [year, month, day, hour, minute, second]
                 } else {
                     indexs = obj.dateTime
                 }
@@ -522,7 +523,7 @@ Page({
         var dateArr = this.data.dateTimeArray;
         arr[e.detail.column] = e.detail.value;
         dateArr[2] = dateTimePicker.getMonthDay(dateArr[0][arr[0]], dateArr[1][arr[1]]);
-        let times = dateArr[0][arr[0]] + '-' + dateArr[1][arr[1]] + '-' + dateArr[2][arr[2]] + " " + dateArr[3][arr[3]] + ":" + dateArr[4][arr[4]]
+        let times = dateArr[0][arr[0]] + '-' + dateArr[1][arr[1]] + '-' + dateArr[2][arr[2]] + " " + dateArr[3][arr[3]] + ":" + dateArr[4][arr[4]] + ":" + dateArr[5][arr[5]]
         this.setData({
             timeVal: times,
             dateTime: arr
