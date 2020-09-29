@@ -8,7 +8,7 @@
             </view>
             <view class="table">
                 <view class="tr tableFont">
-                    <view class="tha">热量</view>
+                    <view class="tha">热量(kcal)</view>
                     <view class="ths">蛋白质</view>
                     <view class="ths">碳水化合物</view>
                     <view class="ths">脂肪</view>
@@ -16,15 +16,15 @@
                 <block>
                     <view class="tr">
                         <view class="td tha">{{rniList.heat.suggestion}}</view>
-                        <view class="td th textRight">{{rniList.protein.suggestion}}</view>
-                        <view class="td th textRight">{{rniList.carbo.suggestion}}</view>
-                        <view class="td th textRight">{{rniList.fat.suggestion}}</view>
+                        <view class="td th">{{rniList.protein.suggestion}}</view>
+                        <view class="td th">{{rniList.carbo.suggestion}}</view>
+                        <view class="td th">{{rniList.fat.suggestion}}</view>
                     </view>
                     <view class="tr">
                         <view class="td tha">{{rniList.heat.actual}}</view>
-                        <view class="td th textRight">{{rniList.protein.actual}}</view>
-                        <view class="td th textRight">{{rniList.carbo.actual}}</view>
-                        <view class="td th textRight">{{rniList.fat.actual}}</view>
+                        <view class="td th">{{rniList.protein.actual}}</view>
+                        <view class="td th">{{rniList.carbo.actual}}</view>
+                        <view class="td th">{{rniList.fat.actual}}</view>
                     </view>
                 </block>
             </view>

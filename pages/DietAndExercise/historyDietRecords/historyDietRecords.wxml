@@ -6,7 +6,9 @@
                 <view class="ItemCard" wx:for="{{historyFootList}}" wx:key="index">
                     <view class="ItemCard_Time">
                         <view>{{item.date}}</view>
-                        <view style="color: #999999;font-size: 28rpx;margin-right: 30rpx;">{{item.week}}</view>
+                        <view style="color: #999999;font-size: 28rpx;margin-right: 30rpx;">
+                            {{item.week}}
+                        </view>
                     </view>
                     <view class="tableList">
                         <view class="tableTitle tableFont">
@@ -14,8 +16,11 @@
                             <view wx:if="{{item.actual.heat}}">实际</view>
                         </view>
                         <view class="table">
+                            <!-- <view class="" wx:for="{{item.lines}}" wx:for-item="s" wx:for-index="x">
+                                <view>{{s.content}}</view>
+                            </view> -->
                             <view class="tr tableFont" wx:if="{{item.suggestion||item.actual}}">
-                                <view class="tha">热量</view>
+                                <view class="tha">热量(kcal)</view>
                                 <view class="ths">蛋白质</view>
                                 <view class="ths">碳水化合物</view>
                                 <view class="ths">脂肪</view>
@@ -23,15 +28,15 @@
                             <block>
                                 <view class="tr" wx:if="{{item.suggestion.heat}}">
                                     <view class="td tha">{{item.suggestion.heat}}</view>
-                                    <view class="td th textRight">{{item.suggestion.protein}}</view>
-                                    <view class="td th textRight">{{item.suggestion.carbo}}</view>
-                                    <view class="td th textRight">{{item.suggestion.fat}}</view>
+                                    <view class="td th">{{item.suggestion.protein}}</view>
+                                    <view class="td th">{{item.suggestion.carbo}}</view>
+                                    <view class="td th">{{item.suggestion.fat}}</view>
                                 </view>
                                 <view class="tr" wx:if="{{item.actual}}">
                                     <view class="td tha">{{item.actual.heat}}</view>
-                                    <view class="td th textRight">{{item.actual.protein}}</view>
-                                    <view class="td th textRight">{{item.actual.carbo}}</view>
-                                    <view class="td th textRight">{{item.actual.fat}}</view>
+                                    <view class="td th">{{item.actual.protein}}</view>
+                                    <view class="td th">{{item.actual.carbo}}</view>
+                                    <view class="td th">{{item.actual.fat}}</view>
                                 </view>
                             </block>
                         </view>

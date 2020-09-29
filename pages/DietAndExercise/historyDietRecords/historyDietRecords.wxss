@@ -11,8 +11,7 @@
 
 .table {
     flex: 2;
-    margin-right: 10rpx;
-
+    /* margin-right: 16rpx; */
 }
 
 .tableTitle {
@@ -25,7 +24,6 @@
 .tr {
     display: flex;
     width: 100%;
-    /* justify-content: right; */
     line-height: 58rpx;
     align-items: center;
 
@@ -37,8 +35,7 @@
 }
 
 .tha {
-    flex: 2.5;
-    /* justify-content: right; */
+    flex: 2;
     display: flex;
     line-height: 58rpx;
     align-items: center;
@@ -47,21 +44,16 @@
 .th {
     flex: 2;
     line-height: 58rpx;
+    text-align: right;
+    margin-right: 20rpx;
+
 }
 
 .ths {
     flex: 2;
-    text-align: center;
+    text-align: right;
+    margin-right: 20rpx;
 }
-/* .th {
-    flex: 1;
-    justify-content: left;
-    display: flex;
-    line-height: 58rpx;
-    align-items: center;
-    padding-right: 6rpx;
-
-} */
 
 .tableFont {
     /* color: #9B884F;
