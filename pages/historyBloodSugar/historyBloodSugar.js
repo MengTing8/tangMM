@@ -32,7 +32,265 @@ Page({
         },
         legendList: null,
         tagList: [],
-        selectedTagList: []
+        selectedTagList: [],
+        BloodGlucoseTable: [
+            {
+                "gestationalWeek": "18",
+                "header1": [{
+                    "col": "1",
+                    "value": ""
+                }, {
+                    "col": "2",
+                    "value": "早"
+                }, {
+                    "col": "3",
+                    "value": "午"
+                }, {
+                    "col": "4",
+                    "value": "晚"
+                }, {
+                    "col": "5",
+                    "value": ""
+                }],
+                "header2": [{
+                    "col": "1",
+                    "value": "孕18"
+                }, {
+                    "col": "2",
+                    "value": "前"
+                }, {
+                    "col": "3",
+                    "value": "1H"
+                }, {
+                    "col": "4",
+                    "value": "2H"
+                }, {
+                    "col": "5",
+                    "value": "前"
+                }, {
+                    "col": "6",
+                    "value": "1H"
+                }, {
+                    "col": "7",
+                    "value": "2H"
+                }, {
+                    "col": "8",
+                    "value": "前"
+                }, {
+                    "col": "9",
+                    "value": "1H"
+                }, {
+                    "col": "10",
+                    "value": "2H"
+                }, {
+                    "col": "11",
+                    "value": "睡前"
+                }],
+                "items": [{
+                        "sequence": "1",
+                        "row": [{
+                            "col": "1",
+                            "value": "07/10"
+                        }, {
+                            "col": "2",
+                            "value": "1.2"
+                        }, {
+                            "col": "3",
+                            "value": "1.3"
+                        }, {
+                            "col": "4",
+                            "value": "1.4"
+                        }, {
+                            "col": "5",
+                            "value": "1.5"
+                        }, {
+                            "col": "6",
+                            "value": "1.6"
+                        }, {
+                            "col": "7",
+                            "value": "1.7"
+                        }, {
+                            "col": "8",
+                            "value": "1.8"
+                        }, {
+                            "col": "9",
+                            "value": "1.9"
+                        }, {
+                            "col": "10",
+                            "value": "1.0"
+                        }, {
+                            "col": "11",
+                            "value": "1.1"
+                        }]
+                    },
+                    {
+                        "sequence": "2",
+                        "row": [{
+                            "col": "1",
+                            "value": "瞬感"
+                        }, {
+                            "col": "2",
+                            "value": ""
+                        }, {
+                            "col": "3",
+                            "value": "2.3"
+                        }, {
+                            "col": "4",
+                            "value": "2.4"
+                        }, {
+                            "col": "5",
+                            "value": "2.5"
+                        }, {
+                            "col": "6",
+                            "value": "2.6"
+                        }, {
+                            "col": "7",
+                            "value": "2.7"
+                        }, {
+                            "col": "8",
+                            "value": "2.8"
+                        }, {
+                            "col": "9",
+                            "value": "2.9"
+                        }, {
+                            "col": "10",
+                            "value": "2.0"
+                        }, {
+                            "col": "11",
+                            "value": "2.1"
+                        }]
+                    }
+                ]
+            },
+            {
+                "gestationalWeek": "17",
+                "header1": [{
+                    "col": "1",
+                    "value": ""
+                }, {
+                    "col": "2",
+                    "value": "早"
+                }, {
+                    "col": "3",
+                    "value": "午"
+                }, {
+                    "col": "4",
+                    "value": "晚"
+                }, {
+                    "col": "5",
+                    "value": ""
+                }],
+                "header2": [{
+                    "col": "1",
+                    "value": "孕17"
+                }, {
+                    "col": "2",
+                    "value": "前"
+                }, {
+                    "col": "3",
+                    "value": "1H"
+                }, {
+                    "col": "4",
+                    "value": "2H"
+                }, {
+                    "col": "5",
+                    "value": "前"
+                }, {
+                    "col": "6",
+                    "value": "1H"
+                }, {
+                    "col": "7",
+                    "value": "2H"
+                }, {
+                    "col": "8",
+                    "value": "前"
+                }, {
+                    "col": "9",
+                    "value": "1H"
+                }, {
+                    "col": "10",
+                    "value": "2H"
+                }, {
+                    "col": "11",
+                    "value": "睡前"
+                }],
+                "items": [{
+                        "sequence": "1",
+                        "row": [{
+                            "col": "1",
+                            "value": "07/10"
+                        }, {
+                            "col": "2",
+                            "value": "1.2"
+                        }, {
+                            "col": "3",
+                            "value": "1.3"
+                        }, {
+                            "col": "4",
+                            "value": "1.4"
+                        }, {
+                            "col": "5",
+                            "value": "1.5"
+                        }, {
+                            "col": "6",
+                            "value": "1.6"
+                        }, {
+                            "col": "7",
+                            "value": "1.7"
+                        }, {
+                            "col": "8",
+                            "value": "1.8"
+                        }, {
+                            "col": "9",
+                            "value": "1.9"
+                        }, {
+                            "col": "10",
+                            "value": "1.0"
+                        }, {
+                            "col": "11",
+                            "value": "1.1"
+                        }]
+                    },
+                    {
+                        "sequence": "2",
+                        "row": [{
+                            "col": "1",
+                            "value": "瞬感"
+                        }, {
+                            "col": "2",
+                            "value": ""
+                        }, {
+                            "col": "3",
+                            "value": "2.3"
+                        }, {
+                            "col": "4",
+                            "value": "2.4"
+                        }, {
+                            "col": "5",
+                            "value": "2.5"
+                        }, {
+                            "col": "6",
+                            "value": "2.6"
+                        }, {
+                            "col": "7",
+                            "value": "2.7"
+                        }, {
+                            "col": "8",
+                            "value": "2.8"
+                        }, {
+                            "col": "9",
+                            "value": "2.9"
+                        }, {
+                            "col": "10",
+                            "value": "2.0"
+                        }, {
+                            "col": "11",
+                            "value": "2.1"
+                        }]
+                    }
+                ]
+            }
+        ]
     },
     getBloodGlucoseList() {
         let self = this

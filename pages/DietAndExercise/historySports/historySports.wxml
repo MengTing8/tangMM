@@ -1,5 +1,5 @@
 <view class="historySportsContent">
-    <Tabs bindtitleChange="handleTitleChange">
+    <Tabs bindtitleChange="handleTitleChange" tabs="{{['列表','图表']}}">
         <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
         <view hidden="{{selectedIndex==1}}">
             <view class="historyList">

@@ -1,4 +1,4 @@
-<Tabs bindtitleChange="handleTitleChange">
+<Tabs bindtitleChange="handleTitleChange" tabs="{{['列表','图表']}}">
     <!-- 日期筛选开始 -->
     <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
     <!-- 日期筛选结束 -->

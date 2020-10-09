@@ -1,5 +1,5 @@
 <view class="historyDietRecordContent">
-    <Tabs bindtitleChange="handleTitleChange">
+    <Tabs bindtitleChange="handleTitleChange" tabs="{{['列表','图表']}}">
         <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
         <view style="display:{{selectedIndex==1?'none':'block'}}">
             <view class="historyList">

@@ -1,4 +1,4 @@
-<Tabs bindtitleChange="handleTitleChange">
+<Tabs bindtitleChange="handleTitleChange" tabs="{{['列表','图表']}}">
     <view style="display:{{selectedIndex==1?'none':'block'}}">
         <StartAndEndTimes TimeObj="{{TimeObjItem}}" bindStartTimeChange='bindStartTime' bindEndTimeChange='bindEndTime'></StartAndEndTimes>
         <view class="typeBtnContent">

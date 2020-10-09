@@ -1,3 +1,53 @@
+.TableContent{
+    font-size: 24rpx;
+    padding: 0 10rpx;
+}
+.header{
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+}
+.header view{
+    flex: 4;
+    text-align: center;
+    border-right: 2rpx solid #dddddd;
+}
+.header view:nth-child(1) {
+   flex: 1.46;
+   border-right: 2rpx solid #dddddd;
+   
+}
+.header view:nth-child(2) {
+    border-left: 2rpx solid #dddddd;
+}
+.header view:nth-child(5) {
+    flex: 1.33;
+    border-right:none;
+}
+.header2 {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    line-height: 48rpx;
+}
+.header2 view {
+    flex: 4;
+    text-align: center;
+}
+
+.header2 view:nth-child(1) {
+    flex: 4.5;
+}
+.header2 view:nth-child(1),
+.header2 view:nth-child(4),
+.header2 view:nth-child(7),
+.header2 view:nth-child(10) {
+  border-right: 2rpx solid #dddddd;
+}
+
+.border{
+    border-bottom: 2rpx solid #dddddd;
+}
 .bloodSugarInfoLIst {
     padding: 40rpx;
 }

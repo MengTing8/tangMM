@@ -1,5 +1,5 @@
 <!-- pages/fetalWeight/fetalWeight.wxml -->
-<Tabs bindtitleChange="handleTitleChange">
+<Tabs bindtitleChange="handleTitleChange" tabs="{{['列表','图表']}}">
     <view class="pageContainer">
         <view class="item" hidden="{{selectedIndex==1}}">
             <view style="margin-bottom: 20rpx;">

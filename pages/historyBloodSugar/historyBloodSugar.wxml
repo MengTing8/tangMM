@@ -1,6 +1,6 @@
-<Tabs bindtitleChange="handleTitleChange">
+<Tabs bindtitleChange="handleTitleChange" tabs="{{['列表','图表','表格']}}">
     <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
-    <view style="display:{{selectedIndex==1?'none':'block'}}">
+    <view style="display:{{selectedIndex==0?'block':'none'}}">
         <view class="bloodSugarInfoLIst">
             <view class="listCard" wx:for="{{BloodGlucoseList}}" wx:key="index" wx:if="{{item.date}}">
                 <view class="listCard_top">
@@ -28,7 +28,7 @@
             </view>
         </view>
     </view>
-    <view style="display:{{selectedIndex==0?'none':'block'}}">
+    <view style="display:{{selectedIndex==1?'block':'none'}}">
         <view class="typeBtnContent">
             <view class="typeItemList">
                 <view wx:for="{{tagList}}" class="typeItem {{item.isSelected === '1'?'selectedItem':''}}" bindtap="selectTag" wx:key="index" data-code="{{item.code}}">
@@ -54,6 +54,27 @@
                 <view class="legendBox" wx:for="{{legendList2}}" wx:key="index">
                     <image class="legendIcon" src="{{item.symbol}}" style="width:{{item.size.width}}rpx;height:{{item.size.height}}rpx"></image>
                     <view class="">{{item.value}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view style="display:{{selectedIndex==2?'block':'none'}}">
+        <view class="TableContent">
+            <view wx:for="{{BloodGlucoseTable}}" wx:key="index">
+                <view class="header">
+                    <view wx:for="{{item.header1}}" wx:for-item="h" wx:key="index" >
+                        {{h.value}}
+                    </view>
+                </view>
+                <view class="header2 border">
+                    <view wx:for="{{item.header2}}" wx:for-item="t" wx:key="index">
+                        {{t.value}}
+                    </view>
+                </view>
+                    <view wx:for="{{item.items}}" wx:for-item="i" wx:key="index">
+                        <view class="header2">
+                            <view wx:for="{{i.row}}" wx:for-item="r" wx:key="index">{{r.value}}</view>
+                        </view>
                 </view>
             </view>
         </view>

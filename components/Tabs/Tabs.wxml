@@ -1,5 +1,5 @@
 <view class="tabsBox">
-    <block wx:for="{{['列表','图表']}}" wx:key="id">
+    <block wx:for="{{tabs}}" wx:key="id">
         <view class="tabsItem {{TabsIndex==index?'selected':''}}" data-index='{{index}}' bindtap="handleTitleChange">
             {{item}}
         </view>
