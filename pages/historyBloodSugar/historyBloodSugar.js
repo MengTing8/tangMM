@@ -292,6 +292,35 @@ Page({
             }
         ]
     },
+    getBloodGlucoseTable() {
+        let self = this
+        promiseRequest({
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "getBloodGlucoseTable",
+                "data": [{
+                    "dateStart": self.data.TimeObj.dateStart,
+                    "dateEnd": self.data.TimeObj.dateEnd
+                }]
+            }
+        }).then(res => {
+            console.log(res);
+            if (res.data.code === '0') {
+                var ResData = res.data.data
+                self.setData({
+                    BloodGlucoseList: ResData
+                })
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                    icon: 'none',
+                    duration: 2000
+                })
+            }
+        })
+    },
     getBloodGlucoseList() {
         let self = this
         promiseRequest({
@@ -370,7 +399,10 @@ Page({
         if (index === 1) {
             let isFirstTime = true;
             this.getGLUChart(isFirstTime)
-        }else{
+        }else if (index === 2) {
+            let isFirstTime = true;
+            // this.getBloodGlucoseTable()
+        } else {
             this.getBloodGlucoseList()
         }
         this.setData({
@@ -503,10 +535,11 @@ Page({
     onLoad: function (options) {
         this.echartsComponentGLU = this.selectComponent('#GLU');
         this.getBloodGlucoseList()
+        // this.getBloodGlucoseTable()
          if (wx.getStorageSync('userType') == '1') {
              wx.setNavigationBarTitle({
                  title: '血糖记录'
              })
-         }
+         }  
     }
 })

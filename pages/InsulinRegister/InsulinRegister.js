@@ -18,7 +18,7 @@ const tips = {
 };
 let date = getDates(1, new Date());
 let newDate = moment(date[0].time).format('YYYY年MM月DD日')
-let app=getApp()
+let app = getApp()
 moment.locale();
 
 Page({
@@ -106,16 +106,14 @@ Page({
     SaveInsulin() {
         var self = this
 
-        if (this.data.delList.length > 0) {
-            this.delInsulin();
+        if (self.data.delList.length > 0) {
+            self.delInsulin();
         }
-        if (this.data.userData.length === 0) {
+        if (self.data.userData.length === 0) {
             return;
         } else {
-            this.setData({
-                apiClicked: true
-            })
-            let userData = this.data.userData
+
+            let userData = self.data.userData
             for (let i = 0; i < userData.length; i++) {
                 for (const key in userData[i]) {
                     const item = userData[i][key]
@@ -136,11 +134,13 @@ Page({
             for (let i = 0; i < userData.length; i++) {
                 userData[i].entity = 'insulin';
                 userData[i].patientId = wx.getStorageSync('patientId');
-                userData[i].date = this.data.dataTime;
+                userData[i].date = self.data.dataTime;
                 userData[i].type = '1';
                 userData[i].status = '1';
             }
-
+            self.setData({
+                apiClicked: true
+            })
             promiseRequest({
                 method: "POST",
                 url: '/wxrequest',
@@ -157,7 +157,7 @@ Page({
                         icon: 'none',
                         duration: 2000
                     })
-                    this.getInsulin()
+                    self.getInsulin()
                     setTimeout(() => {
                         self.setData({
                             apiClicked: false

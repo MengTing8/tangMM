@@ -3,6 +3,7 @@ const {
 } = require("../../utils/Requests")
 const {
     getDates,
+    deepCopy,
     sortFun
 } = require("../../utils/util")
 const moment = require('../../utils/moment.min.js');
@@ -156,21 +157,32 @@ Page({
     },
     onSaveBtn() {
         let self = this
-        let BloodData = self.data.BloodData
-        if (this.data.delList.length > 0) {
-            this.delBloodGlucose();
+        let BloodData = deepCopy(self.data.BloodData)
+        if (self.data.delList.length > 0) {
+            self.delBloodGlucose();
         }
         for (let i = 0; i < BloodData.length; i++) {
             for (const key in BloodData[i]) {
-                if (!BloodData[i].value&& !BloodData[i].categoryValue && !BloodData[i].periodSubvalue) {
+                if (i < 0) {
+                    i = 0
+                }
+                if (!BloodData[i].value && !BloodData[i].categoryValue && !BloodData[i].periodSubvalue) {
                     BloodData.splice(i, 1)
-                    i=i-1
+                    i = i - 1
                 }
                 if (key === 'periodExtraValue' && BloodData[i].periodSubcode !== "99") {
                     continue;
                 }
                 if (key === 'rowMd5' || key === 'id' || key == 'sequence') {
                     continue;
+                }
+                if (BloodData.length === 0) {
+                    wx.showToast({
+                        title: '请输入数据',
+                        icon: 'none',
+                        duration: 3000
+                    })
+                    return false;
                 }
                 let item = ''
                 if (BloodData[i]) {
@@ -189,55 +201,55 @@ Page({
         for (let i = 0; i < BloodData.length; i++) {
             BloodData[i].entity = 'bloodGlucose';
             BloodData[i].patientId = app.globalData.patientId;
-            BloodData[i].date = this.data.dataTime;
+            BloodData[i].date = self.data.dataTime;
             BloodData[i].status = '1';
         }
-        if (BloodData.length === 0) {
-            wx.showToast({
-                title: '请输入数据',
-                icon: 'none',
-                duration: 3000
-            })
-            return false;
-        } else {
-            self.setData({
-                apiClicked: true
-            })
-            promiseRequest({
-                method: "POST",
-                url: '/wxrequest',
-                data: {
-                    "token": wx.getStorageSync('token'),
-                    "function": "save",
-                    "data": BloodData
-                }
-            }).then((res) => {
-                if (res.data.code === '0') {
-                    var ResData = res.data.data[0]
-                    self.setData({
-                        // categoryValues: ResData.categoryValues,
-                        // periodValues: ResData.periodValues
-                    })
-                    wx.showToast({
-                        title: res.data.message,
-                        icon: 'none',
-                        duration: 2000
-                    })
-                    this.getBloodGlucose()
-                } else {
-                    wx.showToast({
-                        title: res.data.message,
-                        icon: 'none',
-                        duration: 2000
-                    })
-                }
-                setTimeout(() => {
-                    self.setData({
-                        apiClicked: false
-                    })
-                }, 3000);
-            })
-        }
+        // if (BloodData.length === 0) {
+        //     wx.showToast({
+        //         title: '请输入数据',
+        //         icon: 'none',
+        //         duration: 3000
+        //     })
+        //     return false;
+        // // } else {
+        self.setData({
+            apiClicked: true
+        })
+        promiseRequest({
+            method: "POST",
+            url: '/wxrequest',
+            data: {
+                "token": wx.getStorageSync('token'),
+                "function": "save",
+                "data": BloodData
+            }
+        }).then((res) => {
+            if (res.data.code === '0') {
+                var ResData = res.data.data[0]
+                self.setData({
+                    // categoryValues: ResData.categoryValues,
+                    // periodValues: ResData.periodValues
+                })
+                wx.showToast({
+                    title: res.data.message,
+                    icon: 'none',
+                    duration: 2000
+                })
+                self.getBloodGlucose()
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                    icon: 'none',
+                    duration: 2000
+                })
+            }
+            setTimeout(() => {
+                self.setData({
+                    apiClicked: false
+                })
+            }, 3000);
+        })
+        // }
     },
     delBloodGlucose() {
         promiseRequest({
