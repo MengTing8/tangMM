@@ -60,7 +60,7 @@
     </view>
     <view style="display:{{selectedIndex==2?'block':'none'}}">
         <view class="TableContent">
-            <view wx:for="{{BloodGlucoseTable}}" wx:key="index" style="margin-bottom: 50rpx;">
+            <view wx:for="{{BloodGlucoseList}}" wx:key="index" style="margin-bottom: 50rpx;">
                 <view class="header">
                     <view wx:for="{{item.header1}}" wx:for-item="h" wx:key="index" >
                         {{h.value}}

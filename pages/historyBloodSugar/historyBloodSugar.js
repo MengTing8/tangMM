@@ -535,7 +535,7 @@ Page({
     onLoad: function (options) {
         this.echartsComponentGLU = this.selectComponent('#GLU');
         this.getBloodGlucoseList()
-        // this.getBloodGlucoseTable()
+        this.getBloodGlucoseTable()
          if (wx.getStorageSync('userType') == '1') {
              wx.setNavigationBarTitle({
                  title: '血糖记录'
