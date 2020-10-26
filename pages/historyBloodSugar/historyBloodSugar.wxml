@@ -38,7 +38,7 @@
         </view>
         <view class="mychartContent">
             <view class="container">
-                <ec-canvas id="GLU" canvas-id="GLU" ec="{{ ec }}"></ec-canvas>
+                <ec-canvas id="GLU" canvas-id="GLU" ec="{{ ec }}"></ec-canvas>,
             </view>
         </view>
         <view class="titleContent">
@@ -54,7 +54,7 @@
                 <view class="legendBox" wx:for="{{legendList2}}" wx:key="index">
                     <image class="legendIcon" src="{{item.symbol}}" style="width:{{item.size.width}}rpx;height:{{item.size.height}}rpx"></image>
                     <view class="">{{item.value}}</view>
-                </view>
+                </view> 
             </view>
         </view>
     </view>
