@@ -54,29 +54,34 @@
                 <view class="legendBox" wx:for="{{legendList2}}" wx:key="index">
                     <image class="legendIcon" src="{{item.symbol}}" style="width:{{item.size.width}}rpx;height:{{item.size.height}}rpx"></image>
                     <view class="">{{item.value}}</view>
-                </view> 
+                </view>
             </view>
         </view>
     </view>
     <view style="display:{{selectedIndex==2?'block':'none'}}">
-        <view class="TableContent">
-            <view wx:for="{{BloodGlucoseTableList}}" wx:key="index" style="margin-bottom: 50rpx;" class="GlucoseListCard">
-                <view class="header">
-                    <view wx:for="{{item.header1}}" wx:for-item="h" wx:key="index" >
-                        {{h.value}}
+            <view class="TableContent">
+                <view wx:for="{{BloodGlucoseTableList}}" wx:key="index" class="GlucoseListCard">
+                    <view class="header">
+                        <view wx:for="{{item.header1}}" wx:for-item="h" wx:key="index">
+                            {{h.value}}
+                        </view>
                     </view>
-                </view>
-                <view class="header2 border">
-                    <view wx:for="{{item.header2}}" wx:for-item="t" wx:key="index">
-                        {{t.value}}
+                    <view class="header2 border">
+                        <view wx:for="{{item.header2}}" wx:for-item="t" wx:key="index">
+                            {{t.value}}
+                        </view>
                     </view>
-                </view>
                     <view wx:for="{{item.items}}" wx:for-item="i" wx:key="index">
                         <view class="header2">
-                            <view wx:for="{{i.row}}" wx:for-item="r" wx:key="index">{{r.value}}</view>
+                            <view wx:for="{{i.row}}" wx:for-item="r" wx:key="index">
+                                {{r.value}}
+                            </view>
                         </view>
+                    </view>
                 </view>
             </view>
-        </view>
+            <view style=" text-align: center;margin: 150rpx auto;" wx:if="{{!BloodGlucoseTableList[0].header1}}">
+                暂无记录
+            </view>
     </view>
 </Tabs>

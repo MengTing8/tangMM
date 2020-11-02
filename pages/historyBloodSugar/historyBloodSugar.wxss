@@ -1,6 +1,6 @@
 .TableContent{
     font-size: 24rpx;
-    padding: 0 10rpx;
+    padding: 0 20rpx 60rpx 20rpx;
 }
 .header{
     display: flex;

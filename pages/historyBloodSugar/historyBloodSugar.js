@@ -6,7 +6,8 @@ const {
 const {
     sortFun,
     checkTime,
-    getDay, getPreMonth
+    getDay,
+    getPreMonth
 } = require("../../utils/util")
 const moment = require('../../utils/moment.min.js');
 let newDate = moment(getDay(0)).format('YYYY年MM月DD日')
@@ -19,7 +20,7 @@ Page({
      */
     data: {
         TimeObj: {
-            EndDt:getDay(0),
+            EndDt: getDay(0),
             StarDATE,
             EndDATE,
             dateStart,
@@ -33,9 +34,8 @@ Page({
         legendList: null,
         tagList: [],
         selectedTagList: [],
-        BloodGlucoseTableList:[],
-        BloodGlucoseTable: [
-            {
+        BloodGlucoseTableList: [],
+        BloodGlucoseTable: [{
                 "gestationalWeek": "18",
                 "header1": [{
                     "col": "1",
@@ -307,7 +307,7 @@ Page({
                 }]
             }
         }).then(res => {
-            console.log(res);
+            console.log(res, 'getBloodGlucoseTable');
             if (res.data.code === '0') {
                 var ResData = res.data.data
                 self.setData({
@@ -336,17 +336,17 @@ Page({
                 }]
             }
         }).then(res => {
-            console.log(res);
+            console.log(res, 'getBloodGlucoseList');
             if (res.data.code === '0') {
                 var ResData = res.data.data
                 ResData.sort(function (a, b) {
                     return a.date < b.date ? 1 : -1;
                 });
-                  for (const key in ResData) {
-                      if (ResData[key].items) {
-                      ResData[key].items.sort(sortFun(`sequence`))
-                      }
-                  }
+                for (const key in ResData) {
+                    if (ResData[key].items) {
+                        ResData[key].items.sort(sortFun(`sequence`))
+                    }
+                }
                 self.setData({
                     BloodGlucoseList: ResData
                 })
@@ -373,6 +373,9 @@ Page({
             if (this.data.selectedIndex === 1) {
                 this.getGLUChart()
                 return
+            } else if (this.data.selectedIndex === 2) {
+                this.getBloodGlucoseTable()
+                return
             }
             this.getBloodGlucoseList()
         }
@@ -391,6 +394,9 @@ Page({
             if (this.data.selectedIndex === 1) {
                 this.getGLUChart()
                 return
+            } else if (this.data.selectedIndex === 2) {
+                this.getBloodGlucoseTable()
+                return
             }
             this.getBloodGlucoseList()
         }
@@ -400,8 +406,7 @@ Page({
         if (index === 1) {
             let isFirstTime = true;
             this.getGLUChart(isFirstTime)
-        }else if (index === 2) {
-            let isFirstTime = true;
+        } else if (index === 2) {
             this.getBloodGlucoseTable()
         } else {
             this.getBloodGlucoseList()
@@ -412,10 +417,12 @@ Page({
     },
     getGLUChart(isFirstTime) {
         let tags = [];
-        if(isFirstTime){
+        if (isFirstTime) {
             //首次进入，后台将默认选择全部。
-            tags = [{"code":"0"}]
-        }else{
+            tags = [{
+                "code": "0"
+            }]
+        } else {
             for (const item of this.data.selectedTagList) {
                 tags.push({
                     code: item
@@ -435,7 +442,7 @@ Page({
                 }]
             }
         }).then(res => {
-            console.log(res);
+            console.log(res, 'getGLUChart');
             if (res.data.code === '0' && res.data.totalRecord !== '0') {
                 let color = JSON.parse(res.data.data[0].color);
                 let option = JSON.parse(res.data.data[0].option);
@@ -462,7 +469,7 @@ Page({
                 })
                 let selectedTagList = []
                 tagList.forEach(element => {
-                    if (element.isSelected=='1') {
+                    if (element.isSelected == '1') {
                         selectedTagList.push(element.code)
                     }
                 });
@@ -491,7 +498,7 @@ Page({
                 })
                 this.init_echarts(option)
                 // }
-            } else if (res.data.code === '0' && res.data.totalRecord === '0'){
+            } else if (res.data.code === '0' && res.data.totalRecord === '0') {
                 this.init_echarts({});
                 this.setData({
                     legendList1: [],
@@ -509,7 +516,7 @@ Page({
         })
     },
     init_echarts(option) {
-      this.echartsComponentGLU.init((canvas, width, height) => {
+        this.echartsComponentGLU.init((canvas, width, height) => {
             // 初始化图表
             const Chart = echarts.init(canvas, null, {
                 width: width,
@@ -536,11 +543,11 @@ Page({
     onLoad: function (options) {
         this.echartsComponentGLU = this.selectComponent('#GLU');
         this.getBloodGlucoseList()
-        this.getBloodGlucoseTable()
-         if (wx.getStorageSync('userType') == '1') {
-             wx.setNavigationBarTitle({
-                 title: '血糖记录'
-             })
-         }  
+        // this.getBloodGlucoseTable()
+        if (wx.getStorageSync('userType') == '1') {
+            wx.setNavigationBarTitle({
+                title: '血糖记录'
+            })
+        }
     }
 })
