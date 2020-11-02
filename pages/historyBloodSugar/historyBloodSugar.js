@@ -33,6 +33,7 @@ Page({
         legendList: null,
         tagList: [],
         selectedTagList: [],
+        BloodGlucoseTableList:[],
         BloodGlucoseTable: [
             {
                 "gestationalWeek": "18",
@@ -310,7 +311,7 @@ Page({
             if (res.data.code === '0') {
                 var ResData = res.data.data
                 self.setData({
-                    BloodGlucoseList: ResData
+                    BloodGlucoseTableList: ResData
                 })
             } else {
                 wx.showToast({
@@ -401,7 +402,7 @@ Page({
             this.getGLUChart(isFirstTime)
         }else if (index === 2) {
             let isFirstTime = true;
-            // this.getBloodGlucoseTable()
+            this.getBloodGlucoseTable()
         } else {
             this.getBloodGlucoseList()
         }
