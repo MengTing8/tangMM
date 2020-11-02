@@ -38,7 +38,7 @@
         </view>
         <view class="mychartContent">
             <view class="container">
-                <ec-canvas id="GLU" canvas-id="GLU" ec="{{ ec }}"></ec-canvas>,
+                <ec-canvas id="GLU" canvas-id="GLU" ec="{{ ec }}"></ec-canvas>
             </view>
         </view>
         <view class="titleContent">
