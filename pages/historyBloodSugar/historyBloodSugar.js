@@ -310,6 +310,17 @@ Page({
             console.log(res, 'getBloodGlucoseTable');
             if (res.data.code === '0') {
                 var ResData = res.data.data
+                ResData.sort((a, b) => {
+                    return b.gestationalWeek - a.gestationalWeek
+                })
+                ResData.forEach(element => {
+                    if (element.items) {
+                        element.items.sort((a, b) => {
+                            return a.sequence - b.sequence
+                        })
+                    }
+
+                });
                 self.setData({
                     BloodGlucoseTableList: ResData
                 })

@@ -66,7 +66,6 @@ Page({
     DeleteByDate(e) {
         let date = e.detail.date
         let that = this
-        if (that.data.BloodData[0].id || that.data.BloodData[0].value) {
             wx.showModal({
                 title: '提示',
                 content: "确定删除当日数据？",
@@ -102,13 +101,6 @@ Page({
                     } else if (res.cancel) {}
                 }
             })
-        } else {
-            wx.showToast({
-                title: '无数据可删！',
-                icon: 'none',
-                duration: 2000
-            })
-        }
     },
     getBloodGlucose() {
         let self = this
