@@ -71,32 +71,37 @@ Page({
     },
     getNurse() {
         let that = this
-        promiseRequest({
-            method: "POST",
-            url: '/wxrequest',
-            data: {
-                "token": wx.getStorageSync('token'),
-                "function": "getNurse",
-                "data": []
-            }
-        }).then((res) => {
-            if (res.data.code === '0') {
-                that.setData({
-                    NurseData: res.data.data[0],
-                    MenuItems: res.data.data[0].items,
-                    NurseId: res.data.data[0].id,
-                    tabs: res.data.data[0].tabs
-                })
-            } else {
-                wx.showToast({
-                    title: res.data.message,
-                    icon: 'none',
-                    duration: 2000
-                })
-            }
-        }).catch((errMsg) => {
-            console.log(errMsg); //错误提示信息
-        });
+        return new Promise((resolve, reject) => {
+            promiseRequest({
+                method: "POST",
+                url: '/wxrequest',
+                data: {
+                    "token": wx.getStorageSync('token'),
+                    "function": "getNurse",
+                    "data": []
+                }
+            }).then((res) => {
+                console.log(res, 'getNurse');
+                if (res.data.code === '0') {
+                    that.setData({
+                        NurseData: res.data.data[0],
+                        MenuItems: res.data.data[0].items,
+                        NurseId: res.data.data[0].id,
+                        tabs: res.data.data[0].tabs
+                    })
+                    resolve(res.data.data[0])
+                } else {
+                    wx.showToast({
+                        title: res.data.message,
+                        icon: 'none',
+                        duration: 2000
+                    })
+                }
+            }).catch((errMsg) => {
+                console.log(errMsg); //错误提示信息
+            });
+        })
+
     },
     getGravida() {
         let requestObj = {
@@ -113,6 +118,7 @@ Page({
             }
         };
         promiseRequest(requestObj).then((res) => {
+            console.log(res, 'getGravida');
             if (res.data.code === '0') {
                 if (res.data.data.length > 0) {
                     this.setData({
@@ -130,7 +136,9 @@ Page({
                         tabs: arr
                     })
                 }
-
+                setTimeout(() => {
+                    wx.hideToast()
+                }, 500);
             } else {
                 wx.showToast({
                     title: res.data.message,
@@ -153,30 +161,41 @@ Page({
         })
         this.getGravida()
     },
+    onRefresh() {
+        wx.showToast({
+            title: '加载中',
+            icon: 'loading',
+            duration: 2000
+        })
+        this.getGravida()
+    },
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
-
-    },
+    onLoad: function (options) {},
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-        
+
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function () {
+    onShow: async function () {
         console.log('医务端---');
-        this.getNurse()
-        this.getGravida()
-      if (wx.canIUse('hideHomeButton')) {
-          wx.hideHomeButton()
-      }
+        // this.getNurse()
+        // this.getGravida()
+        let that = this
+        let getNurse = await this.getNurse()
+        if (getNurse.id || getNurse.id !== '') {
+            that.getGravida()
+        }
+        if (wx.canIUse('hideHomeButton')) {
+            wx.hideHomeButton()
+        }
     },
 
     /**

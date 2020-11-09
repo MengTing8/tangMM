@@ -42,31 +42,40 @@
             </view>
         </view>
         <view class="tabsContent">
-                <view class="NewMessageContent">
-                    <view class="MessageList" wx:for="{{GravidaList}}" wx:key="index" bind:tap="getPatientInfo" data-id='{{item.id}}'>
-                        <view class="MessageList_top">
-                            <view class="ItemInfo">
-                                <view class="imageBox">
-                                    <image class="imageUser" src="{{item.avatarUrl}}" />
+            <view class="NewMessageContent">
+                <view class="MessageList" wx:for="{{GravidaList}}" wx:key="index" bind:tap="getPatientInfo" data-id='{{item.id}}'>
+                    <view class="MessageList_top">
+                        <view class="ItemInfo">
+                            <view class="imageBox">
+                                <image class="imageUser" src="{{item.avatarUrl}}" />
+                            </view>
+                            <view class="infoContent">
+                                <view>
+                                    <text class="infoContent_Name">{{item.name}}</text>
+                                    <text>{{item.age}}岁</text>
                                 </view>
-                                <view class="infoContent">
-                                    <view>
-                                        <text class="infoContent_Name">{{item.name}}</text>
-                                        <text>{{item.age}}岁</text>
-                                    </view>
-                                    <view class="infoContent_text">
-                                        <text>{{item.stageValue||''}}</text> | <text>{{item.gdmType||''}}</text>
-                                    </view>
+                                <view class="infoContent_text">
+                                    <text>{{item.stageValue||''}}</text>
+                                    |
+                                    <text>{{item.gdmType||''}}</text>
                                 </view>
                             </view>
-                            <view class="stateBtnBox">
-                                <view wx:if="{{item.quantity > 0}}">{{item.quantity}}条</view>
-                            </view>
                         </view>
-                        <view class="MessageList_bottom">
-                            <view class="infoContent_text" wx:if="{{item.lastMessage}}">{{item.lastMessage}}</view>
+                        <view class="stateBtnBox">
+                            <view wx:if="{{item.quantity > 0}}">{{item.quantity}}条</view>
                         </view>
+                    </view>
+                    <view class="MessageList_bottom">
+                        <view class="infoContent_text" wx:if="{{item.lastMessage}}">
+                            {{item.lastMessage}}
+                        </view>
+                    </view>
                 </view>
+                <!-- <view class="noData" style=" text-align: center;margin: 150rpx auto;" wx:if="{{!GravidaList[0].avatarUrl}}">
+                    <image mode="widthFix" src="../img/no.png" class="noDataImg" />
+                    <view>暂无数据</view>
+                    <view class="refresh" bind:tap="onRefresh">（点击刷新）</view>
+                </view> -->
             </view>
         </view>
     </view>

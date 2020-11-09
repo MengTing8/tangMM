@@ -1,13 +1,25 @@
+.noData {}
+
+.noData .noDataImg {
+    width: 50%;
+    height: 50%;
+}
+.refresh{
+    font-size: 22rpx;
+    color: blue;
+}
 .pagesHeader {
     background: #FEE55F;
     padding: 0 20rpx 0 50rpx;
     position: relative;
 }
+
 .userInfoBox {
     display: flex;
     padding-bottom: 20rpx;
     justify-content: space-between;
 }
+
 .pagesHeader .userInfo {
     font-size: 24rpx;
     color: #9B884F;
@@ -19,6 +31,7 @@
 .imageBox {
     margin-right: 20rpx;
 }
+
 .userName {
     color: #121212;
     font-size: 38rpx;
@@ -34,19 +47,23 @@
 .banner {
     width: 300rpx;
 }
+
 .tabContent {
     width: 100%;
     position: absolute;
     bottom: -44%;
     left: 0;
 }
+
 .pagesFoot {
     padding-top: 50rpx;
     z-index: 999;
 }
+
 .fieldClass {
     padding: 6rpx 0rpx !important;
 }
+
 .vanSearchBox {
     padding: 20rpx 0;
     background: #ffffff;
@@ -58,10 +75,12 @@
     box-shadow: 0px 2px 14px 0px rgba(190, 190, 190, 0.29);
     border-radius: 6px;
 }
+
 .tabsContent {
     padding: 0 40rpx 20rpx 40rpx;
     margin: 30rpx auto;
 }
+
 .MessageList {
     background: rgba(255, 255, 255, 1);
     box-shadow: 0px 0px 12px 0px rgba(238, 238, 238, 1);
@@ -134,25 +153,30 @@
     padding: 0 10rpx;
     font-size: 28rpx;
 }
+
 .titleContent {
     display: flex;
     align-items: center;
 }
-.itmeName{
-    max-width:180rpx;
+
+.itmeName {
+    max-width: 180rpx;
     overflow: hidden;
-    text-overflow:ellipsis;
+    text-overflow: ellipsis;
     white-space: nowrap;
 }
- 
+
 
 .select_box {
-    background-color: #fff;
+     background: rgba(255, 255, 255, 1);
+     box-shadow: 0px 2px 14px 0px rgba(190, 190, 190, 0.29);
+     border-radius: 6px;
+    /* background-color: #fff; */
     position: relative;
     right: 0;
     z-index: 1;
     overflow: hidden;
-    animation: myfirst 0.3s;
+    /* animation: myfirst 0.3s; */
     font-size: 30rpx;
     text-align: center;
 }
@@ -183,6 +207,7 @@
     border-right: 12rpx solid transparent;
     margin-left: 20rpx;
 }
+
 .triangle-top {
     width: 0;
     height: 0;

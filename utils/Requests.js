@@ -79,7 +79,7 @@
      var DataArr = requestObj.data.data
      let fun = requestObj.data.function
      if (userType == '1') {
-         if (fun == 'getBaseChart' || fun == "getWeightListByWeek" || fun == "getWeightListByDate" || fun == "getWeightChart" || fun == "getFetusWeightList" || fun == "getDietList" || fun == "getDietChart" || fun == "getExerciseList" || fun == "getBloodGlucoseList" || fun == "getBloodGlucoseChartByDate" || fun == "getInsulinList" || fun == "getInsulinPumpList" || fun == "getInsulinListByWeek" || fun == "getInsulinChart" || fun == "getBaseList" || fun == "getFetusWeightChart" || fun == "getExerciseChart" || fun == "getWeightList") {
+         if (fun == 'getBaseChart' || fun == "getWeightListByWeek" || fun == "getWeightListByDate" || fun == "getWeightChart" || fun == "getFetusWeightList" || fun == "getDietList" || fun == "getDietChart" || fun == "getExerciseList" || fun == "getBloodGlucoseList" || fun == "getBloodGlucoseChartByDate" || fun == "getInsulinList" || fun == "getInsulinPumpList" || fun == "getInsulinListByWeek" || fun == "getInsulinChart" || fun == "getBaseList" || fun == "getFetusWeightChart" || fun == "getExerciseChart" || fun == "getWeightList" || fun =='getBloodGlucoseTable') {
              DataArr[0].patientId = PatientId
          }
      }
