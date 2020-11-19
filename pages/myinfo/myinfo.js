@@ -240,7 +240,6 @@ Page({
             PatientData,
             gdmYearIndex: val
         });
-        console.log(val, this.data.pInde);
     },
     bindGdmChange(e) {
         let {
