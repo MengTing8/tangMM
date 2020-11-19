@@ -34,7 +34,7 @@
                 </view>
                 <view class="select_box" wx:if="{{activeIndex==ids}}">
                     <view class="select_one" bindtap="mySelect" data-value="{{a.value}}" data-code="{{a.code}}" wx:for="{{MenuItems[activeIndex].combobox}}" wx:for-item="a" wx:for-index="x" wx:key="x" data-sequence="{{MenuItems[activeIndex].sequence}}">
-                        <view style="{{MenuTitle[activeIndex]==a.value?'color:#FEC81E':''}}">
+                        <view style="{{MenuTitle[activeIndex ]==a.value?'color:#FEC81E':''}}">
                             {{a.value}}
                         </view>
                     </view>

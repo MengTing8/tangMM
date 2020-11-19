@@ -82,7 +82,7 @@
             <view class="anewContent" bind:tap="bindEnd">
                 <image class="operationImg" src="../../img/end.png" mode="widthFix" />
                 <view class="">结束监测</view>
-            </view>
+            </view>z
             <view class="anewContent" bindtap="onChangeShowState">
                 <image class="operationImg" src="../../img/warning.png" mode="widthFix" />
                 <view class="">注意事项</view>

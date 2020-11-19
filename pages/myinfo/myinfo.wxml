@@ -44,7 +44,7 @@
                 <text>现处阶段</text>
             </view>
             <view class="textBox">
-                <picker mode="selector" value="{{[PatientData.stageCode-1]}}" range="{{TermList}}" range-key="{{'value'}}" bindchange="bindStageChange">
+                <picker mode="selector" value="{{PatientData.stageCode&&PatientData.stageCode!=='0'?[PatientData.stageCode-1]:0}}" range="{{TermList}}" range-key="{{'value'}}" bindchange="bindStageChange">
                     <view class="">{{TermList[PatientData.stageCode-1].value||'请选择'}}</view>
                 </picker>
             </view>
@@ -63,7 +63,7 @@
                 <text>胎数</text>
             </view>
             <view class="textBox">
-                <picker mode="selector" value="{{[PatientData.numberOfFetus-1]}}" range="{{embryoNum}}" range-key="{{'Name'}}" bindchange="bindNumberOfFetusChange">
+                <picker mode="selector" value="{{PatientData.numberOfFetus&&PatientData.numberOfFetus!=='0'?[PatientData.numberOfFetus-1]:0}}" range="{{embryoNum}}" range-key="{{'Name'}}" bindchange="bindNumberOfFetusChange">
                     <view class="weui-input_10">
                         {{embryoNum[PatientData.numberOfFetus-1].Name||'请选择'}}
                     </view>
@@ -187,10 +187,11 @@
         <view class="cell" wx:if="{{PatientData.diabetesB4Gestation==1}}">
             <view class="pickerBox">
                 <picker value="{{pickerIndex}}" range="{{years}}" bindchange="bindDiabetesYearChange">
-                    <view class="textColor" wx:if="{{PatientData.diabetesYearB4Gestation==0}}">
+                    <!-- <view class="textColor" wx:if="{{!PatientData.diabetesYearB4Gestation}}">
                         {{dateList[12]}}年
                     </view>
-                    <view class="textColor" wx:else>{{PatientData.diabetesYearB4Gestation}}年</view>
+                    <view class="textColor" wx:else>{{PatientData.diabetesYearB4Gestation}}年</view> -->
+                    <view class="textColor">{{PatientData.diabetesYearB4Gestation}}年</view>
                 </picker>
             </view>
             <view class="imgBox">
@@ -223,11 +224,12 @@
         </view>
         <view class="cell" wx:if="{{PatientData.gdm==1}}">
             <view class="pickerBox">
-                <picker mode="selector" value="" range="{{dateList}}" bindchange="bindGdmYearChange">
-                    <view class="textColor" wx:if="{{PatientData.gdmYear==0}}">
-                        {{dateList[12]}}年
-                    </view>
-                    <view class="textColor" wx:else>{{PatientData.gdmYear}}年</view>
+                <picker mode="selector" value="{{gdmYearIndex}}" range="{{dateList}}" bindchange="bindGdmYearChange">
+                    <!-- <view class="textColor" wx:if="{{PatientData.gdmYea==null}}">
+                        {{dateList[12]}}年 {{PatientData.gdmYear}}
+                    </view> -->
+                    <!-- <view class="textColor" wx:else>{{PatientData.gdmYear}}年</view> -->
+                    <view class="textColor">{{PatientData.gdmYear}}年</view>
                 </picker>
             </view>
             <view class="imgBox">

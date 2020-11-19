@@ -17,13 +17,18 @@ for (let i = 2008; i <= date.getFullYear() + 5; i++) {
     // years.push(i + '年');
     years.push(i);
 }
+//获取年份  
+var Y = date.getFullYear();
+
 Page({
     /**
      * 页面的初始数据
      */
     data: {
+        pInde: getPickerValue(years, Y),
         SwitchMusic: false,
         years: years,
+        gdmYearIndex: 12,
         pickerIndex: 12,
         PatientData: {},
         BMI: '',
@@ -121,12 +126,12 @@ Page({
             return false
         }
         if (!PatientData.gravidity) {
-              wx.showToast({
-                  title: '请输入孕次',
-                  icon: 'none',
-                  duration: 3000
-              })
-              return false
+            wx.showToast({
+                title: '请输入孕次',
+                icon: 'none',
+                duration: 3000
+            })
+            return false
         }
         if (PatientData.stageCode > 1) {
             if (!self.data.PatientWeight) {
@@ -228,11 +233,14 @@ Page({
     },
     bindGdmYearChange(e) {
         var val = e.detail.value
+        if (val > this.data.pInde) val = this.data.pInde
         let PatientData = this.data.PatientData
         PatientData.gdmYear = this.data.dateList[val]
         this.setData({
             PatientData,
+            gdmYearIndex: val
         });
+        console.log(val, this.data.pInde);
     },
     bindGdmChange(e) {
         let {
@@ -256,10 +264,12 @@ Page({
     },
     bindDiabetesYearChange(e) {
         var val = e.detail.value
+        if (val > this.data.pInde) val = this.data.pInde
         let PatientData = this.data.PatientData
         PatientData.diabetesYearB4Gestation = this.data.years[val]
         this.setData({
             PatientData,
+            pickerIndex:val
         });
     },
     //是否有糖尿病
@@ -377,6 +387,12 @@ Page({
                 } else {
                     lmp = ''
                 }
+                if (!Data.gdmYear) {
+                    Data.gdmYear = Y
+                }
+                if (!Data.diabetesYearB4Gestation) {
+                    Data.diabetesYearB4Gestation = Y
+                }
                 let indexs = []
                 let arr = self.data.dateTimeArray
                 let time = Data.deliveryLastTime
@@ -393,6 +409,7 @@ Page({
                 }
                 self.setData({
                     dateTime: indexs,
+                    gdmYearIndex: getPickerValue(self.data.years, Data.gdmYear),
                     pickerIndex: getPickerValue(self.data.years, Data.diabetesYearB4Gestation),
                     PatientData: Data,
                     BMI: Data.bmi,
@@ -490,10 +507,10 @@ Page({
         //         PatientWeight: e.detail.value
         //     })
         // } else {
-            this.setData({
-                PatientWeight: e.detail.value
-            })
-            this.calculateBMI()
+        this.setData({
+            PatientWeight: e.detail.value
+        })
+        this.calculateBMI()
         // }
 
     },
