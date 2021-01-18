@@ -1,0 +1,11 @@
+.imgBox {
+    /* flex: 2; */
+    margin-right: 40rpx;
+
+}
+
+.textArrow {
+    width: 12rpx;
+    height: 20rpx;
+    vertical-align: middle;
+}

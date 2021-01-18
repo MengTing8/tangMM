@@ -150,7 +150,7 @@ Page({
                         })
                     } else if (userType == '1') {
                         wx.reLaunch({
-                            url: '../MedicalCare/index/index'
+                            url: '../medicalcare/index/index'
                         })
                     }
                     // 发送成功ses
@@ -260,7 +260,7 @@ Page({
                                                 })
                                             } else if (userType == '1') {
                                                 wx.reLaunch({
-                                                    url: '../MedicalCare/index/index'
+                                                    url: '../medicalcare/index/index'
                                                 })
                                             }
                                         } else {

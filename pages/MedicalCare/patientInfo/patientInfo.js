@@ -236,42 +236,45 @@ Page({
             this.getPatient4Nurse()
         } else if (index == 1) {
             this.getMessage()
-        }else{
+        } else {
             this.getMyRecord4Nurse()
         }
     },
     RecordInfo(e) {
-        let code = e.detail.code
         let gestationalWeek = this.data.ProjectsData.gestationalWeek
         let URL = ''
-        if (code == '1') {
-            // 胎动监测
-            URL = `../FetalMRecord/FetalMRecord?GA=${gestationalWeek}`
-        } else if (code == '2') {
-            // 基础数据
-            URL = '../../basicDataHistory/basicDataHistory'
-        } else if (code == '3') {
-            // 妈妈空腹体重
-            URL = `../../WeightContent/historyWeightMa/historyWeightMa?GA=${gestationalWeek}`
-        } else if (code == '4') {
-            // 胎儿体重
-            URL = '../../WeightContent/fetalWeight/fetalWeight'
-        } else if (code == '5') {
-            // 饮食记录
-            URL = '../../DietAndExercise/historyDietRecords/historyDietRecords'
-        } else if (code == '6') {
-            // 运动记录
-            URL = '../../DietAndExercise/historySports/historySports'
-        } else if (code == '7') {
-            // 血糖
-            URL = '../../historyBloodSugar/historyBloodSugar'
-        } else if (code == '8') {
-            // 胰岛素
-            URL = `../../historyInsulin/historyInsulin?GA=${gestationalWeek}`
+        switch (e.detail.code) {
+            case '1':
+                URL = `../FetalMRecord/FetalMRecord?GA=${gestationalWeek}`
+                break
+            case '2':
+                URL = '../../recordcenter/basicDataHistory/basicDataHistory'
+                break
+            case '3':
+                URL = `../../weightcenter/historyWeightMa/historyWeightMa?GA=${gestationalWeek}`
+                break
+            case '4':
+                URL = '../../weightcenter/fetalWeight/fetalWeight'
+                break
+            case '5':
+                URL = '../../dietcenter/historyDietRecords/historyDietRecords'
+                break
+            case '6':
+                URL = '../../dietcenter/historySports/historySports'
+                break
+            case '7':
+                URL = '../../recordcenter/historyBloodSugar/historyBloodSugar'
+                break
+            case '8':
+                URL = `../../recordcenter/historyInsulin/historyInsulin?GA=${gestationalWeek}`
+
+                break
         }
-        wx.navigateTo({
-            url: URL
-        })
+        if (URL) {
+            wx.navigateTo({
+                url: URL
+            })
+        }
     },
     /**
      * 生命周期函数--监听页面加载

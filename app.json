@@ -1,77 +1,94 @@
 {
-  "pages": [
-    "pages/index/index",
-    "pages/MyRecord/MyRecord",
-    "pages/tiedCard/tiedCard",
-    "pages/myinfo/myinfo",
-    "pages/LeaveMessage/LeaveMessage",
-    "pages/fetalMovement/fetalMovement",
-    "pages/historyInsulin/historyInsulin",
-    "pages/historyBloodSugar/historyBloodSugar",
-    "pages/BloodSugarRecord/BloodSugarRecord",
-    "pages/InsulinRegister/InsulinRegister",
-    "pages/basicdata/basicdata",
-    "pages/basicDataHistory/basicDataHistory"
-  ],
-  "subPackages": [
-    {
-      "root": "pages/MedicalCare",
-      "name": "MedicalCare",
-      "pages": [
-        "index/index",
-        "patientInfo/patientInfo",
-        "FetalMRecord/FetalMRecord"
-      ]
+    "pages": [
+        "pages/index/index",
+        "pages/MyRecord/MyRecord",
+        "pages/tiedCard/tiedCard",
+        "pages/fetalMovement/fetalMovement"
+        
+    ],
+    "subPackages": [{
+            "root": "pages/medicalcare",
+            "name": "medicalcare",
+            "pages": [
+                "index/index",
+                "patientInfo/patientInfo",
+                "FetalMRecord/FetalMRecord"
+            ]
+        },
+        {
+            "root": "pages/weightcenter",
+            "name": "weightcenter",
+            "pages": [
+                "weightMa/weightMa",
+                "historyWeightMa/historyWeightMa",
+                "fetalWeightAdd/fetalWeightAdd",
+                "fetalWeight/fetalWeight"
+            ]
+        },
+        {
+            "root": "pages/dietcenter",
+            "name": "dietcenter",
+            "pages": [
+                "historySports/historySports",
+                "sportsRecord/sportsRecord",
+                "recordDiet/recordDiet",
+                "historyDietRecords/historyDietRecords",
+                "DietRecords/DietRecords"
+            ]
+        }, {
+            "root": "pages/messagecenter",
+            "name": "messagecenter",
+            "pages": [
+                "myinfo/myinfo",
+                "LeaveMessage/LeaveMessage"
+            ]
+        }, {
+            "root": "pages/recordcenter",
+            "name": "recordcenter",
+            "pages": [
+               "historyInsulin/historyInsulin",
+               "historyBloodSugar/historyBloodSugar",
+               "BloodSugarRecord/BloodSugarRecord",
+               "InsulinRegister/InsulinRegister",
+               "basicdata/basicdata",
+               "basicDataHistory/basicDataHistory"
+            ]
+        }
+    ],
+    "preloadRule": {
+       
+        "pages/MyRecord/MyRecord": {
+            "network": "all",
+            "packages": [
+                "dietcenter"
+            ]
+        },
+        "pages/fetalMovement/fetalMovement": {
+            "network": "all",
+            "packages": [
+                "recordcenter"
+            ]
+        },
+         "pages/tiedCard/tiedCard": {
+             "network": "all",
+             "packages": [
+                 "medicalcare"
+             ]
+         }
     },
-    {
-      "root": "pages/WeightContent",
-      "name": "WeightContent",
-      "pages": [
-        "weightMa/weightMa",
-        "historyWeightMa/historyWeightMa",
-        "fetalWeightAdd/fetalWeightAdd",
-        "fetalWeight/fetalWeight"
-      ]
+    "requiredBackgroundModes": [
+        "audio"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "",
+        "navigationBarTextStyle": "black"
     },
-    {
-      "root": "pages/DietAndExercise",
-      "name": "DietAndExercise",
-      "pages": [
-        "historySports/historySports",
-        "sportsRecord/sportsRecord",
-        "recordDiet/recordDiet",
-        "historyDietRecords/historyDietRecords",
-        "DietRecords/DietRecords"
-      ]
+    "style": "v2",
+    "sitemapLocation": "sitemap.json",
+    "usingComponents": {
+        "van-icon": "@vant/weapp/icon/index",
+        "van-search": "@vant/weapp/search/index"
     }
-  ],
-  "preloadRule": { 
-    "pages/MyRecord/MyRecord": {
-      "network": "all",
-      "packages": [
-        "MedicalCare"
-      ]
-    }
-  },
-  "requiredBackgroundModes": [
-    "audio"
-  ],
-  "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "",
-    "navigationBarTextStyle": "black"
-  },
-  "style": "v2",
-  "sitemapLocation": "sitemap.json",
-  "usingComponents": {
-    "van-uploader": "@vant/weapp/uploader/index",
-    "van-icon": "@vant/weapp/icon/index",
-    "van-tab": "@vant/weapp/tab/index",
-    "van-tabs": "@vant/weapp/tabs/index",
-    "van-search": "@vant/weapp/search/index",
-    "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",
-    "van-dropdown-item": "@vant/weapp/dropdown-item/index",
-    "van-dialog": "@vant/weapp/dialog/index"
-  }
 }

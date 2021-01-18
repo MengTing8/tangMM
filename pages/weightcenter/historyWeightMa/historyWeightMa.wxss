@@ -1,0 +1,189 @@
+.headView{
+    font-size: 26rpx;
+    color: #999999;
+    border-bottom: 1px solid #EFF0F5;
+    padding: 20rpx 0;
+
+}
+.historyList {
+    padding: 40rpx;
+}
+
+.ItemCardBox {
+    padding-top: 30rpx;
+    margin-bottom: 10rpx;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+   justify-content: space-between;
+}
+
+.ItemCard {
+   padding: 40rpx 0 40rpx 20rpx;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 8px 0px #CAE1E2;
+    border-radius: 12rpx;
+    margin-bottom: 30rpx;
+}
+
+.ItemCard_Time {
+    color: #0F1C36;
+    font-size: 34rpx;
+    font-weight: normal;
+    padding-bottom: 20rpx;
+    border-bottom: 1px solid #EFF0F5;
+}
+
+.ItemCard_Info {
+    width: 50%;
+    /* display: flex; */
+    color: #999999;
+    font-size: 26rpx;
+    line-height: 42rpx;
+}
+
+.ItemCard_Info view {
+    flex: 1;
+}
+.headerBox{
+    background-color: #FEE55F;
+    display: flex;
+    padding: 74rpx 60rpx;
+    align-items: center;
+   
+}
+.headerBox .headerBox_left {
+    flex: 2;
+}
+.headerBox .headerBox_right{
+    flex: 3;
+}
+.number{
+    color: #FE9800;
+}
+
+.tabsBox {
+    display: flex;
+    text-align: center;
+}
+
+.tabsItem {
+    /* color: #CDCDCD; */
+    border-bottom: 2rpx solid #CDCDCD;
+    flex: 1;
+    padding: 20rpx 0;
+
+}
+.timeColor{
+    color: #999999;
+    font-size: 24rpx;
+}
+.tabsContent{
+}
+.selected {
+    border-bottom: 4rpx solid #FEC81E;
+    color: #FEC81E;
+}
+.selectedList{
+    display: flex;
+    padding: 30rpx;
+    border-top: 2rpx solid #F6F6F6;
+
+}
+.checkedImg{
+    width: 40rpx;
+    height: 40rpx;
+    margin-right: 30rpx;
+}
+
+.recordTitle{
+    padding: 0rpx 30rpx;
+    color: #999999;
+    font-size: 26rpx;
+    background-color: #F6F6F6;
+    display: flex;
+    line-height: 88rpx;
+    /* padding: 40rpx 0; */
+}
+ .writeTime{
+    flex: 4;
+}
+
+ .weight {
+    flex: 2;
+}
+
+ .WeightTarget {
+    flex: 3;
+}
+.recordInfo{
+    padding: 20rpx 30rpx;
+    display: flex;
+    border-bottom: 2rpx solid #F6F6F6;
+    line-height: 88rpx;
+
+}
+
+
+
+.box {
+  
+    width: 700rpx;
+    height: 100%;
+    position: absolute;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* padding-bottom: 100rpx; */
+    /* padding: 10rpx 50rpx 100rpx 50rpx;  */
+
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    /* justify-content: space-between; */
+    box-sizing: border-box;
+
+}
+.mychartContent{
+    height: 1000rpx;
+    margin-top: 50rpx;
+    position: relative;
+    margin-bottom: 50rpx;
+}
+
+.scrollContainer {
+    width: 100%;
+     height: 1000rpx;
+    white-space: nowrap;
+    z-index: 99999;
+}
+.itemBg {
+    display: inline-block;
+}
+
+.titleContentBox {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.legendBox {
+    display: flex;
+    align-items: center;
+    padding: 12rpx 30rpx;
+    font-size: 24rpx;
+}
+
+.legendIcon {
+    margin-right: 14rpx;
+}
+
+.titleContent {
+    position: absolute;
+    right: 0;
+    bottom: -5%;
+    left: 0;
+    display: flex;
+    justify-content: center;
+}

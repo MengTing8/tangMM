@@ -1,0 +1,105 @@
+<view class="DietRecordsContent">
+    <view class="DietRecordsHeader">
+        <view class="DietRecordsHeader_title">妊娠期每日能量摄入推荐</view>
+        <view class="tableList">
+            <view class="tableTitle tableFont">
+                <view>建议</view>
+                <view>实际</view>
+            </view>
+            <view class="table">
+                <view class="tr tableFont">
+                    <view class="tha">热量(kcal)</view>
+                    <view class="ths">蛋白质</view>
+                    <view class="ths">碳水化合物</view>
+                    <view class="ths">脂肪</view>
+                </view>
+                <block>
+                    <view class="tr">
+                        <view class="td tha">{{rniList.heat.suggestion}}</view>
+                        <view class="td th">{{rniList.protein.suggestion}}</view>
+                        <view class="td th">{{rniList.carbo.suggestion}}</view>
+                        <view class="td th">{{rniList.fat.suggestion}}</view>
+                    </view>
+                    <view class="tr">
+                        <view class="td tha">{{rniList.heat.actual}}</view>
+                        <view class="td th">{{rniList.protein.actual}}</view>
+                        <view class="td th">{{rniList.carbo.actual}}</view>
+                        <view class="td th">{{rniList.fat.actual}}</view>
+                    </view>
+                </block>
+            </view>
+        </view>
+    </view>
+    <view class="DietRecordsListBox">
+        <TimeRecord pickerObj="{{dateObj}}" bindDateChange='bindDateChange' bindDeleteByDate='DeleteByDate'></TimeRecord>
+        <!-- 饮食录入列表 -->
+        <view class="enteringList">
+            <view class="enteringListView" wx:for="{{enteringItems}}" wx:key='index'>
+                <view class="inputList">
+                    <view class="info_content">
+                        <view class="expense_info_name">
+                            <view class="food_content">
+                                <view class="food_name">{{item.periodValue}}</view>
+                                <view class="food_weight" bind:tap="tapFoodAdd" data-index="{{index}}" data-periodCode="{{item.periodCode}}" data-food="{{item.food}}">
+                                    <view class="food_weight_content" wx:if="{{item.food}}">
+                                        <view style="text-align: center; margin-left:30rpx;">
+                                            {{item.value}}
+                                        </view>
+                                        <text>kcal</text>
+                                    </view>
+                                    <view class="food_weight_content" wx:else>
+                                        <view style="text-align: center; margin-left:30rpx;">
+                                           选择食物
+                                        </view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="pickerContent">
+                            <view class="pickerBox">
+                                <picker mode="time" value="{{item.time}}" start="00:00" end="" bindchange="bindTimeChange" data-index="{{index}}">
+                                    <view class="picker">{{item.time || '用餐时间'}}</view>
+                                </picker>
+                            </view>
+                            <view class="food_rightArrow"></view>
+                        </view>
+                        <view class="pickerContent">
+                            <view class="pickerBox">
+                                <picker mode="selector" value="" range="{{categoryValues}}" range-key="{{'value'}}" bindchange="bindCategoryChange" data-index="{{index}}">
+                                    <view class="picker">{{item.categoryValue || '请选择'}}</view>
+                                </picker>
+                            </view>
+                            <view class="food_rightArrow"></view>
+                        </view>
+                    </view>
+                </view>
+                <view class="classifyBox">
+                    <view class="foodTagBox">
+                        <view class="foodTagList">
+                            <view class="foodTagItem" wx:for="{{item.food}}" wx:key='index' wx:for-item="F" wx:for-index="cd">
+                                <view>{{F.name}}</view>
+                                <view>{{F.value}}g</view>
+                                <view bind:tap="DelFoodTag" data-index='{{index}}' data-rowMd5="{{F.rowMd5}}" data-ins="{{cd}}" data-id='{{F.id}}'  data-code='{{F.code}}'  data-periodCode="{{item.periodCode}}">
+                                    <image class="DelFoodTag" src="../../../img/delS.png" />
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="uploaderListContent">
+                        <view class="uploaderImgBox" data-index="{{index}}" bind:tap="UploadCourseware">
+                            <van-icon name="photograph" color="#CDCDCD" size="48rpx" wx:if="{{item}}"/>
+                            <view class="unifyFont">上传照片</view>
+                        </view>
+                        <view class="PhotoShwoContent" wx:for="{{item.photo}}" wx:for-item="P" wx:for-index="D" wx:key="D" wx:if='{{P.url}}'>
+                            <image class="uploaderPhoto" src="{{P.url}}" mode="widthFix" />
+                            <view class="delPhoto" bind:tap="delPhoto" data-index='{{index}}' data-fileName="{{P.fileName}}" data-ins="{{D}}">
+                                <van-icon name="close" size="40rpx" color="#FFF" wx:if='{{P.url}}' />
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <BtnComponents bindonSaveBtn="onSaveBtn" bindhistoryRecordBtn="historyRecordBtn" apiClicked='{{apiClicked}}'></BtnComponents>
+</view>

@@ -27,7 +27,7 @@ Page({
                     })
                 } else if (userType == '1') {
                     wx.reLaunch({
-                        url: '../MedicalCare/index/index'
+                        url: '../medicalcare/index/index'
                     })
                 } else if (userType == '-2') {
                     // -2 ：未绑定手机用户
@@ -93,7 +93,7 @@ Page({
                                   })
                               } else if (userType == '1') {
                                   wx.reLaunch({
-                                      url: '../MedicalCare/index/index'
+                                      url: '../medicalcare/index/index'
                                   })
                               }
 

@@ -66,12 +66,6 @@
      width: 50%;
      text-align: center;
  }
-.van-hairline--top-bottom:after {
-   border-width: 0 !important;
-}
-.van-tab--active{
- color:#FEC81E !important;
-}
 .selected{
     border-bottom: 4rpx solid #FEC81E;
     color: #FEC81E;

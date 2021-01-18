@@ -12,49 +12,7 @@
     // 倒计时
     var EndTime = new Date(new Date().getTime() + 1 * 60 * 60 * 1000).getTime() || [];
 
-    function countdown() {
-        if (getApp().globalData._this.data.refreshClock) {
-            return;
-        }
-        var NowTime = new Date().getTime();
-        var total_micro_second = EndTime - NowTime || [];
-        //单位毫秒 
-        if (total_micro_second < 0) {
-            // total_micro_second = 1;
-            //单位毫秒 ------  WHY？ 
-
-        }
-        if (total_micro_second <= 0) {
-            var timeEnd = formatTime(new Date())
-            app.globalData.clock = "00:00"
-            app.globalData.timeEnd = timeEnd
-            getApp().globalData._this.setData({
-                clock: "00:00",
-                timeEnd
-            });
-            back.stop()
-            getApp().globalData._this.SaveFetalMovement()
-            total_micro_second = ''
-            EndTime = new Date(new Date().getTime() + 0.3 * 60 * 60 * 1000).getTime() || [];
-            return;
-        } else {
-            app.globalData.clock = dateformat(total_micro_second)
-            // 渲染倒计时时钟  
-            getApp().globalData._this.setData({
-                clock: dateformat(total_micro_second)
-                // 若已结束，此处输出'0天0小时0分钟0秒' 
-            });
-
-
-        }
-        setTimeout(function () {
-            total_micro_second -= 1000;
-            countdown(getApp().globalData._this);
-
-        }, 1000)
-
-
-    }
+    
     // 时间格式化输出，如11天03小时25分钟19秒  每1s都会调用一次
     function dateformat(micro_second) {
         // 总秒数 
@@ -125,6 +83,49 @@
             legendList: [],
 
         },
+         countdown() {
+             if (getApp().globalData._this.data.refreshClock) {
+                 return;
+             }
+             var NowTime = new Date().getTime();
+             var total_micro_second = EndTime - NowTime || [];
+             //单位毫秒 
+             if (total_micro_second < 0) {
+                 // total_micro_second = 1;
+                 //单位毫秒 ------  WHY？ 
+
+             }
+             if (total_micro_second <= 0) {
+                 var timeEnd = formatTime(new Date())
+                 app.globalData.clock = "00:00"
+                 app.globalData.timeEnd = timeEnd
+                 getApp().globalData._this.setData({
+                     clock: "00:00",
+                     timeEnd
+                 });
+                 back.stop()
+                 getApp().globalData._this.SaveFetalMovement()
+                 total_micro_second = ''
+                 EndTime = new Date(new Date().getTime() + 0.3 * 60 * 60 * 1000).getTime() || [];
+                 return;
+             } else {
+                 app.globalData.clock = dateformat(total_micro_second)
+                 // 渲染倒计时时钟  
+                 getApp().globalData._this.setData({
+                     clock: dateformat(total_micro_second)
+                     // 若已结束，此处输出'0天0小时0分钟0秒' 
+                 });
+
+
+             }
+             setTimeout(function () {
+                 total_micro_second -= 1000;
+                 getApp().globalData._this.countdown(getApp().globalData._this);
+
+             }, 1000)
+
+
+         },
         DeleteByDate(e) {
             let {
                 id,
@@ -359,7 +360,7 @@
                     refreshClock: false
                 })
                 EndTime = new Date(new Date().getTime() + 1 * 60 * 60 * 1000).getTime() || [];
-                countdown(that);
+                that.countdown(that);
             } else {
                 if (this.data.total_econd == '' && that.data.validQuantity == 0) {
                     app.globalData.validQuantity = that.data.validQuantity + 1

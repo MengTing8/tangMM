@@ -1,0 +1,99 @@
+<!-- pages/perfectmyinfo/perfectmyinfo.wxml -->
+<view class="pageContainer">
+    <view class="basicInfo">
+        <view class="cell">
+            <view class="cell_title">
+                <text>记录时间</text>
+            </view>
+            <view class="textBox">
+                <picker mode="date" value="{{dateRecord}}" start="2018-01-01" end="{{EndDt}}" bindchange="bindRecordDateChange">
+                    <view class="weui-input_10">{{RecordDate}}</view>
+                </picker>
+            </view>
+            <view class="cell_arrow">
+                <view class="delBox" bindtap="DeleteCurrentData" data-date="{{dateRecord}}">
+                    <image src="../../../img/del.png" class="img" />
+                </view>
+            </view>
+        </view>
+        <view class="dataRecord">
+            <view class="dataArr">
+                <view class="dataHeader">
+                    <view class="dataHeader_title">
+                        <view>时间</view>
+                        <view class="units">时/分</view>
+                    </view>
+                    <view class="dataHeader_title">
+                        <view>心率</view>
+                        <view class="units">次/分</view>
+                    </view>
+                    <view class="dataHeader_title">
+                        <view>收缩压</view>
+                        <view class="units">mmHg</view>
+                    </view>
+                    <view class="dataHeader_title">
+                        <view>舒张压</view>
+                        <view class="units">mmHg</view>
+                    </view>
+                </view>
+                <view class="dataInfoList" wx:for="{{dataArray}}" wx:key="index">
+                    <view class="dataInfoItem">
+                        <picker mode="time" value="{{item.time}}" start="00:00" end="" bindchange="bindTimeChange" data-index="{{index}}">
+                            <view class="picker">{{item.time || '请选择'}}</view>
+                        </picker>
+                    </view>
+                    <view class="dataInfoItem">
+                        <input type="digit" placeholder="请输入" placeholder-class="phClass" value="{{item.heartRate}}" data-index="{{index}}" bindinput="bindHeartRateInput" />
+                    </view>
+                    <view class="dataInfoItem">
+                        <input type="digit" placeholder="请输入" class="{{item.systolicPressure>=90&&item.systolicPressure<140?'':'phClassRed'}}" placeholder-class="phClass" value="{{item.systolicPressure}}" data-index="{{index}}" bindinput="bindSystolicPreInput" />
+                    </view>
+                    <view class="dataInfoItem">
+                        <input type="digit" placeholder="请输入" class="{{item.diastolicPressure>=60&&item.diastolicPressure<90?'':'phClassRed'}}" placeholder-class="phClass" value="{{item.diastolicPressure}}" data-index="{{index}}" bindinput="bindDiastolicPreInput" />
+                    </view>
+                    <view class="delBox" bindtap="delRecord" data-index="{{index}}" data-id="{{item.id}}" data-rowMd5="{{item.rowMd5}}">
+                        <image src="../../../img/del.png" class="img" />
+                    </view>
+                </view>
+            </view>
+            <view class="addRecordBtn" bind:tap="addRecordList">添加一组记录</view>
+        </view>
+        <view class="cell" style="align-items: center;">
+            <view class="cell_title">
+                <text>宫高</text>
+            </view>
+            <view class="textBoxs">
+                <input class="weui-input" type="digit" value="{{baseData.fundalHeight}}" placeholder="请输入" placeholder-class="phClass" bindinput="bindFundalHeightInput" />
+            </view>
+            <view class="cell_arrow">
+                <text>cm</text>
+            </view>
+            <text class="RightArrow"></text>
+        </view>
+        <view class="cell" style="align-items: center;">
+            <view class="cell_title">
+                <text>腹围</text>
+            </view>
+            <view class="textBoxs">
+                <input class="weui-input" type="digit" value="{{baseData.abdominalCircumference}}" placeholder-class="phClass" placeholder="请输入" bindinput="bindAbdominalInput" />
+            </view>
+            <view class="cell_arrow">
+                <text>cm</text>
+            </view>
+            <text class="RightArrow"></text>
+        </view>
+        <view class="cell" style="align-items: center;">
+            <view class="cell_title">
+                <text>糖化血红蛋白</text>
+            </view>
+            <view class="textBoxs">
+                <input class="weui-input" type="digit" value="{{baseData.hba1c}}" bindinput="bindHba1cInput" placeholder-class="phClass" placeholder="请输入" />
+            </view>
+            <view class="cell_arrow">
+                <text>%</text>
+            </view>
+            <text class="RightArrow"></text>
+        </view>
+    </view>
+    <BtnComponents bindonSaveBtn="SaveBasicdata" bindhistoryRecordBtn="tapHistory" apiClicked='{{apiClicked}}'></BtnComponents>
+</view>

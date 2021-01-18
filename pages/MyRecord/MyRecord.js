@@ -18,7 +18,6 @@ Page({
         isNone: false
     },
     RecordInfo(e) {
-        let code = e.detail.code
         let {
             avatarUrl,
             name,
@@ -28,45 +27,49 @@ Page({
             numberOfFetus
         } = this.data.MyRecordData
         let URL = ''
-        if (code == '1') {
-            // 胎动监测
-            URL = `../fetalMovement/fetalMovement?avatarUrl=${avatarUrl}&name=${name}&description=${description}&patientId=${id}&gestationalWeek=${gestationalWeek}`
-        } else if (code == '2') {
-            // 基础数据
-            URL = '../basicdata/basicdata'
-        } else if (code == '3') {
-            // 妈妈空腹体重
-            // URL = '../weightMa/weightMa'
-            URL = '../WeightContent/weightMa/weightMa?gestationalWeek=' + gestationalWeek
-        } else if (code == '4') {
-            // 胎儿体重
-            URL = `../WeightContent/fetalWeightAdd/fetalWeightAdd?numberOfFetus=${numberOfFetus}&gestationalWeek=${gestationalWeek}`
-        } else if (code == '5') {
-            // 饮食记录
-            URL = '../DietAndExercise/DietRecords/DietRecords'
-        } else if (code == '6') {
-            // 运动记录
-            URL = '../DietAndExercise/sportsRecord/sportsRecord'
-        } else if (code == '7') {
-            // 血糖
-            URL = '../BloodSugarRecord/BloodSugarRecord'
-        } else if (code == '8') {
-            // 胰岛素
-            URL = '../InsulinRegister/InsulinRegister?gestationalWeek=' + gestationalWeek
+        switch (e.detail.code) {
+            case '1':
+                URL = `../fetalMovement/fetalMovement?avatarUrl=${avatarUrl}&name=${name}&description=${description}&patientId=${id}&gestationalWeek=${gestationalWeek}`
+                break
+            case '2':
+                URL = '../recordcenter/basicdata/basicdata'
+                break
+            case '3':
+                URL = '../weightcenter/weightMa/weightMa?gestationalWeek=' + gestationalWeek
+                break
+            case '4':
+                URL = `../weightcenter/fetalWeightAdd/fetalWeightAdd?numberOfFetus=${numberOfFetus}&gestationalWeek=${gestationalWeek}`
+                break
+            case '5':
+                URL = '../dietcenter/DietRecords/DietRecords'
+                break
+            case '6':
+                URL = '../dietcenter/sportsRecord/sportsRecord'
+                break
+            case '7':
+                URL = '../recordcenter/BloodSugarRecord/BloodSugarRecord'
+                break
+            case '8':
+                URL = '../recordcenter/InsulinRegister/InsulinRegister?gestationalWeek=' + gestationalWeek
+                break
         }
-        wx.navigateTo({
-            url: URL
-        })
+        if (URL) {
+            wx.navigateTo({
+                url: URL
+            })
+        }
+
+
     },
     modifiedInfo() {
         wx.navigateTo({
-            url: '../myinfo/myinfo'
+            url: '../messagecenter/myinfo/myinfo'
         })
     },
     getMessage() {
-        var that=this
+        var that = this
         wx.navigateTo({
-            url: '../LeaveMessage/LeaveMessage?patientId=' + that.data.patientId
+            url: '../messagecenter/LeaveMessage/LeaveMessage?patientId=' + that.data.patientId
         })
     },
     //获取我的记录
