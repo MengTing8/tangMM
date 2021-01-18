@@ -1,6 +1,9 @@
 const {
-    promiseRequest
+    promiseRequest,
+    wxuploadURL
 } = require("../../../utils/Requests")
+var log = require('../../../utils/log.js')
+
 const {
     getDates,
     deepCopy,
@@ -9,6 +12,7 @@ const {
 const moment = require('../../../utils/moment.min.js');
 let date = getDates(1, new Date());
 let newDate = moment(date[0].time).format('YYYY年MM月DD日')
+console.log(wxuploadURL);
 Page({
     /**
      * 页面的初始数据
@@ -103,8 +107,8 @@ Page({
                 var tempFilePaths = res.tempFilePaths;
                 console.log(tempFilePaths);
                 wx.uploadFile({
-                    // url: 'https://aaron.astraia.com.cn//wxupload',
-                    url: 'https://gy3y.astraia.com.cn//wxupload',
+                    url: wxuploadURL,
+                    // url: 'https://gy3y.astraia.com.cn//wxupload',
                     filePath: tempFilePaths[0],
                     name: 'upload',
                     formData: {
@@ -126,7 +130,7 @@ Page({
                             }
                             that.setData({
                                 enteringItems,
-                                enteringArray: enteringItems
+                                // enteringArray: enteringItems
                             })
                         } else {
                             console.log(ResData.message);
@@ -140,6 +144,7 @@ Page({
     },
     getDiet() {
         let self = this
+        let eArray = self.data.enteringItems
         wx.removeStorageSync('FoodDataList')
         promiseRequest({
             method: "POST",
@@ -153,14 +158,21 @@ Page({
             }
         }).then(res => {
             console.log(res, "取饮食记录");
+
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
+                eArray = [...ResData.items]
                 ResData.items.sort(sortFun(`sequence`))
+                for (const key in ResData.items) {
+                    console.log(ResData.items[key].id, ResData.items[key].rowMd5);
+                    eArray[key].rowMd5 = ResData.items[key].rowMd5
+                    eArray[key].id = ResData.items[key].id
+                }
                 self.setData({
-                    enteringArray: ResData.items,
+                    // enteringArray: eArray,
                     categoryValues: ResData.categoryValues,
                     rniList: ResData.rni,
-                    enteringItems: ResData.items,
+                    enteringItems: eArray,
                     DeleteFoodList: [],
                     DeletePhotoList: [],
                 })
@@ -215,7 +227,7 @@ Page({
         }
         this.setData({
             enteringItems: Items,
-            enteringArray: Items
+            // enteringArray: Items
         })
     },
     DelFoodList() {
@@ -259,7 +271,7 @@ Page({
         }
         self.setData({
             enteringItems: Items,
-            enteringArray: Items,
+            // enteringArray: Items,
             DeletePhotoList: NewList
         })
     },
@@ -294,7 +306,7 @@ Page({
         enteringItems[index].categoryCode = self.data.categoryValues[val].code
         this.setData({
             enteringItems,
-            enteringArray: enteringItems
+            // enteringArray: enteringItems
         })
     },
     bindTimeChange: function (e) {
@@ -307,7 +319,7 @@ Page({
         enteringItems[index].time = timeData
         self.setData({
             enteringItems,
-            enteringArray: enteringItems
+            // enteringArray: enteringItems
         })
     },
     tapFoodAdd(e) {
@@ -366,7 +378,7 @@ Page({
     },
     onSaveBtn() {
         let self = this
-        let params = deepCopy(self.data.enteringArray)
+        let params = deepCopy(self.data.enteringItems)
         let judgeArr = []
         for (let i = 0; i < params.length; i++) {
             params[i].date = self.data.dataTime
@@ -416,6 +428,7 @@ Page({
         }
     },
     saveDiet(params) {
+        console.log(params);
         let self = this
         if (params.length == 0) {
             wx.showToast({
@@ -536,7 +549,7 @@ Page({
             }
             that.setData({
                 enteringItems,
-                enteringArray: enteringItems,
+                // enteringArray: enteringItems,
                 DeleteFoodList: arrs
             })
         }
@@ -571,6 +584,11 @@ Page({
         }
 
 
+        log.info('hello test hahaha') // 日志会和当前打开的页面关联，建议在页面的onHide、onShow等生命周期里面打
+        log.warn('warn')
+        log.error('error')
+        log.setFilterMsg('filterkeyword')
+        log.addFilterMsg('addfilterkeyword')
 
     },
 

@@ -244,16 +244,17 @@ Page({
         wx.setStorageSync('FoodDataList', newFoodDataList)
     },
     saveFood() {
-        let pages = getCurrentPages();
-        let prevPage = pages[pages.length - 2];
-        prevPage.setData({
-            foodArr: this.data.foodArr
-        })
-        setTimeout(() => {
+        // let pages = getCurrentPages();
+        // let prevPage = pages[pages.length - 2];
+        // prevPage.setData({
+        //     foodArr: this.data.foodArr
+        // })
+        // setTimeout(() => {
             wx.navigateBack({
                 delta: 1
             })
-        }, 1000)
+        // }, 1000)
+       
     },
     bindSearch(e) {
         let self = this

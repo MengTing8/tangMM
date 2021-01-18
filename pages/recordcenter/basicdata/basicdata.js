@@ -259,16 +259,17 @@
                   let ResData = res.data.data[0]
                   let NewbaseData = self.data.baseData
                   let newArr = self.data.dataArray
+                  console.log(newArr);
                   if (ResData.items.length > 0) {
-                      let newArr = ResData.items
-                      for (const key in newArr) {
-                          newArr[key].entity = "baseDetail"
-                          newArr[key].patientId = wx.getStorageSync('patientId')
-                          newArr[key].status = 1
-                          newArr[key].rowMd5 = newArr[key].rowMd5
-                          newArr[key].id = newArr[key].id
+                      let newItems = ResData.items
+                      for (const key in newItems) {
+                          newItems[key].entity = "baseDetail"
+                          newItems[key].patientId = wx.getStorageSync('patientId')
+                          newItems[key].status = 1
+                          newItems[key].rowMd5 = newItems[key].rowMd5
+                          newItems[key].id = newItems[key].id
                           self.setData({
-                              dataArray: newArr,
+                              dataArray: newItems,
                               DeleteList: []
                           })
                       }

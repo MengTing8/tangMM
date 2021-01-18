@@ -72,6 +72,15 @@
   * 封装的promise
   * 参数： requestObj 请求成功回调
   */
+ // var isProductApi = true
+ var isProductApi = false
+
+ var aikineBaseURL = ''
+ if (isProductApi) {
+     aikineBaseURL = 'https://gy3y.astraia.com.cn' // 正式环境
+ } else {
+     aikineBaseURL = 'https://aaron.astraia.com.cn' // 测试环境
+ }
  const app = getApp()
  const promiseRequest = (requestObj) => {
      let userType = wx.getStorageSync('userType')
@@ -91,8 +100,7 @@
              delete DataArr[key].id
          }
      }
-    //  let apiUrl = 'https://aaron.astraia.com.cn'
-     let apiUrl = 'https://gy3y.astraia.com.cn'
+   
      return new Promise((resolve, reject) => {
          if (!requestObj.data.token && requestObj.data.function !== 'mpLogin') {
              login(requestObj)
@@ -100,7 +108,7 @@
          }
          //网络请求
          wx.request({
-             url: apiUrl + requestObj.url,
+             url: aikineBaseURL + requestObj.url,
              method: requestObj.method,
              data: JSON.stringify(requestObj.data),
              success: function (res) {
@@ -181,5 +189,6 @@
  }
  module.exports = {
      promiseRequest,
-     login
+     login,
+     wxuploadURL: aikineBaseURL +'//wxupload'
  }

@@ -25,8 +25,8 @@
     }
   },
   "compileType": "miniprogram",
-  "libVersion": "2.8.0",
-  "appid": "wxaee40e755b2fd32a",
+  "libVersion": "2.14.3",
+  "appid": "wxbcbbd78162935f03",
   "projectname": "tangmama",
   "debugOptions": {
     "hidedInDevtools": []
