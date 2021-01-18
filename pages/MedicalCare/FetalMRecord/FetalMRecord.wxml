@@ -19,7 +19,7 @@
                     <text>{{item.timeStart}}~{{item.timeEnd}}</text>
                 </view>
                 <view class="fetalInfo">
-                    <view class="abnormalState" wx:if="{{item.isAbnormal=='1'}}">
+                    <view class="abnormalState" hidden="{{item.isAbnormal!=='1'}}">
                         <image class="warnImg" src="../../../img/warn.png" mode="widthFix" />
                         <text>胎动异常</text>
                     </view>
@@ -29,7 +29,7 @@
             </view>
         </view>
         <!-- 无数据提示 -->
-        <view class="noDataBox" wx:if="{{FetalMovementList.length==0}}">
+        <view class="noDataBox" hidden="{{FetalMovementList.length!==0}}">
             <image class="noDataImg" src="../../../img/noData.png" mode="widthFix" />
             <view>当前孕周没记录哟</view>
         </view>
@@ -54,24 +54,24 @@
                     <view class="Count">说明</view>
                 </view>
                 <view wx:for="{{WeeksRecordList}}" wx:key="index">
-                    <view class="GaRecordList_item" wx:if="{{item.type==0}}">
+                    <view class="GaRecordList_item" hidden="{{item.type!==0}}">
                         <view class="gaWeeks">{{item.row.week}}</view>
                         <view class="timefragme">{{item.row.duration}}</view>
                         <view class="Count">{{item.row.validQuantity}}</view>
                         <view class="Count">
-                            <view class="abnormalStateW" wx:if="{{item.row.isAbnormal=='1'}}">
+                            <view class="abnormalStateW" hidden="{{item.row.isAbnormal!=='1'}}">
                                 <image class="warnImg" src="../../../img/warn.png" mode="widthFix" />
                                 <text>胎动异常</text>
                             </view>
                         </view>
                     </view>
-                    <view class="GaRecordList_item" wx:if="{{item.type==1}}">
+                    <view class="GaRecordList_item" hidden="{{item.type!==1}}">
                         <view class="total">{{item.row.subtotal}}</view>
                     </view>
                 </view>
             </view>
             <!-- 无数据提示 -->
-            <view class="noDataBox" wx:if="{{WeeksRecordList.length==0}}">
+            <view class="noDataBox" hidden="{{WeeksRecordList.length!==0}}">
                 <image class="noDataImg" src="../../../img/noData.png" mode="widthFix" />
                 <view>今日还没记录哟</view>
             </view>
