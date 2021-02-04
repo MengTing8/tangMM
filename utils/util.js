@@ -267,6 +267,23 @@ function getPreMonth(date) {
     var t2 = year2 + '-' + month2 + '-' + day2;
     return t2;
 }
+
+function wxlogin() {
+    return new Promise(function (resolve, reject) {
+        wx.login({
+            success: function (res) {
+                if (res.code) {
+                    resolve(res.code);
+                } else {
+                    reject(res);
+                }
+            },
+            fail: function (err) {
+                reject(err);
+            }
+        })
+    })
+}
 module.exports = {
     getPreMonth: getPreMonth,
     getNowFormatDate: getNowFormatDate,
@@ -279,5 +296,6 @@ module.exports = {
     sortFun: sortFun,
     getPickerValue: getPickerValue,
     getAge: getAge,
-    contrastTime: contrastTime
+    contrastTime: contrastTime,
+    wxlogin: wxlogin
 }

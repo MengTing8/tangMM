@@ -82,6 +82,7 @@
      aikineBaseURL = 'https://aaron.astraia.com.cn' // 测试环境
  }
  const app = getApp()
+ console.log(app);
  const promiseRequest = (requestObj) => {
      let userType = wx.getStorageSync('userType')
      let PatientId = wx.getStorageSync('PatientId')
