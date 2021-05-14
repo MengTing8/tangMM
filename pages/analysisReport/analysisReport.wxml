@@ -1,0 +1,193 @@
+<view class="report-panel">
+    <view class="userinfo-center">
+        <view class="userinfo-top">
+            <image class="imageUser" src="../../img/user.png" />
+            <view>
+                <view class="userName">李小欣</view>
+                <view>26岁</view>
+            </view>
+        </view>
+        <view class="userinfo-row">
+            <view>身高（cm）：162</view>
+            <view>孕前体重(kg)：45</view>
+        </view>
+        <view class="userinfo-row">
+            <view>KMI(kg/m2)：120</view>
+            <view>增重目标(kg)：55</view>
+        </view>
+        <view class="userinfo-row">
+            <view>干预孕周：26</view>
+            <view>OGTT(mmol/L)：20</view>
+        </view>
+        <view class="userinfo-row" style="border-bottom:none;">建议热卡（kcal/d）:1500-1700</view>
+    </view>
+    <StartAndEndTimes TimeObj="{{TimeObj}}" bindStartTimeChange='bindStartTimeChange' bindEndTimeChange='bindEndTimeChange'></StartAndEndTimes>
+    <view class="table-panel">
+        <scroll-view class="'scrollContainer' " scroll-x="true" scroll-with-animation="true" bindscroll="getleft" wx:if="videoArr.length>0">
+            <view class="itemBg">
+                <view class="coverView">
+                    <!-- 表单 -->
+                    <view class="tableList">
+                        <view class="table">
+                            <view class="tr tableTitle">
+                                <view class="tha">日期孕周</view>
+                                <view>空腹血糖</view>
+                                <view class="foodw">早餐</view>
+                                <view>早餐后血糖</view>
+                                <view class="foodw">早加餐</view>
+                                <view>午餐前血糖</view>
+                                <view class="foodw">午餐</view>
+                                <view>午餐后血糖</view>
+                                <view class="foodw">午加餐</view>
+                                <view>晚餐前血糖</view>
+                                <view class="foodw">晚餐</view>
+                                <view>晚餐后血糖</view>
+                                <view class="foodw">晚加餐</view>
+                                <view>睡前血糖</view>
+                                <view>空腹体重</view>
+                                <view>运动</view>
+                                <view>胰岛素</view>
+                            </view>
+                            <block>
+                                <view class="tr">
+                                    <view class="td tha">2021-03-05  26周</view>
+                                    <view class="td">10.1</view>
+                                    <view class="td foodw">鸡蛋、牛奶 麦片早餐</view>
+                                    <view class="td">8.2</view>
+                                    <view class="td foodw">鸡蛋、牛奶、麦片、瘦肉粥、面包、巧克力、玉米</view>
+                                    <view class="td">8.2</view>
+                                    <view class="td foodw">鸡蛋、牛奶 麦片</view>
+                                    <view class="td">8.2</view>
+                                    <view class="td foodw">鸡蛋、牛奶、麦片、瘦肉粥、面包、巧克力、玉米999</view>
+                                    <view class="td">8.2</view>
+                                    <view class="td foodw">鸡蛋、牛奶、麦片、瘦肉粥、面包、巧克力、玉米</view>
+                                    <view class="td">8.2</view>
+                                    <view class="td foodw">鸡蛋、牛奶、麦片、瘦肉粥、面包、巧克力、玉米</view>
+                                    <view class="td">8.2</view>
+                                    <view class="td">61</view>
+                                    <view class="td">散步20-20-20</view>
+                                    <view class="td">2-2-2-6</view>
+                                </view>
+                            </block>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </scroll-view>
+    </view>
+    <view class="canvas-panel">
+        <view class="mychartContent">
+            <view class="container">
+                <ec-canvas id="report-dom-scatter" canvas-id="report-scatter" ec="{{ ec }}"></ec-canvas>
+            </view>
+            <view class="titleContent">
+                <view class="titleContentBox">
+                    <view class="legendBox" wx:for="{{legendList}}" wx:key="index">
+                        <image class="legendIcon" src="{{item.symbol}}" style="width:{{item.size.width}}rpx;height:{{item.size.height}}rpx"></image>
+                        <view class="">{{item.value}}</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="mychartContent">
+            <view class="container">
+                <ec-canvas id="report-dom-weight" canvas-id="report-weight" ec="{{ec}}"></ec-canvas>
+            </view>
+            <view class="titleContent">
+                <view class="titleContentBox">
+                    <view class="legendBox" wx:for="{{legendWeight}}" wx:key="index">
+                        <image class="legendIcon" src="{{item.symbol}}" style="width:{{item.size.width}}rpx;height:{{item.size.height}}rpx"></image>
+                        <view class="">{{item.value}}</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="mychartContent">
+            <view class="container">
+                <ec-canvas id="report-dom-basic" canvas-id="report-basic" ec="{{ec}}"></ec-canvas>
+            </view>
+            <view class="titleContent">
+                <view class="titleContentBox">
+                    <view class="legendBox" wx:for="{{legendBasic}}" wx:key="index">
+                        <image class="legendIcon" src="{{item.symbol}}" style="width:{{item.size.width}}rpx;height:{{item.size.height}}rpx"></image>
+                        <view class="">{{item.value}}</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="food-dose-panel">
+        <view class="food-dose-title">孕期食物摄入量</view>
+        <view class="food-dose-center">
+            <view class="food-dose-list">
+                <view class="food-dose-top">
+                    <view class="food-dose-date">
+                        <view class="">2021-03-21</view>
+                        <view class="">26周</view>
+                    </view>
+                    <view>
+                        <view class="">实际摄入热卡</view>
+                        <view class="">1800</view>
+                    </view>
+                    <view>
+                        <view class="">建议摄入热卡</view>
+                        <view class="">1600</view>
+                    </view>
+                </view>
+                <view class="food-dose-bottom">
+                    <view style="width:{{36}}%;background: #62d829;">36%</view>
+                    <view style="width:{{42}}%;background: #FEC81E;">22%</view>
+                    <view style="width:{{32}}%;background: #FA5151;">32%</view>
+                </view>
+            </view>
+            <view class="food-dose-list">
+                <view class="food-dose-top">
+                    <view class="food-dose-date">
+                        <view class="">2021-03-21</view>
+                        <view class="">26周</view>
+                    </view>
+                    <view>
+                        <view class="">实际摄入热卡</view>
+                        <view class="">1800</view>
+                    </view>
+                    <view>
+                        <view class="">建议摄入热卡</view>
+                        <view class="">1600</view>
+                    </view>
+                </view>
+                <view class="food-dose-bottom">
+                    <view style="width:{{36}}%;background: #62d829;">36%</view>
+                    <view style="width:{{42}}%;background: #FEC81E;">22%</view>
+                    <view style="width:{{32}}%;background: #FA5151;">32%</view>
+                </view>
+            </view>
+            <view class="food-dose-legend">
+                <view class="legend-center">
+                    <view>
+                        <text class="legend-icon" style="background:#62d829;"></text>
+                        碳水化合物
+                    </view>
+                    <view>
+                        <text class="legend-icon" style="background:#FEC81E;"></text>
+                        蛋白质
+                    </view>
+                    <view>
+                        <text class="legend-icon" style="background:#FA5151;"></text>
+                        脂肪
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!-- 医护端 需添加已处理及发送留言按钮 -->
+        <view class="sendContent" wx:if="{{userType=='1'}}">
+        <view class="inputBox">
+            <view class="submitBth" bind:tap="handReport">
+                <image mode="widthFix" src="../../img/upload.png" />
+                交作业
+            </view>
+            <input class="InputContent" type="text" value="{{userInputConten}}" bindinput="InputMessage" />
+            <view class="sendBtn" bind:tap="saveMessage">发送</view>
+        </view>
+    </view>
+</view>

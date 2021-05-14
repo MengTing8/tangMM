@@ -229,14 +229,13 @@
 .inpText {
     display: flex;
     align-items: center;
-    /* color: #000; */
 }
 .inpText text {
     text-align: right;
     margin-left: 8rpx;
 }
 
-.type {
+.gdmType {
     background: rgba(254, 152, 0, 1);
     border-radius: 100px 0px 0px 100px;
     font-size: 24rpx;
@@ -283,7 +282,9 @@
 .cell .cell_title {
     flex: 1;
 }
-
+.textAlign {
+  text-align: center;
+}
 .cell .textBox {
     flex: 2;
     text-align: left;

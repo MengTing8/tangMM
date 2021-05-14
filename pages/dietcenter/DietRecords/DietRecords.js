@@ -12,7 +12,6 @@ const {
 const moment = require('../../../utils/moment.min.js');
 let date = getDates(1, new Date());
 let newDate = moment(date[0].time).format('YYYY年MM月DD日')
-console.log(wxuploadURL);
 Page({
     /**
      * 页面的初始数据
@@ -105,7 +104,6 @@ Page({
             sourceType: ['album', 'camera'],
             success: function (res) {
                 var tempFilePaths = res.tempFilePaths;
-                console.log(tempFilePaths);
                 wx.uploadFile({
                     url: wxuploadURL,
                     // url: 'https://gy3y.astraia.com.cn//wxupload',
@@ -117,7 +115,6 @@ Page({
                     },
                     success(res) {
                         let ResData = JSON.parse(res.data)
-                        console.log(ResData);
                         if (ResData.code == '0') {
                             wx.showToast({
                                 title: '上传成功',
@@ -133,7 +130,11 @@ Page({
                                 // enteringArray: enteringItems
                             })
                         } else {
-                            console.log(ResData.message);
+                             wx.showToast({
+                                 title: ResData.message,
+                                 icon: 'none',
+                                 duration: 2000
+                             })
                         }
                     }
                 })
@@ -145,6 +146,7 @@ Page({
     getDiet() {
         let self = this
         let eArray = self.data.enteringItems
+        console.log(eArray);
         wx.removeStorageSync('FoodDataList')
         promiseRequest({
             method: "POST",
@@ -157,19 +159,16 @@ Page({
                 }]
             }
         }).then(res => {
-            console.log(res, "取饮食记录");
-
             if (res.data.code === '0') {
                 var ResData = res.data.data[0]
-                eArray = [...ResData.items]
+                eArray =ResData.items
                 ResData.items.sort(sortFun(`sequence`))
                 for (const key in ResData.items) {
-                    console.log(ResData.items[key].id, ResData.items[key].rowMd5);
                     eArray[key].rowMd5 = ResData.items[key].rowMd5
                     eArray[key].id = ResData.items[key].id
                 }
                 self.setData({
-                    // enteringArray: eArray,
+                    enteringArray: ResData.items,
                     categoryValues: ResData.categoryValues,
                     rniList: ResData.rni,
                     enteringItems: eArray,
@@ -183,6 +182,11 @@ Page({
                     duration: 2000
                 })
             }
+              setTimeout(() => {
+                  self.setData({
+                      apiClicked: false
+                  })
+              }, 5000);
         })
     },
     DelFoodTag(e) {
@@ -379,6 +383,12 @@ Page({
     onSaveBtn() {
         let self = this
         let params = deepCopy(self.data.enteringItems)
+        let initialArr = self.data.enteringArray
+       for (const ins in initialArr) {
+           if (params[ins].periodCode == initialArr[ins].periodCode) {
+               params[ins].id = initialArr[ins].id
+           }
+       }
         let judgeArr = []
         for (let i = 0; i < params.length; i++) {
             params[i].date = self.data.dataTime
@@ -428,7 +438,6 @@ Page({
         }
     },
     saveDiet(params) {
-        console.log(params);
         let self = this
         if (params.length == 0) {
             wx.showToast({
@@ -480,12 +489,13 @@ Page({
                         icon: 'none',
                         duration: 2000
                     })
+                      setTimeout(() => {
+                          self.setData({
+                              apiClicked: false
+                          })
+                      }, 5000);
                 }
-                setTimeout(() => {
-                    self.setData({
-                        apiClicked: false
-                    })
-                }, 5000);
+              
             })
         }
     },

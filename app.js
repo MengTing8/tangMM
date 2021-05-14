@@ -1,6 +1,7 @@
 App({
     onLaunch: function () {
         const userType = wx.getStorageSync('userType');
+        return
         if (wx.getStorageSync('token') && userType) {
             setTimeout(() => {
                 if (userType == '2') {

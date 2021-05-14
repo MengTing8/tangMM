@@ -65,11 +65,9 @@
         </view>
         <view class="" hidden="{{TabsIndex !==1}}">
             <view class="mychartContent">
-                <!-- <scroll-view class="scrollContainer"   scroll-x scroll-with-animation="true"  bindscroll="getleft"> -->
                 <view class="container">
                     <ec-canvas id="mychart-dom-scatter" canvas-id="mychart-scatter" ec="{{ ec }}"></ec-canvas>
                 </view>
-                <!-- </scroll-view> -->
                 <view class="titleContent">
                     <view class="titleContentBox">
                         <view class="legendBox" wx:for="{{legendList}}" wx:key="index">

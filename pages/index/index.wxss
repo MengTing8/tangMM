@@ -1,67 +1,5 @@
-/**index.wxss**/
-ec-canvas {
-    width: 100%;
-    height: 100%;
-}
 
-/**index.wxss**/
-.userinfo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.userinfo-avatar {
-    width: 128rpx;
-    height: 128rpx;
-    margin: 20rpx;
-    border-radius: 50%;
-}
-
-.userinfo-nickname {
-    color: #aaa;
-}
-
-.usermotto {
-    margin-top: 200px;
-}
-
-.weui-cell__hd {
-    /* letter-spacing:5rpx; */
-    font-size: 0.95rem;
-}
-
-.weui-cell {
-    font-size: 14px;
-    padding: 0 10px 20px 10px;
-    position: relative;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-}
-
-.weui-cell__ft {
-    font-size: 0.95rem;
-    text-align: right;
-}
-
-.weui-input_10 {
-    /* letter-spacing:10rpx; */
-    font-size: 1.4rem;
-    width: 8rem;
-    background-color: #f9f9f9;
-    text-align: center;
-    border-bottom: 1rpx solid #000000;
-    height: 1.5rem;
-    min-height: 1.5rem;
-    line-height: 1.4rem;
-}
-
-/* 弹窗蒙版 start */
-.alert-mask {
+mask {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -145,4 +83,28 @@ ec-canvas {
     font-size: 28rpx;
     line-height: 48rpx;
 
+}
+.bg{
+    width: 100%;
+    margin-bottom: 50rpx;
+}
+.warnImg{
+    width: 30rpx;
+    vertical-align: middle;
+}
+.authBtn {
+    width: 60% !important;
+    /* width: 608rpx; */
+    background: #fec81e;
+    border-radius: 42rpx;
+}
+
+.warningCenter{
+padding: 40rpx 80rpx;
+font-size: 13px;
+font-weight: 400;
+color: #999999;
+line-height: 38rpx;
+letter-spacing: 0px;
+text-align: left;
 }

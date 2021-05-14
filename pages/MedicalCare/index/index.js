@@ -15,10 +15,16 @@ Page({
         MenuItems: [],
         ids: 0,
         GravidaList: [],
-        tabCode: '1',
+        tabCode: '3',
         searchValue: '',
         items: [],
         NurseId: '',
+        showQuery:false,
+    },
+    tapShowQuery(){
+          this.setData({
+              showQuery: this.data.showQuery? false : true,
+          })
     },
     bindShowMsg(e) {
         let index = e.currentTarget.dataset.index
@@ -172,7 +178,9 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {},
+    onLoad: function (options) {
+        this.getGravida()
+    },
 
     /**
      * 生命周期函数--监听页面初次渲染完成

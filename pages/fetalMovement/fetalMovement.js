@@ -12,32 +12,14 @@
     // 倒计时
     var EndTime = new Date(new Date().getTime() + 1 * 60 * 60 * 1000).getTime() || [];
 
-    
-    // 时间格式化输出，如11天03小时25分钟19秒  每1s都会调用一次
-    function dateformat(micro_second) {
-        // 总秒数 
-        var second = Math.floor(micro_second / 1000);
-        // 天数 
-        var day = Math.floor(second / 3600 / 24);
-        // 小时 
-        var hr = Math.floor(second / 3600 % 24);
-        // 分钟 
-        var min = Math.floor(second / 60 % 60);
-        // 秒 
-        var sec = Math.floor(second % 60);
-        if (hr <= 9) hr = '0' + hr;
-        if (min <= 9) min = '0' + min;
-        if (sec <= 9) sec = '0' + sec;
-        // return day + "天" + hr + "小时" + min + "分钟" + sec + "秒";
-        return min + ":" + sec;
-    }
 
     const {
         promiseRequest
     } = require("../../utils/Requests")
     const {
         formatTime,
-        getDates
+        getDates,
+        dateformat
     } = require("../../utils/util")
     var back = wx.getBackgroundAudioManager()
     let date = getDates(1, new Date());
@@ -241,6 +223,7 @@
         //取胎动监测今日记录
         getFetalMovementList() {
             let self = this
+             return new Promise((resolve) => {
             promiseRequest({
                 method: "POST",
                 url: '/wxrequest',
@@ -259,14 +242,17 @@
                         //FetalMovementList: res.data.data
                         FetalMovementList: ResData
                     })
+                     resolve(true);
                 } else {
                     wx.showToast({
                         title: res.data.message,
                         icon: 'none',
                         duration: 2000
                     })
+                     resolve(false);
                 }
             })
+              })
         },
         //孕周记录
         getFetalMovementListW() {
@@ -491,29 +477,30 @@
         //获取胎动监测 -音乐列表
         getFetalMovement() {
             let self = this
-            promiseRequest({
-                method: "POST",
-                url: '/wxrequest',
-                data: {
-                    "token": wx.getStorageSync('token'),
-                    "function": "getFetalMovement",
-                    "data": []
-                }
-            }).then(res => {
-                if (res.data.code === '0') {
-                    self.setData({
-                        musicList: res.data.data[0].music,
-                        FetalMovementId: res.data.data[0].id,
-                        FetalMovementRowMd5: res.data.data[0].rowMd5,
-                    })
-                } else {
-                    wx.showToast({
-                        title: res.data.message,
-                        icon: 'none',
-                        duration: 2000
-                    })
-                }
-            })
+                    promiseRequest({
+                        method: "POST",
+                        url: '/wxrequest',
+                        data: {
+                            "token": wx.getStorageSync('token'),
+                            "function": "getFetalMovement",
+                            "data": []
+                        }
+                    }).then(res => {
+                        if (res.data.code === '0') {
+                            self.setData({
+                                musicList: res.data.data[0].music,
+                                FetalMovementId: res.data.data[0].id,
+                                FetalMovementRowMd5: res.data.data[0].rowMd5,
+                            })
+                        } else {
+                            wx.showToast({
+                                title: res.data.message,
+                                icon: 'none',
+                                duration: 2000
+                            })
+                        }
+              })
+          
         }, //获取注意事项
         getNotice() {
             let self = this
@@ -644,7 +631,7 @@
         /**
          * 生命周期函数--监听页面加载
          */
-        onLoad: function (options) {
+        onLoad: async function (options) {
             this.echartsComponent = this.selectComponent('#mychart-dom-movementData');
             let {
                 avatarUrl,
@@ -661,8 +648,10 @@
                 GA: gestationalWeek,
                 multiIndex: [+gestationalWeek]
             })
-            this.getFetalMovement()
-            this.getFetalMovementList()
+            let result = await this.getFetalMovementList();
+            if (result) {
+                 this.getFetalMovement()
+            }
             // this.getFetalMovementListW()
         },
 

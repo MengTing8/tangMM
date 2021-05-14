@@ -25,6 +25,11 @@ Page({
      * 页面的初始数据
      */
     data: {
+          deliveryMode: [{
+              name: '顺产',
+          }, {
+              name: '剖宫产',
+          }],
         pInde: getPickerValue(years, Y),
         SwitchMusic: false,
         years: years,

@@ -1,3 +1,4 @@
+<view catchtouchmove="" class="mask" wx:if="{{showQuery}}"></view>
 <view class="pagesContent">
     <view class="pagesHeader">
         <view class="userInfoBox">
@@ -14,15 +15,88 @@
                 <image class="banner" src="../../../img/banner.png" mode="widthFix" />
             </view>
         </view>
-        <view class="tabContent">
-            <patientTabs tabs="{{tabs}}" bindTabsChange='TabsChange'></patientTabs>
-        </view>
+        <!-- <view class="tabContent">
+          <patientTabs tabs="{{tabs}}" bindTabsChange='TabsChange'></patientTabs> 
+        </view> -->
     </view>
-    <view class="pagesFoot">
+    <view class="patient-center">
         <view class="vanSearchBox">
-            <van-search value="{{searchValue}}" placeholder="搜索患者、关键字" shape="round" field-class="fieldClass" bind:change="onSearch" bind:cancel="onCancel" />
+            <view class="van-search-center">
+                <van-search value="{{searchValue}}" placeholder="搜索患者、关键字" shape="round" field-class="fieldClass" bind:change="onSearch" bind:cancel="onCancel" />
+            </view>
+            <view class="filtrate" style="{{showQuery?'color:#FEC81E':''}}" bind:tap="tapShowQuery">
+                筛选
+                <view class="{{showQuery?'triangle-top':'triangle-bottom'}}"></view>
+            </view>
         </view>
-        <view style="padding:0 40rpx;">
+        <view class="option-panel" wx:if="{{showQuery}}">
+            <view class="option-center">
+                <view class="option-item">
+                    <view class="option-item-title">交作业</view>
+                    <view class="option-value">
+                        <view class="option-btn  isSelect">全部</view>
+                        <view class="option-btn">已交</view>
+                        <view class="option-btn">未交</view>
+                    </view>
+                </view>
+                <view class="option-item">
+                    <view class="option-item-title">作业处理</view>
+                    <view class="option-value">
+                        <view class="option-btn  isSelect">全部</view>
+                        <view class="option-btn">已处理</view>
+                        <view class="option-btn">未处理</view>
+                    </view>
+                </view>
+                <view class="option-item">
+                    <view class="option-item-title">项目更新</view>
+                    <view class="option-value">
+                        <view class="option-btn  isSelect">全部</view>
+                        <view class="option-btn">有更新</view>
+                        <view class="option-btn">无更新</view>
+                    </view>
+                </view>
+                <view class="option-item">
+                    <view class="option-item-title">时间段</view>
+                    <view class="option-value option-inp">
+                        <input type="number" value="" class="time-inp"/>日内数据
+                    </view>
+                </view>
+                <view class="option-item">
+                    <view class="option-item-title">留言</view>
+                    <view class="option-value">
+                        <view class="option-btn  isSelect">全部</view>
+                        <view class="option-btn">已读</view>
+                        <view class="option-btn">未读</view>
+                    </view>
+                </view>
+                <view class="option-item">
+                    <view class="option-item-title">胎数</view>
+                    <view class="option-value">
+                        <view class="option-btn  isSelect">全部</view>
+                        <view class="option-btn">1胎</view>
+                        <view class="option-btn">2胎</view>
+                        <view class="option-btn">3胎</view>
+                    </view>
+                </view>
+                <view class="option-item">
+                    <view class="option-item-title">胰岛素类型</view>
+                    <view class="option-value">
+                        <view class="option-btn  isSelect">全部</view>
+                        <view class="option-btn">常规</view>
+                        <view class="option-btn">胰岛素泵</view>
+                    </view>
+                </view>
+                <view class="option-item">
+                    <view class="option-item-title">特殊高危人群</view>
+                    <view class="option-value">
+                        <view class="option-btn  isSelect">全部</view>
+                        <view class="option-btn">是</view>
+                        <view class="option-btn">否</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <!-- <view style="padding:0 40rpx;">
             <view class="dropdownContent">
                 <view class="dropdownTitle">
                     <view class='top-selected' bindtap='bindShowMsg' wx:for="{{MenuTitle}}" wx:key="index" data-index="{{index}}">
@@ -40,7 +114,7 @@
                     </view>
                 </view>
             </view>
-        </view>
+        </view> -->
         <view class="tabsContent">
             <view class="NewMessageContent">
                 <view class="MessageList" wx:for="{{GravidaList}}" wx:key="index" bind:tap="getPatientInfo" data-id='{{item.id}}'>

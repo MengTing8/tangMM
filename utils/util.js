@@ -284,6 +284,25 @@ function wxlogin() {
         })
     })
 }
+  // 时间格式化输出，如11天03小时25分钟19秒  每1s都会调用一次
+  function dateformat(micro_second) {
+      console.log(micro_second);
+      // 总秒数 
+      var second = Math.floor(micro_second / 1000);
+      // 天数 
+      var day = Math.floor(second / 3600 / 24);
+      // 小时 
+      var hr = Math.floor(second / 3600 % 24);
+      // 分钟 
+      var min = Math.floor(second / 60 % 60);
+      // 秒 
+      var sec = Math.floor(second % 60);
+      if (hr <= 9) hr = '0' + hr;
+      if (min <= 9) min = '0' + min;
+      if (sec <= 9) sec = '0' + sec;
+      // return day + "天" + hr + "小时" + min + "分钟" + sec + "秒";
+      return min + ":" + sec;
+  }
 module.exports = {
     getPreMonth: getPreMonth,
     getNowFormatDate: getNowFormatDate,
@@ -297,5 +316,6 @@ module.exports = {
     getPickerValue: getPickerValue,
     getAge: getAge,
     contrastTime: contrastTime,
-    wxlogin: wxlogin
+    wxlogin: wxlogin,
+    dateformat: dateformat
 }

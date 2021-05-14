@@ -7,6 +7,7 @@
                 <view>
                     <text class="userName">{{MyRecordData.name}}</text>
                     <text class="editInfo" bind:tap="modifiedInfo">资料修改</text>
+                    <text class="editInfo" bind:tap="analysisReport">分析报告</text>
                 </view>
                 <view>{{MyRecordData.description}}</view>
             </view>

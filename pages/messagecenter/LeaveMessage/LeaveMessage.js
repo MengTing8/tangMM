@@ -19,8 +19,14 @@ Page({
         userInputConten: '',
         MessageList: [],
         scrollToView: '',
-        patientId: ''
+        patientId: '',
+        showReport:false,
 
+    },
+    handReport(){
+        this.setData({
+            showReport: true,
+        })
     },
     getMessage() {
         let self = this
@@ -69,6 +75,9 @@ Page({
     //
     saveMessage() {
         let self = this
+        this.setData({
+            showReport: false,
+        })
         if (!self.data.userInputConten) {
             wx.showToast({
                 title: '请输入信息',

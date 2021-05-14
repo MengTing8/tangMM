@@ -8,7 +8,7 @@
 
 .userInfoBox {
     display: flex;
-    padding-bottom: 60rpx;
+    padding-bottom: 80rpx;
     justify-content: space-between;
 }
 
@@ -48,7 +48,7 @@
 }
 
 .banner {
-    width: 300rpx;
+    width: 260rpx;
 }
 .MessageContent{
  position: absolute;
@@ -93,7 +93,7 @@
 }
 
 .MyRecordFoot {
-    padding-top: 100rpx;
+    padding-top: 60rpx;
     z-index: 999;
 }
 

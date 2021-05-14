@@ -1,4 +1,33 @@
-<view class="MyRecordList" wx:for="{{Records}}" wx:key="index" bind:tap="handRecordInfo" data-index='{{index}}' data-code="{{item.code}}">
+
+ <!-- 新版本样式 -->
+ <view class="record-panel">
+     <view class="record-item" wx:for="{{Records}}" wx:key="index" bind:tap="handRecordInfo" data-index='{{index}}' data-code="{{item.code}}">
+         <view class="icon-box">
+             <image class="record-icon" src="{{item.iconUrl}}" />
+         </view>
+         <view class="record-info">
+             <view class="record-title">{{item.name}}</view>
+             <view class="record-status">
+                 <view wx:if="{{item.statusValue}}">
+                     <view wx:if="{{item.statusCode=='0'}}">
+                         {{item.statusValue}}
+                     </view>
+                     <view wx:elif="{{item.statusCode=='1'}}">
+                         {{item.statusValue}}
+                     </view>
+                     <view wx:else>{{item.statusValue}}</view>
+                 </view>
+                 <view wx:if="{{!item.statusValue}}">
+                     <view wx:if="{{item.status=='已完成'}}">{{item.status}}</view>
+                     <view wx:else>{{item.status}}</view>
+                 </view>
+             </view>
+         </view>
+     </view>
+ </view>
+
+ <!-- 旧版本 -->
+<!-- <view class="MyRecordList" wx:for="{{Records}}" wx:key="index" bind:tap="handRecordInfo" data-index='{{index}}' data-code="{{item.code}}">
     <view class="LogoBox">
         <image class="RecordLogo" src="{{item.iconUrl}}" />
     </view>
@@ -17,4 +46,5 @@
             <view class="notAchieve" wx:else>{{item.status}}</view>
         </view>
     </view>
-</view>
+</view> -->
+

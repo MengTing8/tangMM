@@ -69,7 +69,7 @@
                 <text style="color:red" wx:if="{{PatientData.stageCode>1}}">*</text>
                 <text>孕前体重</text>
             </view>
-            <view class="textBoxView">
+            <view class="textBox">
                 <view class="inpText">
                     <input type="text" value="{{PatientWeight}}" class="textColor" placeholder-class="textColor" bindinput="bindWeightInput" placeholder="请输入" />
                     <text>kg</text>
@@ -117,7 +117,7 @@
             </view>
             <view class="clPadding_imgBox">
                 <text class="unitsBox">mmol/L</text>
-                <image class="textArrow" src="../../../img/list_arrow.png" alt="" srcset="" />
+                <listArrow></listArrow>
             </view>
         </view>
         <view class="clPadding">
@@ -129,7 +129,7 @@
             </view>
             <view class="clPadding_imgBox">
                 <text class="unitsBox">mmol/L</text>
-                <image class="textArrow" src="../../../img/list_arrow.png" alt="" srcset="" />
+                <listArrow></listArrow>
             </view>
         </view>
         <view class="clPadding">
@@ -141,7 +141,7 @@
             </view>
             <view class="clPadding_imgBox">
                 <text class="unitsBox">mmol/L</text>
-                <image class="textArrow" src="../../../img/list_arrow.png" alt="" srcset="" />
+                <listArrow></listArrow>
             </view>
         </view>
         <view class="clPadding">
@@ -153,7 +153,7 @@
             </view>
             <view class="clPadding_imgBox">
                 <text class="unitsBox">%</text>
-                <image class="textArrow" src="../../../img/list_arrow.png" alt="" srcset="" />
+                <listArrow></listArrow>
             </view>
         </view>
         <view class="cell">
@@ -163,10 +163,10 @@
                 </view>
             </view>
             <view class="textBox">
-                <view class="btnS {{PatientData.diabetesB4Gestation==1?'isSelect':''}}" bind:tap="tapDiabetes" data-code='{{1}}'>
+                <view class="typeBtn {{PatientData.diabetesB4Gestation==1?'isSelect':''}}" bind:tap="tapDiabetes" data-code='{{1}}'>
                     是
                 </view>
-                <view class="btnS  {{PatientData.diabetesB4Gestation==0?'isSelect':''}}" bind:tap="tapDiabetes" data-code='{{0}}'>
+                <view class="typeBtn  {{PatientData.diabetesB4Gestation==0?'isSelect':''}}" bind:tap="tapDiabetes" data-code='{{0}}'>
                     否
                 </view>
             </view>
@@ -193,10 +193,10 @@
                 </view>
             </view>
             <view class="textBox">
-                <view class="btnS  {{PatientData.gdm==1?'isSelect':''}}" bind:tap="bindGdmChange" data-code='{{1}}'>
+                <view class="typeBtn  {{PatientData.gdm==1?'isSelect':''}}" bind:tap="bindGdmChange" data-code='{{1}}'>
                     是
                 </view>
-                <view class="btnS  {{PatientData.gdm==0?'isSelect':''}}" bind:tap="bindGdmChange" data-code='{{0}}'>
+                <view class="typeBtn  {{PatientData.gdm==0?'isSelect':''}}" bind:tap="bindGdmChange" data-code='{{0}}'>
                     否
                 </view>
             </view>
@@ -216,10 +216,10 @@
                 </view>
             </view>
             <view class="textBox">
-                <view class="btnS {{PatientData.diabeticFamilyHistory==1?'isSelect':''}}" bind:tap="bindFamilyChange" data-code='{{1}}'>
+                <view class="typeBtn {{PatientData.diabeticFamilyHistory==1?'isSelect':''}}" bind:tap="bindFamilyChange" data-code='{{1}}'>
                     是
                 </view>
-                <view class="btnS  {{PatientData.diabeticFamilyHistory==0?'isSelect':''}}" bind:tap="bindFamilyChange" data-code='{{0}}'>
+                <view class="typeBtn  {{PatientData.diabeticFamilyHistory==0?'isSelect':''}}" bind:tap="bindFamilyChange" data-code='{{0}}'>
                     否
                 </view>
             </view>
@@ -290,7 +290,6 @@
                 <text>手机号码</text>
             </view>
             <view class="textBox">{{PatientData.mobile}}</view>
-            <view class="imgBox"></view>
         </view>
         <view class="cell">
             <view class="cell_title">
@@ -301,11 +300,143 @@
             </view>
         </view>
     </view>
-    <!-- <view class="historyInfo">
+    <view class="">
         <view class="headerTitle">
-            <text>就诊信息</text>
+            <text>分娩信息</text>
         </view>
-    </view> -->
+        <view class="cell">
+            <view class="cell_title">
+                <text>分娩方式</text>
+            </view>
+            <view class="textBox">
+                <picker mode="selector" value="{{PatientData.numberOfFetus&&PatientData.numberOfFetus!=='0'?[PatientData.numberOfFetus-1]:0}}" range="{{deliveryMode}}" range-key="{{'name'}}" bindchange="bindNumberOfFetusChange">
+                    <view class="weui-input_10">
+                        {{deliveryMode[PatientData.numberOfFetus-1].name||'请选择'}}
+                    </view>
+                </picker>
+            </view>
+            <listArrow></listArrow>
+        </view>
+        <view class="cell">
+            <view class="cell_title">
+                <text>分娩孕周</text>
+            </view>
+            <view class="textBox">
+                <view class="inpText">
+                    <input type="text" value="" class="textColor" placeholder-class="textColor" bindinput="" placeholder="请输入" />
+                    <text>周</text>
+                </view>
+            </view>
+            <listArrow></listArrow>
+        </view>
+        <view class="cell">
+            <view class="cell_title">
+                <text>产后出血量</text>
+            </view>
+            <view class="textBox" style="flex: 1.2;">
+                <view class="inpText">
+                    <input type="text" value="" class="textColor" placeholder-class="textColor" bindinput="" placeholder="请输入" />
+                </view>
+            </view>
+            <view class="clPadding_imgBox">
+                <text class="unitsBox">ml</text>
+                <listArrow></listArrow>
+            </view>
+        </view>
+        <view class="cell">
+            <view class="cell_title">
+                <text>产后42天OGTT</text>
+            </view>
+            <view class="textBox">
+                <view class="inpText">
+                    <input type="text" value="" class="textColor" placeholder-class="textColor" bindinput="" placeholder="请输入" />
+                </view>
+            </view>
+            <listArrow></listArrow>
+        </view>
+        <view class="cell">
+            <view class="cell_title">
+                <view class="cell_title_name">
+                    <text>新生儿体重</text>
+                </view>
+            </view>
+            <view class="textBox">
+                <view class="typeBtn {{PatientData.diabetesB4Gestation==1?'isSelect':''}}" bind:tap="" data-code='{{1}}'>
+                    单胎
+                </view>
+                <view class="typeBtn  {{PatientData.diabetesB4Gestation==0?'isSelect':''}}" bind:tap="" data-code='{{0}}'>
+                    双胎
+                </view>
+            </view>
+        </view>
+        <view class="clPadding">
+            <view class="clPadding_title">
+                <text>胎儿1</text>
+            </view>
+            <view class="clPadding_textBox">
+                <input type="digit" value="" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="" />
+            </view>
+            <view class="clPadding_imgBox">
+                <text class="unitsBox">kg</text>
+                <listArrow></listArrow>
+            </view>
+        </view>
+        <view class="clPadding">
+            <view class="clPadding_title">
+                <text>胎儿2</text>
+            </view>
+            <view class="clPadding_textBox">
+                <input type="digit" value="" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="" />
+            </view>
+            <view class="clPadding_imgBox">
+                <text class="unitsBox">kg</text>
+                <listArrow></listArrow>
+            </view>
+        </view>
+        <view class="cell">
+            <view class="cell_title">
+                <view class="cell_title_name">
+                    <text>新生儿评分</text>
+                </view>
+            </view>
+        </view>
+        <view class="clPadding">
+            <view class="clPadding_title">
+                <text>1分钟</text>
+            </view>
+            <view class="clPadding_textBox">
+                <input type="digit" value="" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="" />
+            </view>
+            <view class="clPadding_imgBox">
+                <text class="unitsBox">分</text>
+                <listArrow></listArrow>
+            </view>
+        </view>
+        <view class="clPadding">
+            <view class="clPadding_title">
+                <text>5分钟</text>
+            </view>
+            <view class="clPadding_textBox">
+                <input type="digit" value="" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="" />
+            </view>
+            <view class="clPadding_imgBox">
+                <text class="unitsBox">分</text>
+                <listArrow></listArrow>
+            </view>
+        </view>
+        <view class="clPadding">
+            <view class="clPadding_title">
+                <text>10分钟</text>
+            </view>
+            <view class="clPadding_textBox">
+                <input type="digit" value="" placeholder="请输入" class="textColor" placeholder-class="textColor" bindinput="" />
+            </view>
+            <view class="clPadding_imgBox">
+                <text class="unitsBox">分</text>
+                <listArrow></listArrow>
+            </view>
+        </view>
+    </view>
     <view class="arrive_btn">
         <view class="saveBtn" bindtap="saveMyinfo">保存</view>
     </view>

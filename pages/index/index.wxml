@@ -1,4 +1,4 @@
-<view catchtouchmove="preventTouchMove" class="alert-mask"></view>
+<!-- <view catchtouchmove="" class="mask"></view>
 <view class="authContent" wx:if="{{isEdit}}">
     <view class="authLogoBox">
         <image class="authLogo" src="../../img/logoL.png" />
@@ -9,8 +9,23 @@
         <view class="unhide" bindtap="unhide">取消</view>
         <view class="ToAuth">
             <button open-type="getUserInfo" bindgetuserinfo="{{!apiClicked?'getUserInfo':''}}" class="ToAuth_button">
-                去授权
-            </button>
+                 去授权
+             </button>
         </view>
+    </view>
+</view> -->
+
+<!-- 新授权页 -->
+<view class="authCenter">
+    <image src="../../img/bg.png" mode="widthFix" class="bg" />
+    <view>
+        <button bindtap="{{!apiClicked?'getUserProfile':''}}" class="authBtn">立即申请</button>
+    </view>
+    <view class="warningCenter">
+        <view>
+            <image src="../../img/warn(1).png" mode="widthFix" class="warnImg" />
+            账号注册申请
+        </view>
+        将获取以下授权：获取您的公开信息(昵称、头像等)
     </view>
 </view>

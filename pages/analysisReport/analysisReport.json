@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+      "StartAndEndTimes": "/components/StartAndEndTimes/StartAndEndTimes",
+      "ec-canvas": "/components/ec-canvas/ec-canvas"
+  },
+  "navigationBarTitleText": "分析报告"
+}

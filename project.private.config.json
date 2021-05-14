@@ -1,0 +1,68 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": -1,
+          "name": "医务",
+          "pathName": "pages/medicalcare/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/medicalcare/patientInfo/patientInfo",
+          "pathName": "pages/medicalcare/patientInfo/patientInfo",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/recordcenter/historyInsulin/historyInsulin",
+          "pathName": "pages/recordcenter/historyInsulin/historyInsulin",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/messagecenter/LeaveMessage/LeaveMessage",
+          "pathName": "pages/messagecenter/LeaveMessage/LeaveMessage",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/analysisReport/analysisReport",
+          "pathName": "pages/analysisReport/analysisReport",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/messagecenter/myinfo/myinfo",
+          "pathName": "pages/messagecenter/myinfo/myinfo",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/medicalcare/index/index",
+          "pathName": "pages/medicalcare/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/medicalcare/patientInfo/patientInfo",
+          "pathName": "pages/medicalcare/patientInfo/patientInfo",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

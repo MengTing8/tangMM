@@ -63,7 +63,7 @@
                         <view class="headerTitle">
                             <text>阶段</text>
                             <view class="stageBox">
-                                <text class="type">糖尿病类型：{{PatientInfo.gdmType}}</text>
+                                <text class="gdmType">糖尿病类型：{{PatientInfo.gdmType}}</text>
                             </view>
                         </view>
                         <view class="cell">
@@ -235,7 +235,7 @@
                             </view>
                         </view>
                     </view>
-                    <view class="">
+                    <view class="basicInfo">
                         <view class="headerTitle">
                             <text>基本信息</text>
                         </view>
@@ -295,6 +295,71 @@
                             </view>
                             <view class="textBox">
                                 <text>{{PatientInfo.cardNumber}}</text>
+                            </view>
+                        </view>
+                    </view>
+                    <!-- 二期新增分娩信息 -->
+                    <view class="">
+                        <view class="headerTitle">
+                            <text>分娩信息</text>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>分娩方式</text>
+                            </view>
+                            <view class="textBox">
+                                <text>剖宫产</text>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>分娩孕周</text>
+                            </view>
+                            <view class="textBox">
+                                <view>39周</view>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <text>产后出血量</text>
+                            </view>
+                            <view class="textBox">
+                                <view class="inpText">
+                                    20
+                                    <text>ml</text>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <view class="cell_title_name">
+                                    <text>新生儿体重</text>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title  textAlign">胎儿1</view>
+                            <view class="textBox">
+                                <view>46 kg</view>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title  textAlign">胎儿2</view>
+                            <view class="textBox">
+                                <view class="">46 kg</view>
+                            </view>
+                        </view>
+                        <view class="cell">
+                            <view class="cell_title">
+                                <view class="cell_title_name">
+                                    <text>新生儿评分</text>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="cell" >
+                            <view class="cell_title  textAlign">1分钟</view>
+                            <view class="textBox">
+                                <view>10分</view>
                             </view>
                         </view>
                     </view>

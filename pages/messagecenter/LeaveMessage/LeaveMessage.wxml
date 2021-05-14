@@ -12,6 +12,18 @@
                         <view class="{{item.writtenBy==patientId?'textMine':'textAdverse'}}">
                             {{item.text}}
                         </view>
+                        <!-- 报告 -->
+                        <!-- <view class="report-card  textMine">
+                            <view>
+                                <image class="reportImg" mode="widthFix" src="../../../img/report.png" />
+                            </view>
+                            <view class="report-title">
+                                <view class="" style="color: #303439;">李小新的报告</view>
+                                <view class="report-look">点击查看</view>
+                            </view>
+                            <view class="RightArrow"></view>
+                        </view> -->
+                        <!-- 。。 -->
                     </view>
                 </view>
             </view>
@@ -21,6 +33,10 @@
 </view>
 <view class="sendContent">
     <view class="inputBox">
+        <view class="submitBth" bind:tap="handReport">
+            <image mode="widthFix" src="../../../img/upload.png" />
+            交作业
+        </view>
         <input class="InputContent" type="text" value="{{userInputConten}}" bindinput="InputMessage" />
         <view class="sendBtn" bind:tap="saveMessage">发送</view>
     </view>
